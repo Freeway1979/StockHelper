@@ -18,6 +18,10 @@
 		06EDD3F4215245120035104B /* StockBlockChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDD3F3215245120035104B /* StockBlockChange.swift */; };
 		06EDD3F6215247980035104B /* Stock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDD3F5215247980035104B /* Stock.swift */; };
 		06EDD3FA21524B160035104B /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDD3F921524B160035104B /* Message.swift */; };
+		06F587F921B928BF00D69159 /* CalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F587F821B928BF00D69159 /* CalculatorViewController.swift */; };
+		06F587FC21B92AD200D69159 /* Strategy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06F587FB21B92AD200D69159 /* Strategy.storyboard */; };
+		06F587FE21B9312700D69159 /* SymmetryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F587FD21B9312700D69159 /* SymmetryViewController.swift */; };
+		06F5881B21BA38B600D69159 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F5881A21BA38B600D69159 /* UITextField+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +50,10 @@
 		06EDD3F3215245120035104B /* StockBlockChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockBlockChange.swift; sourceTree = "<group>"; };
 		06EDD3F5215247980035104B /* Stock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stock.swift; sourceTree = "<group>"; };
 		06EDD3F921524B160035104B /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		06F587F821B928BF00D69159 /* CalculatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorViewController.swift; sourceTree = "<group>"; };
+		06F587FB21B92AD200D69159 /* Strategy.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Strategy.storyboard; sourceTree = "<group>"; };
+		06F587FD21B9312700D69159 /* SymmetryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymmetryViewController.swift; sourceTree = "<group>"; };
+		06F5881A21BA38B600D69159 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +119,7 @@
 		06EDD3E6215242190035104B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				06F5881921BA388200D69159 /* Extension */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -118,6 +127,7 @@
 		06EDD3E7215242380035104B /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				06F587F221B9281D00D69159 /* Strategy */,
 				06EDD3EA215242660035104B /* Stock */,
 				06EDD3E92152425E0035104B /* Message */,
 				06EDD3E82152423F0035104B /* Block */,
@@ -223,6 +233,56 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		06F587F221B9281D00D69159 /* Strategy */ = {
+			isa = PBXGroup;
+			children = (
+				06F587FA21B92ABC00D69159 /* Storyboard */,
+				06F587F721B928AB00D69159 /* Model */,
+				06F587F621B9289C00D69159 /* Service */,
+				06F587F521B9288C00D69159 /* ViewController */,
+			);
+			path = Strategy;
+			sourceTree = "<group>";
+		};
+		06F587F521B9288C00D69159 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				06F587F821B928BF00D69159 /* CalculatorViewController.swift */,
+				06F587FD21B9312700D69159 /* SymmetryViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		06F587F621B9289C00D69159 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		06F587F721B928AB00D69159 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		06F587FA21B92ABC00D69159 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				06F587FB21B92AD200D69159 /* Strategy.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		06F5881921BA388200D69159 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				06F5881A21BA38B600D69159 /* UITextField+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -273,9 +333,11 @@
 				TargetAttributes = {
 					06EDD3C0215241970035104B = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1010;
 					};
 					06EDD3D6215241990035104B = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1010;
 						TestTargetID = 06EDD3C0215241970035104B;
 					};
 				};
@@ -305,6 +367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				06EDD3D1215241990035104B /* LaunchScreen.storyboard in Resources */,
+				06F587FC21B92AD200D69159 /* Strategy.storyboard in Resources */,
 				06EDD3CE215241990035104B /* Assets.xcassets in Resources */,
 				06EDD3CC215241970035104B /* Main.storyboard in Resources */,
 			);
@@ -326,10 +389,13 @@
 			files = (
 				06EDD3FA21524B160035104B /* Message.swift in Sources */,
 				06EDD3C9215241970035104B /* BlockViewController.swift in Sources */,
+				06F587F921B928BF00D69159 /* CalculatorViewController.swift in Sources */,
 				06EDD3F4215245120035104B /* StockBlockChange.swift in Sources */,
 				06EDD3F6215247980035104B /* Stock.swift in Sources */,
+				06F5881B21BA38B600D69159 /* UITextField+Extension.swift in Sources */,
 				06EDD3C5215241970035104B /* AppDelegate.swift in Sources */,
 				06EDD3F0215244280035104B /* StockBlock.swift in Sources */,
+				06F587FE21B9312700D69159 /* SymmetryViewController.swift in Sources */,
 				06EDD3C7215241970035104B /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -499,7 +565,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chaser.app.StockHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -517,7 +583,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chaser.app.StockHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -536,7 +602,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chaser.app.StockHelperTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StockHelper.app/StockHelper";
 			};
@@ -556,7 +622,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chaser.app.StockHelperTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StockHelper.app/StockHelper";
 			};
