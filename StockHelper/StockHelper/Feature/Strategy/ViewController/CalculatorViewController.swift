@@ -20,20 +20,28 @@ class CalculatorViewController: UIViewController {
     }
     
     func setupChildViewControllers() -> Void {
-        let titles = ["Symmetry","Five Days","Ten Days"];
-        for index in 0...2 {
+        do {
             let storyboard = UIStoryboard(name: "Strategy", bundle: nil)
             let childVC = storyboard.instantiateViewController(withIdentifier: "SymmetryViewController") as! SymmetryViewController
-            _ = childVC.view;//This Line is to force View Hierarchy loaded
-            childVC.infoText = titles[index];
+            self.addChild(childVC);
+        }
+        do {
+            let storyboard = UIStoryboard(name: "Strategy", bundle: nil)
+            let childVC = storyboard.instantiateViewController(withIdentifier: "MAStrategyViewController") as! MAStrategyViewController
+            //_ = childVC.view;
+            childVC.maType = .MA5
+            self.addChild(childVC);
+        }
+        do {
+            let storyboard = UIStoryboard(name: "Strategy", bundle: nil)
+            let childVC = storyboard.instantiateViewController(withIdentifier: "MAStrategyViewController") as! MAStrategyViewController
+            childVC.maType = .MA10
             self.addChild(childVC);
         }
     }
 
     @IBAction func onTabButtonClicked(_ sender: UIButton) {
-    
         self.showChildViewController(sender.tag);
-    
     }
     func showChildViewController(_ tag:Int = 0) -> Void {
         var childView:UIView?
@@ -42,7 +50,7 @@ class CalculatorViewController: UIViewController {
         }
         let childVC = self.children[tag];
         let firstViewFrame = self.view.subviews[0].frame;
-        let y = firstViewFrame.origin.y + firstViewFrame.size.height + 20;
+        let y = firstViewFrame.origin.y + firstViewFrame.size.height + 30;
         let childRect = CGRect(x: self.view.frame.minX, y: y, width: self.view.frame.width, height: self.view.frame.height - firstViewFrame.size.height);
         childVC.view.frame = childRect;
         

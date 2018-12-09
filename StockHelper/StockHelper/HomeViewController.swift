@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Moya;
+import Result;
 
 class HomeViewController: UIViewController {
 
@@ -20,6 +22,22 @@ class HomeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+//    func testMoya() -> Void {
+//        let provider = MoyaProvider<GitHub>()
+//        provider.request(.zen) { result in
+//            switch result {
+//            case let Result.success(moyaResponse):
+//                let data = moyaResponse.data
+//                let statusCode = moyaResponse.statusCode
+//            // do something with the response data or statusCode
+//            case let Result.failure(error):
+//                // this means there was a network failure - either the request
+//                // wasn't sent (connectivity), or no response was received (server
+//                // timed out).  If the server responds with a 4xx or 5xx error, that
+//                // will be sent as a ".success"-ful response.
+//            }
+//        }
+//    }
 
 }
 
