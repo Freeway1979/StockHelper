@@ -38,6 +38,11 @@ class CalculatorViewController: UIViewController {
             childVC.maType = .MA10
             self.addChild(childVC);
         }
+        do {
+            let storyboard = UIStoryboard(name: "Strategy", bundle: nil)
+            let childVC = storyboard.instantiateViewController(withIdentifier: "PriceGridViewController") as! PriceGridViewController
+            self.addChild(childVC);
+        }
     }
 
     @IBAction func onTabButtonClicked(_ sender: UIButton) {

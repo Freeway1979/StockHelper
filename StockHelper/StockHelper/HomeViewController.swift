@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import Moya;
-import Result;
+//import Moya;
+//import Result;
 
 class HomeViewController: UIViewController {
 

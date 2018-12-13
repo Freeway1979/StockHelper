@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		065248B021C219020047405C /* PriceGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065248AF21C219020047405C /* PriceGridViewController.swift */; };
+		065248B221C21D7C0047405C /* Float+Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065248B121C21D7C0047405C /* Float+Format.swift */; };
+		065248B421C226C30047405C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065248B321C226C30047405C /* MainViewController.swift */; };
 		06EDD3C5215241970035104B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDD3C4215241970035104B /* AppDelegate.swift */; };
 		06EDD3C7215241970035104B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDD3C6215241970035104B /* HomeViewController.swift */; };
 		06EDD3C9215241970035104B /* BlockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDD3C8215241970035104B /* BlockViewController.swift */; };
@@ -29,7 +32,6 @@
 		A1F5953921BD088E00EC5ECB /* Message.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1F5953821BD088E00EC5ECB /* Message.storyboard */; };
 		A1F5953B21BD08E400EC5ECB /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F5953A21BD08E400EC5ECB /* MessageViewController.swift */; };
 		A1F5953D21BD5A5C00EC5ECB /* MessageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F5953C21BD5A5C00EC5ECB /* MessageDetailViewController.swift */; };
-		FFEF650207BB0F349E6CEDD3 /* Pods_StockHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 372C30837F0AFC8048D7F822 /* Pods_StockHelper.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +45,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		065248AF21C219020047405C /* PriceGridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceGridViewController.swift; sourceTree = "<group>"; };
+		065248B121C21D7C0047405C /* Float+Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Format.swift"; sourceTree = "<group>"; };
+		065248B321C226C30047405C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		06EDD3C1215241970035104B /* StockHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StockHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06EDD3C4215241970035104B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		06EDD3C6215241970035104B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -81,7 +86,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FFEF650207BB0F349E6CEDD3 /* Pods_StockHelper.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +131,7 @@
 				06EDD3CD215241990035104B /* Assets.xcassets */,
 				06EDD3CF215241990035104B /* LaunchScreen.storyboard */,
 				06EDD3D2215241990035104B /* Info.plist */,
+				065248B321C226C30047405C /* MainViewController.swift */,
 			);
 			path = StockHelper;
 			sourceTree = "<group>";
@@ -278,6 +283,7 @@
 				06F587F821B928BF00D69159 /* CalculatorViewController.swift */,
 				06F587FD21B9312700D69159 /* SymmetryViewController.swift */,
 				A1F5953021BCCF1500EC5ECB /* MAStrategyViewController.swift */,
+				065248AF21C219020047405C /* PriceGridViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -309,6 +315,7 @@
 			isa = PBXGroup;
 			children = (
 				06F5881A21BA38B600D69159 /* UITextField+Extension.swift */,
+				065248B121C21D7C0047405C /* Float+Format.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -360,7 +367,6 @@
 				06EDD3BD215241970035104B /* Sources */,
 				06EDD3BE215241970035104B /* Frameworks */,
 				06EDD3BF215241970035104B /* Resources */,
-				D38D059F80EE2F515DEE72AC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -489,30 +495,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D38D059F80EE2F515DEE72AC /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-StockHelper/Pods-StockHelper-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/DeviceKit/DeviceKit.framework",
-				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
-				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DeviceKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-StockHelper/Pods-StockHelper-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -520,6 +502,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				065248B221C21D7C0047405C /* Float+Format.swift in Sources */,
+				065248B021C219020047405C /* PriceGridViewController.swift in Sources */,
 				06EDD3FA21524B160035104B /* Message.swift in Sources */,
 				06EDD3C9215241970035104B /* BlockViewController.swift in Sources */,
 				A1F5953D21BD5A5C00EC5ECB /* MessageDetailViewController.swift in Sources */,
@@ -533,6 +517,7 @@
 				06EDD3F0215244280035104B /* StockBlock.swift in Sources */,
 				A1F5953621BCEDA400EC5ECB /* StackView.swift in Sources */,
 				06F587FE21B9312700D69159 /* SymmetryViewController.swift in Sources */,
+				065248B421C226C30047405C /* MainViewController.swift in Sources */,
 				06EDD3C7215241970035104B /* HomeViewController.swift in Sources */,
 				A1F5953321BCDF9200EC5ECB /* MAType.swift in Sources */,
 			);

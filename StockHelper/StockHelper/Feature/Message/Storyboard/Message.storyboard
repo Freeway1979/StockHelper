@@ -121,10 +121,10 @@
             </objects>
             <point key="canvasLocation" x="992.79999999999995" y="-42.728635682158924"/>
         </scene>
-        <!--消息解读-->
+        <!--Navigation Controller-->
         <scene sceneID="J1H-EA-YQ0">
             <objects>
-                <navigationController storyboardIdentifier="MessageViewController" title="消息解读" automaticallyAdjustsScrollViewInsets="NO" id="T9Y-lU-NjA" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MessageViewController" automaticallyAdjustsScrollViewInsets="NO" id="T9Y-lU-NjA" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hal-EW-S2G">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
