@@ -16,8 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        let font:UIFont! = UIFont(name: "HelveticaNeue-Bold", size: 20);
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font : font], for: UIControl.State.normal);
+//        let font:UIFont! = UIFont(name: "HelveticaNeue-Bold", size: 20);
+//        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font : font], for: UIControl.State.normal);
         
         return true
     }

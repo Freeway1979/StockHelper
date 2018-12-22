@@ -14,7 +14,7 @@ class MainViewController: UITabBarController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.removeTabbarItemsText();
+        // self.removeTabbarItemsText();
         
     }
     

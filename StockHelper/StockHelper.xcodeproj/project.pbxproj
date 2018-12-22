@@ -11,7 +11,6 @@
 		065248B221C21D7C0047405C /* Float+Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065248B121C21D7C0047405C /* Float+Format.swift */; };
 		065248B421C226C30047405C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065248B321C226C30047405C /* MainViewController.swift */; };
 		06EDD3C5215241970035104B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDD3C4215241970035104B /* AppDelegate.swift */; };
-		06EDD3C7215241970035104B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDD3C6215241970035104B /* HomeViewController.swift */; };
 		06EDD3C9215241970035104B /* BlockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDD3C8215241970035104B /* BlockViewController.swift */; };
 		06EDD3CC215241970035104B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06EDD3CA215241970035104B /* Main.storyboard */; };
 		06EDD3CE215241990035104B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06EDD3CD215241990035104B /* Assets.xcassets */; };
@@ -22,16 +21,22 @@
 		06EDD3F6215247980035104B /* Stock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDD3F5215247980035104B /* Stock.swift */; };
 		06EDD3FA21524B160035104B /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDD3F921524B160035104B /* Message.swift */; };
 		06F587F921B928BF00D69159 /* CalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F587F821B928BF00D69159 /* CalculatorViewController.swift */; };
-		06F587FC21B92AD200D69159 /* Strategy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06F587FB21B92AD200D69159 /* Strategy.storyboard */; };
 		06F587FE21B9312700D69159 /* SymmetryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F587FD21B9312700D69159 /* SymmetryViewController.swift */; };
 		06F5881B21BA38B600D69159 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F5881A21BA38B600D69159 /* UITextField+Extension.swift */; };
 		563B3C7E18B840F2B49470B1 /* Pods_StockHelperTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB894E0D4080A19D5FDBAC33 /* Pods_StockHelperTests.framework */; };
+		A10E4B3121CE543B0092B671 /* MyStocksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10E4B3021CE543B0092B671 /* MyStocksViewController.swift */; };
+		A10E4B3921CE57E10092B671 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10E4B3821CE57E10092B671 /* HomeViewController.swift */; };
+		A10E4B4321CE5EE00092B671 /* Message.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A10E4B4221CE5EE00092B671 /* Message.storyboard */; };
+		A10E4B4521CE5FED0092B671 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A10E4B4421CE5FED0092B671 /* Home.storyboard */; };
+		A10E4B4721CE610F0092B671 /* Calculator.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A10E4B4621CE610F0092B671 /* Calculator.storyboard */; };
+		A10E4B4921CE67260092B671 /* Stock.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A10E4B4821CE67260092B671 /* Stock.storyboard */; };
+		A10E4B4B21CE67D20092B671 /* Block.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A10E4B4A21CE67D20092B671 /* Block.storyboard */; };
 		A1F5953121BCCF1500EC5ECB /* MAStrategyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F5953021BCCF1500EC5ECB /* MAStrategyViewController.swift */; };
 		A1F5953321BCDF9200EC5ECB /* MAType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F5953221BCDF9200EC5ECB /* MAType.swift */; };
 		A1F5953621BCEDA400EC5ECB /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F5953521BCEDA400EC5ECB /* StackView.swift */; };
-		A1F5953921BD088E00EC5ECB /* Message.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1F5953821BD088E00EC5ECB /* Message.storyboard */; };
 		A1F5953B21BD08E400EC5ECB /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F5953A21BD08E400EC5ECB /* MessageViewController.swift */; };
 		A1F5953D21BD5A5C00EC5ECB /* MessageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F5953C21BD5A5C00EC5ECB /* MessageDetailViewController.swift */; };
+		D9C9C77024B24177C86177B6 /* Pods_StockHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 372C30837F0AFC8048D7F822 /* Pods_StockHelper.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +55,6 @@
 		065248B321C226C30047405C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		06EDD3C1215241970035104B /* StockHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StockHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06EDD3C4215241970035104B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		06EDD3C6215241970035104B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		06EDD3C8215241970035104B /* BlockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockViewController.swift; sourceTree = "<group>"; };
 		06EDD3CB215241970035104B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		06EDD3CD215241990035104B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -64,17 +68,22 @@
 		06EDD3F5215247980035104B /* Stock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stock.swift; sourceTree = "<group>"; };
 		06EDD3F921524B160035104B /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		06F587F821B928BF00D69159 /* CalculatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorViewController.swift; sourceTree = "<group>"; };
-		06F587FB21B92AD200D69159 /* Strategy.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Strategy.storyboard; sourceTree = "<group>"; };
 		06F587FD21B9312700D69159 /* SymmetryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymmetryViewController.swift; sourceTree = "<group>"; };
 		06F5881A21BA38B600D69159 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		08F5ABD6CBDF4E9564F5CC99 /* Pods-StockHelperTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StockHelperTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StockHelperTests/Pods-StockHelperTests.debug.xcconfig"; sourceTree = "<group>"; };
 		372C30837F0AFC8048D7F822 /* Pods_StockHelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StockHelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		39990CF90212CD11B1FECEBF /* Pods-StockHelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StockHelper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StockHelper/Pods-StockHelper.debug.xcconfig"; sourceTree = "<group>"; };
 		41C561ABB324A6CEBDD1BB43 /* Pods-StockHelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StockHelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-StockHelper/Pods-StockHelper.release.xcconfig"; sourceTree = "<group>"; };
+		A10E4B3021CE543B0092B671 /* MyStocksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyStocksViewController.swift; path = StockHelper/Feature/Block/ViewController/MyStocksViewController.swift; sourceTree = SOURCE_ROOT; };
+		A10E4B3821CE57E10092B671 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		A10E4B4221CE5EE00092B671 /* Message.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Message.storyboard; sourceTree = "<group>"; };
+		A10E4B4421CE5FED0092B671 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
+		A10E4B4621CE610F0092B671 /* Calculator.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Calculator.storyboard; sourceTree = "<group>"; };
+		A10E4B4821CE67260092B671 /* Stock.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Stock.storyboard; sourceTree = "<group>"; };
+		A10E4B4A21CE67D20092B671 /* Block.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Block.storyboard; sourceTree = "<group>"; };
 		A1F5953021BCCF1500EC5ECB /* MAStrategyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAStrategyViewController.swift; sourceTree = "<group>"; };
 		A1F5953221BCDF9200EC5ECB /* MAType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MAType.swift; path = StockHelper/Feature/Strategy/ViewController/MAType.swift; sourceTree = SOURCE_ROOT; };
 		A1F5953521BCEDA400EC5ECB /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
-		A1F5953821BD088E00EC5ECB /* Message.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Message.storyboard; sourceTree = "<group>"; };
 		A1F5953A21BD08E400EC5ECB /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		A1F5953C21BD5A5C00EC5ECB /* MessageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailViewController.swift; sourceTree = "<group>"; };
 		A348325F3B01168D19E1FCDA /* Pods-StockHelperTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StockHelperTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StockHelperTests/Pods-StockHelperTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -86,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9C9C77024B24177C86177B6 /* Pods_StockHelper.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,7 +136,6 @@
 				06EDD3E7215242380035104B /* Feature */,
 				06EDD3E6215242190035104B /* Common */,
 				06EDD3C4215241970035104B /* AppDelegate.swift */,
-				06EDD3C6215241970035104B /* HomeViewController.swift */,
 				06EDD3CA215241970035104B /* Main.storyboard */,
 				06EDD3CD215241990035104B /* Assets.xcassets */,
 				06EDD3CF215241990035104B /* LaunchScreen.storyboard */,
@@ -157,6 +166,7 @@
 		06EDD3E7215242380035104B /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				A10E4B3521CE57B40092B671 /* Home */,
 				06F587F221B9281D00D69159 /* Strategy */,
 				06EDD3EA215242660035104B /* Stock */,
 				06EDD3E92152425E0035104B /* Message */,
@@ -168,6 +178,7 @@
 		06EDD3E82152423F0035104B /* Block */ = {
 			isa = PBXGroup;
 			children = (
+				A10E4B2D21CE53040092B671 /* Storyboard */,
 				06EDD3FD21524B480035104B /* Service */,
 				06EDD3EE215243E50035104B /* Model */,
 				06EDD3ED215243DE0035104B /* ViewController */,
@@ -189,6 +200,7 @@
 		06EDD3EA215242660035104B /* Stock */ = {
 			isa = PBXGroup;
 			children = (
+				A10E4B3221CE56550092B671 /* Storyboard */,
 				06EDD3FC21524B3F0035104B /* Service */,
 				06EDD3EC215243D50035104B /* ViewController */,
 				06EDD3EB2152427B0035104B /* Model */,
@@ -207,6 +219,7 @@
 		06EDD3EC215243D50035104B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				A10E4B3021CE543B0092B671 /* MyStocksViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -306,7 +319,7 @@
 		06F587FA21B92ABC00D69159 /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
-				06F587FB21B92AD200D69159 /* Strategy.storyboard */,
+				A10E4B4621CE610F0092B671 /* Calculator.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -320,6 +333,47 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		A10E4B2D21CE53040092B671 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				A10E4B4A21CE67D20092B671 /* Block.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		A10E4B3221CE56550092B671 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				A10E4B4821CE67260092B671 /* Stock.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		A10E4B3521CE57B40092B671 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				A10E4B3721CE57C30092B671 /* ViewController */,
+				A10E4B3621CE57BB0092B671 /* Storyboard */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		A10E4B3621CE57BB0092B671 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				A10E4B4421CE5FED0092B671 /* Home.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		A10E4B3721CE57C30092B671 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A10E4B3821CE57E10092B671 /* HomeViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		A1F5953421BCED8B00EC5ECB /* VIew */ = {
 			isa = PBXGroup;
 			children = (
@@ -331,7 +385,7 @@
 		A1F5953721BD086500EC5ECB /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
-				A1F5953821BD088E00EC5ECB /* Message.storyboard */,
+				A10E4B4221CE5EE00092B671 /* Message.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -367,6 +421,7 @@
 				06EDD3BD215241970035104B /* Sources */,
 				06EDD3BE215241970035104B /* Frameworks */,
 				06EDD3BF215241970035104B /* Resources */,
+				25079CB82B3A1ED643AD8100 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -441,11 +496,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A10E4B4521CE5FED0092B671 /* Home.storyboard in Resources */,
 				06EDD3D1215241990035104B /* LaunchScreen.storyboard in Resources */,
-				06F587FC21B92AD200D69159 /* Strategy.storyboard in Resources */,
+				A10E4B4B21CE67D20092B671 /* Block.storyboard in Resources */,
 				06EDD3CE215241990035104B /* Assets.xcassets in Resources */,
+				A10E4B4921CE67260092B671 /* Stock.storyboard in Resources */,
+				A10E4B4321CE5EE00092B671 /* Message.storyboard in Resources */,
 				06EDD3CC215241970035104B /* Main.storyboard in Resources */,
-				A1F5953921BD088E00EC5ECB /* Message.storyboard in Resources */,
+				A10E4B4721CE610F0092B671 /* Calculator.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,6 +517,30 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		25079CB82B3A1ED643AD8100 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-StockHelper/Pods-StockHelper-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/DeviceKit/DeviceKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DeviceKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-StockHelper/Pods-StockHelper-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		3444D5B3B9336A599857959A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -504,6 +586,7 @@
 			files = (
 				065248B221C21D7C0047405C /* Float+Format.swift in Sources */,
 				065248B021C219020047405C /* PriceGridViewController.swift in Sources */,
+				A10E4B3921CE57E10092B671 /* HomeViewController.swift in Sources */,
 				06EDD3FA21524B160035104B /* Message.swift in Sources */,
 				06EDD3C9215241970035104B /* BlockViewController.swift in Sources */,
 				A1F5953D21BD5A5C00EC5ECB /* MessageDetailViewController.swift in Sources */,
@@ -518,7 +601,7 @@
 				A1F5953621BCEDA400EC5ECB /* StackView.swift in Sources */,
 				06F587FE21B9312700D69159 /* SymmetryViewController.swift in Sources */,
 				065248B421C226C30047405C /* MainViewController.swift in Sources */,
-				06EDD3C7215241970035104B /* HomeViewController.swift in Sources */,
+				A10E4B3121CE543B0092B671 /* MyStocksViewController.swift in Sources */,
 				A1F5953321BCDF9200EC5ECB /* MAType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
