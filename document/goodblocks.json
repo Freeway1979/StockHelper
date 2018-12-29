@@ -1,0 +1,14 @@
+{
+  "blocks": {
+    "code": "778899",
+    "name": "xxxx",
+    "priority":1,
+    "stocks": [
+      {
+        "code": "002233",
+        "name": "sfd",
+        "priority":2
+      }
+    ]
+  }
+}
