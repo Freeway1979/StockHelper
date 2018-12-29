@@ -1,6 +1,11 @@
-[
-    {
-    "block":"5G",
-    "stocks":[""]
-    },
-]
+{
+    "lastUpdateTime":13434354353,
+	"blocks": {
+		"code": "778899",
+		"name": "xxxx",
+		"stocks": [{
+			"code": "002233",
+			"name": "sfd"
+		}]
+	}
+}
