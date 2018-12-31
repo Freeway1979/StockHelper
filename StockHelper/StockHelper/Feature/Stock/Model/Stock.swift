@@ -8,16 +8,9 @@
 
 import Foundation
 
-struct Stock {
+struct Stock:Decodable {
     private var code:String = "";
     private var name:String = "";
-    private var price:Float = 0.0;
-    private var gainOfRiseFall:Float = 0.0;
-    
-    private var ma5:Float = 0.0;
-    private var ma10:Float = 0.0;
-    private var ma20:Float = 0.0;
-    
 }
 
 extension Stock {

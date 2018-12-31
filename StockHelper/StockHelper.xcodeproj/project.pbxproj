@@ -31,6 +31,8 @@
 		A10E4B4721CE610F0092B671 /* Calculator.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A10E4B4621CE610F0092B671 /* Calculator.storyboard */; };
 		A10E4B4921CE67260092B671 /* Stock.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A10E4B4821CE67260092B671 /* Stock.storyboard */; };
 		A10E4B4B21CE67D20092B671 /* Block.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A10E4B4A21CE67D20092B671 /* Block.storyboard */; };
+		A1D44CBA21D9F8730043A4A5 /* BlockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D44CB921D9F8730043A4A5 /* BlockService.swift */; };
+		A1D44CBC21D9FA500043A4A5 /* BlockServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D44CBB21D9FA500043A4A5 /* BlockServiceProvider.swift */; };
 		A1F5953121BCCF1500EC5ECB /* MAStrategyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F5953021BCCF1500EC5ECB /* MAStrategyViewController.swift */; };
 		A1F5953321BCDF9200EC5ECB /* MAType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F5953221BCDF9200EC5ECB /* MAType.swift */; };
 		A1F5953621BCEDA400EC5ECB /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F5953521BCEDA400EC5ECB /* StackView.swift */; };
@@ -81,6 +83,8 @@
 		A10E4B4621CE610F0092B671 /* Calculator.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Calculator.storyboard; sourceTree = "<group>"; };
 		A10E4B4821CE67260092B671 /* Stock.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Stock.storyboard; sourceTree = "<group>"; };
 		A10E4B4A21CE67D20092B671 /* Block.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Block.storyboard; sourceTree = "<group>"; };
+		A1D44CB921D9F8730043A4A5 /* BlockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockService.swift; path = StockHelper/Feature/Stock/Storyboard/BlockService.swift; sourceTree = SOURCE_ROOT; };
+		A1D44CBB21D9FA500043A4A5 /* BlockServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockServiceProvider.swift; path = StockHelper/Feature/Stock/Storyboard/BlockServiceProvider.swift; sourceTree = SOURCE_ROOT; };
 		A1F5953021BCCF1500EC5ECB /* MAStrategyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAStrategyViewController.swift; sourceTree = "<group>"; };
 		A1F5953221BCDF9200EC5ECB /* MAType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MAType.swift; path = StockHelper/Feature/Strategy/ViewController/MAType.swift; sourceTree = SOURCE_ROOT; };
 		A1F5953521BCEDA400EC5ECB /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
@@ -275,6 +279,8 @@
 		06EDD3FD21524B480035104B /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				A1D44CB921D9F8730043A4A5 /* BlockService.swift */,
+				A1D44CBB21D9FA500043A4A5 /* BlockServiceProvider.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -593,6 +599,8 @@
 				A1F5953121BCCF1500EC5ECB /* MAStrategyViewController.swift in Sources */,
 				06F587F921B928BF00D69159 /* CalculatorViewController.swift in Sources */,
 				06EDD3F4215245120035104B /* StockBlockChange.swift in Sources */,
+				A1D44CBC21D9FA500043A4A5 /* BlockServiceProvider.swift in Sources */,
+				A1D44CBA21D9F8730043A4A5 /* BlockService.swift in Sources */,
 				06EDD3F6215247980035104B /* Stock.swift in Sources */,
 				A1F5953B21BD08E400EC5ECB /* MessageViewController.swift in Sources */,
 				06F5881B21BA38B600D69159 /* UITextField+Extension.swift in Sources */,

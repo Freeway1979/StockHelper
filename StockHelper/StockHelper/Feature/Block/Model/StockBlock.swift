@@ -8,15 +8,24 @@
 
 import UIKit
 
-enum BlockType {
-    case Concept
-    case Location
-    case Style
+enum BlockType:String,Decodable {
+    case TypeGN = "gn"
+    case TypeHY = "hy"
+    case TypeDY = "dy"
 }
-struct StockBlock
+
+struct StockBlock:Decodable
 {
-    private var code:String = "";
-    private var name:String = "";
-    private var type:BlockType = .Concept ;
-    private var gainOfRiseFall:Float = 0.0;
+     var code:String = "";
+     var name:String = "";
+     var type:BlockType = .TypeGN ;
+     var stocks:[Stock]? = [];
+    
+    enum CodingKeys : String, CodingKey {
+        case code
+        case name
+        case type
+        case stocks
+    }
+
 }
