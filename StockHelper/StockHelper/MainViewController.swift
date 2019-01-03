@@ -16,6 +16,11 @@ class MainViewController: UITabBarController {
         // Do any additional setup after loading the view.
         // self.removeTabbarItemsText();
         
+        RemoteServiceProvider.getRemoteServerIPAddress { (address) in
+            print(address)
+            print(RemoteServiceProvider.remoteServerAddress)
+        }
+        
     }
     
     func removeTabbarItemsText() {

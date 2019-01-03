@@ -34,7 +34,7 @@ class MessageDetailViewController: UIViewController {
     }
     
     private func setupViews() {
-        self.subject = (self.message?.subject)!;
+        self.subject = (self.message?.displayTitle)!;
     }
     /*
     // MARK: - Navigation

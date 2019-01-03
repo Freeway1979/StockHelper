@@ -1,47 +1,42 @@
 //
-//  BlockService.swift
+//  MessageService.swift
 //  StockHelper
 //
-//  Created by Andy Liu on 2018/12/31.
-//  Copyright © 2018 Andy Liu. All rights reserved.
+//  Created by Andy Liu on 2019/1/3.
+//  Copyright © 2019 Andy Liu. All rights reserved.
 //
 
 import Foundation
 import Moya
 
-enum BlockService {
-    case getBlockList
-    case getBlockStocks(code:String)
+enum MessageService {
+    case getMessageList
 }
 
 // MARK: - TargetType Protocol Implementation
-extension BlockService: TargetType {
-    var baseURL: URL { return URL(string: "https://raw.githubusercontent.com/Freeway1979/StockHelper/master/document")! }
+extension MessageService: TargetType {
+    var baseURL: URL { return URL(string: ServiceConfig.baseUrl)! }
     var path: String {
         switch self {
-        case .getBlockList:
-            return "/blocks.json"
-        case .getBlockStocks(let code):
-            return "/blocks/\(code).json"
+        case .getMessageList:
+            return "/message.json"
         }
     }
     var method: Moya.Method {
         switch self {
-        case .getBlockList,.getBlockStocks:
+        case .getMessageList:
             return .get
         }
     }
     var task: Task {
         switch self {
-        case .getBlockList,.getBlockStocks: // Send no parameters
+        case .getMessageList: // Send no parameters
             return .requestPlain
         }
     }
     var sampleData: Data {
         switch self {
-        case .getBlockList:
-            return "Half measures are as bad as nothing at all.".utf8Encoded
-        case .getBlockStocks( _):
+        case .getMessageList:
             return "Half measures are as bad as nothing at all.".utf8Encoded
         }
     }
@@ -59,3 +54,4 @@ private extension String {
         return data(using: .utf8)!
     }
 }
+

@@ -9,8 +9,8 @@
 import Foundation
 
 struct Stock:Decodable {
-    private var code:String = "";
-    private var name:String = "";
+    var code:String = "";
+    var name:String = "";
 }
 
 extension Stock {

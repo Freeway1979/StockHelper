@@ -14,31 +14,15 @@ enum MessageLevel:String {
     case Low = "次要"
 }
 
-class Message {
-    init(subject: String) {
-        self.subject = subject
+struct Message:Decodable {
+    var keywords:[String]
+    var stocks:[String]
+    
+    var displayTitle: String {
+        return keywords.joined(separator: " ")
     }
-    //主题
-    var subject:String = "";
-    //等级
-    var level:MessageLevel = .Normal;
-    //来源
-    var source:String = "";
-    //分类
-    var category:String = "";
-    //修改时间
-    var time:Date?;
-    //利好
-    var positiveMemo:String = "";
-    //利空
-    var negativeMemo:String = "";
-    //利好板块
-    var positiveBlocks:[StockBlock] = [];
-    //利空板块
-    var negativeBlocks:[StockBlock] = [];
-    //利好股票
-    var positiveStocks:[Stock] = []
-    //利空股票
-    var negativeStocks:[Stock] = []
+    var displayStocks: String {
+        return stocks.joined(separator: " ")
+    }
 }
 

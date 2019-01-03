@@ -14,6 +14,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        loadData()
     }
     
 
@@ -26,5 +27,9 @@ class HomeViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func loadData() -> Void {
+        StockServiceProvider.getBasicData()
+    }
 
 }

@@ -19,10 +19,9 @@ class MessageViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-         self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
         self.loadData();
-        self.tableView.reloadData();
+   
     }
 
     // MARK: - Table view data source
@@ -38,13 +37,17 @@ class MessageViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
+        let cellId = "reuseIdentifier"
+        var cell = tableView.dequeueReusableCell(withIdentifier: cellId)
+        if cell == nil {
+            cell = UITableViewCell (style: .subtitle, reuseIdentifier: cellId)
+        }
         // Configure the cell...
         let message = self.messages[indexPath.row];
-        cell.textLabel!.text = message.subject;
+        cell?.textLabel!.text = message.displayTitle;
+        cell?.detailTextLabel!.text = message.displayStocks;
 
-        return cell
+        return cell!
     }
     
     
@@ -86,10 +89,13 @@ class MessageViewController: UITableViewController {
         self.navigationController?.pushViewController(vc, animated: true);
     }
     
+    private func reloadTableView(messages:[Message]) {
+        self.messages = messages;
+        self.tableView.reloadData();
+    }
     private func loadData() -> Void {
-        for index in 0...15 {
-            let message = Message(subject: String(format: "消息 %d", index));
-            self.messages.append(message);
+        MessageServiceProvider.getMessageList { [weak self] (messages) in
+            self?.reloadTableView(messages: messages)
         }
     }
     /*

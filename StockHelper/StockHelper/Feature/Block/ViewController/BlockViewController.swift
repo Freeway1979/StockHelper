@@ -22,9 +22,9 @@ class BlockViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         self.tableView = tableView
         self.view.addSubview(tableView)
         // Do any additional setup after loading the view, typically from a nib.
-        BlockServiceProvider.getBlockList { [weak self] (blocks) in
-            print(blocks)
-            self?.refreshTableView(blocks: blocks)
+        
+        StockServiceProvider.getBlockList {[weak self] (blocks) in
+           self?.refreshTableView(blocks: blocks)
         }
     }
     
@@ -88,7 +88,7 @@ class BlockViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         let block = self.blocks[row]
         print("Block \(block.name) clicked")
         
-        BlockServiceProvider.getBlockStocks(code: block.code) { (block) in
+        StockServiceProvider.getBlockStocksDetail(code: block.code) { (block) in
             print(block)
         }
         
