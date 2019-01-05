@@ -1,5 +1,5 @@
 //
-//  StockBlockChange.swift
+//  Block2StocksChange.swift
 //  StockHelper
 //
 //  Created by Andy Liu on 2018/9/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class StockBlockChange {
+class Block2StocksChange {
     
     
 }

@@ -9,29 +9,32 @@
 import UIKit
 import Moya
 
-class BlockViewController: UIViewController,UITableViewDelegate,UITableViewDataSource{
+class BlockStockListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource{
     private var tableView:UITableView?;
-    private var blocks:[Block] = [];
+    private var stocks:[Stock] {
+        get {
+            return self.block?.stocks ?? []
+        }
+    }
+    var block:Block2Stocks?;
     override func viewDidLoad() {
         super.viewDidLoad()
         let rect:CGRect = self.view.bounds;
         let tableView = UITableView(frame: rect)
-        tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: "reuseIdentifier")
+//        tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: "reuseIdentifier")
+        self.title = self.block?.name
         tableView.delegate = self;
         tableView.dataSource = self
         self.tableView = tableView
         self.view.addSubview(tableView)
         // Do any additional setup after loading the view, typically from a nib.
-        
-        StockServiceProvider.getBlockList {[weak self] (blocks) in
-            self?.refreshTableView(blocks: blocks)
-        }
+        self.refreshTableView()
     }
     
-    func refreshTableView(blocks:[Block]) -> Void {
-        self.blocks = blocks;
+    func refreshTableView() -> Void {
         self.tableView!.reloadData()
     }
+    
     // MARK: - Table view data source
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -41,17 +44,21 @@ class BlockViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.blocks.count
+        return self.stocks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-        
+        let cellId = "reuseIdentifier"
+        var cell = tableView.dequeueReusableCell(withIdentifier: cellId)
+        if cell == nil {
+            cell = UITableViewCell (style: .subtitle, reuseIdentifier: cellId)
+        }
         // Configure the cell...
-        let block = self.blocks[indexPath.row];
-        cell.textLabel!.text = "\(block.code) \(block.name)";
+        let stock = self.stocks[indexPath.row];
+        cell?.textLabel!.text = stock.name;
+        cell?.detailTextLabel!.text = stock.code;
         
-        return cell
+        return cell!
     }
     
     
@@ -85,18 +92,8 @@ class BlockViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = indexPath.row;
-        let basicBlock = self.blocks[row]
-        print("Block \(basicBlock.name) clicked")
-
-        let block = StockServiceProvider.getSyncBlockStocksDetail(basicBlock: basicBlock)
-        self.gotoBlockStockListScreen(block: block)
-    }
-    
-    private func gotoBlockStockListScreen(block:Block2Stocks) {
-        let storyboard = UIStoryboard(name: "Block", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "BlockStockListViewController") as! BlockStockListViewController
-        vc.block = block;
-        self.navigationController?.pushViewController(vc, animated: true);
+        let stock = self.stocks[row]
+        print("Block \(stock.name) clicked")
     }
     
 }

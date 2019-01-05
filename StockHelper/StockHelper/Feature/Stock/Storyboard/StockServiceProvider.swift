@@ -10,20 +10,22 @@ import Foundation
 import Moya
 
 class StockServiceProvider {
-    private static var blocks:[StockBlock] = []
+    private static var blocks:[Block] = []
     private static var stocks:[Stock] = []
     private static var stockMap:[String:Stock] = [:]
-    private static var blockMap:[String:StockBlock] = [:]
-    private static var blockCodeMap:[String:[String]] = [:]
+    private static var blockMap:[String:Block] = [:]
     
-    public static func getBlockByCode(_ code:String) -> StockBlock {
+    private static var block2stocksCodeMap:[String:[String]] = [:]
+    private static var stock2blocksCodeMap:[String:[String]] = [:]
+    
+    public static func getBlockByCode(_ code:String) -> Block {
         return blockMap[code]!
     }
     public static func getStockByCode(_ code:String) -> Stock {
         return stockMap[code]!
     }
     public static func getStockCodeListByBlockCode(_ code:String) -> [String] {
-        return blockCodeMap[code]!
+        return block2stocksCodeMap[code]!
     }
     private static func buildStocksMap() {
         for stock in stocks {
@@ -36,6 +38,9 @@ class StockServiceProvider {
         }
     }
     
+    /// 获取所有股票列表（code+name)
+    ///
+    /// - Parameter callback: <#callback description#>
     public static func getStockList(callback:@escaping ([Stock]) -> Void ) {
         if StockServiceProvider.stocks.count > 0 {
             callback(StockServiceProvider.stocks)
@@ -59,7 +64,11 @@ class StockServiceProvider {
             }
         }
     }
-    public static func getBlockList(callback:@escaping ([StockBlock]) -> Void ) {
+    
+    /// 获取所有板块列表(code+name+type)
+    ///
+    /// - Parameter callback: <#callback description#>
+    public static func getBlockList(callback:@escaping ([Block]) -> Void ) {
         if StockServiceProvider.blocks.count > 0 {
             callback(StockServiceProvider.blocks)
             return
@@ -74,7 +83,7 @@ class StockServiceProvider {
                     //let dict = try? JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers)
                     //print(dict!);
                     let decoder = JSONDecoder()
-                    let blocks = try! decoder.decode([StockBlock].self, from: jsonData)
+                    let blocks = try! decoder.decode([Block].self, from: jsonData)
                     StockServiceProvider.blocks = blocks
                     buildBlocksMap()
                     callback(blocks)
@@ -83,13 +92,13 @@ class StockServiceProvider {
         }
     }
     
-    public static func getSimpleBlockList(callback:@escaping () -> Void ) {
-        if StockServiceProvider.blocks.count > 0 {
-            callback()
-            return
-        }
+    
+    /// 获取板块和股票映射列表（代码）
+    ///
+    /// - Parameter callback: <#callback description#>
+    public static func getSimpleBlock2StockList(callback:@escaping () -> Void ) {
         let provider = MoyaProvider<StockService>()
-        provider.request(StockService.getSimpleBlocks) { result in
+        provider.request(StockService.getSimpleBlock2Stocks) { result in
             // do something with the result (read on for more details)
             if case let .success(response) = result {
                 let jsonString = try? response.mapString()
@@ -100,38 +109,90 @@ class StockServiceProvider {
                         let length = _stocks.count - 1
                         let blockCode = _stocks[0]
                         let stocks = Array(_stocks[1...length])
-                        blockCodeMap[blockCode] = stocks;
+                        block2stocksCodeMap[blockCode] = stocks;
                     }
                     callback()
                 }
             }
         }
     }
-    public static func getBlockStocksDetail(code:String,callback:@escaping (StockBlock) -> Void ) {
+    
+    /// 获取股票和板块映射列表（代码）
+    ///
+    /// - Parameter callback: <#callback description#>
+    public static func getSimpleStock2BlockList(callback:@escaping () -> Void ) {
+        if StockServiceProvider.blocks.count > 0 {
+            callback()
+            return
+        }
         let provider = MoyaProvider<StockService>()
-        provider.request(StockService.getBlockStocksDetail(code: code)) { result in
+        provider.request(StockService.getSimpleStock2Blocks) { result in
             // do something with the result (read on for more details)
             if case let .success(response) = result {
                 let jsonString = try? response.mapString()
                 if jsonString != nil {
-                    let jsonData:Data = jsonString!.data(using: .utf8)!
-                    let decoder = JSONDecoder()
-                    let block = try! decoder.decode(StockBlock.self, from: jsonData)
-                    callback(block)
+                    let stockList = jsonString?.split(separator: "\n")
+                    for _stock in stockList! {
+                        let _blocks:[String] = _stock.components(separatedBy:",")
+                        let length = _blocks.count - 1
+                        let stockCode = _blocks[0]
+                        let blocks = Array(_blocks[1...length])
+                        stock2blocksCodeMap[stockCode] = blocks;
+                    }
+                    callback()
                 }
             }
         }
     }
     
+    /// 某个板块下的所有股票
+    ///
+    /// - Parameters:
+    ///   - code: <#code description#>
+    ///   - callback: <#callback description#>
+    public static func getSyncBlockStocksDetail(basicBlock:Block) -> Block2Stocks {
+        let block = Block2Stocks(block: basicBlock)
+        let stockCodeList:[String] = block2stocksCodeMap[block.code]!
+        for code in stockCodeList {
+            let stock = stockMap[code]
+            if (stock != nil) {
+                block.stocks?.append(stock!)
+            }
+        }
+        return block
+    }
+    
+    public static func getSyncHotBlocks() -> [Block] {
+        let list = Array(blocks[0...4])
+        return list
+    }
+    public static func getSyncHotStocks() -> [Stock] {
+        let list = Array(stocks[0...4])
+        return list
+    }
+    public static func getSyncImportantBlocks() -> [Block] {
+        let list = Array(blocks[4...10])
+        return list
+    }
+    
     public static func getBasicData() {
+        // 板块基本信息列表
         getBlockList { (blocks) in
             print("getBlockList",blocks.count)
         }
+        // 股票基本信息列表
         getStockList { (stocks) in
             print("getStockList",stocks.count)
         }
-        getSimpleBlockList {
-            print("getSimpleBlockList")
+        // 板块和股票映射关系(code)
+        getSimpleBlock2StockList {
+            print("getSimpleBlock2StockList")
+        }
+        // 股票和板块映射关系(code)
+        getSimpleStock2BlockList {
+            print("getSimpleStock2BlockList")
         }
     }
+    
+    
 }

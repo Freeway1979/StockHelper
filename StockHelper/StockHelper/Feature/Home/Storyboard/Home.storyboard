@@ -6,25 +6,45 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--主页-->
-        <scene sceneID="UmH-3T-sCs">
+        <scene sceneID="qXC-NE-bJI">
             <objects>
-                <viewController id="ApS-qs-jl1" customClass="HomeViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="e0U-2b-mVu">
+                <collectionViewController id="XKI-RB-ouR" customClass="HomeViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="olA-Ht-3lK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="kCH-h1-1gX"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="主页" id="6eh-N5-ifu"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0oo-hQ-TVp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="t3y-P6-gPb">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="KSV-S6-pRP">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </view>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="XKI-RB-ouR" id="KSC-jx-3gL"/>
+                            <outlet property="delegate" destination="XKI-RB-ouR" id="XUU-CQ-OYX"/>
+                        </connections>
+                    </collectionView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="主页" id="InY-nU-GXO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NoO-L2-eLX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-512.79999999999995" y="-782.15892053973016"/>
+            <point key="canvasLocation" x="-618" y="-790"/>
         </scene>
         <!--主页-->
         <scene sceneID="qOW-OO-QUb">
@@ -38,7 +58,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="ApS-qs-jl1" kind="relationship" relationship="rootViewController" id="fwV-FX-8NJ"/>
+                        <segue destination="XKI-RB-ouR" kind="relationship" relationship="rootViewController" id="w0e-Af-YrI"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="23w-pe-byX" userLabel="First Responder" sceneMemberID="firstResponder"/>

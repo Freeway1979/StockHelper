@@ -12,8 +12,8 @@ import Moya
 enum StockService {
     case getStockList //Only stocks
     case getBlockList //Only blocks
-    case getSimpleBlocks //Blocks and Stocks Code Only
-    case getBlockStocksDetail(code:String) //Get block and stocks by block code
+    case getSimpleBlock2Stocks //Blocks and Stocks Code Only
+    case getSimpleStock2Blocks //
 }
 
 // MARK: - TargetType Protocol Implementation
@@ -25,29 +25,30 @@ extension StockService: TargetType {
             return "/blocks.json"
         case .getStockList:
             return "/stocks.json"
-        case .getSimpleBlocks:
-            return "/simpleblocks.dat"
-        case .getBlockStocksDetail(let code):
-            return "/blocks/\(code).json"
+        case .getSimpleBlock2Stocks:
+            return "/block2stocks.dat"
+        case .getSimpleStock2Blocks:
+            return "/stock2blocks.dat"
         }
     }
     var method: Moya.Method {
         switch self {
-        case .getStockList,.getBlockList,.getSimpleBlocks,.getBlockStocksDetail:
+        case .getStockList,.getBlockList,
+             .getSimpleBlock2Stocks,.getSimpleStock2Blocks:
             return .get
         }
     }
     var task: Task {
         switch self {
-        case .getStockList,.getBlockList,.getSimpleBlocks,.getBlockStocksDetail: // Send no parameters
+        case .getStockList,.getBlockList,
+             .getSimpleBlock2Stocks,.getSimpleStock2Blocks: // Send no parameters
             return .requestPlain
         }
     }
     var sampleData: Data {
         switch self {
-        case .getStockList,.getBlockList,.getSimpleBlocks:
-            return "Half measures are as bad as nothing at all.".utf8Encoded
-        case .getBlockStocksDetail( _):
+        case .getStockList,.getBlockList,
+             .getSimpleBlock2Stocks,.getSimpleStock2Blocks:
             return "Half measures are as bad as nothing at all.".utf8Encoded
         }
     }

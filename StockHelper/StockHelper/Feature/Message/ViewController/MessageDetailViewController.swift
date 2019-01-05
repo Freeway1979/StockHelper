@@ -11,6 +11,7 @@ import UIKit
 class MessageDetailViewController: UIViewController {
 
     @IBOutlet weak var subjectLabel: UILabel!
+    @IBOutlet weak var bodyLabel: UILabel!
     
     var message:Message?
     
@@ -26,6 +27,18 @@ class MessageDetailViewController: UIViewController {
         }
     }
     
+    private var body:String {
+        get {
+            if (self.bodyLabel.text != nil) {
+                return self.bodyLabel.text!
+            }
+            return "无内容"
+        }
+        set {
+            self.bodyLabel.text! = newValue
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,7 +47,9 @@ class MessageDetailViewController: UIViewController {
     }
     
     private func setupViews() {
-        self.subject = (self.message?.displayTitle)!;
+        self.bodyLabel.adjustsFontSizeToFitWidth = true
+        self.subject = self.message!.displayTitle;
+        self.body = self.message!.displayStocks.replacingOccurrences(of: " ", with: "\n\n")
     }
     /*
     // MARK: - Navigation
