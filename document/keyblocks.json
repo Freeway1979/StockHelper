@@ -1,0 +1,53 @@
+[{
+		"name": "5G",
+		"stocks": []
+	},
+	{
+		"name": "特高压",
+		"stocks": []
+	},
+	{
+		"name": "轨道交通",
+		"stocks": []
+	},
+	{
+		"name": "人工智能",
+		"stocks": []
+	},
+	{
+		"name": "工业互联网",
+		"stocks": []
+	},
+	{
+		"name": "大数据中心",
+		"stocks": []
+	},
+	{
+		"name": "充电桩",
+		"stocks": []
+	},
+	{
+		"name": "证券",
+		"stocks": []
+	},
+	{
+		"name": "文化传媒",
+		"stocks": []
+	},
+	{
+		"name": "新能源汽车",
+		"stocks": []
+	},
+	{
+		"name": "基建",
+		"stocks": []
+	},
+	{
+		"name": "科创板",
+		"stocks": []
+	},
+	{
+		"name": "知识产权",
+		"stocks": []
+	}
+]
