@@ -39,6 +39,12 @@
 		A1D44CBC21D9FA500043A4A5 /* StockServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D44CBB21D9FA500043A4A5 /* StockServiceProvider.swift */; };
 		A1F4427F21E0122A00999138 /* BlockStockListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4427E21E0122A00999138 /* BlockStockListViewController.swift */; };
 		A1F4428521E015FC00999138 /* StockDBProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4428421E015FC00999138 /* StockDBProvider.swift */; };
+		A1F4428C21E0D56A00999138 /* ENSideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4428A21E0D56900999138 /* ENSideMenu.swift */; };
+		A1F4428D21E0D56A00999138 /* ENSideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4428B21E0D56A00999138 /* ENSideMenuNavigationController.swift */; };
+		A1F4428F21E0D6F000999138 /* MyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4428E21E0D6F000999138 /* MyNavigationController.swift */; };
+		A1F4429121E0D73C00999138 /* MyMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4429021E0D73C00999138 /* MyMenuViewController.swift */; };
+		A1F4429621E1089500999138 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1F4429521E1089500999138 /* Setting.storyboard */; };
+		A1F4429821E108B800999138 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4429721E108B800999138 /* SettingViewController.swift */; };
 		A1F5953121BCCF1500EC5ECB /* MAStrategyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F5953021BCCF1500EC5ECB /* MAStrategyViewController.swift */; };
 		A1F5953321BCDF9200EC5ECB /* MAType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F5953221BCDF9200EC5ECB /* MAType.swift */; };
 		A1F5953621BCEDA400EC5ECB /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F5953521BCEDA400EC5ECB /* StackView.swift */; };
@@ -97,6 +103,12 @@
 		A1D44CBB21D9FA500043A4A5 /* StockServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StockServiceProvider.swift; path = StockHelper/Feature/Stock/Storyboard/StockServiceProvider.swift; sourceTree = SOURCE_ROOT; };
 		A1F4427E21E0122A00999138 /* BlockStockListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockStockListViewController.swift; sourceTree = "<group>"; };
 		A1F4428421E015FC00999138 /* StockDBProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDBProvider.swift; sourceTree = "<group>"; };
+		A1F4428A21E0D56900999138 /* ENSideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSideMenu.swift; sourceTree = "<group>"; };
+		A1F4428B21E0D56A00999138 /* ENSideMenuNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSideMenuNavigationController.swift; sourceTree = "<group>"; };
+		A1F4428E21E0D6F000999138 /* MyNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNavigationController.swift; sourceTree = "<group>"; };
+		A1F4429021E0D73C00999138 /* MyMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMenuViewController.swift; sourceTree = "<group>"; };
+		A1F4429521E1089500999138 /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
+		A1F4429721E108B800999138 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		A1F5953021BCCF1500EC5ECB /* MAStrategyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAStrategyViewController.swift; sourceTree = "<group>"; };
 		A1F5953221BCDF9200EC5ECB /* MAType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MAType.swift; path = StockHelper/Feature/Strategy/ViewController/MAType.swift; sourceTree = SOURCE_ROOT; };
 		A1F5953521BCEDA400EC5ECB /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
@@ -173,6 +185,7 @@
 		06EDD3E6215242190035104B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A1F4428821E0D54400999138 /* ThirdParty */,
 				A132955721DB521B00A3B156 /* Service */,
 				A1F5953421BCED8B00EC5ECB /* VIew */,
 				06F5881921BA388200D69159 /* Extension */,
@@ -183,6 +196,7 @@
 		06EDD3E7215242380035104B /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				A1F4429221E1086100999138 /* Setting */,
 				A10E4B3521CE57B40092B671 /* Home */,
 				06F587F221B9281D00D69159 /* Strategy */,
 				06EDD3EA215242660035104B /* Stock */,
@@ -393,6 +407,8 @@
 			isa = PBXGroup;
 			children = (
 				A10E4B3821CE57E10092B671 /* HomeViewController.swift */,
+				A1F4428E21E0D6F000999138 /* MyNavigationController.swift */,
+				A1F4429021E0D73C00999138 /* MyMenuViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -413,6 +429,48 @@
 				A1F4428421E015FC00999138 /* StockDBProvider.swift */,
 			);
 			path = DB;
+			sourceTree = "<group>";
+		};
+		A1F4428821E0D54400999138 /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				A1F4428921E0D54C00999138 /* ENSideMenu */,
+			);
+			path = ThirdParty;
+			sourceTree = "<group>";
+		};
+		A1F4428921E0D54C00999138 /* ENSideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				A1F4428A21E0D56900999138 /* ENSideMenu.swift */,
+				A1F4428B21E0D56A00999138 /* ENSideMenuNavigationController.swift */,
+			);
+			path = ENSideMenu;
+			sourceTree = "<group>";
+		};
+		A1F4429221E1086100999138 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				A1F4429421E1087C00999138 /* Storyboard */,
+				A1F4429321E1087100999138 /* ViewController */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		A1F4429321E1087100999138 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A1F4429721E108B800999138 /* SettingViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		A1F4429421E1087C00999138 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				A1F4429521E1089500999138 /* Setting.storyboard */,
+			);
+			path = Storyboard;
 			sourceTree = "<group>";
 		};
 		A1F5953421BCED8B00EC5ECB /* VIew */ = {
@@ -542,6 +600,7 @@
 				A10E4B4B21CE67D20092B671 /* Block.storyboard in Resources */,
 				06EDD3CE215241990035104B /* Assets.xcassets in Resources */,
 				A10E4B4921CE67260092B671 /* Stock.storyboard in Resources */,
+				A1F4429621E1089500999138 /* Setting.storyboard in Resources */,
 				A10E4B4321CE5EE00092B671 /* Message.storyboard in Resources */,
 				06EDD3CC215241970035104B /* Main.storyboard in Resources */,
 				A10E4B4721CE610F0092B671 /* Calculator.storyboard in Resources */,
@@ -630,6 +689,7 @@
 				A14115FB21DD8DA000E1B2BC /* MessageServiceProvider.swift in Sources */,
 				A10E4B3921CE57E10092B671 /* HomeViewController.swift in Sources */,
 				A132955921DB523C00A3B156 /* RemoteService.swift in Sources */,
+				A1F4429121E0D73C00999138 /* MyMenuViewController.swift in Sources */,
 				06EDD3FA21524B160035104B /* Message.swift in Sources */,
 				06EDD3C9215241970035104B /* BlockViewController.swift in Sources */,
 				A1F5953D21BD5A5C00EC5ECB /* MessageDetailViewController.swift in Sources */,
@@ -638,9 +698,13 @@
 				06F587F921B928BF00D69159 /* CalculatorViewController.swift in Sources */,
 				06EDD3F4215245120035104B /* StockBlockChange.swift in Sources */,
 				A1D44CBC21D9FA500043A4A5 /* StockServiceProvider.swift in Sources */,
+				A1F4428D21E0D56A00999138 /* ENSideMenuNavigationController.swift in Sources */,
 				A1D44CBA21D9F8730043A4A5 /* StockService.swift in Sources */,
 				06EDD3F6215247980035104B /* Stock.swift in Sources */,
+				A1F4428F21E0D6F000999138 /* MyNavigationController.swift in Sources */,
 				A14115F921DD8D2A00E1B2BC /* ServiceConfig.swift in Sources */,
+				A1F4429821E108B800999138 /* SettingViewController.swift in Sources */,
+				A1F4428C21E0D56A00999138 /* ENSideMenu.swift in Sources */,
 				A1F5953B21BD08E400EC5ECB /* MessageViewController.swift in Sources */,
 				06F5881B21BA38B600D69159 /* UITextField+Extension.swift in Sources */,
 				06EDD3C5215241970035104B /* AppDelegate.swift in Sources */,

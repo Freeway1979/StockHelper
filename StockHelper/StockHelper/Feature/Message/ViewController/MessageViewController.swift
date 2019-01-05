@@ -96,7 +96,7 @@ class MessageViewController: UIViewController,
         let storyboard = UIStoryboard(name: "Message", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "MessageDetailViewController") as! MessageDetailViewController
         vc.message = message;
-        self.navigationController?.pushViewController(vc, animated: true);
+        self.navigationController?.navigationController?.pushViewController(vc, animated: true);
     }
     
     private func reloadTableView(messages:[Message]) {

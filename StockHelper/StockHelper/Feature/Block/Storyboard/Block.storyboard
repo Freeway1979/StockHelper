@@ -44,11 +44,11 @@
         <!--板块-->
         <scene sceneID="1mg-Yw-F6c">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="253-5g-leY" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="253-5g-leY" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="板块" image="second" id="lOL-TD-9DU"/>
                     <toolbarItems/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="KZH-ML-Zog">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

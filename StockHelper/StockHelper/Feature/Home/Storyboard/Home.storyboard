@@ -49,11 +49,11 @@
         <!--主页-->
         <scene sceneID="qOW-OO-QUb">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VLz-pc-15c" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="VLz-pc-15c" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="主页" image="second" id="P0u-Ga-zhi"/>
                     <toolbarItems/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="kwR-ub-ZHr">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

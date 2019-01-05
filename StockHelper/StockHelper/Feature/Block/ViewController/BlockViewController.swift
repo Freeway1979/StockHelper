@@ -96,7 +96,7 @@ class BlockViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         let storyboard = UIStoryboard(name: "Block", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "BlockStockListViewController") as! BlockStockListViewController
         vc.block = block;
-        self.navigationController?.pushViewController(vc, animated: true);
+        self.navigationController?.navigationController?.pushViewController(vc, animated: true);
     }
     
 }

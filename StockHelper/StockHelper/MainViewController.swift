@@ -8,13 +8,15 @@
 
 import UIKit
 
-class MainViewController: UITabBarController {
+class MainViewController: UITabBarController,ENSideMenuDelegate {
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         // self.removeTabbarItemsText();
+        self.sideMenuController()?.sideMenu?.delegate = self
         
         RemoteServiceProvider.getRemoteServerIPAddress { (address) in
             print(address)
@@ -38,6 +40,10 @@ class MainViewController: UITabBarController {
             }
         }
     }
+    
+    @IBAction func onMenuButtonClicked(_ sender: UIBarButtonItem) {
+           toggleSideMenuView()
+    }
     /*
     // MARK: - Navigation
 
@@ -47,5 +53,27 @@ class MainViewController: UITabBarController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    // MARK: - ENSideMenu Delegate
+    func sideMenuWillOpen() {
+        print("sideMenuWillOpen")
+    }
+    
+    func sideMenuWillClose() {
+        print("sideMenuWillClose")
+    }
+    
+    func sideMenuShouldOpenSideMenu() -> Bool {
+        print("sideMenuShouldOpenSideMenu")
+        return true
+    }
+    
+    func sideMenuDidClose() {
+        print("sideMenuDidClose")
+    }
+    
+    func sideMenuDidOpen() {
+        print("sideMenuDidOpen")
+    }
 
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ef2-xb-mlh">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -12,7 +12,14 @@
         <!--板块-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController title="板块" id="49e-Tb-3d3" customClass="MainViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainViewController" title="板块" id="49e-Tb-3d3" customClass="MainViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" title="炒股助手" id="R0x-nW-xhy">
+                        <barButtonItem key="leftBarButtonItem" title="菜单" id="V6y-BV-F8b">
+                            <connections>
+                                <action selector="onMenuButtonClicked:" destination="49e-Tb-3d3" id="Po9-ZR-BYB"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -28,7 +35,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2935" y="-403"/>
+            <point key="canvasLocation" x="-3585" y="-356"/>
         </scene>
         <!--Message-->
         <scene sceneID="dtq-3V-IsX">
@@ -38,7 +45,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LV6-fZ-mqQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1632" y="-324"/>
+            <point key="canvasLocation" x="-2478" y="-223"/>
         </scene>
         <!--Home-->
         <scene sceneID="9HC-LL-Vba">
@@ -48,7 +55,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L67-hf-vr7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1691" y="-524"/>
+            <point key="canvasLocation" x="-2379" y="-357"/>
         </scene>
         <!--Calculator-->
         <scene sceneID="iSH-hd-gD9">
@@ -58,7 +65,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="27i-be-iqC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1862" y="-643"/>
+            <point key="canvasLocation" x="-2415" y="-461"/>
         </scene>
         <!--Stock-->
         <scene sceneID="bM8-zj-4D1">
@@ -68,7 +75,23 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jmd-qj-DBO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2176" y="-796"/>
+            <point key="canvasLocation" x="-2524" y="-569"/>
+        </scene>
+        <!--My Navigation Controller-->
+        <scene sceneID="NUi-h7-FES">
+            <objects>
+                <navigationController id="ef2-xb-mlh" customClass="MyNavigationController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iNs-Ja-Kjj">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="49e-Tb-3d3" kind="relationship" relationship="rootViewController" id="nLE-el-8Dr"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ub7-Ce-y3P" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4455" y="-377"/>
         </scene>
         <!--Block-->
         <scene sceneID="K8u-hB-2pa">
@@ -78,6 +101,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I9t-xD-YpD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-3587" y="189"/>
         </scene>
     </scenes>
     <resources>

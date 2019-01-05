@@ -28,65 +28,111 @@ class StockServiceProvider {
         return block2stocksCodeMap[code]!
     }
     private static func buildStocksMap() {
+        var _stockMap:[String:Stock] = [:]
         for stock in stocks {
-            stockMap[stock.code] = stock
+            _stockMap[stock.code] = stock
         }
+        stockMap.removeAll()
+        stockMap = _stockMap
     }
     private static func buildBlocksMap() {
+        var _blockMap:[String:Block] = [:]
         for block in blocks {
-            blockMap[block.code] = block
+            _blockMap[block.code] = block
         }
+        blockMap.removeAll()
+        blockMap = _blockMap
     }
     
+    private static func parseJSONStringToObjects<T:Decodable>(jsonString:String) -> [T] {
+        let jsonData:Data = jsonString.data(using: .utf8)!
+        let decoder = JSONDecoder()
+        let objects = try! decoder.decode([T].self, from: jsonData)
+        return objects;
+    }
+    
+    private static func parseJSONStringToStocks(jsonString:String) -> [Stock] {
+        return parseJSONStringToObjects(jsonString: jsonString)
+    }
     /// 获取所有股票列表（code+name)
     ///
     /// - Parameter callback: <#callback description#>
-    public static func getStockList(callback:@escaping ([Stock]) -> Void ) {
-        if StockServiceProvider.stocks.count > 0 {
-            callback(StockServiceProvider.stocks)
-            return
+    public static func getStockList(byForce:Bool = false,
+                                    callback:@escaping ([Stock]) -> Void ) {
+        if (!byForce) {
+            // Get data from memory cache
+            if StockServiceProvider.stocks.count > 0 {
+                callback(StockServiceProvider.stocks)
+                print("Getting stock data from memory cache")
+                return
+            }
+            // Get data from local
+            if let data = StockDBProvider.loadBasicStocksFromLocal() {
+                let stocks = parseJSONStringToStocks(jsonString: data)
+                StockServiceProvider.stocks = stocks
+                buildStocksMap()
+                callback(stocks)
+                print("Getting block data from local")
+                return;
+            }
         }
+        // Get data from remote
         let provider = MoyaProvider<StockService>()
         provider.request(StockService.getStockList) { result in
             // do something with the result (read on for more details)
             if case let .success(response) = result {
                 let jsonString = try? response.mapString()
                 if jsonString != nil {
-                    let jsonData:Data = jsonString!.data(using: .utf8)!
-                    //let dict = try? JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers)
-                    //print(dict!);
-                    let decoder = JSONDecoder()
-                    let stocks = try! decoder.decode([Stock].self, from: jsonData)
+                    StockDBProvider.saveBasicStocksToLocal(data: jsonString!)
+                    let stocks = parseJSONStringToStocks(jsonString: jsonString!)
                     StockServiceProvider.stocks = stocks
                     buildStocksMap()
                     callback(stocks)
+                    print("Getting stock data from remote")
                 }
             }
         }
     }
     
+    private static func parseJSONStringToBlocks(jsonString:String) -> [Block] {
+       return parseJSONStringToObjects(jsonString: jsonString)
+    }
+    
     /// 获取所有板块列表(code+name+type)
     ///
     /// - Parameter callback: <#callback description#>
-    public static func getBlockList(callback:@escaping ([Block]) -> Void ) {
-        if StockServiceProvider.blocks.count > 0 {
-            callback(StockServiceProvider.blocks)
-            return
+    public static func getBlockList(byForce:Bool = false,
+                                    callback:@escaping ([Block]) -> Void ) {
+        if (!byForce) {
+            // Get data from memory cache
+            if StockServiceProvider.blocks.count > 0 {
+                callback(StockServiceProvider.blocks)
+                print("Getting block data from memory cache")
+                return
+            }
+            // Get data from local
+            if let data = StockDBProvider.loadBasicBlocksFromLocal() {
+                let stocks = parseJSONStringToBlocks(jsonString: data)
+                StockServiceProvider.blocks = stocks
+                buildBlocksMap()
+                callback(blocks)
+                print("Getting block data from local")
+                return;
+            }
         }
+        // Get data from remote
         let provider = MoyaProvider<StockService>()
         provider.request(StockService.getBlockList) { result in
             // do something with the result (read on for more details)
             if case let .success(response) = result {
                 let jsonString = try? response.mapString()
                 if jsonString != nil {
-                    let jsonData:Data = jsonString!.data(using: .utf8)!
-                    //let dict = try? JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers)
-                    //print(dict!);
-                    let decoder = JSONDecoder()
-                    let blocks = try! decoder.decode([Block].self, from: jsonData)
+                    StockDBProvider.saveBasicBlocksToLocal(data: jsonString!)
+                    let blocks = parseJSONStringToBlocks(jsonString: jsonString!)
                     StockServiceProvider.blocks = blocks
                     buildBlocksMap()
                     callback(blocks)
+                    print("Getting block data from remote")
                 }
             }
         }
@@ -121,10 +167,6 @@ class StockServiceProvider {
     ///
     /// - Parameter callback: <#callback description#>
     public static func getSimpleStock2BlockList(callback:@escaping () -> Void ) {
-        if StockServiceProvider.blocks.count > 0 {
-            callback()
-            return
-        }
         let provider = MoyaProvider<StockService>()
         provider.request(StockService.getSimpleStock2Blocks) { result in
             // do something with the result (read on for more details)
@@ -140,6 +182,26 @@ class StockServiceProvider {
                         stock2blocksCodeMap[stockCode] = blocks;
                     }
                     callback()
+                    let hotblocks = ["5G","国防军工","特高压","人工智能"]
+                    let hotlist = stocks.filter { (stock) -> Bool in
+                        let code = stock.code
+                        var rs:[String] = []
+                        let listblockcodes = stock2blocksCodeMap[code] ?? []
+                        for s in listblockcodes {
+                            let block = blockMap[s]
+                            for hot in hotblocks {
+                                if ( block != nil && (block!.name.contains(hot))) {
+                                    rs.append((block!.name))
+                                }
+                            }
+                            
+                        }
+                        if (rs.count>1) {
+                            print(code,stock.name,rs)
+                            return true
+                        }
+                        return false
+                    }
                 }
             }
         }
@@ -191,6 +253,7 @@ class StockServiceProvider {
         // 股票和板块映射关系(code)
         getSimpleStock2BlockList {
             print("getSimpleStock2BlockList")
+            
         }
     }
     

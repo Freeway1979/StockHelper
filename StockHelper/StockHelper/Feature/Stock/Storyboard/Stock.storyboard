@@ -36,11 +36,11 @@
         <!--自选股-->
         <scene sceneID="yG4-hF-6tq">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Q4G-7q-NUH" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="Q4G-7q-NUH" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="自选股" image="second" id="SgN-DA-3cp"/>
                     <toolbarItems/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UAF-gc-VgV">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
