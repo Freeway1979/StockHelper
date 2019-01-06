@@ -16,7 +16,7 @@
 		06EDD3CE215241990035104B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06EDD3CD215241990035104B /* Assets.xcassets */; };
 		06EDD3D1215241990035104B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06EDD3CF215241990035104B /* LaunchScreen.storyboard */; };
 		06EDD3DC215241990035104B /* StockHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDD3DB215241990035104B /* StockHelperTests.swift */; };
-		06EDD3F0215244280035104B /* StockBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDD3EF215244280035104B /* StockBlock.swift */; };
+		06EDD3F0215244280035104B /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDD3EF215244280035104B /* Block.swift */; };
 		06EDD3F4215245120035104B /* StockBlockChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDD3F3215245120035104B /* StockBlockChange.swift */; };
 		06EDD3F6215247980035104B /* Stock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDD3F5215247980035104B /* Stock.swift */; };
 		06EDD3FA21524B160035104B /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDD3F921524B160035104B /* Message.swift */; };
@@ -35,6 +35,8 @@
 		A14115F721DD8CAA00E1B2BC /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14115F621DD8CAA00E1B2BC /* MessageService.swift */; };
 		A14115F921DD8D2A00E1B2BC /* ServiceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14115F821DD8D2A00E1B2BC /* ServiceConfig.swift */; };
 		A14115FB21DD8DA000E1B2BC /* MessageServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14115FA21DD8DA000E1B2BC /* MessageServiceProvider.swift */; };
+		A18EE06921E15FD800E67D4B /* Study.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A18EE06821E15FD800E67D4B /* Study.storyboard */; };
+		A18EE06B21E1601900E67D4B /* StudyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18EE06A21E1601900E67D4B /* StudyTableViewController.swift */; };
 		A1D44CBA21D9F8730043A4A5 /* StockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D44CB921D9F8730043A4A5 /* StockService.swift */; };
 		A1D44CBC21D9FA500043A4A5 /* StockServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D44CBB21D9FA500043A4A5 /* StockServiceProvider.swift */; };
 		A1F4427F21E0122A00999138 /* BlockStockListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4427E21E0122A00999138 /* BlockStockListViewController.swift */; };
@@ -77,7 +79,7 @@
 		06EDD3D7215241990035104B /* StockHelperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockHelperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		06EDD3DB215241990035104B /* StockHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockHelperTests.swift; sourceTree = "<group>"; };
 		06EDD3DD215241990035104B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		06EDD3EF215244280035104B /* StockBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockBlock.swift; sourceTree = "<group>"; };
+		06EDD3EF215244280035104B /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		06EDD3F3215245120035104B /* StockBlockChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockBlockChange.swift; sourceTree = "<group>"; };
 		06EDD3F5215247980035104B /* Stock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stock.swift; sourceTree = "<group>"; };
 		06EDD3F921524B160035104B /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -99,6 +101,8 @@
 		A14115F621DD8CAA00E1B2BC /* MessageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MessageService.swift; path = "StockHelper/Common/New Group/MessageService.swift"; sourceTree = SOURCE_ROOT; };
 		A14115F821DD8D2A00E1B2BC /* ServiceConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceConfig.swift; sourceTree = "<group>"; };
 		A14115FA21DD8DA000E1B2BC /* MessageServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MessageServiceProvider.swift; path = "StockHelper/Common/New Group/MessageServiceProvider.swift"; sourceTree = SOURCE_ROOT; };
+		A18EE06821E15FD800E67D4B /* Study.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Study.storyboard; sourceTree = "<group>"; };
+		A18EE06A21E1601900E67D4B /* StudyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyTableViewController.swift; sourceTree = "<group>"; };
 		A1D44CB921D9F8730043A4A5 /* StockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StockService.swift; path = StockHelper/Feature/Stock/Storyboard/StockService.swift; sourceTree = SOURCE_ROOT; };
 		A1D44CBB21D9FA500043A4A5 /* StockServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StockServiceProvider.swift; path = StockHelper/Feature/Stock/Storyboard/StockServiceProvider.swift; sourceTree = SOURCE_ROOT; };
 		A1F4427E21E0122A00999138 /* BlockStockListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockStockListViewController.swift; sourceTree = "<group>"; };
@@ -196,6 +200,7 @@
 		06EDD3E7215242380035104B /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				A18EE06521E15F9800E67D4B /* Study */,
 				A1F4429221E1086100999138 /* Setting */,
 				A10E4B3521CE57B40092B671 /* Home */,
 				06F587F221B9281D00D69159 /* Strategy */,
@@ -267,7 +272,7 @@
 		06EDD3EE215243E50035104B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				06EDD3EF215244280035104B /* StockBlock.swift */,
+				06EDD3EF215244280035104B /* Block.swift */,
 				06EDD3F3215245120035104B /* StockBlockChange.swift */,
 			);
 			path = Model;
@@ -421,6 +426,31 @@
 			);
 			name = Service;
 			path = "New Group";
+			sourceTree = "<group>";
+		};
+		A18EE06521E15F9800E67D4B /* Study */ = {
+			isa = PBXGroup;
+			children = (
+				A18EE06721E15FBF00E67D4B /* Storyboard */,
+				A18EE06621E15FB400E67D4B /* ViewController */,
+			);
+			path = Study;
+			sourceTree = "<group>";
+		};
+		A18EE06621E15FB400E67D4B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A18EE06A21E1601900E67D4B /* StudyTableViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		A18EE06721E15FBF00E67D4B /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				A18EE06821E15FD800E67D4B /* Study.storyboard */,
+			);
+			path = Storyboard;
 			sourceTree = "<group>";
 		};
 		A1F4428121E015C700999138 /* DB */ = {
@@ -603,6 +633,7 @@
 				A1F4429621E1089500999138 /* Setting.storyboard in Resources */,
 				A10E4B4321CE5EE00092B671 /* Message.storyboard in Resources */,
 				06EDD3CC215241970035104B /* Main.storyboard in Resources */,
+				A18EE06921E15FD800E67D4B /* Study.storyboard in Resources */,
 				A10E4B4721CE610F0092B671 /* Calculator.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -708,7 +739,8 @@
 				A1F5953B21BD08E400EC5ECB /* MessageViewController.swift in Sources */,
 				06F5881B21BA38B600D69159 /* UITextField+Extension.swift in Sources */,
 				06EDD3C5215241970035104B /* AppDelegate.swift in Sources */,
-				06EDD3F0215244280035104B /* StockBlock.swift in Sources */,
+				06EDD3F0215244280035104B /* Block.swift in Sources */,
+				A18EE06B21E1601900E67D4B /* StudyTableViewController.swift in Sources */,
 				A1F4427F21E0122A00999138 /* BlockStockListViewController.swift in Sources */,
 				A1F5953621BCEDA400EC5ECB /* StackView.swift in Sources */,
 				06F587FE21B9312700D69159 /* SymmetryViewController.swift in Sources */,

@@ -22,7 +22,7 @@ class BlockStockListViewController: UIViewController,UITableViewDelegate,UITable
         let rect:CGRect = self.view.bounds;
         let tableView = UITableView(frame: rect)
 //        tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: "reuseIdentifier")
-        self.title = self.block?.name
+        self.title = self.block?.block.name
         tableView.delegate = self;
         tableView.dataSource = self
         self.tableView = tableView

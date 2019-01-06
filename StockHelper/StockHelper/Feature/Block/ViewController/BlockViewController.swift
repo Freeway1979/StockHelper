@@ -16,7 +16,6 @@ class BlockViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         super.viewDidLoad()
         let rect:CGRect = self.view.bounds;
         let tableView = UITableView(frame: rect)
-        tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: "reuseIdentifier")
         tableView.delegate = self;
         tableView.dataSource = self
         self.tableView = tableView
@@ -29,7 +28,22 @@ class BlockViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     }
     
     func refreshTableView(blocks:[Block]) -> Void {
-        self.blocks = blocks;
+//        //Sort blocks
+//        let sorted = blocks.sorted { (b1, b2) -> Bool in
+//            let hotblock1 = StockServiceProvider.getHotBlock(blockcode: b1.code)
+//            let hotblock2 = StockServiceProvider.getHotBlock(blockcode: b2.code)
+//            let hb1 = hotblock1 == nil ? "B":"A"
+//            let hb2 = hotblock2 == nil ? "B":"A"
+//            if (hotblock1 ==  nil && hotblock2 != nil) {
+//                return false
+//            }
+//            if (hotblock1 !=  nil && hotblock2 == nil) {
+//                return true
+//            }
+//            let hblevel1 = hotblock1!.hotLevel == .NoLevel ? "A": String(hotblock1!.hotLevel.rawValue)
+//        }
+//        self.blocks = sorted;
+        self.blocks = blocks
         self.tableView!.reloadData()
     }
     // MARK: - Table view data source
@@ -45,13 +59,18 @@ class BlockViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-        
+        let cellId = "reuseIdentifier"
+        var cell = tableView.dequeueReusableCell(withIdentifier: cellId)
+        if cell == nil {
+            cell = UITableViewCell (style: .subtitle, reuseIdentifier: cellId)
+        }
         // Configure the cell...
         let block = self.blocks[indexPath.row];
-        cell.textLabel!.text = "\(block.code) \(block.name)";
+        cell?.accessoryType = .disclosureIndicator
+        cell?.textLabel?.text = block.name;
+        cell?.detailTextLabel?.text = self.getBlockSubtitle(block: block)
         
-        return cell
+        return cell!
     }
     
     
@@ -92,11 +111,50 @@ class BlockViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         self.gotoBlockStockListScreen(block: block)
     }
     
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let setImportantAction = UITableViewRowAction(style: UITableViewRowAction.Style.normal,
+                                                title: "设为重点") {[weak self] (rowAction, indexPath) in
+                                                    let block = self!.blocks[indexPath.row]
+            StockServiceProvider.setImportantBlock(block: block, importantLevel: .Level1)
+                                                    self?.tableView?.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+                                                    
+        }
+        setImportantAction.backgroundEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        setImportantAction.backgroundColor = UIColor.orange
+        
+        let setHotAction = UITableViewRowAction(style: UITableViewRowAction.Style.normal,
+                                                title: "设为热门") { [weak self] (rowAction, indexPath) in
+                                                    let block = self!.blocks[indexPath.row]
+          StockServiceProvider.setHotBlock(block: block, hotLevel: .Level1)
+                                                         self?.tableView?.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+        }
+        setHotAction.backgroundEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        setHotAction.backgroundColor = UIColor.red
+        return [setHotAction,setImportantAction]
+    }
+    
     private func gotoBlockStockListScreen(block:Block2Stocks) {
         let storyboard = UIStoryboard(name: "Block", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "BlockStockListViewController") as! BlockStockListViewController
         vc.block = block;
         self.navigationController?.navigationController?.pushViewController(vc, animated: true);
+    }
+    
+    private func getBlockSubtitle(block:Block) -> String {
+        let code = block.code
+        let type = block.type.localizedString
+        let hotblock = StockServiceProvider.getHotBlock(blockcode: code)
+        var rs = "\(code) \(type)"
+        if (hotblock != nil) {
+            if (hotblock?.hotLevel != .NoLevel) {
+                rs = "\(rs) 热门"
+            }
+            if (hotblock?.importantLevel != .NoLevel) {
+                rs = "\(rs) 重点"
+            }
+        }
+        return rs
     }
     
 }

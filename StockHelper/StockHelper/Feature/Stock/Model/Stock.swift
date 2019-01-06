@@ -8,6 +8,24 @@
 
 import Foundation
 
+public enum HotLevel:Int {
+    case NoLevel = 0
+    case Level1 = 1
+    case Level2
+    case Level3
+    case Level4
+    case Level5
+    case Level6
+    case Level7
+    case Level8
+    case Level9
+    case Level10
+}
+
+public protocol HotLevelable {
+    var hotLevel: HotLevel { get set }
+    var importantLevel: HotLevel { get set }
+}
 class Stock:Decodable {
     var code:String = "";
     var name:String = "";
@@ -17,6 +35,14 @@ class Stock:Decodable {
     }
 }
 
+class HotStock:HotLevelable {
+    var stock:Stock
+    var hotLevel:HotLevel = .NoLevel
+    var importantLevel:HotLevel = .NoLevel
+    init(stock:Stock) {
+        self.stock = stock
+    }
+}
 
 class Stock2Blocks:Stock {
     init(stock:Stock) {
