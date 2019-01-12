@@ -21,10 +21,10 @@ class StockServiceProvider {
     private static var hotStockMap:[String:HotStock] = [:]
     private static var hotBlockMap:[String:HotBlock] = [:]
     
-    public static func getBlockByCode(_ code:String) -> Block {
+    public static func getBlock(by code:String) -> Block {
         return blockMap[code]!
     }
-    public static func getStockByCode(_ code:String) -> Stock {
+    public static func getStock(by code:String) -> Stock {
         return stockMap[code]!
     }
     public static func getStockCodeListByBlockCode(_ code:String) -> [String] {
@@ -227,6 +227,16 @@ class StockServiceProvider {
         return block
     }
     
+    /// 获取所有热门板块列表
+    ///
+    /// - Returns: <#return value description#>
+    public static func getHotBlocks() -> [HotBlock] {
+        let rs = self.hotBlockMap.map { (item) -> HotBlock in
+            let (_, block) = item
+            return block
+        }
+        return rs
+    }
     public static func getSyncHotBlocks() -> [HotBlock] {
         let hotblocks = StockDBProvider.loadHotBlocksFromLocal()
         if(hotblocks?.count ?? 0 > 0) {
@@ -266,7 +276,20 @@ class StockServiceProvider {
         }
         return rs
     }
-    
+    public static func getStockCodeList(of blockCode:String) -> [String] {
+        let rs = block2stocksCodeMap[blockCode]
+        if rs == nil {
+            return []
+        }
+        return rs!
+    }
+    public static func getBlockCodeList(of stockCode:String) -> [String] {
+        let rs = stock2blocksCodeMap[stockCode]
+        if rs == nil {
+            return []
+        }
+        return rs!
+    }
     public static func getSyncHotStocks() -> [Stock] {
         let list = Array(stocks[0...4])
         return list

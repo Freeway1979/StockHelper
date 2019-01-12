@@ -26,7 +26,15 @@ public protocol HotLevelable {
     var hotLevel: HotLevel { get set }
     var importantLevel: HotLevel { get set }
 }
-class Stock:Decodable {
+class Stock:Decodable,Hashable {
+    static func == (lhs: Stock, rhs: Stock) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+    var hashValue:Int {
+        get {
+            return "\(self.code)_\(self.name)".hashValue
+        }
+    }
     var code:String = "";
     var name:String = "";
     enum CodingKeys : String, CodingKey {
@@ -50,7 +58,7 @@ class Stock2Blocks:Stock {
         self.code = stock.code
         self.name = stock.name
     }
-    
+    lazy var blocks:[Block] = []
     required init(from decoder: Decoder) throws {
 //        fatalError("init(from:) has not been implemented")
         try super.init(from: decoder)

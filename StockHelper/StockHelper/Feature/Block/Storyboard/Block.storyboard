@@ -10,6 +10,38 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--热门板块-->
+        <scene sceneID="LJj-sH-6kI">
+            <objects>
+                <collectionViewController storyboardIdentifier="HotBlockViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9vQ-Dp-vAo" customClass="HotBlockViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="teV-Im-Gyu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="imm-Y2-Jht">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells/>
+                        <connections>
+                            <outlet property="dataSource" destination="9vQ-Dp-vAo" id="ebZ-W9-aqs"/>
+                            <outlet property="delegate" destination="9vQ-Dp-vAo" id="xLP-0r-LDe"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" title="热门板块" id="BK9-Kj-GUa">
+                        <barButtonItem key="leftBarButtonItem" title="菜单" id="yam-9L-Ipa">
+                            <connections>
+                                <action selector="toggleSideMenuBtn:" destination="9vQ-Dp-vAo" id="78s-CD-3eh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ENG-ZD-Na5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2069.5999999999999" y="-861.3193403298352"/>
+        </scene>
         <!--板块-->
         <scene sceneID="TrZ-ew-dcT">
             <objects>
@@ -17,12 +49,48 @@
                     <view key="view" contentMode="scaleToFill" id="Bh0-C9-4tr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="xUH-wR-bRH">
+                                <rect key="frame" x="0.0" y="20" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kSf-YW-JO6">
+                                <rect key="frame" x="0.0" y="76" width="375" height="591"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Tlw-2x-KPk" firstAttribute="trailing" secondItem="kSf-YW-JO6" secondAttribute="trailing" id="F6f-Wx-Ehs"/>
+                            <constraint firstItem="kSf-YW-JO6" firstAttribute="leading" secondItem="Tlw-2x-KPk" secondAttribute="leading" id="GvL-Ne-HzI"/>
+                            <constraint firstItem="xUH-wR-bRH" firstAttribute="top" secondItem="Tlw-2x-KPk" secondAttribute="top" id="ICf-Qn-TWl"/>
+                            <constraint firstItem="kSf-YW-JO6" firstAttribute="top" secondItem="xUH-wR-bRH" secondAttribute="bottom" id="LJP-fG-7j2"/>
+                            <constraint firstItem="xUH-wR-bRH" firstAttribute="trailing" secondItem="Tlw-2x-KPk" secondAttribute="trailing" id="mDD-C8-hZb"/>
+                            <constraint firstItem="Tlw-2x-KPk" firstAttribute="bottom" secondItem="kSf-YW-JO6" secondAttribute="bottom" id="r4X-xn-kIE"/>
+                            <constraint firstItem="xUH-wR-bRH" firstAttribute="leading" secondItem="Tlw-2x-KPk" secondAttribute="leading" id="vB6-hu-ZRz"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Tlw-2x-KPk"/>
                     </view>
                     <navigationItem key="navigationItem" title="板块" id="bGs-nF-gAX"/>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="mTq-iL-an1" id="TCw-va-pB4"/>
+                        <outlet property="searchbar" destination="xUH-wR-bRH" id="XOJ-ts-bJD"/>
+                        <outlet property="tableView" destination="kSf-YW-JO6" id="ge5-AA-PGr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gQY-a2-0o7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="mTq-iL-an1">
+                    <connections>
+                        <outlet property="delegate" destination="VZa-Hd-nJq" id="3Wo-Rl-ob9"/>
+                        <outlet property="searchContentsController" destination="VZa-Hd-nJq" id="daU-wX-nfS"/>
+                        <outlet property="searchResultsDataSource" destination="VZa-Hd-nJq" id="a21-eI-O1f"/>
+                        <outlet property="searchResultsDelegate" destination="VZa-Hd-nJq" id="jI6-7n-1x9"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1076" y="106.59670164917542"/>
         </scene>
@@ -59,6 +127,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CBf-w1-T2d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="133.59999999999999" y="765.96701649175418"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="hou-Ky-Adf">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Dim-8d-MFf" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="NQk-9c-kVO">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="9vQ-Dp-vAo" kind="relationship" relationship="rootViewController" id="vyo-uN-uiY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ri7-sT-1pg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1130.4000000000001" y="-861.3193403298352"/>
         </scene>
     </scenes>
     <resources>

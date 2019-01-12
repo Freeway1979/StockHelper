@@ -9,17 +9,23 @@
 import UIKit
 import Moya
 
-class BlockViewController: UIViewController,UITableViewDelegate,UITableViewDataSource{
-    private var tableView:UITableView?;
+class BlockViewController: UIViewController,
+                            UITableViewDelegate,
+                            UITableViewDataSource,
+    UISearchBarDelegate
+{
+    
+    @IBOutlet weak var searchbar: UISearchBar!
+    @IBOutlet weak var tableView: UITableView!
     private var blocks:[Block] = [];
+    private var keyword:String = ""
+    private var displayedItems:[Block] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let rect:CGRect = self.view.bounds;
-        let tableView = UITableView(frame: rect)
         tableView.delegate = self;
         tableView.dataSource = self
-        self.tableView = tableView
-        self.view.addSubview(tableView)
+        self.searchbar.delegate = self
         // Do any additional setup after loading the view, typically from a nib.
         
         StockServiceProvider.getBlockList {[weak self] (blocks) in
@@ -28,24 +34,20 @@ class BlockViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     }
     
     func refreshTableView(blocks:[Block]) -> Void {
-//        //Sort blocks
-//        let sorted = blocks.sorted { (b1, b2) -> Bool in
-//            let hotblock1 = StockServiceProvider.getHotBlock(blockcode: b1.code)
-//            let hotblock2 = StockServiceProvider.getHotBlock(blockcode: b2.code)
-//            let hb1 = hotblock1 == nil ? "B":"A"
-//            let hb2 = hotblock2 == nil ? "B":"A"
-//            if (hotblock1 ==  nil && hotblock2 != nil) {
-//                return false
-//            }
-//            if (hotblock1 !=  nil && hotblock2 == nil) {
-//                return true
-//            }
-//            let hblevel1 = hotblock1!.hotLevel == .NoLevel ? "A": String(hotblock1!.hotLevel.rawValue)
-//        }
-//        self.blocks = sorted;
-        self.blocks = blocks
-        self.tableView!.reloadData()
+        self.blocks = blocks;
+        self.refreshTableViewBySearch(keyword: "")
     }
+    
+    private func refreshTableViewBySearch(keyword:String) {
+        self.displayedItems = blocks.filter { (block) -> Bool in
+            if (keyword.count == 0) {
+                return true
+            }
+            return block.name.contains(keyword)
+        }
+        self.tableView.reloadData();
+    }
+    
     // MARK: - Table view data source
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -55,7 +57,7 @@ class BlockViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.blocks.count
+        return self.displayedItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -65,7 +67,7 @@ class BlockViewController: UIViewController,UITableViewDelegate,UITableViewDataS
             cell = UITableViewCell (style: .subtitle, reuseIdentifier: cellId)
         }
         // Configure the cell...
-        let block = self.blocks[indexPath.row];
+        let block = self.displayedItems[indexPath.row];
         cell?.accessoryType = .disclosureIndicator
         cell?.textLabel?.text = block.name;
         cell?.detailTextLabel?.text = self.getBlockSubtitle(block: block)
@@ -104,7 +106,7 @@ class BlockViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = indexPath.row;
-        let basicBlock = self.blocks[row]
+        let basicBlock = self.displayedItems[row]
         print("Block \(basicBlock.name) clicked")
 
         let block = StockServiceProvider.getSyncBlockStocksDetail(basicBlock: basicBlock)
@@ -115,7 +117,7 @@ class BlockViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         
         let setImportantAction = UITableViewRowAction(style: UITableViewRowAction.Style.normal,
                                                 title: "设为重点") {[weak self] (rowAction, indexPath) in
-                                                    let block = self!.blocks[indexPath.row]
+                                                    let block = self!.displayedItems[indexPath.row]
             StockServiceProvider.setImportantBlock(block: block, importantLevel: .Level1)
                                                     self?.tableView?.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
                                                     
@@ -125,7 +127,7 @@ class BlockViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         
         let setHotAction = UITableViewRowAction(style: UITableViewRowAction.Style.normal,
                                                 title: "设为热门") { [weak self] (rowAction, indexPath) in
-                                                    let block = self!.blocks[indexPath.row]
+                                                    let block = self!.displayedItems[indexPath.row]
           StockServiceProvider.setHotBlock(block: block, hotLevel: .Level1)
                                                          self?.tableView?.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
         }
@@ -157,5 +159,16 @@ class BlockViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         return rs
     }
     
+    // MARK:UISearchBarDelegate
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print(searchText)
+        self.refreshTableViewBySearch(keyword: searchText)
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.refreshTableViewBySearch(keyword: "")
+    }
 }
 

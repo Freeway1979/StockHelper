@@ -36,6 +36,7 @@ class Block:Decodable {
     }
 }
 
+/// TODO: 使用Extension实现比较好
 class HotBlock:HotLevelable {
     var block:Block
     static var NoLevel = -1

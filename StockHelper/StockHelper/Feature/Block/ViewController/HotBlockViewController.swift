@@ -1,20 +1,48 @@
 //
 //  HotBlockViewController.swift
-//  HelloCollectionView
+//  StockHelper
 //
-//  Created by andyli2 on 2019/1/10.
-//  Copyright © 2019 Apple. All rights reserved.
+//  Created by Andy Liu on 2019/1/10.
+//  Copyright © 2019 Andy Liu. All rights reserved.
 //
 
 import UIKit
+import ObjectiveC
 
-fileprivate let reuseIdentifier = "StockCollectionViewCell"
-fileprivate let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
 
+fileprivate let tagReuseIdentifier = "TagCollectionViewCell"
+fileprivate let stockReuseIdentifier = "StockCollectionViewCell"
+fileprivate let headerReuseIdentifier = "HeaderCollectionView"
+fileprivate let columns = 4
+fileprivate let sectionInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+fileprivate let stockSectionInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+
+// MARK: add selected to hot block item
+// Declare a global var to produce a unique address as the assoc object handle
+private var AssociatedObjectHandle: UInt8 = 0
+
+extension HotBlock {
+    var selected: Bool {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedObjectHandle) as? Bool ?? true
+        }
+        set {
+            objc_setAssociatedObject(self, &AssociatedObjectHandle, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+}
 
 class HotBlockViewController: UICollectionViewController {
     
-    private var displayedItems:[Stock] = []
+    enum SectionType:Int {
+        case hotBlock = 0
+        case associatedStocks = 1
+    }
+    
+    private var hotblocks:[HotBlock] = []
+    private var associatedStocks:[Stock2Blocks] = []
+
+    private var headerTitles = ["热门板块","关联股票"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,60 +51,133 @@ class HotBlockViewController: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView.register(UINib(nibName: "StockCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
-
-        self.displayedItems = self.prepareData()
-        self.collectionView.reloadData()
+        self.collectionView.register(UINib(nibName:tagReuseIdentifier, bundle: nil), forCellWithReuseIdentifier: tagReuseIdentifier)
+        self.collectionView.register(UINib(nibName:stockReuseIdentifier, bundle: nil), forCellWithReuseIdentifier: stockReuseIdentifier)
+        self.collectionView.register(UINib(nibName: headerReuseIdentifier,bundle:nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier)
+        
+//        self.collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "CollectionHeaderView")
+        
+        self.prepareData()
+        
+        
         // Do any additional setup after loading the view.
     }
 
-    private func prepareData() -> [Stock] {
-        var ss:[Stock] = []
-        for i in 10...40 {
-            let stock = Stock(code: "3000\(i)", name: "名字\(i)")
-            ss.append(stock)
-        }
-        return ss;
+    private func prepareData() {
+       self.hotblocks = StockUtils.getHotBlocks()
+       for item in self.hotblocks {
+            item.selected = true
+       }
+       self.refreashCollectionViewData()
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    
+    private func refreashCollectionViewData() {
+        let selectedHotblocks = hotblocks.filter({ (block) -> Bool in
+            return block.selected
+        })
+        self.associatedStocks = StockUtils.getAssociatedStockList(of: selectedHotblocks)
+        self.collectionView.reloadData()
     }
-    */
+    
+    private func toggleHotBlock(of block:HotBlock?) {
+        block?.selected = !(block?.selected)!
+        self.refreashCollectionViewData()
+    }
 }
 
 // MARK: UICollectionViewDataSource
 extension HotBlockViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 2
     }
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return self.displayedItems.count
+        if section == SectionType.hotBlock.rawValue {
+            return self.hotblocks.count
+        }
+        else if (section == SectionType.associatedStocks.rawValue) {
+            return self.associatedStocks.count
+        }
+        return 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let item = self.displayedItems[indexPath.row]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-            as! StockCollectionViewCell
-        
-        cell.bgColor = indexPath.row % 2 == 0 ? UIColor.red : UIColor.orange
-        cell.textColor = UIColor.white
-        cell.text = item.name
-     
-        cell.onClicked = { () -> Void in
-            print("Button clicked:\(cell.text!)")
+        let section = indexPath.section
+        let row = indexPath.row
+        if section == SectionType.hotBlock.rawValue {
+            let item = self.hotblocks[row]
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tagReuseIdentifier, for: indexPath)
+                as! TagCollectionViewCell
+            
+            cell.contentButton.style = item.selected ? .Primary : .Default
+            
+            cell.contentButton.text = item.block.name
+            
+            cell.contentButton.userInfo = item
+            
+            cell.onClicked = { () -> Void in
+                print("Button clicked:\(cell.contentButton.text!)")
+                self.toggleHotBlock(of: item)
+            }
+            // Configure the cell
+            
+            return cell
         }
-        // Configure the cell
+        else if (section == SectionType.associatedStocks.rawValue) {
+            let item = self.associatedStocks[row]
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: stockReuseIdentifier, for: indexPath)
+                as! StockCollectionViewCell
+            cell.stockNameLabel.text = item.name
+            let stackView = cell.containerView
+            let blocks = item.blocks
+            var width = Int(UIScreen.main.bounds.size.width / CGFloat(columns))
+            if width < Int(Theme.TagButton.width) {
+                width = Int(Theme.TagButton.width)
+            }
+            var count = 0
+            for block in blocks {
+                let blockView = Bundle.main.loadNibNamed(String(describing: TagButton.self), owner: self, options: nil)?.first as! TagButton
+                blockView.text = block.name
+                blockView.style = .Secondary
+                blockView.frame = CGRect(x: count * (width+10), y: 5, width: width, height: Int(Theme.TagButton.height))
+                stackView!.addSubview(blockView)
+                count = count + 1
+            }
+            
+            return cell
+        }
         
+        // never go here
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: stockReuseIdentifier, for: indexPath)
         return cell
+    }
+    
+    // Header
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+//        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "CollectionHeaderView", for: indexPath)
+//        let label = UILabel(frame: CGRect(x: 15, y: 15, width: 200, height: 30))
+//        label.text = headerTitles[indexPath.section]
+//        view.addSubview(label)
+//        return view
+        
+        //1
+        switch kind {
+        //2
+        case UICollectionView.elementKindSectionHeader:
+            //3
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                             withReuseIdentifier: headerReuseIdentifier,
+                                                                             for: indexPath) as! HeaderCollectionView
+            headerView.contentLabel.text = headerTitles[indexPath.section]
+            return headerView
+        default:
+            //4
+            assert(false, "Unexpected element kind")
+        }
+        
     }
 }
 
@@ -118,16 +219,70 @@ extension HotBlockViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 80, height: 30)
+        
+        let row = indexPath.row
+        let screenWidth = UIScreen.main.bounds.size.width;
+        let height = Theme.CellView.height
+        var width = Int(UIScreen.main.bounds.size.width / CGFloat(columns))
+        if width < Int(Theme.TagButton.width) {
+            width = Int(Theme.TagButton.width)
+        }
+        if indexPath.section == SectionType.associatedStocks.rawValue {
+            let item = self.associatedStocks[row]
+            let rows:Float = Float(item.blocks.count / columns) + 1.0
+            let height:Float = 40 + height * rows
+            return CGSize(width: screenWidth, height: CGFloat(height))
+        }
+        return CGSize(width: width, height: Int(height))
     }
     //3
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
+        if section == SectionType.associatedStocks.rawValue {
+            return stockSectionInsets
+        }
         return sectionInsets
     }
     // 4
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return sectionInsets.left
+        if section == SectionType.hotBlock.rawValue {
+            return 10
+        }
+        return 0
+    }
+    
+    // 5
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: self.view.frame.size.width, height: CGFloat(Theme.CollectionHeaderView.height))
+    }
+}
+    
+extension HotBlockViewController:ENSideMenuDelegate {
+    
+    @IBAction func toggleSideMenuBtn(_ sender: UIBarButtonItem) {
+        toggleSideMenuView()
+    }
+    
+    // MARK: - ENSideMenu Delegate
+    func sideMenuWillOpen() {
+        print("sideMenuWillOpen")
+    }
+    
+    func sideMenuWillClose() {
+        print("sideMenuWillClose")
+    }
+    
+    func sideMenuShouldOpenSideMenu() -> Bool {
+        print("sideMenuShouldOpenSideMenu")
+        return true
+    }
+    
+    func sideMenuDidClose() {
+        print("sideMenuDidClose")
+    }
+    
+    func sideMenuDidOpen() {
+        print("sideMenuDidOpen")
     }
 }

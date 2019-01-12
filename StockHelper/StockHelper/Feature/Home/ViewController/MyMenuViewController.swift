@@ -38,6 +38,8 @@ class MyMenuTableViewController: UITableViewController {
     private func setupMenu() {
         var menu = Menu(title: "主页", storyboardName: "Main", storyboardId: "MainViewController")
         menuData.append(menu)
+        menu = Menu(title: "热门板块", storyboardName: "Block", storyboardId: "HotBlockViewController")
+        menuData.append(menu)
         menu = Menu(title: "股票知识", storyboardName: "Study", storyboardId: "StudyTableViewController")
         menuData.append(menu)
         menu = Menu(title: "设置", storyboardName: "Setting", storyboardId: "SettingViewController")

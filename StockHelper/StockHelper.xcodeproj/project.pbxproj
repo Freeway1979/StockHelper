@@ -31,14 +31,27 @@
 		A10E4B4721CE610F0092B671 /* Calculator.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A10E4B4621CE610F0092B671 /* Calculator.storyboard */; };
 		A10E4B4921CE67260092B671 /* Stock.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A10E4B4821CE67260092B671 /* Stock.storyboard */; };
 		A10E4B4B21CE67D20092B671 /* Block.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A10E4B4A21CE67D20092B671 /* Block.storyboard */; };
+		A12A18C621E954B0004294B5 /* TagButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = A12A18C521E954B0004294B5 /* TagButton.xib */; };
+		A12A18C821E9557B004294B5 /* TagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A18C721E9557B004294B5 /* TagButton.swift */; };
+		A12A18CA21E95C64004294B5 /* StockUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A18C921E95C64004294B5 /* StockUtils.swift */; };
+		A12A18D121E9CA3D004294B5 /* HeaderCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A18CF21E9CA3D004294B5 /* HeaderCollectionView.swift */; };
+		A12A18D221E9CA3D004294B5 /* HeaderCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A12A18D021E9CA3D004294B5 /* HeaderCollectionView.xib */; };
+		A12A18D521E9DE18004294B5 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A18D421E9DE18004294B5 /* Theme.swift */; };
 		A132955921DB523C00A3B156 /* RemoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A132955821DB523C00A3B156 /* RemoteService.swift */; };
 		A14115F721DD8CAA00E1B2BC /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14115F621DD8CAA00E1B2BC /* MessageService.swift */; };
 		A14115F921DD8D2A00E1B2BC /* ServiceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14115F821DD8D2A00E1B2BC /* ServiceConfig.swift */; };
 		A14115FB21DD8DA000E1B2BC /* MessageServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14115FA21DD8DA000E1B2BC /* MessageServiceProvider.swift */; };
 		A18EE06921E15FD800E67D4B /* Study.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A18EE06821E15FD800E67D4B /* Study.storyboard */; };
 		A18EE06B21E1601900E67D4B /* StudyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18EE06A21E1601900E67D4B /* StudyTableViewController.swift */; };
+		A1901AB121E8CBE100F14831 /* StockCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1901AAF21E8CBE000F14831 /* StockCollectionViewCell.swift */; };
+		A1901AB221E8CBE100F14831 /* StockCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1901AB021E8CBE100F14831 /* StockCollectionViewCell.xib */; };
+		A1901AB521E8CBEE00F14831 /* TagCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1901AB321E8CBED00F14831 /* TagCollectionViewCell.xib */; };
+		A1901AB621E8CBEE00F14831 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1901AB421E8CBED00F14831 /* TagCollectionViewCell.swift */; };
 		A1D44CBA21D9F8730043A4A5 /* StockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D44CB921D9F8730043A4A5 /* StockService.swift */; };
 		A1D44CBC21D9FA500043A4A5 /* StockServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D44CBB21D9FA500043A4A5 /* StockServiceProvider.swift */; };
+		A1E1277821E6B76F00527DC0 /* LeadStockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E1277721E6B76F00527DC0 /* LeadStockViewController.swift */; };
+		A1E1277C21E6B99F00527DC0 /* HotBlockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E1277B21E6B99F00527DC0 /* HotBlockViewController.swift */; };
+		A1E1278E21E6C68600527DC0 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E1278D21E6C68600527DC0 /* UIViewController+Alert.swift */; };
 		A1F4427F21E0122A00999138 /* BlockStockListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4427E21E0122A00999138 /* BlockStockListViewController.swift */; };
 		A1F4428521E015FC00999138 /* StockDBProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4428421E015FC00999138 /* StockDBProvider.swift */; };
 		A1F4428C21E0D56A00999138 /* ENSideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4428A21E0D56900999138 /* ENSideMenu.swift */; };
@@ -97,14 +110,27 @@
 		A10E4B4621CE610F0092B671 /* Calculator.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Calculator.storyboard; sourceTree = "<group>"; };
 		A10E4B4821CE67260092B671 /* Stock.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Stock.storyboard; sourceTree = "<group>"; };
 		A10E4B4A21CE67D20092B671 /* Block.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Block.storyboard; sourceTree = "<group>"; };
+		A12A18C521E954B0004294B5 /* TagButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagButton.xib; sourceTree = "<group>"; };
+		A12A18C721E9557B004294B5 /* TagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagButton.swift; sourceTree = "<group>"; };
+		A12A18C921E95C64004294B5 /* StockUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockUtils.swift; sourceTree = "<group>"; };
+		A12A18CF21E9CA3D004294B5 /* HeaderCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionView.swift; sourceTree = "<group>"; };
+		A12A18D021E9CA3D004294B5 /* HeaderCollectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderCollectionView.xib; sourceTree = "<group>"; };
+		A12A18D421E9DE18004294B5 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		A132955821DB523C00A3B156 /* RemoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteService.swift; sourceTree = "<group>"; };
 		A14115F621DD8CAA00E1B2BC /* MessageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MessageService.swift; path = "StockHelper/Common/New Group/MessageService.swift"; sourceTree = SOURCE_ROOT; };
 		A14115F821DD8D2A00E1B2BC /* ServiceConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceConfig.swift; sourceTree = "<group>"; };
 		A14115FA21DD8DA000E1B2BC /* MessageServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MessageServiceProvider.swift; path = "StockHelper/Common/New Group/MessageServiceProvider.swift"; sourceTree = SOURCE_ROOT; };
 		A18EE06821E15FD800E67D4B /* Study.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Study.storyboard; sourceTree = "<group>"; };
 		A18EE06A21E1601900E67D4B /* StudyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyTableViewController.swift; sourceTree = "<group>"; };
+		A1901AAF21E8CBE000F14831 /* StockCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockCollectionViewCell.swift; sourceTree = "<group>"; };
+		A1901AB021E8CBE100F14831 /* StockCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StockCollectionViewCell.xib; sourceTree = "<group>"; };
+		A1901AB321E8CBED00F14831 /* TagCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagCollectionViewCell.xib; sourceTree = "<group>"; };
+		A1901AB421E8CBED00F14831 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		A1D44CB921D9F8730043A4A5 /* StockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StockService.swift; path = StockHelper/Feature/Stock/Storyboard/StockService.swift; sourceTree = SOURCE_ROOT; };
 		A1D44CBB21D9FA500043A4A5 /* StockServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StockServiceProvider.swift; path = StockHelper/Feature/Stock/Storyboard/StockServiceProvider.swift; sourceTree = SOURCE_ROOT; };
+		A1E1277721E6B76F00527DC0 /* LeadStockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadStockViewController.swift; sourceTree = "<group>"; };
+		A1E1277B21E6B99F00527DC0 /* HotBlockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotBlockViewController.swift; sourceTree = "<group>"; };
+		A1E1278D21E6C68600527DC0 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		A1F4427E21E0122A00999138 /* BlockStockListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockStockListViewController.swift; sourceTree = "<group>"; };
 		A1F4428421E015FC00999138 /* StockDBProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDBProvider.swift; sourceTree = "<group>"; };
 		A1F4428A21E0D56900999138 /* ENSideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSideMenu.swift; sourceTree = "<group>"; };
@@ -189,6 +215,7 @@
 		06EDD3E6215242190035104B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A12A18D321E9DE0A004294B5 /* Theme */,
 				A1F4428821E0D54400999138 /* ThirdParty */,
 				A132955721DB521B00A3B156 /* Service */,
 				A1F5953421BCED8B00EC5ECB /* VIew */,
@@ -214,6 +241,7 @@
 		06EDD3E82152423F0035104B /* Block */ = {
 			isa = PBXGroup;
 			children = (
+				A1901AAA21E8CB6000F14831 /* View */,
 				A10E4B2D21CE53040092B671 /* Storyboard */,
 				06EDD3FD21524B480035104B /* Service */,
 				06EDD3EE215243E50035104B /* Model */,
@@ -256,6 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				A10E4B3021CE543B0092B671 /* MyStocksViewController.swift */,
+				A1E1277721E6B76F00527DC0 /* LeadStockViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -265,6 +294,7 @@
 			children = (
 				A1F4427E21E0122A00999138 /* BlockStockListViewController.swift */,
 				06EDD3C8215241970035104B /* BlockViewController.swift */,
+				A1E1277B21E6B99F00527DC0 /* HotBlockViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -317,6 +347,7 @@
 				A1F4428121E015C700999138 /* DB */,
 				A1D44CB921D9F8730043A4A5 /* StockService.swift */,
 				A1D44CBB21D9FA500043A4A5 /* StockServiceProvider.swift */,
+				A12A18C921E95C64004294B5 /* StockUtils.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -371,6 +402,7 @@
 			children = (
 				06F5881A21BA38B600D69159 /* UITextField+Extension.swift */,
 				065248B121C21D7C0047405C /* Float+Format.swift */,
+				A1E1278D21E6C68600527DC0 /* UIViewController+Alert.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -418,6 +450,14 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		A12A18D321E9DE0A004294B5 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				A12A18D421E9DE18004294B5 /* Theme.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
 		A132955721DB521B00A3B156 /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -451,6 +491,17 @@
 				A18EE06821E15FD800E67D4B /* Study.storyboard */,
 			);
 			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		A1901AAA21E8CB6000F14831 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A1901AAF21E8CBE000F14831 /* StockCollectionViewCell.swift */,
+				A1901AB021E8CBE100F14831 /* StockCollectionViewCell.xib */,
+				A12A18CF21E9CA3D004294B5 /* HeaderCollectionView.swift */,
+				A12A18D021E9CA3D004294B5 /* HeaderCollectionView.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		A1F4428121E015C700999138 /* DB */ = {
@@ -506,7 +557,11 @@
 		A1F5953421BCED8B00EC5ECB /* VIew */ = {
 			isa = PBXGroup;
 			children = (
+				A1901AB421E8CBED00F14831 /* TagCollectionViewCell.swift */,
+				A1901AB321E8CBED00F14831 /* TagCollectionViewCell.xib */,
 				A1F5953521BCEDA400EC5ECB /* StackView.swift */,
+				A12A18C521E954B0004294B5 /* TagButton.xib */,
+				A12A18C721E9557B004294B5 /* TagButton.swift */,
 			);
 			path = VIew;
 			sourceTree = "<group>";
@@ -625,8 +680,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1901AB221E8CBE100F14831 /* StockCollectionViewCell.xib in Resources */,
+				A12A18C621E954B0004294B5 /* TagButton.xib in Resources */,
 				A10E4B4521CE5FED0092B671 /* Home.storyboard in Resources */,
+				A12A18D221E9CA3D004294B5 /* HeaderCollectionView.xib in Resources */,
 				06EDD3D1215241990035104B /* LaunchScreen.storyboard in Resources */,
+				A1901AB521E8CBEE00F14831 /* TagCollectionViewCell.xib in Resources */,
 				A10E4B4B21CE67D20092B671 /* Block.storyboard in Resources */,
 				06EDD3CE215241990035104B /* Assets.xcassets in Resources */,
 				A10E4B4921CE67260092B671 /* Stock.storyboard in Resources */,
@@ -727,6 +786,7 @@
 				A1F4428521E015FC00999138 /* StockDBProvider.swift in Sources */,
 				A1F5953121BCCF1500EC5ECB /* MAStrategyViewController.swift in Sources */,
 				06F587F921B928BF00D69159 /* CalculatorViewController.swift in Sources */,
+				A1901AB121E8CBE100F14831 /* StockCollectionViewCell.swift in Sources */,
 				06EDD3F4215245120035104B /* StockBlockChange.swift in Sources */,
 				A1D44CBC21D9FA500043A4A5 /* StockServiceProvider.swift in Sources */,
 				A1F4428D21E0D56A00999138 /* ENSideMenuNavigationController.swift in Sources */,
@@ -735,17 +795,25 @@
 				A1F4428F21E0D6F000999138 /* MyNavigationController.swift in Sources */,
 				A14115F921DD8D2A00E1B2BC /* ServiceConfig.swift in Sources */,
 				A1F4429821E108B800999138 /* SettingViewController.swift in Sources */,
+				A12A18D121E9CA3D004294B5 /* HeaderCollectionView.swift in Sources */,
 				A1F4428C21E0D56A00999138 /* ENSideMenu.swift in Sources */,
 				A1F5953B21BD08E400EC5ECB /* MessageViewController.swift in Sources */,
 				06F5881B21BA38B600D69159 /* UITextField+Extension.swift in Sources */,
 				06EDD3C5215241970035104B /* AppDelegate.swift in Sources */,
+				A1901AB621E8CBEE00F14831 /* TagCollectionViewCell.swift in Sources */,
+				A12A18D521E9DE18004294B5 /* Theme.swift in Sources */,
 				06EDD3F0215244280035104B /* Block.swift in Sources */,
+				A12A18C821E9557B004294B5 /* TagButton.swift in Sources */,
+				A1E1277C21E6B99F00527DC0 /* HotBlockViewController.swift in Sources */,
 				A18EE06B21E1601900E67D4B /* StudyTableViewController.swift in Sources */,
 				A1F4427F21E0122A00999138 /* BlockStockListViewController.swift in Sources */,
 				A1F5953621BCEDA400EC5ECB /* StackView.swift in Sources */,
+				A12A18CA21E95C64004294B5 /* StockUtils.swift in Sources */,
 				06F587FE21B9312700D69159 /* SymmetryViewController.swift in Sources */,
 				A14115F721DD8CAA00E1B2BC /* MessageService.swift in Sources */,
 				065248B421C226C30047405C /* MainViewController.swift in Sources */,
+				A1E1277821E6B76F00527DC0 /* LeadStockViewController.swift in Sources */,
+				A1E1278E21E6C68600527DC0 /* UIViewController+Alert.swift in Sources */,
 				A10E4B3121CE543B0092B671 /* MyStocksViewController.swift in Sources */,
 				A1F5953321BCDF9200EC5ECB /* MAType.swift in Sources */,
 			);
