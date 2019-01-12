@@ -39,11 +39,22 @@ class BlockViewController: UIViewController,
     }
     
     private func refreshTableViewBySearch(keyword:String) {
+        let isChinese = keyword.isIncludeChinese()
         self.displayedItems = blocks.filter { (block) -> Bool in
             if (keyword.count == 0) {
                 return true
             }
-            return block.name.contains(keyword)
+            if isChinese {
+                return block.name.contains(keyword)
+            }
+            let isCode = keyword.hasPrefix("00")
+                || keyword.hasPrefix("30")
+                || keyword.hasPrefix("88")
+                || keyword.hasPrefix("60")
+            if isCode {
+                return block.code.contains(keyword)
+            }
+            return block.pinyin.contains(keyword.lowercased())
         }
         self.tableView.reloadData();
     }

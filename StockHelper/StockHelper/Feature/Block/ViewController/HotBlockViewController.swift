@@ -177,7 +177,7 @@ extension HotBlockViewController {
             //4
             assert(false, "Unexpected element kind")
         }
-        
+        return UICollectionViewCell(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     }
 }
 

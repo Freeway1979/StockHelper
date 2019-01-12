@@ -72,6 +72,10 @@ class StockServiceProvider {
             // Get data from local
             if let data = StockDBProvider.loadBasicStocksFromLocal() {
                 let stocks = parseJSONStringToStocks(jsonString: data)
+                let pinyinMap = StockDBProvider.loadStockPinYinFromLocal()
+                for item in stocks {
+                    item.pinyin = pinyinMap[item.code] ?? ""
+                }
                 StockServiceProvider.stocks = stocks
                 buildStocksMap()
                 callback(stocks)
@@ -91,6 +95,7 @@ class StockServiceProvider {
                     StockServiceProvider.stocks = stocks
                     buildStocksMap()
                     callback(stocks)
+                    translateStocks2PinYin(stocks: stocks)
                     print("Getting stock data from remote")
                 }
             }
@@ -115,8 +120,12 @@ class StockServiceProvider {
             }
             // Get data from local
             if let data = StockDBProvider.loadBasicBlocksFromLocal() {
-                let stocks = parseJSONStringToBlocks(jsonString: data)
-                StockServiceProvider.blocks = stocks
+                let blocks = parseJSONStringToBlocks(jsonString: data)
+                let pinyinMap = StockDBProvider.loadBlockPinYinFromLocal()
+                for item in blocks {
+                    item.pinyin = pinyinMap[item.code] ?? ""
+                }
+                StockServiceProvider.blocks = blocks
                 buildBlocksMap()
                 callback(blocks)
                 print("Getting block data from local")
@@ -135,6 +144,7 @@ class StockServiceProvider {
                     StockServiceProvider.blocks = blocks
                     buildBlocksMap()
                     callback(blocks)
+                    translateBlocks2PinYin(blocks: blocks)
                     print("Getting block data from remote")
                 }
             }
@@ -432,16 +442,42 @@ class StockServiceProvider {
         self.saveImportantStocks()
     }
     
+    private static func translateBlocks2PinYin(blocks:[Block]) {
+        let queue = DispatchQueue(label: "com.chaser.stockhelper")
+        queue.async {
+            var pinyinMap:[String:String] = [:]
+            for block in blocks {
+                block.pinyin = block.name.transformToPinYinFirstLetter(lowercased: true)
+//                print(Thread.isMainThread,block.pinyin)
+                pinyinMap[block.code] = block.pinyin
+            }
+            StockDBProvider.saveBlockPinYinToLocal(blockPinYinMap: pinyinMap)
+            print("板块拼音转换结束")
+        }
+    }
+    private static func translateStocks2PinYin(stocks:[Stock]) {
+        let queue = DispatchQueue(label: "com.chaser.stockhelper")
+        queue.async {
+            var pinyinMap:[String:String] = [:]
+            for stock in stocks {
+                stock.pinyin = stock.name.transformToPinYinFirstLetter(lowercased: true)
+//                print(Thread.isMainThread,stock.pinyin)
+                pinyinMap[stock.code] = stock.pinyin
+            }
+            StockDBProvider.saveStockPinYinToLocal(stockPinYinMap:pinyinMap)
+            print("股票拼音转换结束")
+        }
+    }
     public static func getBasicData() {
-        
-        
         // 板块基本信息列表
         getBlockList { (blocks) in
             print("getBlockList",blocks.count)
+            //translateBlocks2PinYin(blocks: blocks)
         }
         // 股票基本信息列表
         getStockList { (stocks) in
             print("getStockList",stocks.count)
+            //translateStocks2PinYin(stocks: stocks)
         }
         // 板块和股票映射关系(code)
         getSimpleBlock2StockList {

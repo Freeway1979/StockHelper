@@ -29,6 +29,7 @@ class Block:Decodable {
     var code:String = "";
     var name:String = "";
     var type:BlockType = .TypeGN ;
+    var pinyin:String = "";
     enum CodingKeys : String, CodingKey {
         case code
         case name

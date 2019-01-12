@@ -37,6 +37,7 @@ class Stock:Decodable,Hashable {
     }
     var code:String = "";
     var name:String = "";
+    var pinyin:String = "";
     enum CodingKeys : String, CodingKey {
         case code
         case name

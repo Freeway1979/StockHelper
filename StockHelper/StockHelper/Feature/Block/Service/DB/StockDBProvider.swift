@@ -11,12 +11,14 @@ import Foundation
 struct UserDefaultKeys {
     struct Stock {
         static let basicStocks = "BasicStocks"
+        static let basicStocksPinYin = "BasicStocksPinYin"
         static let basicStocksUpdateTime = "BasicStocksUpdateTime"
         static let hotStocks = "HotStocks"
         static let importantStocks = "ImportantStocks"
     }
     struct Block {
         static let basicBlocks = "BasicBlocks"
+        static let basicBlocksPinYin = "BasicBlocksPinYin"
         static let basicBlocksUpdateTime = "BasicStocksUpdateTime"
         static let hotBlocks = "HotBlocks"
         static let importantBlocks = "ImportantStocks"
@@ -68,5 +70,27 @@ class StockDBProvider {
     public static func loadImportantStocksFromLocal() -> String? {
         let data = UserDefaults.standard.object(forKey: UserDefaultKeys.Stock.importantStocks) as? String
         return data;
+    }
+    
+    // Mark: PinYin
+    public static func loadStockPinYinFromLocal() -> [String:String] {
+        let pinyinMap = UserDefaults.standard.object(forKey:UserDefaultKeys.Stock.basicStocksPinYin)
+        if pinyinMap != nil {
+            return pinyinMap as! [String : String]
+        }
+        return [:]
+    }
+    public static func saveStockPinYinToLocal(stockPinYinMap:[String:String]) {
+        UserDefaults.standard.set(stockPinYinMap,forKey:UserDefaultKeys.Stock.basicStocksPinYin)
+    }
+    public static func loadBlockPinYinFromLocal() -> [String:String] {
+        let pinyinMap = UserDefaults.standard.object(forKey:UserDefaultKeys.Block.basicBlocksPinYin)
+        if pinyinMap != nil {
+            return pinyinMap as! [String : String]
+        }
+        return [:]
+    }
+    public static func saveBlockPinYinToLocal(blockPinYinMap:[String:String]) {
+        UserDefaults.standard.set(blockPinYinMap,forKey:UserDefaultKeys.Block.basicBlocksPinYin)
     }
 }
