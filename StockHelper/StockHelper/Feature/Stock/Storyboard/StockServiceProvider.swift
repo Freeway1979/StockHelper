@@ -231,9 +231,11 @@ class StockServiceProvider {
     ///
     /// - Returns: <#return value description#>
     public static func getHotBlocks() -> [HotBlock] {
-        let rs = self.hotBlockMap.map { (item) -> HotBlock in
-            let (_, block) = item
-            return block
+        var rs:[HotBlock] = []
+        for value in self.hotBlockMap.values {
+            if value.hotLevel != .NoLevel {
+                rs.append(value)
+            }
         }
         return rs
     }
@@ -326,7 +328,15 @@ class StockServiceProvider {
         StockDBProvider.saveImportantBlocksToLocal(data: joined)
         
     }
-
+    public static func removeHotBlock(block:Block) {
+        let hotblock = hotBlockMap[block.code]
+        if (hotblock == nil) {
+            return
+        }
+        hotblock?.hotLevel = .NoLevel
+        // Save
+        self.saveHotBlocks()
+    }
     public static func setHotBlock(block:Block,hotLevel:HotLevel) {
         var hotblock = hotBlockMap[block.code]
         if (hotblock == nil)
@@ -338,7 +348,22 @@ class StockServiceProvider {
         // Save
         self.saveHotBlocks()
     }
-    
+    public static func isHotBlock(block:Block) -> Bool {
+        let hotblock = hotBlockMap[block.code]
+        if (hotblock == nil)
+        {
+            return false
+        }
+        return (hotblock?.hotLevel.rawValue)! >= HotLevel.Level1.rawValue
+    }
+    public static func isImportantBlock(block:Block) -> Bool {
+        let hotblock = hotBlockMap[block.code]
+        if (hotblock == nil)
+        {
+            return false
+        }
+        return (hotblock?.importantLevel.rawValue)! >= HotLevel.Level1.rawValue
+    }
     public static func setImportantBlock(block:Block,importantLevel:HotLevel) {
         var hotblock = hotBlockMap[block.code]
         if (hotblock == nil)
@@ -347,6 +372,15 @@ class StockServiceProvider {
             hotBlockMap[block.code] = hotblock
         }
         hotblock?.importantLevel = importantLevel
+        self.saveImportantBlocks()
+    }
+    public static func removeImportantBlock(block:Block) {
+        let hotblock = hotBlockMap[block.code]
+        if (hotblock == nil)
+        {
+            return
+        }
+        hotblock?.importantLevel = .NoLevel
         self.saveImportantBlocks()
     }
     // Mark: Hot Stock

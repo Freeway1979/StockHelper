@@ -130,7 +130,7 @@ extension HotBlockViewController {
             let item = self.associatedStocks[row]
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: stockReuseIdentifier, for: indexPath)
                 as! StockCollectionViewCell
-            cell.stockNameLabel.text = item.name
+            cell.stockNameLabel.text = "\(item.name)   \(item.code)"
             let stackView = cell.containerView
             let blocks = item.blocks
             var width = Int(UIScreen.main.bounds.size.width / CGFloat(columns))

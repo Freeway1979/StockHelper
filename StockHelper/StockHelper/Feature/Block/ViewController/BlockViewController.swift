@@ -114,11 +114,19 @@ class BlockViewController: UIViewController,
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
+        let block = self.displayedItems[indexPath.row]
+        let isImportantBlock = StockServiceProvider.isImportantBlock(block: block)
+        let isHotBlock = StockServiceProvider.isHotBlock(block: block)
+        let importantTitle = isImportantBlock ? "取消重点":"设为重点"
+        let hotTitle = isHotBlock ? "取消热门":"设为热门"
         let setImportantAction = UITableViewRowAction(style: UITableViewRowAction.Style.normal,
-                                                title: "设为重点") {[weak self] (rowAction, indexPath) in
+                                                title: importantTitle) {[weak self] (rowAction, indexPath) in
                                                     let block = self!.displayedItems[indexPath.row]
-            StockServiceProvider.setImportantBlock(block: block, importantLevel: .Level1)
+                                                    if isImportantBlock {
+                                                        StockServiceProvider.removeImportantBlock(block: block)
+                                                    } else {
+                                                        StockServiceProvider.setImportantBlock(block: block, importantLevel: .Level1)
+                                                    }
                                                     self?.tableView?.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
                                                     
         }
@@ -126,10 +134,14 @@ class BlockViewController: UIViewController,
         setImportantAction.backgroundColor = UIColor.orange
         
         let setHotAction = UITableViewRowAction(style: UITableViewRowAction.Style.normal,
-                                                title: "设为热门") { [weak self] (rowAction, indexPath) in
+                                                title: hotTitle) { [weak self] (rowAction, indexPath) in
                                                     let block = self!.displayedItems[indexPath.row]
-          StockServiceProvider.setHotBlock(block: block, hotLevel: .Level1)
-                                                         self?.tableView?.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+                                                    if isHotBlock {
+                                                        StockServiceProvider.removeHotBlock(block: block)
+                                                    } else {
+                                                         StockServiceProvider.setHotBlock(block: block, hotLevel: .Level1)
+                                                    }
+                                                    self?.tableView?.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
         }
         setHotAction.backgroundEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
         setHotAction.backgroundColor = UIColor.red
