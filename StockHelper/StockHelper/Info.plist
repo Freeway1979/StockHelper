@@ -21,6 +21,8 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>cn.com.10jqka.eq</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>AMIHexinPro</string>
@@ -28,7 +30,12 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>20190114</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>AMIHexinPro</string>
+		<string>AMIHexinProAlix</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

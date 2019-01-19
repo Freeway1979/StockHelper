@@ -1,20 +1,15 @@
 //
-//  MyStocksViewController.swift
+//  StockViewController.swift
 //  StockHelper
 //
-//  Created by Andy Liu on 2018/12/22.
-//  Copyright © 2018 Andy Liu. All rights reserved.
+//  Created by Andy Liu on 2019/1/12.
+//  Copyright © 2019 Andy Liu. All rights reserved.
 //
 
 import UIKit
 
-class MyStocksViewController: UIViewController {
-    
-    @IBAction func onButtonClicked(_ sender: UIButton) {
-        
-      Utils.openTHS(with: "300300")
-      
-    }
+class StockViewController: UIViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

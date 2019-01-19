@@ -43,33 +43,46 @@ class StockUtils {
     /// - Parameter blockList: <#blockList description#>
     /// - Returns: <#return value description#>
     public static func getAssociatedStockList(of hotblocks:[HotBlock],limit:Int = 2) -> [Stock2Blocks] {
+        var stocks:[Stock2Blocks] = []
+        if hotblocks.count == 0 {
+            return stocks
+        }
         var stockCodes:Set<String> = []
+        let blockCode = hotblocks.first?.block.code
+        let stockCodesOfBlock = self.getStockCodeList(of: blockCode!)
+        stockCodes = Set(stockCodesOfBlock)
         // 1
         for hotblock in hotblocks {
            let blockCode = hotblock.block.code
            let stockCodesOfBlock = self.getStockCodeList(of: blockCode)
-           stockCodes = stockCodes.union(stockCodesOfBlock)
+           stockCodes = stockCodes.intersection(stockCodesOfBlock)
         }
         // 2
-        var stocks:Set<Stock2Blocks> = []
         for stockCode in stockCodes {
-            let blockCodeList = self.getBlockCodeList(of: stockCode)
-            var hotblocksOfCode:[String] = []
-            for hotblock in hotblocks {
-                let bb = hotblock.block.code
-                if blockCodeList.contains(bb) {
-                    hotblocksOfCode.append(bb)
-                }
-            }
-            if hotblocksOfCode.count >= limit {
-                let stock2blocks = Stock2Blocks(stock: self.getStock(by: stockCode))
-                for bb in hotblocksOfCode {
-                    stock2blocks.blocks.append(self.getBlock(by: bb))
-                }
-                stocks.insert(stock2blocks)
-            }
+            let stock2blocks = Stock2Blocks(stock: self.getStock(by: stockCode))
+            stock2blocks.blocks = hotblocks.map({ (hotblock) -> Block in
+                return hotblock.block
+            })
+            stocks.append(stock2blocks)
         }
+//        for stockCode in stockCodes {
+//            let blockCodeList = self.getBlockCodeList(of: stockCode)
+//            var hotblocksOfCode:[String] = []
+//            for hotblock in hotblocks {
+//                let bb = hotblock.block.code
+//                if blockCodeList.contains(bb) {
+//                    hotblocksOfCode.append(bb)
+//                }
+//            }
+//            if hotblocksOfCode.count >= limit {
+//                let stock2blocks = Stock2Blocks(stock: self.getStock(by: stockCode))
+//                for bb in hotblocksOfCode {
+//                    stock2blocks.blocks.append(self.getBlock(by: bb))
+//                }
+//                stocks.insert(stock2blocks)
+//            }
+//        }
         // 3
-        return Array(stocks)
+        return stocks
     }
 }

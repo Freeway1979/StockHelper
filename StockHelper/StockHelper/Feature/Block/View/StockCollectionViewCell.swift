@@ -9,8 +9,8 @@
 import UIKit
 
 class StockCollectionViewCell: UICollectionViewCell {
-
-    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var codeLabel: UILabel!
+    
     @IBOutlet weak var stockNameLabel: UILabel!
 //    @IBOutlet weak var blocksStackView: UIStackView!
     override func awakeFromNib() {

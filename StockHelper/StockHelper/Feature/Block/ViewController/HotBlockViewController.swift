@@ -66,7 +66,7 @@ class HotBlockViewController: UICollectionViewController {
     private func prepareData() {
        self.hotblocks = StockUtils.getHotBlocks()
        for item in self.hotblocks {
-            item.selected = true
+            item.selected = false
        }
        self.refreashCollectionViewData()
     }
@@ -130,23 +130,8 @@ extension HotBlockViewController {
             let item = self.associatedStocks[row]
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: stockReuseIdentifier, for: indexPath)
                 as! StockCollectionViewCell
-            cell.stockNameLabel.text = "\(item.name)   \(item.code)"
-            let stackView = cell.containerView
-            let blocks = item.blocks
-            var width = Int(UIScreen.main.bounds.size.width / CGFloat(columns))
-            if width < Int(Theme.TagButton.width) {
-                width = Int(Theme.TagButton.width)
-            }
-            var count = 0
-            for block in blocks {
-                let blockView = Bundle.main.loadNibNamed(String(describing: TagButton.self), owner: self, options: nil)?.first as! TagButton
-                blockView.text = block.name
-                blockView.style = .Secondary
-                blockView.frame = CGRect(x: count * (width+10), y: 5, width: width, height: Int(Theme.TagButton.height))
-                stackView!.addSubview(blockView)
-                count = count + 1
-            }
-            
+            cell.stockNameLabel.text = item.name
+            cell.codeLabel.text = item.code
             return cell
         }
         
@@ -197,7 +182,14 @@ extension HotBlockViewController {
         return true
     }
     
-    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let section = indexPath.section
+        let row = indexPath.row
+        if (section == SectionType.associatedStocks.rawValue) {
+            let item = self.associatedStocks[row]
+            Utils.openTHS(with: item.code)
+        }
+    }
     
     //      Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
     override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
@@ -219,8 +211,6 @@ extension HotBlockViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let row = indexPath.row
         let screenWidth = UIScreen.main.bounds.size.width;
         let height = Theme.CellView.height
         var width = Int(UIScreen.main.bounds.size.width / CGFloat(columns))
@@ -228,10 +218,7 @@ extension HotBlockViewController: UICollectionViewDelegateFlowLayout {
             width = Int(Theme.TagButton.width)
         }
         if indexPath.section == SectionType.associatedStocks.rawValue {
-            let item = self.associatedStocks[row]
-            let rows:Float = Float(item.blocks.count / columns) + 1.0
-            let height:Float = 40 + height * rows
-            return CGSize(width: screenWidth, height: CGFloat(height))
+            return CGSize(width: screenWidth, height: 60)
         }
         return CGSize(width: width, height: Int(height))
     }

@@ -20,6 +20,24 @@ class BlockViewController: UIViewController,
     private var blocks:[Block] = [];
     private var keyword:String = ""
     private var displayedItems:[Block] = []
+    private var filterType:FilterType = .all
+    
+    private enum FilterType {
+        case hot
+        case important
+        case all
+    }
+    
+    @IBAction func onFilterButtonClicked(_ sender: UIButton) {
+        if sender.tag == 0 {
+            filterType = .hot
+        } else if sender.tag == 1 {
+            filterType = .important
+        } else {
+            filterType = .all
+        }
+        self.refreshTableViewBySearch(keyword: self.keyword)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,22 +57,39 @@ class BlockViewController: UIViewController,
     }
     
     private func refreshTableViewBySearch(keyword:String) {
+        self.keyword = keyword
         let isChinese = keyword.isIncludeChinese()
+        let isCode = keyword.hasPrefix("00")
+            || keyword.hasPrefix("30")
+            || keyword.hasPrefix("88")
+            || keyword.hasPrefix("60")
         self.displayedItems = blocks.filter { (block) -> Bool in
+            var rs = false
             if (keyword.count == 0) {
-                return true
+                rs = true
+            } else {
+                if isChinese {
+                    rs = block.name.contains(keyword)
+                }
+                if isCode {
+                    rs = block.code.contains(keyword)
+                }
+                rs = block.pinyin.contains(keyword.lowercased())
+                    || block.name.lowercased().contains(keyword.lowercased())
+                    || block.code.contains(keyword)
             }
-            if isChinese {
-                return block.name.contains(keyword)
+            if rs && self.filterType != .all {
+                if self.filterType == .hot {
+                    let isHotBlock = StockServiceProvider.isHotBlock(block: block)
+                    rs = rs && isHotBlock
+                }
+                if self.filterType == .important {
+                    let isImportantBlock = StockServiceProvider.isImportantBlock(block: block)
+                    rs = rs && isImportantBlock
+                }
             }
-            let isCode = keyword.hasPrefix("00")
-                || keyword.hasPrefix("30")
-                || keyword.hasPrefix("88")
-                || keyword.hasPrefix("60")
-            if isCode {
-                return block.code.contains(keyword)
-            }
-            return block.pinyin.contains(keyword.lowercased())
+            return rs;
+            
         }
         self.tableView.reloadData();
     }

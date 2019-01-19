@@ -58,19 +58,74 @@
                                     <string>Title</string>
                                 </scopeButtonTitles>
                             </searchBar>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="xJd-2a-dqn">
+                                <rect key="frame" x="20" y="81" width="335" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7fC-QN-nUM">
+                                        <rect key="frame" x="0.0" y="0.0" width="101.5" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="热门板块"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="6"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onFilterButtonClicked:" destination="VZa-Hd-nJq" eventType="touchUpInside" id="JOD-9M-PJc"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S39-ge-uQC">
+                                        <rect key="frame" x="116.5" y="0.0" width="102" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="重点板块"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="6"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onFilterButtonClicked:" destination="VZa-Hd-nJq" eventType="touchUpInside" id="oTe-xm-R3Z"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7i1-q5-726">
+                                        <rect key="frame" x="233.5" y="0.0" width="101.5" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="全部板块"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="6"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onFilterButtonClicked:" destination="VZa-Hd-nJq" eventType="touchUpInside" id="fEd-gf-OHy"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Rvm-h6-Cny"/>
+                                </constraints>
+                            </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kSf-YW-JO6">
-                                <rect key="frame" x="0.0" y="76" width="375" height="591"/>
+                                <rect key="frame" x="0.0" y="116" width="375" height="551"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="xJd-2a-dqn" firstAttribute="leading" secondItem="Bh0-C9-4tr" secondAttribute="leading" constant="20" id="EQz-wm-TiZ"/>
                             <constraint firstItem="Tlw-2x-KPk" firstAttribute="trailing" secondItem="kSf-YW-JO6" secondAttribute="trailing" id="F6f-Wx-Ehs"/>
                             <constraint firstItem="kSf-YW-JO6" firstAttribute="leading" secondItem="Tlw-2x-KPk" secondAttribute="leading" id="GvL-Ne-HzI"/>
                             <constraint firstItem="xUH-wR-bRH" firstAttribute="top" secondItem="Tlw-2x-KPk" secondAttribute="top" id="ICf-Qn-TWl"/>
-                            <constraint firstItem="kSf-YW-JO6" firstAttribute="top" secondItem="xUH-wR-bRH" secondAttribute="bottom" id="LJP-fG-7j2"/>
+                            <constraint firstItem="kSf-YW-JO6" firstAttribute="top" secondItem="xJd-2a-dqn" secondAttribute="bottom" constant="5" id="LJP-fG-7j2"/>
+                            <constraint firstItem="xJd-2a-dqn" firstAttribute="trailing" secondItem="Tlw-2x-KPk" secondAttribute="trailing" constant="-20" id="NHl-1R-Zt1"/>
                             <constraint firstItem="xUH-wR-bRH" firstAttribute="trailing" secondItem="Tlw-2x-KPk" secondAttribute="trailing" id="mDD-C8-hZb"/>
                             <constraint firstItem="Tlw-2x-KPk" firstAttribute="bottom" secondItem="kSf-YW-JO6" secondAttribute="bottom" id="r4X-xn-kIE"/>
+                            <constraint firstItem="xJd-2a-dqn" firstAttribute="top" secondItem="xUH-wR-bRH" secondAttribute="bottom" constant="5" id="tp3-jC-tow"/>
                             <constraint firstItem="xUH-wR-bRH" firstAttribute="leading" secondItem="Tlw-2x-KPk" secondAttribute="leading" id="vB6-hu-ZRz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Tlw-2x-KPk"/>

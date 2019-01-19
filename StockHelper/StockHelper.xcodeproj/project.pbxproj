@@ -39,6 +39,8 @@
 		A12A18D521E9DE18004294B5 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A18D421E9DE18004294B5 /* Theme.swift */; };
 		A12A18D721EA0887004294B5 /* String+PinYin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A18D621EA0887004294B5 /* String+PinYin.swift */; };
 		A12A18D921EA08E3004294B5 /* Array+PinYin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A18D821EA08E3004294B5 /* Array+PinYin.swift */; };
+		A12A18DC21EA254F004294B5 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A18DB21EA254F004294B5 /* Utils.swift */; };
+		A12A18DE21EA2878004294B5 /* StockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A18DD21EA2878004294B5 /* StockViewController.swift */; };
 		A132955921DB523C00A3B156 /* RemoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A132955821DB523C00A3B156 /* RemoteService.swift */; };
 		A14115F721DD8CAA00E1B2BC /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14115F621DD8CAA00E1B2BC /* MessageService.swift */; };
 		A14115F921DD8D2A00E1B2BC /* ServiceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14115F821DD8D2A00E1B2BC /* ServiceConfig.swift */; };
@@ -120,6 +122,8 @@
 		A12A18D421E9DE18004294B5 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		A12A18D621EA0887004294B5 /* String+PinYin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+PinYin.swift"; sourceTree = "<group>"; };
 		A12A18D821EA08E3004294B5 /* Array+PinYin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+PinYin.swift"; sourceTree = "<group>"; };
+		A12A18DB21EA254F004294B5 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		A12A18DD21EA2878004294B5 /* StockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockViewController.swift; sourceTree = "<group>"; };
 		A132955821DB523C00A3B156 /* RemoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteService.swift; sourceTree = "<group>"; };
 		A14115F621DD8CAA00E1B2BC /* MessageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MessageService.swift; path = "StockHelper/Common/New Group/MessageService.swift"; sourceTree = SOURCE_ROOT; };
 		A14115F821DD8D2A00E1B2BC /* ServiceConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceConfig.swift; sourceTree = "<group>"; };
@@ -219,6 +223,7 @@
 		06EDD3E6215242190035104B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A12A18DA21EA2535004294B5 /* Utils */,
 				A12A18D321E9DE0A004294B5 /* Theme */,
 				A1F4428821E0D54400999138 /* ThirdParty */,
 				A132955721DB521B00A3B156 /* Service */,
@@ -289,6 +294,7 @@
 			children = (
 				A10E4B3021CE543B0092B671 /* MyStocksViewController.swift */,
 				A1E1277721E6B76F00527DC0 /* LeadStockViewController.swift */,
+				A12A18DD21EA2878004294B5 /* StockViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -462,6 +468,14 @@
 				A12A18D421E9DE18004294B5 /* Theme.swift */,
 			);
 			path = Theme;
+			sourceTree = "<group>";
+		};
+		A12A18DA21EA2535004294B5 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				A12A18DB21EA254F004294B5 /* Utils.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		A132955721DB521B00A3B156 /* Service */ = {
@@ -800,6 +814,7 @@
 				06EDD3F6215247980035104B /* Stock.swift in Sources */,
 				A1F4428F21E0D6F000999138 /* MyNavigationController.swift in Sources */,
 				A14115F921DD8D2A00E1B2BC /* ServiceConfig.swift in Sources */,
+				A12A18DC21EA254F004294B5 /* Utils.swift in Sources */,
 				A1F4429821E108B800999138 /* SettingViewController.swift in Sources */,
 				A12A18D121E9CA3D004294B5 /* HeaderCollectionView.swift in Sources */,
 				A1F4428C21E0D56A00999138 /* ENSideMenu.swift in Sources */,
@@ -822,6 +837,7 @@
 				A1E1277821E6B76F00527DC0 /* LeadStockViewController.swift in Sources */,
 				A1E1278E21E6C68600527DC0 /* UIViewController+Alert.swift in Sources */,
 				A12A18D721EA0887004294B5 /* String+PinYin.swift in Sources */,
+				A12A18DE21EA2878004294B5 /* StockViewController.swift in Sources */,
 				A10E4B3121CE543B0092B671 /* MyStocksViewController.swift in Sources */,
 				A1F5953321BCDF9200EC5ECB /* MAType.swift in Sources */,
 			);

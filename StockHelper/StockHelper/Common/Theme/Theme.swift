@@ -17,7 +17,7 @@ struct Theme {
     }
     
     struct TagButton {
-        public static let width : Float = 80.0;
+        public static let width : Float = 100.0;
         public static let height : Float = 30.0;
     }
 }

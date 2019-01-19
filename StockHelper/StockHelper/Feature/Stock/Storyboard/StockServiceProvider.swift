@@ -79,7 +79,7 @@ class StockServiceProvider {
                 StockServiceProvider.stocks = stocks
                 buildStocksMap()
                 callback(stocks)
-                print("Getting block data from local")
+                print("Getting stock data from local")
                 return;
             }
         }
