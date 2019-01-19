@@ -46,10 +46,15 @@ class Stock:Decodable,Hashable {
 
 class HotStock:HotLevelable {
     var stock:Stock
+    var block:Block
     var hotLevel:HotLevel = .NoLevel
     var importantLevel:HotLevel = .NoLevel
-    init(stock:Stock) {
+    init(stock:Stock,block:Block) {
         self.stock = stock
+        self.block = block
+    }
+    var key: String {
+        return "\(stock.code)_\(block.code)"
     }
 }
 

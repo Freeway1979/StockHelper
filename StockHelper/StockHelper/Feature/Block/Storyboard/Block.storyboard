@@ -156,9 +156,39 @@
                     <view key="view" contentMode="scaleToFill" id="rh2-0d-NWl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DtH-ar-HCN">
+                                <rect key="frame" x="0.0" y="35" width="375" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="JNI-xt-NAh"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="R24-8m-kcM">
+                                <rect key="frame" x="15" y="100" width="345" height="552"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="DtH-ar-HCN" firstAttribute="top" secondItem="9lW-Fk-7lm" secondAttribute="top" constant="15" id="3RX-tv-da5"/>
+                            <constraint firstItem="R24-8m-kcM" firstAttribute="top" secondItem="DtH-ar-HCN" secondAttribute="bottom" constant="15" id="51D-9E-Ipu"/>
+                            <constraint firstItem="9lW-Fk-7lm" firstAttribute="trailing" secondItem="R24-8m-kcM" secondAttribute="trailing" constant="15" id="JdG-uq-G1R"/>
+                            <constraint firstItem="9lW-Fk-7lm" firstAttribute="bottom" secondItem="R24-8m-kcM" secondAttribute="bottom" constant="15" id="PvL-IK-E7G"/>
+                            <constraint firstItem="R24-8m-kcM" firstAttribute="leading" secondItem="9lW-Fk-7lm" secondAttribute="leading" constant="15" id="UWH-1J-P1a"/>
+                            <constraint firstItem="DtH-ar-HCN" firstAttribute="leading" secondItem="9lW-Fk-7lm" secondAttribute="leading" id="aMM-km-rdz"/>
+                            <constraint firstItem="DtH-ar-HCN" firstAttribute="trailing" secondItem="9lW-Fk-7lm" secondAttribute="trailing" id="ppk-5e-S2x"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="9lW-Fk-7lm"/>
                     </view>
+                    <connections>
+                        <outlet property="searchBar" destination="DtH-ar-HCN" id="p1h-qW-pvg"/>
+                        <outlet property="tableView" destination="R24-8m-kcM" id="SHb-k2-MnJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RfK-yv-q5R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

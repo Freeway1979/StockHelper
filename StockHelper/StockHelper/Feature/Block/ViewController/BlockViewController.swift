@@ -9,10 +9,7 @@
 import UIKit
 import Moya
 
-class BlockViewController: UIViewController,
-                            UITableViewDelegate,
-                            UITableViewDataSource,
-    UISearchBarDelegate
+class BlockViewController: UIViewController
 {
     
     @IBOutlet weak var searchbar: UISearchBar!
@@ -63,7 +60,7 @@ class BlockViewController: UIViewController,
             || keyword.hasPrefix("30")
             || keyword.hasPrefix("88")
             || keyword.hasPrefix("60")
-        self.displayedItems = blocks.filter { (block) -> Bool in
+        let list = blocks.filter { (block) -> Bool in
             var rs = false
             if (keyword.count == 0) {
                 rs = true
@@ -89,11 +86,54 @@ class BlockViewController: UIViewController,
                 }
             }
             return rs;
-            
         }
+        // Sort
+        self.displayedItems = list.sorted(by: { (lhs:Block, rhs:Block) -> Bool in
+            let lhsHot:Bool = StockServiceProvider.isHotBlock(block: lhs)
+            let rhsHot:Bool = StockServiceProvider.isHotBlock(block: rhs)
+            let lhsImportant:Bool = StockServiceProvider.isImportantBlock(block: lhs)
+            let rhsImportant:Bool = StockServiceProvider.isImportantBlock(block: rhs)
+            let lhsPinYin = lhs.pinyin
+            let rhsPinYin = rhs.pinyin
+            
+            let finalLHS = String(format: "%@%@%@", lhsHot ? "A":"B",lhsImportant ? "A":"B",lhsPinYin)
+            let finalRHS = String(format: "%@%@%@", rhsHot ? "A":"B",rhsImportant ? "A":"B",rhsPinYin)
+            
+            // Am I smart?!
+            let rs:ComparisonResult = finalLHS.compare(finalRHS)
+            if rs == .orderedAscending {
+                return true
+            }
+            return false
+        })
         self.tableView.reloadData();
     }
     
+    private func gotoBlockStockListScreen(block:Block2Stocks) {
+        let storyboard = UIStoryboard(name: "Block", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "BlockStockListViewController") as! BlockStockListViewController
+        vc.block = block;
+        self.navigationController?.navigationController?.pushViewController(vc, animated: true);
+    }
+    
+    private func getBlockSubtitle(block:Block) -> String {
+        let code = block.code
+        let type = block.type.localizedString
+        let hotblock = StockServiceProvider.getHotBlock(blockcode: code)
+        var rs = "\(code) \(type)"
+        if (hotblock != nil) {
+            if (hotblock?.hotLevel != .NoLevel) {
+                rs = "\(rs) 热门"
+            }
+            if (hotblock?.importantLevel != .NoLevel) {
+                rs = "\(rs) 重点"
+            }
+        }
+        return rs
+    }
+}
+
+extension BlockViewController :UITableViewDataSource {
     // MARK: - Table view data source
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -114,13 +154,18 @@ class BlockViewController: UIViewController,
         }
         // Configure the cell...
         let block = self.displayedItems[indexPath.row];
+        let isHotBlock = StockServiceProvider.isHotBlock(block: block)
+        let isImportantBlock = StockServiceProvider.isImportantBlock(block: block)
+        let str = String.init(format: "%@ %@ %@", block.name,isHotBlock ? "🐯":"",isImportantBlock ? "🦁":"")
         cell?.accessoryType = .disclosureIndicator
-        cell?.textLabel?.text = block.name;
+        cell?.textLabel?.text = str;
         cell?.detailTextLabel?.text = self.getBlockSubtitle(block: block)
         
         return cell!
     }
-    
+}
+
+extension BlockViewController:UITableViewDelegate {
     
     // Override to support conditional editing of the table view.
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -130,12 +175,12 @@ class BlockViewController: UIViewController,
     
     // Override to support editing the table view.
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }
+//        if editingStyle == .delete {
+//            // Delete the row from the data source
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+//        } else if editingStyle == .insert {
+//            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+//        }
     }
     
     
@@ -193,29 +238,9 @@ class BlockViewController: UIViewController,
         setHotAction.backgroundColor = UIColor.red
         return [setHotAction,setImportantAction]
     }
-    
-    private func gotoBlockStockListScreen(block:Block2Stocks) {
-        let storyboard = UIStoryboard(name: "Block", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "BlockStockListViewController") as! BlockStockListViewController
-        vc.block = block;
-        self.navigationController?.navigationController?.pushViewController(vc, animated: true);
-    }
-    
-    private func getBlockSubtitle(block:Block) -> String {
-        let code = block.code
-        let type = block.type.localizedString
-        let hotblock = StockServiceProvider.getHotBlock(blockcode: code)
-        var rs = "\(code) \(type)"
-        if (hotblock != nil) {
-            if (hotblock?.hotLevel != .NoLevel) {
-                rs = "\(rs) 热门"
-            }
-            if (hotblock?.importantLevel != .NoLevel) {
-                rs = "\(rs) 重点"
-            }
-        }
-        return rs
-    }
+}
+
+extension BlockViewController:UISearchBarDelegate {
     
     // MARK:UISearchBarDelegate
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

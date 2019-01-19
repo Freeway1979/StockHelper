@@ -34,7 +34,7 @@ class TagButton: UIButton {
                 self.bgColor = UIColor.orange
                 self.textColor = UIColor.white
             } else {
-                self.bgColor = UIColor.white
+                self.bgColor = UIColor.groupTableViewBackground
                 self.textColor = UIColor.black
             }
             

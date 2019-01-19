@@ -94,10 +94,8 @@ class HomeViewController: UICollectionViewController {
             // 板块基本信息列表
             StockServiceProvider.getBlockList { [weak self] (blocks) in
                 print("getBlockList",blocks.count)
-                var layout = self?.getLayoutData(for: .HotBlocks)
+                let layout = self?.getLayoutData(for: .HotBlocks)
                 layout?.data = StockServiceProvider.getSyncHotBlocks()
-                layout = self?.getLayoutData(for: .ImportantBlocks)
-                layout?.data = StockServiceProvider.getSyncImportantBlocks()
                 self?.reloadData()
             }
         })
@@ -132,6 +130,7 @@ class HomeViewController: UICollectionViewController {
         // 5
         group.notify(queue: myQueue) {
             print("notify")
+            
             DispatchQueue.main.async(execute: {
                 print(Thread.isMainThread)
                 ZKProgressHUD.dismiss()

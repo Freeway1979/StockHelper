@@ -240,10 +240,10 @@ class StockServiceProvider {
                     if (block != nil)
                     {
                         hotblock = HotBlock(block: block!)
-                        hotblock?.hotLevel = .Level1 // FIXME,HotLevel should be persisted.
                         self.hotBlockMap[code] = hotblock
                     }
                 }
+                hotblock?.hotLevel = .Level1 // FIXME,HotLevel should be persisted.
             }
         }
         let importantblocks = StockDBProvider.loadImportantBlocksFromLocal()
@@ -256,10 +256,10 @@ class StockServiceProvider {
                     if (block != nil)
                     {
                         hotblock = HotBlock(block: block!)
-                        hotblock?.importantLevel = .Level1 // FIXME,HotLevel should be persisted.
                         self.hotBlockMap[code] = hotblock
                     }
                 }
+                hotblock?.importantLevel = .Level1 // FIXME,HotLevel should be persisted.
             }
         }
         var rs:[HotBlock] = []
@@ -282,13 +282,33 @@ class StockServiceProvider {
         }
         return rs!
     }
-    public static func getSyncHotStocks() -> [Stock] {
-        let list = Array(stocks[0...4])
-        return list
-    }
-    public static func getSyncImportantBlocks() -> [Block] {
-        let list = Array(blocks[4...10])
-        return list
+    
+    public static func getSyncHotStocks() -> [HotStock] {
+        let hotstocks = StockDBProvider.loadHotStocksFromLocal()
+        if(hotstocks?.count ?? 0 > 0) {
+            let list:[String] = (hotstocks?.components(separatedBy: ","))!
+            for code in list {
+                var hotstock = self.hotStockMap[code]
+                if (hotstock == nil) {
+                    let codes:[String] = code.components(separatedBy: "_")
+                    let stockcode = codes[0]
+                    let blockcode = codes[1]
+                    let block = self.blockMap[blockcode]
+                    let stock = self.stockMap[stockcode]
+                    if (block != nil && stock != nil)
+                    {
+                        hotstock = HotStock(stock:stock!,block: block!)
+                        hotstock?.hotLevel = .Level1 // FIXME,HotLevel should be persisted.
+                        self.hotStockMap[code] = hotstock
+                    }
+                }
+            }
+        }
+        var rs:[HotStock] = []
+        for (_ ,value) in self.hotStockMap {
+            rs.append(value)
+        }
+        return rs
     }
     
     // MARK: Hot Block
@@ -374,54 +394,56 @@ class StockServiceProvider {
         self.saveImportantBlocks()
     }
     // Mark: Hot Stock
-    public static func getHotStock(stockcode:String) -> HotStock? {
-        return hotStockMap[stockcode]
+    public static func isHotStock(stock:Stock,block:Block) -> Bool {
+        let key = StockUtils.hotStockKey(stock: stock, block: block)
+        let hotstock = hotStockMap[key]
+        if (hotstock == nil)
+        {
+            return false
+        }
+        return (hotstock?.hotLevel.rawValue)! >= HotLevel.Level1.rawValue
+    }
+    public static func getHotStock(stock:Stock,block:Block) -> HotStock? {
+        let key = StockUtils.hotStockKey(stock: stock, block: block)
+        return hotStockMap[key]
     }
     public static func saveHotStocks() {
         var rs:[String] = []
         for (_,value) in hotStockMap {
             if (value.hotLevel != .NoLevel) {
-                rs.append(value.stock.code)
+                let key = StockUtils.hotStockKey(stock: value.stock, block: value.block)
+                rs.append(key)
             }
         }
         let joined = rs.joined(separator: ",")
         StockDBProvider.saveHotStocksToLocal(data: joined)
         
     }
-    public static func saveImportantStocks() {
-        var rs:[String] = []
-        for (_,value) in hotStockMap {
-            if (value.importantLevel != .NoLevel) {
-                rs.append(value.stock.code)
-            }
+   
+    public static func removeHotStock(stock:Stock,block:Block) {
+        let key = StockUtils.hotStockKey(stock: stock, block: block)
+        let hotstock = hotStockMap[key]
+        if (hotstock == nil) {
+            return
         }
-        let joined = rs.joined(separator: ",")
-        StockDBProvider.saveImportantStocksToLocal(data: joined)
-        
+        hotstock?.hotLevel = .NoLevel
+        // Save
+        self.saveHotStocks()
     }
-    public static func setHotStock(stock:Stock,hotLevel:HotLevel) {
-        var hotStock = hotStockMap[stock.code]
+    public static func setHotStock(stock:Stock,block:Block,hotLevel:HotLevel) {
+        let key = StockUtils.hotStockKey(stock: stock, block: block)
+        var hotStock = hotStockMap[key]
         if (hotStock == nil)
         {
-            hotStock = HotStock(stock: stock)
-            hotStockMap[stock.code] = hotStock
+            hotStock = HotStock(stock: stock,block:block)
+            hotStockMap[key] = hotStock
         }
         hotStock?.hotLevel = hotLevel
         
         self.saveHotStocks()
     }
-    public static func setImportantStock(stock:Stock,importantLevel:HotLevel) {
-        var hotStock = hotStockMap[stock.code]
-        if (hotStock == nil)
-        {
-            hotStock = HotStock(stock: stock)
-            hotStockMap[stock.code] = hotStock
-        }
-        hotStock?.importantLevel = importantLevel
-        
-        self.saveImportantStocks()
-    }
     
+    // MARK: PINYIN
     private static func translateBlocks2PinYin(blocks:[Block]) {
         let queue = DispatchQueue(label: "com.chaser.stockhelper")
         queue.async {

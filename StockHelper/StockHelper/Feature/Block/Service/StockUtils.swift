@@ -85,4 +85,9 @@ class StockUtils {
         // 3
         return stocks
     }
+    
+    public static func hotStockKey(stock:Stock,block:Block) -> String {
+        let key = "\(stock.code)_\(block.code)"
+        return key;
+    }
 }
