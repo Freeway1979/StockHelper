@@ -117,19 +117,17 @@ class BlockViewController: UIViewController
     }
     
     private func getBlockSubtitle(block:Block) -> String {
-        let code = block.code
-        let type = block.type.localizedString
-        let hotblock = StockServiceProvider.getHotBlock(blockcode: code)
-        var rs = "\(code) \(type)"
-        if (hotblock != nil) {
-            if (hotblock?.hotLevel != .NoLevel) {
-                rs = "\(rs) 热门"
-            }
-            if (hotblock?.importantLevel != .NoLevel) {
-                rs = "\(rs) 重点"
+        let blockstocks:Block2Stocks = StockServiceProvider.getSyncBlockStocksDetail(basicBlock: block)
+        var count = 0
+        for stock in blockstocks.stocks ?? [] {
+            if StockServiceProvider.isHotStock(stock: stock, block: block) {
+                count = count + 1
             }
         }
-        return rs
+        if count > 0 {
+            return String(count)
+        }
+        return ""
     }
 }
 
@@ -150,7 +148,7 @@ extension BlockViewController :UITableViewDataSource {
         let cellId = "reuseIdentifier"
         var cell = tableView.dequeueReusableCell(withIdentifier: cellId)
         if cell == nil {
-            cell = UITableViewCell (style: .subtitle, reuseIdentifier: cellId)
+            cell = UITableViewCell (style: .value1, reuseIdentifier: cellId)
         }
         // Configure the cell...
         let block = self.displayedItems[indexPath.row];
