@@ -29,6 +29,7 @@ class StockDBProvider {
     // Mark :Basic
     public static func saveBasicBlocksToLocal(data:String) {
         UserDefaults.standard.set(data, forKey: UserDefaultKeys.Block.basicBlocks)
+        UserDefaults.standard.synchronize()
     }
     public static func loadBasicBlocksFromLocal() -> String? {
         let data = UserDefaults.standard.object(forKey: UserDefaultKeys.Block.basicBlocks) as? String
@@ -36,6 +37,7 @@ class StockDBProvider {
     }
     public static func saveBasicStocksToLocal(data:String) {
         UserDefaults.standard.set(data, forKey: UserDefaultKeys.Stock.basicStocks)
+        UserDefaults.standard.synchronize()
     }
     public static func loadBasicStocksFromLocal() -> String? {
         let data = UserDefaults.standard.object(forKey: UserDefaultKeys.Stock.basicStocks) as? String
@@ -44,6 +46,7 @@ class StockDBProvider {
     // Mark:Hot
     public static func saveHotBlocksToLocal(data:String) {
         UserDefaults.standard.set(data, forKey: UserDefaultKeys.Block.hotBlocks)
+        UserDefaults.standard.synchronize()
     }
     public static func loadHotBlocksFromLocal() -> String? {
         let data = UserDefaults.standard.object(forKey: UserDefaultKeys.Block.hotBlocks) as? String
@@ -51,6 +54,7 @@ class StockDBProvider {
     }
     public static func saveHotStocksToLocal(data:String) {
         UserDefaults.standard.set(data, forKey: UserDefaultKeys.Stock.hotStocks)
+        UserDefaults.standard.synchronize()
     }
     public static func loadHotStocksFromLocal() -> String? {
         let data = UserDefaults.standard.object(forKey: UserDefaultKeys.Stock.hotStocks) as? String
@@ -59,6 +63,7 @@ class StockDBProvider {
     // Mark:Important
     public static func saveImportantBlocksToLocal(data:String) {
         UserDefaults.standard.set(data, forKey: UserDefaultKeys.Block.importantBlocks)
+        UserDefaults.standard.synchronize()
     }
     public static func loadImportantBlocksFromLocal() -> String? {
         let data = UserDefaults.standard.object(forKey: UserDefaultKeys.Block.importantBlocks) as? String
@@ -66,6 +71,7 @@ class StockDBProvider {
     }
     public static func saveImportantStocksToLocal(data:String) {
         UserDefaults.standard.set(data, forKey: UserDefaultKeys.Stock.importantStocks)
+        UserDefaults.standard.synchronize()
     }
     public static func loadImportantStocksFromLocal() -> String? {
         let data = UserDefaults.standard.object(forKey: UserDefaultKeys.Stock.importantStocks) as? String
@@ -82,6 +88,7 @@ class StockDBProvider {
     }
     public static func saveStockPinYinToLocal(stockPinYinMap:[String:String]) {
         UserDefaults.standard.set(stockPinYinMap,forKey:UserDefaultKeys.Stock.basicStocksPinYin)
+        UserDefaults.standard.synchronize()
     }
     public static func loadBlockPinYinFromLocal() -> [String:String] {
         let pinyinMap = UserDefaults.standard.object(forKey:UserDefaultKeys.Block.basicBlocksPinYin)
@@ -92,5 +99,6 @@ class StockDBProvider {
     }
     public static func saveBlockPinYinToLocal(blockPinYinMap:[String:String]) {
         UserDefaults.standard.set(blockPinYinMap,forKey:UserDefaultKeys.Block.basicBlocksPinYin)
+        UserDefaults.standard.synchronize()
     }
 }

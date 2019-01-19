@@ -195,26 +195,6 @@ class StockServiceProvider {
                         stock2blocksCodeMap[stockCode] = blocks;
                     }
                     callback()
-                    let hotblocks = ["5G","国防军工","特高压","人工智能"]
-                    let hotlist = stocks.filter { (stock) -> Bool in
-                        let code = stock.code
-                        var rs:[String] = []
-                        let listblockcodes = stock2blocksCodeMap[code] ?? []
-                        for s in listblockcodes {
-                            let block = blockMap[s]
-                            for hot in hotblocks {
-                                if ( block != nil && (block!.name.contains(hot))) {
-                                    rs.append((block!.name))
-                                }
-                            }
-                            
-                        }
-                        if (rs.count>1) {
-                            print(code,stock.name,rs)
-                            return true
-                        }
-                        return false
-                    }
                 }
             }
         }

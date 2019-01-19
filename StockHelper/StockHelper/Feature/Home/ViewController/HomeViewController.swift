@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZKProgressHUD
 
 private let reuseIdentifier = "Cell"
 
@@ -39,6 +40,8 @@ class HomeViewController: UICollectionViewController {
         
         // Do any additional setup after loading the view.
         loadData()
+        
+//        testGroup();
     }
     
     private func setupLayoutData() {
@@ -75,31 +78,67 @@ class HomeViewController: UICollectionViewController {
     func reloadData() {
         self.collectionView.reloadData()
     }
+        
     func loadData() -> Void {
-        // 板块基本信息列表
-        StockServiceProvider.getBlockList { [weak self] (blocks) in
-            print("getBlockList",blocks.count)
-            var layout = self?.getLayoutData(for: .HotBlocks)
-            layout?.data = StockServiceProvider.getSyncHotBlocks()
-            layout = self?.getLayoutData(for: .ImportantBlocks)
-            layout?.data = StockServiceProvider.getSyncImportantBlocks()
-            self?.reloadData()
+        let myQueue = DispatchQueue(label: "initData")
+        let group = DispatchGroup()
+        
+        DispatchQueue.main.async(execute: {
+            print(Thread.isMainThread)
+            ZKProgressHUD.show()
+        })
+     
+        // 1
+        myQueue.async(group: group, qos: .default, flags: [], execute: {
+            print("task 1")
+            // 板块基本信息列表
+            StockServiceProvider.getBlockList { [weak self] (blocks) in
+                print("getBlockList",blocks.count)
+                var layout = self?.getLayoutData(for: .HotBlocks)
+                layout?.data = StockServiceProvider.getSyncHotBlocks()
+                layout = self?.getLayoutData(for: .ImportantBlocks)
+                layout?.data = StockServiceProvider.getSyncImportantBlocks()
+                self?.reloadData()
+            }
+        })
+        // 2
+        myQueue.async(group: group, qos: .default, flags: [], execute: {
+            print("task 2")
+            // 股票基本信息列表
+            StockServiceProvider.getStockList { [weak self] (stocks) in
+                print("getStockList",stocks.count)
+                let layout = self?.getLayoutData(for: .HotStocks)
+                layout?.data = StockServiceProvider.getSyncHotStocks()
+                self?.reloadData()
+            }
+        })
+        // 3
+        myQueue.async(group: group, qos: .default, flags: [], execute: {
+            print("task 3")
+            // 板块和股票映射关系(code)
+            StockServiceProvider.getSimpleBlock2StockList {
+                print("getSimpleBlock2StockList")
+            }
+        })
+        // 4
+        myQueue.async(group: group, qos: .default, flags: [], execute: {
+            print("task 4")
+            // 股票和板块映射关系(code)
+            StockServiceProvider.getSimpleStock2BlockList {
+                print("getSimpleStock2BlockList")
+            }
+        })
+        
+        // 5
+        group.notify(queue: myQueue) {
+            print("notify")
+            DispatchQueue.main.async(execute: {
+                print(Thread.isMainThread)
+                ZKProgressHUD.dismiss()
+                //ZKProgressHUD.showSuccess()
+            })
         }
-        // 股票基本信息列表
-        StockServiceProvider.getStockList { [weak self] (stocks) in
-            print("getStockList",stocks.count)
-            let layout = self?.getLayoutData(for: .HotStocks)
-            layout?.data = StockServiceProvider.getSyncHotStocks()
-            self?.reloadData()
-        }
-        // 板块和股票映射关系(code)
-        StockServiceProvider.getSimpleBlock2StockList {
-            print("getSimpleBlock2StockList")
-        }
-        // 股票和板块映射关系(code)
-        StockServiceProvider.getSimpleStock2BlockList {
-            print("getSimpleStock2BlockList")
-        }
+       
     }
     
     // MARK: UICollectionViewDataSource
