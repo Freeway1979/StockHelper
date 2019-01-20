@@ -70,9 +70,9 @@ class StockServiceProvider {
                 return
             }
             // Get data from local
-            if let data = StockDBProvider.loadBasicStocksFromLocal() {
+            if let data = StockDBProvider.loadBasicStocks() {
                 let stocks = parseJSONStringToStocks(jsonString: data)
-                let pinyinMap = StockDBProvider.loadStockPinYinFromLocal()
+                let pinyinMap = StockDBProvider.loadStockPinYin()
                 for item in stocks {
                     item.pinyin = pinyinMap[item.code] ?? ""
                 }
@@ -90,7 +90,7 @@ class StockServiceProvider {
             if case let .success(response) = result {
                 let jsonString = try? response.mapString()
                 if jsonString != nil {
-                    StockDBProvider.saveBasicStocksToLocal(data: jsonString!)
+                    StockDBProvider.saveBasicStocks(data: jsonString!)
                     let stocks = parseJSONStringToStocks(jsonString: jsonString!)
                     StockServiceProvider.stocks = stocks
                     buildStocksMap()
@@ -119,9 +119,9 @@ class StockServiceProvider {
                 return
             }
             // Get data from local
-            if let data = StockDBProvider.loadBasicBlocksFromLocal() {
+            if let data = StockDBProvider.loadBasicBlocks() {
                 let blocks = parseJSONStringToBlocks(jsonString: data)
-                let pinyinMap = StockDBProvider.loadBlockPinYinFromLocal()
+                let pinyinMap = StockDBProvider.loadBlockPinYin()
                 for item in blocks {
                     item.pinyin = pinyinMap[item.code] ?? ""
                 }
@@ -139,7 +139,7 @@ class StockServiceProvider {
             if case let .success(response) = result {
                 let jsonString = try? response.mapString()
                 if jsonString != nil {
-                    StockDBProvider.saveBasicBlocksToLocal(data: jsonString!)
+                    StockDBProvider.saveBasicBlocks(data: jsonString!)
                     let blocks = parseJSONStringToBlocks(jsonString: jsonString!)
                     StockServiceProvider.blocks = blocks
                     buildBlocksMap()
@@ -230,7 +230,7 @@ class StockServiceProvider {
         return rs
     }
     public static func getSyncHotBlocks() -> [HotBlock] {
-        let hotblocks = StockDBProvider.loadHotBlocksFromLocal()
+        let hotblocks = StockDBProvider.loadHotBlocks()
         if(hotblocks?.count ?? 0 > 0) {
             let list:[String] = (hotblocks?.components(separatedBy: ","))!
             for code in list {
@@ -246,7 +246,7 @@ class StockServiceProvider {
                 hotblock?.hotLevel = .Level1 // FIXME,HotLevel should be persisted.
             }
         }
-        let importantblocks = StockDBProvider.loadImportantBlocksFromLocal()
+        let importantblocks = StockDBProvider.loadImportantBlocks()
         if(importantblocks?.count ?? 0 > 0) {
             let list:[String] = (importantblocks?.components(separatedBy: ","))!
             for code in list {
@@ -284,7 +284,7 @@ class StockServiceProvider {
     }
     
     public static func getSyncHotStocks() -> [HotStock] {
-        let hotstocks = StockDBProvider.loadHotStocksFromLocal()
+        let hotstocks = StockDBProvider.loadHotStocks()
         if(hotstocks?.count ?? 0 > 0) {
             let list:[String] = (hotstocks?.components(separatedBy: ","))!
             for code in list {
@@ -324,7 +324,7 @@ class StockServiceProvider {
             }
         }
         let joined = rs.joined(separator: ",")
-        StockDBProvider.saveHotBlocksToLocal(data: joined)
+        StockDBProvider.saveHotBlocks(data: joined)
         
     }
     public static func saveImportantBlocks() {
@@ -335,7 +335,7 @@ class StockServiceProvider {
             }
         }
         let joined = rs.joined(separator: ",")
-        StockDBProvider.saveImportantBlocksToLocal(data: joined)
+        StockDBProvider.saveImportantBlocks(data: joined)
         
     }
     public static func removeHotBlock(block:Block) {
@@ -416,7 +416,7 @@ class StockServiceProvider {
             }
         }
         let joined = rs.joined(separator: ",")
-        StockDBProvider.saveHotStocksToLocal(data: joined)
+        StockDBProvider.saveHotStocks(data: joined)
         
     }
    
@@ -453,7 +453,7 @@ class StockServiceProvider {
 //                print(Thread.isMainThread,block.pinyin)
                 pinyinMap[block.code] = block.pinyin
             }
-            StockDBProvider.saveBlockPinYinToLocal(blockPinYinMap: pinyinMap)
+            StockDBProvider.saveBlockPinYin(blockPinYinMap: pinyinMap)
             print("板块拼音转换结束")
         }
     }
@@ -466,7 +466,7 @@ class StockServiceProvider {
 //                print(Thread.isMainThread,stock.pinyin)
                 pinyinMap[stock.code] = stock.pinyin
             }
-            StockDBProvider.saveStockPinYinToLocal(stockPinYinMap:pinyinMap)
+            StockDBProvider.saveStockPinYin(stockPinYinMap:pinyinMap)
             print("股票拼音转换结束")
         }
     }

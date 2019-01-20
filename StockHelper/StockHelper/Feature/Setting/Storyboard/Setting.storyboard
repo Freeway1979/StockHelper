@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fPE-we-RW0">
-                                <rect key="frame" x="15" y="517" width="345" height="50"/>
+                                <rect key="frame" x="15" y="577" width="345" height="50"/>
                                 <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="AiZ-cb-ka1"/>
@@ -34,12 +34,40 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="ZhO-nI-1ec">
+                                <rect key="frame" x="0.0" y="74" width="365" height="488"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="O30-a6-Lpg" style="IBUITableViewCellStyleDefault" id="wef-hM-m2U">
+                                        <rect key="frame" x="0.0" y="55.5" width="365" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wef-hM-m2U" id="N7g-km-0fV">
+                                            <rect key="frame" x="0.0" y="0.0" width="332" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="清除本地缓存" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="O30-a6-Lpg">
+                                                    <rect key="frame" x="15" y="0.0" width="315" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="fPE-we-RW0" firstAttribute="leading" secondItem="CCX-cq-5nb" secondAttribute="leading" constant="15" id="0Kd-8s-wKj"/>
-                            <constraint firstItem="CCX-cq-5nb" firstAttribute="bottom" secondItem="fPE-we-RW0" secondAttribute="bottom" constant="100" id="Pjm-bD-RCs"/>
+                            <constraint firstItem="CCX-cq-5nb" firstAttribute="trailing" secondItem="ZhO-nI-1ec" secondAttribute="trailing" constant="10" id="MM3-wB-Pi2"/>
+                            <constraint firstItem="CCX-cq-5nb" firstAttribute="bottom" secondItem="fPE-we-RW0" secondAttribute="bottom" constant="40" id="Pjm-bD-RCs"/>
+                            <constraint firstItem="fPE-we-RW0" firstAttribute="top" secondItem="ZhO-nI-1ec" secondAttribute="bottom" constant="15" id="RTB-4c-juB"/>
                             <constraint firstItem="CCX-cq-5nb" firstAttribute="trailing" secondItem="fPE-we-RW0" secondAttribute="trailing" constant="15" id="cI2-Bg-nb3"/>
+                            <constraint firstItem="ZhO-nI-1ec" firstAttribute="leading" secondItem="CCX-cq-5nb" secondAttribute="leading" id="pih-5u-voO"/>
+                            <constraint firstItem="ZhO-nI-1ec" firstAttribute="top" secondItem="CCX-cq-5nb" secondAttribute="top" constant="10" id="uJn-FX-DRb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="CCX-cq-5nb"/>
                     </view>
@@ -50,6 +78,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="ZhO-nI-1ec" id="3Jf-kJ-9r6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cBv-PD-Vzg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

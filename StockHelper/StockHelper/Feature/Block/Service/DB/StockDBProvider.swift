@@ -27,78 +27,152 @@ struct UserDefaultKeys {
 
 class StockDBProvider {
     // Mark :Basic
-    public static func saveBasicBlocksToLocal(data:String) {
-        UserDefaults.standard.set(data, forKey: UserDefaultKeys.Block.basicBlocks)
+    public static func saveBasicBlocks(data:String) {
+        let key = UserDefaultKeys.Block.basicBlocks
+        UserDefaults.standard.set(data, forKey: key)
         UserDefaults.standard.synchronize()
+        //iCloud
+        iCloudUtils.set(anobject: data, forKey: key)
     }
-    public static func loadBasicBlocksFromLocal() -> String? {
-        let data = UserDefaults.standard.object(forKey: UserDefaultKeys.Block.basicBlocks) as? String
+    public static func loadBasicBlocks() -> String? {
+        let key = UserDefaultKeys.Block.basicBlocks
+        var data = UserDefaults.standard.object(forKey: key) as? String
+        if data?.count == 0 {
+            //iCloud
+            data = iCloudUtils.object(forKey: key) as? String
+        }
         return data;
     }
-    public static func saveBasicStocksToLocal(data:String) {
-        UserDefaults.standard.set(data, forKey: UserDefaultKeys.Stock.basicStocks)
+    public static func saveBasicStocks(data:String) {
+        let key = UserDefaultKeys.Stock.basicStocks
+        UserDefaults.standard.set(data, forKey: key)
         UserDefaults.standard.synchronize()
+        //iCloud
+        iCloudUtils.set(anobject: data, forKey: key)
     }
-    public static func loadBasicStocksFromLocal() -> String? {
-        let data = UserDefaults.standard.object(forKey: UserDefaultKeys.Stock.basicStocks) as? String
+    public static func loadBasicStocks() -> String? {
+        let key = UserDefaultKeys.Stock.basicStocks
+        var data = UserDefaults.standard.object(forKey: key) as? String
+        if data?.count == 0 {
+            //iCloud
+            data = iCloudUtils.object(forKey: key) as? String
+        }
         return data;
     }
     // Mark:Hot
-    public static func saveHotBlocksToLocal(data:String) {
-        UserDefaults.standard.set(data, forKey: UserDefaultKeys.Block.hotBlocks)
+    public static func saveHotBlocks(data:String) {
+        let key = UserDefaultKeys.Block.hotBlocks
+        UserDefaults.standard.set(data, forKey:key)
         UserDefaults.standard.synchronize()
+        //iCloud
+        iCloudUtils.set(anobject: data, forKey: key)
     }
-    public static func loadHotBlocksFromLocal() -> String? {
-        let data = UserDefaults.standard.object(forKey: UserDefaultKeys.Block.hotBlocks) as? String
+    public static func loadHotBlocks() -> String? {
+        let key = UserDefaultKeys.Block.hotBlocks
+        var data = UserDefaults.standard.object(forKey: key) as? String
+        if data?.count == 0 {
+            //iCloud
+            data = iCloudUtils.object(forKey: key) as? String
+        }
         return data;
     }
-    public static func saveHotStocksToLocal(data:String) {
-        UserDefaults.standard.set(data, forKey: UserDefaultKeys.Stock.hotStocks)
+    public static func saveHotStocks(data:String) {
+        let key = UserDefaultKeys.Stock.hotStocks
+        UserDefaults.standard.set(data, forKey: key)
         UserDefaults.standard.synchronize()
+        //iCloud
+        iCloudUtils.set(anobject: data, forKey: key)
     }
-    public static func loadHotStocksFromLocal() -> String? {
-        let data = UserDefaults.standard.object(forKey: UserDefaultKeys.Stock.hotStocks) as? String
+    public static func loadHotStocks() -> String? {
+        let key = UserDefaultKeys.Stock.hotStocks
+        var data = UserDefaults.standard.object(forKey: key) as? String
+        if data?.count == 0 {
+            //iCloud
+            data = iCloudUtils.object(forKey: key) as? String
+        }
         return data;
     }
     // Mark:Important
-    public static func saveImportantBlocksToLocal(data:String) {
-        UserDefaults.standard.set(data, forKey: UserDefaultKeys.Block.importantBlocks)
+    public static func saveImportantBlocks(data:String) {
+        let key = UserDefaultKeys.Block.importantBlocks
+        UserDefaults.standard.set(data, forKey: key)
         UserDefaults.standard.synchronize()
+        //iCloud
+        iCloudUtils.set(anobject: data, forKey: key)
     }
-    public static func loadImportantBlocksFromLocal() -> String? {
-        let data = UserDefaults.standard.object(forKey: UserDefaultKeys.Block.importantBlocks) as? String
+    public static func loadImportantBlocks() -> String? {
+        let key = UserDefaultKeys.Block.importantBlocks
+        var data = UserDefaults.standard.object(forKey: key) as? String
+        if data?.count == 0 {
+            //iCloud
+            data = iCloudUtils.object(forKey: key) as? String
+        }
         return data;
     }
-    public static func saveImportantStocksToLocal(data:String) {
-        UserDefaults.standard.set(data, forKey: UserDefaultKeys.Stock.importantStocks)
+    public static func saveImportantStocks(data:String) {
+        let key = UserDefaultKeys.Stock.importantStocks
+        UserDefaults.standard.set(data, forKey: key)
         UserDefaults.standard.synchronize()
+        //iCloud
+        iCloudUtils.set(anobject: data, forKey: key)
     }
-    public static func loadImportantStocksFromLocal() -> String? {
-        let data = UserDefaults.standard.object(forKey: UserDefaultKeys.Stock.importantStocks) as? String
+    public static func loadImportantStocks() -> String? {
+        let key = UserDefaultKeys.Stock.importantStocks
+        var data = UserDefaults.standard.object(forKey: key) as? String
+        if data?.count == 0 {
+            //iCloud
+            data = iCloudUtils.object(forKey: key) as? String
+        }
         return data;
     }
     
     // Mark: PinYin
-    public static func loadStockPinYinFromLocal() -> [String:String] {
-        let pinyinMap = UserDefaults.standard.object(forKey:UserDefaultKeys.Stock.basicStocksPinYin)
+    public static func loadStockPinYin() -> [String:String] {
+        let key = UserDefaultKeys.Stock.basicStocksPinYin
+        var pinyinMap = UserDefaults.standard.object(forKey:key)
+        if pinyinMap != nil {
+            return pinyinMap as! [String : String]
+        }
+        //iCloud
+        pinyinMap = iCloudUtils.object(forKey: key) as? [String:String]
         if pinyinMap != nil {
             return pinyinMap as! [String : String]
         }
         return [:]
     }
-    public static func saveStockPinYinToLocal(stockPinYinMap:[String:String]) {
-        UserDefaults.standard.set(stockPinYinMap,forKey:UserDefaultKeys.Stock.basicStocksPinYin)
+    public static func saveStockPinYin(stockPinYinMap:[String:String]) {
+        let key = UserDefaultKeys.Stock.basicStocksPinYin
+        UserDefaults.standard.set(stockPinYinMap,forKey:key)
         UserDefaults.standard.synchronize()
+        //iCloud
+        iCloudUtils.set(anobject: stockPinYinMap, forKey: key)
     }
-    public static func loadBlockPinYinFromLocal() -> [String:String] {
-        let pinyinMap = UserDefaults.standard.object(forKey:UserDefaultKeys.Block.basicBlocksPinYin)
+    public static func loadBlockPinYin() -> [String:String] {
+        let key = UserDefaultKeys.Block.basicBlocksPinYin
+        var pinyinMap = UserDefaults.standard.object(forKey: key)
+        if pinyinMap != nil {
+            return pinyinMap as! [String : String]
+        }
+        
+        pinyinMap = iCloudUtils.object(forKey: key) as? [String:String]
         if pinyinMap != nil {
             return pinyinMap as! [String : String]
         }
         return [:]
     }
-    public static func saveBlockPinYinToLocal(blockPinYinMap:[String:String]) {
-        UserDefaults.standard.set(blockPinYinMap,forKey:UserDefaultKeys.Block.basicBlocksPinYin)
+    public static func saveBlockPinYin(blockPinYinMap:[String:String]) {
+        let key = UserDefaultKeys.Block.basicBlocksPinYin
+        UserDefaults.standard.set(blockPinYinMap,forKey:key)
+        UserDefaults.standard.synchronize()
+        //iCloud
+        iCloudUtils.set(anobject: blockPinYinMap, forKey: key)
+    }
+    
+    public static func clearLocalUserDefaults() {
+        let dic = UserDefaults.standard.dictionaryRepresentation()
+        for key in dic.keys {
+            UserDefaults.standard.removeObject(forKey: key)
+        }
         UserDefaults.standard.synchronize()
     }
 }

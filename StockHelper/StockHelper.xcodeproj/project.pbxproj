@@ -42,6 +42,10 @@
 		A12A18DC21EA254F004294B5 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A18DB21EA254F004294B5 /* Utils.swift */; };
 		A12A18DE21EA2878004294B5 /* StockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A18DD21EA2878004294B5 /* StockViewController.swift */; };
 		A132955921DB523C00A3B156 /* RemoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A132955821DB523C00A3B156 /* RemoteService.swift */; };
+		A1343F9221F45A310086FEEB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1343F9121F45A310086FEEB /* CloudKit.framework */; };
+		A1343F9521F45A830086FEEB /* iCloudUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1343F9421F45A830086FEEB /* iCloudUtils.swift */; };
+		A1343F9821F46D6E0086FEEB /* TableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1343F9721F46D6E0086FEEB /* TableViewCellModel.swift */; };
+		A1343F9A21F46D7B0086FEEB /* TableViewSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1343F9921F46D7B0086FEEB /* TableViewSectionModel.swift */; };
 		A14115F721DD8CAA00E1B2BC /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14115F621DD8CAA00E1B2BC /* MessageService.swift */; };
 		A14115F921DD8D2A00E1B2BC /* ServiceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14115F821DD8D2A00E1B2BC /* ServiceConfig.swift */; };
 		A14115FB21DD8DA000E1B2BC /* MessageServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14115FA21DD8DA000E1B2BC /* MessageServiceProvider.swift */; };
@@ -126,6 +130,11 @@
 		A12A18DB21EA254F004294B5 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		A12A18DD21EA2878004294B5 /* StockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockViewController.swift; sourceTree = "<group>"; };
 		A132955821DB523C00A3B156 /* RemoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteService.swift; sourceTree = "<group>"; };
+		A1343F9021F45A130086FEEB /* StockHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StockHelper.entitlements; sourceTree = "<group>"; };
+		A1343F9121F45A310086FEEB /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		A1343F9421F45A830086FEEB /* iCloudUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudUtils.swift; sourceTree = "<group>"; };
+		A1343F9721F46D6E0086FEEB /* TableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellModel.swift; sourceTree = "<group>"; };
+		A1343F9921F46D7B0086FEEB /* TableViewSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSectionModel.swift; sourceTree = "<group>"; };
 		A14115F621DD8CAA00E1B2BC /* MessageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MessageService.swift; path = "StockHelper/Common/New Group/MessageService.swift"; sourceTree = SOURCE_ROOT; };
 		A14115F821DD8D2A00E1B2BC /* ServiceConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceConfig.swift; sourceTree = "<group>"; };
 		A14115FA21DD8DA000E1B2BC /* MessageServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MessageServiceProvider.swift; path = "StockHelper/Common/New Group/MessageServiceProvider.swift"; sourceTree = SOURCE_ROOT; };
@@ -164,6 +173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9C9C77024B24177C86177B6 /* Pods_StockHelper.framework in Frameworks */,
+				A1343F9221F45A310086FEEB /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,6 +211,7 @@
 		06EDD3C3215241970035104B /* StockHelper */ = {
 			isa = PBXGroup;
 			children = (
+				A1343F9021F45A130086FEEB /* StockHelper.entitlements */,
 				06EDD3E7215242380035104B /* Feature */,
 				06EDD3E6215242190035104B /* Common */,
 				06EDD3C4215241970035104B /* AppDelegate.swift */,
@@ -225,6 +236,8 @@
 		06EDD3E6215242190035104B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A1343F9621F46D550086FEEB /* ViewModel */,
+				A1343F9321F45A700086FEEB /* iCloud */,
 				A12A18DA21EA2535004294B5 /* Utils */,
 				A12A18D321E9DE0A004294B5 /* Theme */,
 				A1F4428821E0D54400999138 /* ThirdParty */,
@@ -490,6 +503,23 @@
 			path = "New Group";
 			sourceTree = "<group>";
 		};
+		A1343F9321F45A700086FEEB /* iCloud */ = {
+			isa = PBXGroup;
+			children = (
+				A1343F9421F45A830086FEEB /* iCloudUtils.swift */,
+			);
+			path = iCloud;
+			sourceTree = "<group>";
+		};
+		A1343F9621F46D550086FEEB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A1343F9721F46D6E0086FEEB /* TableViewCellModel.swift */,
+				A1343F9921F46D7B0086FEEB /* TableViewSectionModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		A149FF6C21F304B9002512CF /* SweetAlert */ = {
 			isa = PBXGroup;
 			children = (
@@ -608,6 +638,7 @@
 		C41FF9A5444E0EA70AC7C067 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A1343F9121F45A310086FEEB /* CloudKit.framework */,
 				372C30837F0AFC8048D7F822 /* Pods_StockHelper.framework */,
 				BB894E0D4080A19D5FDBAC33 /* Pods_StockHelperTests.framework */,
 			);
@@ -679,6 +710,14 @@
 					06EDD3C0215241970035104B = {
 						CreatedOnToolsVersion = 9.4.1;
 						LastSwiftMigration = 1010;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					06EDD3D6215241990035104B = {
 						CreatedOnToolsVersion = 9.4.1;
@@ -814,6 +853,7 @@
 				A14115FB21DD8DA000E1B2BC /* MessageServiceProvider.swift in Sources */,
 				A10E4B3921CE57E10092B671 /* HomeViewController.swift in Sources */,
 				A132955921DB523C00A3B156 /* RemoteService.swift in Sources */,
+				A1343F9821F46D6E0086FEEB /* TableViewCellModel.swift in Sources */,
 				A1F4429121E0D73C00999138 /* MyMenuViewController.swift in Sources */,
 				06EDD3FA21524B160035104B /* Message.swift in Sources */,
 				06EDD3C9215241970035104B /* BlockViewController.swift in Sources */,
@@ -838,6 +878,7 @@
 				06EDD3C5215241970035104B /* AppDelegate.swift in Sources */,
 				A12A18D921EA08E3004294B5 /* Array+PinYin.swift in Sources */,
 				A1901AB621E8CBEE00F14831 /* TagCollectionViewCell.swift in Sources */,
+				A1343F9521F45A830086FEEB /* iCloudUtils.swift in Sources */,
 				A12A18D521E9DE18004294B5 /* Theme.swift in Sources */,
 				A149FF6E21F304D0002512CF /* SweetAlert.swift in Sources */,
 				06EDD3F0215244280035104B /* Block.swift in Sources */,
@@ -854,6 +895,7 @@
 				A1E1278E21E6C68600527DC0 /* UIViewController+Alert.swift in Sources */,
 				A12A18D721EA0887004294B5 /* String+PinYin.swift in Sources */,
 				A12A18DE21EA2878004294B5 /* StockViewController.swift in Sources */,
+				A1343F9A21F46D7B0086FEEB /* TableViewSectionModel.swift in Sources */,
 				A10E4B3121CE543B0092B671 /* MyStocksViewController.swift in Sources */,
 				A1F5953321BCDF9200EC5ECB /* MAType.swift in Sources */,
 			);
@@ -1016,6 +1058,7 @@
 			baseConfigurationReference = 39990CF90212CD11B1FECEBF /* Pods-StockHelper.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = StockHelper/StockHelper.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RTCEZS3U4Z;
 				INFOPLIST_FILE = StockHelper/Info.plist;
@@ -1035,6 +1078,7 @@
 			baseConfigurationReference = 41C561ABB324A6CEBDD1BB43 /* Pods-StockHelper.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = StockHelper/StockHelper.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RTCEZS3U4Z;
 				INFOPLIST_FILE = StockHelper/Info.plist;
