@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 struct TableViewCellModel {
+    var id:String?
     var title:String = ""
     var detail:String = ""
     var cellStyle:UITableViewCell.CellStyle = .default

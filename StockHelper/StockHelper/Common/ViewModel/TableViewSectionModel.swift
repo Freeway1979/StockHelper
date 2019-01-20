@@ -9,6 +9,7 @@
 import Foundation
 
 struct TableViewSectionModel {
+    var id:String?
     var title:String = ""
     var rows:[TableViewCellModel] = []
 }

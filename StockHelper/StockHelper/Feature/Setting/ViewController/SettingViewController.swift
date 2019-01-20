@@ -33,7 +33,9 @@ class SettingViewController: UIViewController {
         // 1
         var section = TableViewSectionModel()
         section.title = "数据"
+        section.id = "Section0"
         var cell = TableViewCellModel();
+        cell.id = "ClearLocalStorage"
         cell.title = "清除本地缓存"
         cell.accessoryType = .disclosureIndicator
         section.rows.append(cell)
@@ -110,5 +112,20 @@ extension SettingViewController:UITableViewDataSource {
 }
 
 extension SettingViewController:UITableViewDelegate {
+ 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let sectionModel = self.settingData[indexPath.section]
+        let cellModel = sectionModel.rows[indexPath.row]
+        if sectionModel.id == "Section0" && cellModel.id == "ClearLocalStorage" {
+            //
+            self.showAlert(title:"你确定要删除本地缓存吗?", message: nil, leftTitle: "确定", leftHandler: { (action) in
+                StockDBProvider.clearLocalUserDefaults()
+                let rs = SweetAlert().showAlert("删除完毕", subTitle: nil, style: AlertStyle.success)
+            }, rightTitle: "取消") { (action) in
+                
+            }
+           
+        }
+    }
     
 }
