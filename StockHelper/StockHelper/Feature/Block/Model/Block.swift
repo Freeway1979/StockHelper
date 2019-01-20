@@ -56,4 +56,9 @@ class Block2Stocks
     init(block:Block) {
         self.block = block
     }
+    public func leadStocks() -> [Stock] {
+       return self.stocks?.filter({ [weak self] (stock) -> Bool in
+        return StockServiceProvider.isHotStock(stock: stock, block: (self?.block)!);
+       }) ?? []
+    }
 }

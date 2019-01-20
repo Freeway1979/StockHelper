@@ -19,20 +19,15 @@ class BlockViewController: UIViewController
     private var displayedItems:[Block] = []
     private var filterType:FilterType = .all
     
-    private enum FilterType {
-        case hot
+    private enum FilterType:Int {
+        case hot = 0
         case important
+        case leadingStocks
         case all
     }
     
     @IBAction func onFilterButtonClicked(_ sender: UIButton) {
-        if sender.tag == 0 {
-            filterType = .hot
-        } else if sender.tag == 1 {
-            filterType = .important
-        } else {
-            filterType = .all
-        }
+        filterType = FilterType(rawValue: sender.tag) ?? .all
         self.refreshTableViewBySearch(keyword: self.keyword)
     }
     
@@ -84,6 +79,11 @@ class BlockViewController: UIViewController
                     let isImportantBlock = StockServiceProvider.isImportantBlock(block: block)
                     rs = rs && isImportantBlock
                 }
+                if self.filterType == .leadingStocks {
+                    let blockstocks:Block2Stocks = StockServiceProvider.getSyncBlockStocksDetail(basicBlock: block)
+                    let count = blockstocks.leadStocks().count
+                    rs = rs && (count>0)
+                }
             }
             return rs;
         }
@@ -118,12 +118,7 @@ class BlockViewController: UIViewController
     
     private func getBlockSubtitle(block:Block) -> String {
         let blockstocks:Block2Stocks = StockServiceProvider.getSyncBlockStocksDetail(basicBlock: block)
-        var count = 0
-        for stock in blockstocks.stocks ?? [] {
-            if StockServiceProvider.isHotStock(stock: stock, block: block) {
-                count = count + 1
-            }
-        }
+        let count = blockstocks.leadStocks().count
         if count > 0 {
             return String(count)
         }
