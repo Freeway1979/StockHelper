@@ -1,20 +1,15 @@
 //
-//  MyStocksViewController.swift
+//  DocumentDetailViewController.swift
 //  StockHelper
 //
-//  Created by Andy Liu on 2018/12/22.
-//  Copyright © 2018 Andy Liu. All rights reserved.
+//  Created by Andy Liu on 2019/2/1.
+//  Copyright © 2019 Andy Liu. All rights reserved.
 //
 
 import UIKit
 
-class MyStocksViewController: UIViewController {
-    
-    @IBAction func onButtonClicked(_ sender: UIButton) {
-        
-      Utils.openWenCai(from: self)
-      
-    }
+class DocumentDetailViewController: UIViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

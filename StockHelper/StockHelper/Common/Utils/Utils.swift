@@ -12,12 +12,16 @@ import UIKit
 class Utils {
     /// 打开同花顺
     public static func openTHS(with code:String = "") {
-        UIPasteboard.general.string = code
+        // UIPasteboard.general.string = code
         let url = URL(string: "AMIHexinPro://cn.com.10jqka.eq")!
         if UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url, options: [:]) { (rs) in
                 print("Succuess \(rs)")
             }
         }
+    }
+    
+    public static func openWenCai(from viewController:UIViewController) {
+        WebViewController.open(website: WebSite.WenCai, withtitle: "问财", from: viewController)
     }
 }

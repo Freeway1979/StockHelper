@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pJb-Gh-Sxm">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--问财-->
+        <scene sceneID="zGq-fZ-XEv">
+            <objects>
+                <viewController storyboardIdentifier="WebViewController" title="问财" id="K9t-xu-dlr" customClass="WebViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kf8-Nd-dz0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qGu-pe-SXG">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="qGu-pe-SXG" firstAttribute="top" secondItem="kf8-Nd-dz0" secondAttribute="top" constant="64" id="4da-1k-dwH"/>
+                            <constraint firstAttribute="bottom" secondItem="qGu-pe-SXG" secondAttribute="bottom" id="VOA-74-BNZ"/>
+                            <constraint firstItem="qGu-pe-SXG" firstAttribute="leading" secondItem="kf8-Nd-dz0" secondAttribute="leading" id="cB9-SY-flg"/>
+                            <constraint firstAttribute="trailing" secondItem="qGu-pe-SXG" secondAttribute="trailing" id="jp7-vv-FfP"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="TYL-dm-fJr"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="问财" id="h5h-Rh-MxG"/>
+                    <connections>
+                        <outlet property="webView" destination="qGu-pe-SXG" id="X13-Da-YfM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rUu-aT-f4p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1079.2" y="133.5832083958021"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Uy1-YC-A5Z">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pJb-Gh-Sxm" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="PXL-hs-zLJ">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="K9t-xu-dlr" kind="relationship" relationship="rootViewController" id="UGk-9T-fpP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R2z-fb-Mvg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="127" y="120"/>
+        </scene>
+        <!--文档-->
+        <scene sceneID="bHk-95-E1J">
+            <objects>
+                <viewController storyboardIdentifier="TextViewController" id="026-ZP-8Ne" customClass="TextViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3ZV-v8-biY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" placeholder="搜索" showsSearchResultsButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hs9-5B-JNx">
+                                <rect key="frame" x="0.0" y="20" width="375" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="js2-6m-dM4"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
+                            </searchBar>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="&lt;h1&gt;标题&lt;/h1&gt;" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SwC-l6-G1H">
+                                <rect key="frame" x="15" y="216" width="345" height="436"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name=".PingFangSC-Regular" family=".PingFang SC" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iBv-pN-0Ua">
+                                <rect key="frame" x="15" y="86" width="345" height="120"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="uRJ-wI-oKf"/>
+                                </constraints>
+                                <attributedString key="attributedText"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="od7-Zb-tZR" firstAttribute="trailing" secondItem="SwC-l6-G1H" secondAttribute="trailing" constant="15" id="1vM-lU-gNb"/>
+                            <constraint firstItem="SwC-l6-G1H" firstAttribute="leading" secondItem="od7-Zb-tZR" secondAttribute="leading" constant="15" id="FUp-q7-SAL"/>
+                            <constraint firstItem="iBv-pN-0Ua" firstAttribute="top" secondItem="Hs9-5B-JNx" secondAttribute="bottom" constant="10" id="Ha4-Xl-yCW"/>
+                            <constraint firstItem="od7-Zb-tZR" firstAttribute="trailing" secondItem="iBv-pN-0Ua" secondAttribute="trailing" constant="15" id="Tf1-6E-FOT"/>
+                            <constraint firstItem="SwC-l6-G1H" firstAttribute="top" secondItem="iBv-pN-0Ua" secondAttribute="bottom" constant="10" id="Vno-Yt-GM4"/>
+                            <constraint firstItem="Hs9-5B-JNx" firstAttribute="top" secondItem="od7-Zb-tZR" secondAttribute="top" id="Y5B-fG-g0a"/>
+                            <constraint firstItem="Hs9-5B-JNx" firstAttribute="leading" secondItem="od7-Zb-tZR" secondAttribute="leading" id="Zuo-4U-1lP"/>
+                            <constraint firstItem="od7-Zb-tZR" firstAttribute="bottom" secondItem="SwC-l6-G1H" secondAttribute="bottom" constant="15" id="c7p-iQ-0Ja"/>
+                            <constraint firstItem="Hs9-5B-JNx" firstAttribute="trailing" secondItem="od7-Zb-tZR" secondAttribute="trailing" id="kCu-ku-sut"/>
+                            <constraint firstItem="iBv-pN-0Ua" firstAttribute="leading" secondItem="od7-Zb-tZR" secondAttribute="leading" constant="15" id="t9o-fA-JCT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="od7-Zb-tZR"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="文档" id="A2p-YP-ykz"/>
+                    <connections>
+                        <outlet property="contentTextView" destination="SwC-l6-G1H" id="KTg-Ze-YEv"/>
+                        <outlet property="resultTextView" destination="iBv-pN-0Ua" id="Rah-mO-AAm"/>
+                        <outlet property="searchBar" destination="Hs9-5B-JNx" id="E4M-yn-MCD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qYL-RO-Rip" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="104.8" y="820.83958020989508"/>
+        </scene>
+    </scenes>
+</document>

@@ -15,4 +15,5 @@ struct TableViewCellModel {
     var detail:String = ""
     var cellStyle:UITableViewCell.CellStyle = .default
     var accessoryType:UITableViewCell.AccessoryType = .none
+    var data:Any?
 }

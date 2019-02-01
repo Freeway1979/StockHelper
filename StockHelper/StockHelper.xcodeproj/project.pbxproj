@@ -41,15 +41,22 @@
 		A12A18D921EA08E3004294B5 /* Array+PinYin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A18D821EA08E3004294B5 /* Array+PinYin.swift */; };
 		A12A18DC21EA254F004294B5 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A18DB21EA254F004294B5 /* Utils.swift */; };
 		A12A18DE21EA2878004294B5 /* StockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A18DD21EA2878004294B5 /* StockViewController.swift */; };
+		A12CD64621F7EAF200CE5C70 /* WebSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12CD64521F7EAF200CE5C70 /* WebSite.swift */; };
 		A132955921DB523C00A3B156 /* RemoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A132955821DB523C00A3B156 /* RemoteService.swift */; };
 		A1343F9221F45A310086FEEB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1343F9121F45A310086FEEB /* CloudKit.framework */; };
 		A1343F9521F45A830086FEEB /* iCloudUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1343F9421F45A830086FEEB /* iCloudUtils.swift */; };
 		A1343F9821F46D6E0086FEEB /* TableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1343F9721F46D6E0086FEEB /* TableViewCellModel.swift */; };
 		A1343F9A21F46D7B0086FEEB /* TableViewSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1343F9921F46D7B0086FEEB /* TableViewSectionModel.swift */; };
+		A13FEFAF2204746A002B1E7E /* Document.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A13FEFAE2204746A002B1E7E /* Document.storyboard */; };
+		A13FEFB222047483002B1E7E /* DocumentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13FEFB122047483002B1E7E /* DocumentListViewController.swift */; };
+		A13FEFB422047493002B1E7E /* DocumentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13FEFB322047493002B1E7E /* DocumentDetailViewController.swift */; };
+		A13FEFB622047FA1002B1E7E /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13FEFB522047FA1002B1E7E /* TextViewController.swift */; };
 		A14115F721DD8CAA00E1B2BC /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14115F621DD8CAA00E1B2BC /* MessageService.swift */; };
 		A14115F921DD8D2A00E1B2BC /* ServiceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14115F821DD8D2A00E1B2BC /* ServiceConfig.swift */; };
 		A14115FB21DD8DA000E1B2BC /* MessageServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14115FA21DD8DA000E1B2BC /* MessageServiceProvider.swift */; };
 		A149FF6E21F304D0002512CF /* SweetAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A149FF6D21F304D0002512CF /* SweetAlert.swift */; };
+		A155BFAF21F766A80026635A /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A155BFAD21F766A80026635A /* WebViewController.swift */; };
+		A155BFB221F769500026635A /* Common.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A155BFB121F769500026635A /* Common.storyboard */; };
 		A18EE06921E15FD800E67D4B /* Study.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A18EE06821E15FD800E67D4B /* Study.storyboard */; };
 		A18EE06B21E1601900E67D4B /* StudyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18EE06A21E1601900E67D4B /* StudyTableViewController.swift */; };
 		A1901AB121E8CBE100F14831 /* StockCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1901AAF21E8CBE000F14831 /* StockCollectionViewCell.swift */; };
@@ -129,16 +136,23 @@
 		A12A18D821EA08E3004294B5 /* Array+PinYin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+PinYin.swift"; sourceTree = "<group>"; };
 		A12A18DB21EA254F004294B5 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		A12A18DD21EA2878004294B5 /* StockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockViewController.swift; sourceTree = "<group>"; };
+		A12CD64521F7EAF200CE5C70 /* WebSite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSite.swift; sourceTree = "<group>"; };
 		A132955821DB523C00A3B156 /* RemoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteService.swift; sourceTree = "<group>"; };
 		A1343F9021F45A130086FEEB /* StockHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StockHelper.entitlements; sourceTree = "<group>"; };
 		A1343F9121F45A310086FEEB /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		A1343F9421F45A830086FEEB /* iCloudUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudUtils.swift; sourceTree = "<group>"; };
 		A1343F9721F46D6E0086FEEB /* TableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellModel.swift; sourceTree = "<group>"; };
 		A1343F9921F46D7B0086FEEB /* TableViewSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSectionModel.swift; sourceTree = "<group>"; };
+		A13FEFAE2204746A002B1E7E /* Document.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Document.storyboard; sourceTree = "<group>"; };
+		A13FEFB122047483002B1E7E /* DocumentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentListViewController.swift; sourceTree = "<group>"; };
+		A13FEFB322047493002B1E7E /* DocumentDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentDetailViewController.swift; sourceTree = "<group>"; };
+		A13FEFB522047FA1002B1E7E /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		A14115F621DD8CAA00E1B2BC /* MessageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MessageService.swift; path = "StockHelper/Common/New Group/MessageService.swift"; sourceTree = SOURCE_ROOT; };
 		A14115F821DD8D2A00E1B2BC /* ServiceConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceConfig.swift; sourceTree = "<group>"; };
 		A14115FA21DD8DA000E1B2BC /* MessageServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MessageServiceProvider.swift; path = "StockHelper/Common/New Group/MessageServiceProvider.swift"; sourceTree = SOURCE_ROOT; };
 		A149FF6D21F304D0002512CF /* SweetAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetAlert.swift; sourceTree = "<group>"; };
+		A155BFAD21F766A80026635A /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		A155BFB121F769500026635A /* Common.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Common.storyboard; sourceTree = "<group>"; };
 		A18EE06821E15FD800E67D4B /* Study.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Study.storyboard; sourceTree = "<group>"; };
 		A18EE06A21E1601900E67D4B /* StudyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyTableViewController.swift; sourceTree = "<group>"; };
 		A1901AAF21E8CBE000F14831 /* StockCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -236,6 +250,7 @@
 		06EDD3E6215242190035104B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A155BFAC21F7663E0026635A /* ViewController */,
 				A1343F9621F46D550086FEEB /* ViewModel */,
 				A1343F9321F45A700086FEEB /* iCloud */,
 				A12A18DA21EA2535004294B5 /* Utils */,
@@ -251,6 +266,8 @@
 		06EDD3E7215242380035104B /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				A13FEFA8220473E5002B1E7E /* Document */,
+				A12CD64321F7EAD000CE5C70 /* WebSite */,
 				A18EE06521E15F9800E67D4B /* Study */,
 				A1F4429221E1086100999138 /* Setting */,
 				A10E4B3521CE57B40092B671 /* Home */,
@@ -493,6 +510,22 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		A12CD64321F7EAD000CE5C70 /* WebSite */ = {
+			isa = PBXGroup;
+			children = (
+				A12CD64421F7EAE000CE5C70 /* Config */,
+				A12CD64521F7EAF200CE5C70 /* WebSite.swift */,
+			);
+			path = WebSite;
+			sourceTree = "<group>";
+		};
+		A12CD64421F7EAE000CE5C70 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		A132955721DB521B00A3B156 /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -520,12 +553,48 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		A13FEFA8220473E5002B1E7E /* Document */ = {
+			isa = PBXGroup;
+			children = (
+				A13FEFB02204746F002B1E7E /* ViewController */,
+				A13FEFAD22047457002B1E7E /* Storyboard */,
+			);
+			path = Document;
+			sourceTree = "<group>";
+		};
+		A13FEFAD22047457002B1E7E /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				A13FEFAE2204746A002B1E7E /* Document.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		A13FEFB02204746F002B1E7E /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A13FEFB122047483002B1E7E /* DocumentListViewController.swift */,
+				A13FEFB322047493002B1E7E /* DocumentDetailViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		A149FF6C21F304B9002512CF /* SweetAlert */ = {
 			isa = PBXGroup;
 			children = (
 				A149FF6D21F304D0002512CF /* SweetAlert.swift */,
 			);
 			path = SweetAlert;
+			sourceTree = "<group>";
+		};
+		A155BFAC21F7663E0026635A /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A155BFAD21F766A80026635A /* WebViewController.swift */,
+				A155BFB121F769500026635A /* Common.storyboard */,
+				A13FEFB522047FA1002B1E7E /* TextViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		A18EE06521E15F9800E67D4B /* Study */ = {
@@ -751,6 +820,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1901AB221E8CBE100F14831 /* StockCollectionViewCell.xib in Resources */,
+				A155BFB221F769500026635A /* Common.storyboard in Resources */,
 				A12A18C621E954B0004294B5 /* TagButton.xib in Resources */,
 				A10E4B4521CE5FED0092B671 /* Home.storyboard in Resources */,
 				A12A18D221E9CA3D004294B5 /* HeaderCollectionView.xib in Resources */,
@@ -758,6 +828,7 @@
 				A1901AB521E8CBEE00F14831 /* TagCollectionViewCell.xib in Resources */,
 				A10E4B4B21CE67D20092B671 /* Block.storyboard in Resources */,
 				06EDD3CE215241990035104B /* Assets.xcassets in Resources */,
+				A13FEFAF2204746A002B1E7E /* Document.storyboard in Resources */,
 				A10E4B4921CE67260092B671 /* Stock.storyboard in Resources */,
 				A1F4429621E1089500999138 /* Setting.storyboard in Resources */,
 				A10E4B4321CE5EE00092B671 /* Message.storyboard in Resources */,
@@ -848,6 +919,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A13FEFB622047FA1002B1E7E /* TextViewController.swift in Sources */,
+				A13FEFB222047483002B1E7E /* DocumentListViewController.swift in Sources */,
 				065248B221C21D7C0047405C /* Float+Format.swift in Sources */,
 				065248B021C219020047405C /* PriceGridViewController.swift in Sources */,
 				A14115FB21DD8DA000E1B2BC /* MessageServiceProvider.swift in Sources */,
@@ -855,6 +928,7 @@
 				A132955921DB523C00A3B156 /* RemoteService.swift in Sources */,
 				A1343F9821F46D6E0086FEEB /* TableViewCellModel.swift in Sources */,
 				A1F4429121E0D73C00999138 /* MyMenuViewController.swift in Sources */,
+				A13FEFB422047493002B1E7E /* DocumentDetailViewController.swift in Sources */,
 				06EDD3FA21524B160035104B /* Message.swift in Sources */,
 				06EDD3C9215241970035104B /* BlockViewController.swift in Sources */,
 				A1F5953D21BD5A5C00EC5ECB /* MessageDetailViewController.swift in Sources */,
@@ -863,11 +937,13 @@
 				06F587F921B928BF00D69159 /* CalculatorViewController.swift in Sources */,
 				A1901AB121E8CBE100F14831 /* StockCollectionViewCell.swift in Sources */,
 				06EDD3F4215245120035104B /* StockBlockChange.swift in Sources */,
+				A12CD64621F7EAF200CE5C70 /* WebSite.swift in Sources */,
 				A1D44CBC21D9FA500043A4A5 /* StockServiceProvider.swift in Sources */,
 				A1F4428D21E0D56A00999138 /* ENSideMenuNavigationController.swift in Sources */,
 				A1D44CBA21D9F8730043A4A5 /* StockService.swift in Sources */,
 				06EDD3F6215247980035104B /* Stock.swift in Sources */,
 				A1F4428F21E0D6F000999138 /* MyNavigationController.swift in Sources */,
+				A155BFAF21F766A80026635A /* WebViewController.swift in Sources */,
 				A14115F921DD8D2A00E1B2BC /* ServiceConfig.swift in Sources */,
 				A12A18DC21EA254F004294B5 /* Utils.swift in Sources */,
 				A1F4429821E108B800999138 /* SettingViewController.swift in Sources */,
@@ -1062,7 +1138,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RTCEZS3U4Z;
 				INFOPLIST_FILE = StockHelper/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rds.mos.xxhelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -1079,7 +1158,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RTCEZS3U4Z;
 				INFOPLIST_FILE = StockHelper/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rds.mos.xxhelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -1095,7 +1177,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = StockHelperTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chaser.app.StockHelperTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -1112,7 +1198,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = StockHelperTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chaser.app.StockHelperTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
