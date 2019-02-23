@@ -47,15 +47,8 @@ class StockServiceProvider {
         blockMap = _blockMap
     }
     
-    private static func parseJSONStringToObjects<T:Decodable>(jsonString:String) -> [T] {
-        let jsonData:Data = jsonString.data(using: .utf8)!
-        let decoder = JSONDecoder()
-        let objects = try! decoder.decode([T].self, from: jsonData)
-        return objects;
-    }
-    
     private static func parseJSONStringToStocks(jsonString:String) -> [Stock] {
-        return parseJSONStringToObjects(jsonString: jsonString)
+        return jsonString.json2Objects()
     }
     /// 获取所有股票列表（code+name)
     ///
@@ -103,7 +96,7 @@ class StockServiceProvider {
     }
     
     private static func parseJSONStringToBlocks(jsonString:String) -> [Block] {
-       return parseJSONStringToObjects(jsonString: jsonString)
+       return Utils.parseJSONStringToObjects(jsonString: jsonString)
     }
     
     /// 获取所有板块列表(code+name+type)
@@ -470,6 +463,7 @@ class StockServiceProvider {
             print("股票拼音转换结束")
         }
     }
+    
     public static func getBasicData() {
         // 板块基本信息列表
         getBlockList { (blocks) in

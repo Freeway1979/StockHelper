@@ -47,6 +47,36 @@
             </objects>
             <point key="canvasLocation" x="772" y="190.25487256371815"/>
         </scene>
+        <!--研报社-->
+        <scene sceneID="RF4-2w-cUF">
+            <objects>
+                <viewController storyboardIdentifier="YanBaoSheDocumentListViewController" title="研报社" id="UGl-jT-KsL" customClass="YanBaoSheDocumentListViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Bt3-3q-DwC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="b5S-Fc-VFT">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="b5S-Fc-VFT" firstAttribute="top" secondItem="Bt3-3q-DwC" secondAttribute="top" id="Fos-w5-1fv"/>
+                            <constraint firstItem="Epc-hB-DWs" firstAttribute="trailing" secondItem="b5S-Fc-VFT" secondAttribute="trailing" id="Yx7-io-6BU"/>
+                            <constraint firstItem="b5S-Fc-VFT" firstAttribute="leading" secondItem="Epc-hB-DWs" secondAttribute="leading" id="p5i-yy-EEQ"/>
+                            <constraint firstItem="Epc-hB-DWs" firstAttribute="bottom" secondItem="b5S-Fc-VFT" secondAttribute="bottom" id="zCK-Sp-FJn"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Epc-hB-DWs"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="b5S-Fc-VFT" id="LsQ-oe-dKq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ihn-Uo-GW2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="772" y="891"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="ItL-5n-KDj">
             <objects>

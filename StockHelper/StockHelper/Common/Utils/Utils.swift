@@ -24,4 +24,11 @@ class Utils {
     public static func openWenCai(from viewController:UIViewController) {
         WebViewController.open(website: WebSite.WenCai, withtitle: "问财", from: viewController)
     }
+    
+    public static func parseJSONStringToObjects<T:Decodable>(jsonString:String) -> [T] {
+        let jsonData:Data = jsonString.data(using: .utf8)!
+        let decoder = JSONDecoder()
+        let objects = try! decoder.decode([T].self, from: jsonData)
+        return objects;
+    }
 }

@@ -76,10 +76,15 @@ class HomeViewController: UICollectionViewController {
     }
     */
     func reloadData() {
-        self.collectionView.reloadData()
+        DispatchQueue.main.async(execute: {
+            print(Thread.isMainThread)
+            self.collectionView.reloadData()
+        })
+ 
     }
         
     func loadData() -> Void {
+        
         let myQueue = DispatchQueue(label: "initData")
         let group = DispatchGroup()
         

@@ -22,7 +22,7 @@
                                 <rect key="frame" x="10" y="74" width="394" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Alx-jM-gui">
-                                        <rect key="frame" x="0.0" y="2" width="94.666666666666671" height="36"/>
+                                        <rect key="frame" x="0.0" y="2" width="128" height="36"/>
                                         <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="价格对称">
@@ -38,10 +38,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TOw-oI-JWe">
-                                        <rect key="frame" x="99.666666666666686" y="2" width="95" height="36"/>
+                                        <rect key="frame" x="133" y="2" width="128" height="36"/>
                                         <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <state key="normal" title="5日均线">
+                                        <state key="normal" title="均线预测">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -53,24 +53,8 @@
                                             <action selector="onTabButtonClicked:" destination="woh-dA-2f4" eventType="touchUpInside" id="cZx-4b-ySe"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ht3-dy-3Pg">
-                                        <rect key="frame" x="199.66666666666663" y="2" width="94.666666666666657" height="36"/>
-                                        <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <state key="normal" title="10日均线">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="onTabButtonClicked:" destination="woh-dA-2f4" eventType="touchUpInside" id="VGk-h1-VuO"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fca-1T-Wfn">
-                                        <rect key="frame" x="299.33333333333331" y="2" width="94.666666666666686" height="36"/>
+                                        <rect key="frame" x="266" y="2" width="128" height="36"/>
                                         <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="百分比">
@@ -88,7 +72,6 @@
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="Ht3-dy-3Pg" firstAttribute="width" secondItem="Alx-jM-gui" secondAttribute="width" id="e14-Q6-ecu"/>
                                     <constraint firstItem="TOw-oI-JWe" firstAttribute="width" secondItem="Alx-jM-gui" secondAttribute="width" id="jJM-vA-qPh"/>
                                     <constraint firstAttribute="height" constant="40" id="o07-TI-di9"/>
                                 </constraints>
@@ -118,12 +101,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MKE-a4-H55">
-                                <rect key="frame" x="15" y="104.99999999999997" width="384" height="341.33333333333326"/>
+                                <rect key="frame" x="15" y="144" width="384" height="261"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="KDM-oE-SgY">
-                                        <rect key="frame" x="15" y="15" width="354" height="311.33333333333331"/>
+                                        <rect key="frame" x="15" y="15" width="354" height="231"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="5日均线" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vn0-d1-acq">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="股票代码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vn0-d1-acq">
                                                 <rect key="frame" x="0.0" y="0.0" width="354" height="20.333333333333332"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -138,29 +121,14 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昨日收盘价" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aar-Cz-MMX">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="预测今日涨幅(%)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2PU-Ds-KGe">
                                                 <rect key="frame" x="0.0" y="80.333333333333343" width="354" height="20.333333333333329"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Ajq-Jl-UdP">
-                                                <rect key="frame" x="0.0" y="110.66666666666666" width="354" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="GvW-rn-MKs"/>
-                                                </constraints>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
-                                            </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="预测今日涨幅(%)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2PU-Ds-KGe">
-                                                <rect key="frame" x="0.0" y="160.66666666666669" width="354" height="20.333333333333343"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="rvF-rt-hcT">
-                                                <rect key="frame" x="0.0" y="191" width="354" height="40"/>
+                                                <rect key="frame" x="0.0" y="110.66666666666669" width="354" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="E0N-4L-p85"/>
                                                 </constraints>
@@ -169,13 +137,13 @@
                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="预测5日均线" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaK-8l-r95">
-                                                <rect key="frame" x="0.0" y="241" width="354" height="20.333333333333314"/>
+                                                <rect key="frame" x="0.0" y="160.66666666666669" width="354" height="20.333333333333343"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z3D-Ww-6L7">
-                                                <rect key="frame" x="0.0" y="271.33333333333331" width="354" height="40"/>
+                                                <rect key="frame" x="0.0" y="191" width="354" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="jsF-eO-fyZ"/>
                                                 </constraints>
@@ -200,7 +168,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqG-OA-OLD">
-                                <rect key="frame" x="30" y="40" width="354" height="50"/>
+                                <rect key="frame" x="30" y="20" width="354" height="50"/>
                                 <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="T0t-0O-vqt"/>
@@ -218,22 +186,82 @@
                                     <action selector="onCalculateClicked:" destination="8mW-2W-CLK" eventType="touchUpInside" id="7Uq-56-fbG"/>
                                 </connections>
                             </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Eo2-cM-sSC">
+                                <rect key="frame" x="30" y="85" width="354" height="44"/>
+                                <subviews>
+                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MTt-Ug-Ufb">
+                                        <rect key="frame" x="0.0" y="0.0" width="108" height="44"/>
+                                        <color key="backgroundColor" red="0.10379227604841035" green="0.45240986446170861" blue="0.55454188585281372" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title="5日均线">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onMATypeButtonClicked:" destination="8mW-2W-CLK" eventType="touchUpInside" id="uOc-oV-bBR"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tOk-84-SDP">
+                                        <rect key="frame" x="123" y="0.0" width="108" height="44"/>
+                                        <color key="backgroundColor" red="0.10379227604841035" green="0.45240986446170861" blue="0.55454188585281372" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title="10日均线">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onMATypeButtonClicked:" destination="8mW-2W-CLK" eventType="touchUpInside" id="nO6-7f-KRq"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rw8-ZA-3AU">
+                                        <rect key="frame" x="246" y="0.0" width="108" height="44"/>
+                                        <color key="backgroundColor" red="0.10379227604841035" green="0.45240986446170861" blue="0.55454188585281372" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title="20日均线">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onMATypeButtonClicked:" destination="8mW-2W-CLK" eventType="touchUpInside" id="BZs-5L-0rN"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="LJw-Ws-IP6"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Ipe-30-EmE" firstAttribute="trailing" secondItem="iqG-OA-OLD" secondAttribute="trailing" constant="30" id="1yr-qe-g1g"/>
-                            <constraint firstItem="MKE-a4-H55" firstAttribute="top" secondItem="iqG-OA-OLD" secondAttribute="bottom" constant="15" id="JjB-Ok-CeS"/>
-                            <constraint firstItem="iqG-OA-OLD" firstAttribute="top" secondItem="Ipe-30-EmE" secondAttribute="top" constant="20" id="Z5Q-ug-zNN"/>
+                            <constraint firstItem="MKE-a4-H55" firstAttribute="top" secondItem="Eo2-cM-sSC" secondAttribute="bottom" constant="15" id="JjB-Ok-CeS"/>
+                            <constraint firstItem="Eo2-cM-sSC" firstAttribute="leading" secondItem="Ipe-30-EmE" secondAttribute="leading" constant="30" id="L5y-In-UX2"/>
+                            <constraint firstItem="Eo2-cM-sSC" firstAttribute="top" secondItem="iqG-OA-OLD" secondAttribute="bottom" constant="15" id="QnF-QK-ILs"/>
+                            <constraint firstItem="iqG-OA-OLD" firstAttribute="top" secondItem="Ipe-30-EmE" secondAttribute="top" id="Z5Q-ug-zNN"/>
                             <constraint firstItem="MKE-a4-H55" firstAttribute="leading" secondItem="Ipe-30-EmE" secondAttribute="leading" constant="15" id="dHJ-1s-adV"/>
                             <constraint firstItem="iqG-OA-OLD" firstAttribute="leading" secondItem="Ipe-30-EmE" secondAttribute="leading" constant="30" id="gXl-YH-c3Z"/>
                             <constraint firstItem="Ipe-30-EmE" firstAttribute="trailing" secondItem="MKE-a4-H55" secondAttribute="trailing" constant="15" id="j1D-3Y-9Ip"/>
+                            <constraint firstItem="Ipe-30-EmE" firstAttribute="trailing" secondItem="Eo2-cM-sSC" secondAttribute="trailing" constant="30" id="oP4-fV-al0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ipe-30-EmE"/>
                     </view>
                     <connections>
-                        <outlet property="lastCloseTextField" destination="Ajq-Jl-UdP" id="cyc-Qj-LnC"/>
-                        <outlet property="maLabel" destination="vn0-d1-acq" id="V9p-AU-QQy"/>
-                        <outlet property="maTextField" destination="brZ-VG-Jkt" id="ZcR-aL-75d"/>
+                        <outlet property="codeTextField" destination="brZ-VG-Jkt" id="zm5-5g-Zj6"/>
+                        <outlet property="ma10Button" destination="tOk-84-SDP" id="2mN-DZ-yBB"/>
+                        <outlet property="ma20Button" destination="rw8-ZA-3AU" id="bSH-es-fVK"/>
+                        <outlet property="ma5Button" destination="MTt-Ug-Ufb" id="CrH-ru-loY"/>
                         <outlet property="predictMALabel" destination="eaK-8l-r95" id="vRe-0O-5iT"/>
                         <outlet property="predictMATextField" destination="Z3D-Ww-6L7" id="dyu-Fp-Ge9"/>
                         <outlet property="predictUpTextField" destination="rvF-rt-hcT" id="ADy-Ip-EyD"/>

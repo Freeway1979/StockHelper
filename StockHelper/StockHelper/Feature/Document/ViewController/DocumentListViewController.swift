@@ -48,9 +48,10 @@ class DocumentListViewController: UIViewController {
         
         // 2
         section = TableViewSectionModel()
-        section.title = "前方高能"
+        section.title = "研报社"
+        section.id = "Section1"
         cell = TableViewCellModel();
-        cell.title = "建设中。。。"
+        cell.title = "研报社"
         cell.accessoryType = .disclosureIndicator
         section.rows.append(cell)
         
@@ -121,6 +122,12 @@ extension DocumentListViewController:UITableViewDelegate {
             let url = "https://raw.githubusercontent.com/Freeway1979/StockHelper/master/document/collection/\(fileName)"
             TextViewController.open(url: url, title: cellModel.title, from: self)
 //            WebViewController.open(website: url, withtitle:cellModel.title, from: self)
+        }
+        if sectionModel.id == "Section1" {
+            let storyboard = UIStoryboard(name: "Document", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "YanBaoSheDocumentListViewController") as! YanBaoSheDocumentListViewController
+            vc.title = sectionModel.title
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     

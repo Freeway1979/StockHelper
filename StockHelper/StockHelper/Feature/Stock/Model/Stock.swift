@@ -22,6 +22,20 @@ public enum HotLevel:Int {
     case Level10
 }
 
+public enum StockType:Int {
+    case SH = 1
+    case SZ = 2
+}
+
+public enum StockPeriodType:Int {
+    case ONE_MINUTE = 1
+    case FIVE_MINUTES = 2
+    case THIRTY_MINUTES = 4
+    case DAY = 6
+    case WEEK = 7
+    case MONTH = 8
+}
+
 public protocol HotLevelable {
     var hotLevel: HotLevel { get set }
     var importantLevel: HotLevel { get set }

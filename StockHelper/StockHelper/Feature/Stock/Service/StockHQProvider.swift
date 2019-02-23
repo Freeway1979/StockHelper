@@ -9,13 +9,18 @@
 import Foundation
 
 class StockHQProvider {
-    static var cache:[String:StockHQList] = [:]
+    private init() {
+        
+    }
+    private static var cache:[String:StockHQList] = [:]
     
-    public static func getStockDayHQ(by code:String) {
+    public static func getStockDayHQ(by code:String) -> StockHQList {
         //Check cache first
 //        var modelObject:StockHQList? = cache[code]
 //        if modelObject != nil {
 //            //Check date
+//            let last = StockDayHQ(data:(modelObject?.datas.last)!)
+//            let date = last.date
 //        }
         let cstar:StockHQAPI.CStar = StockHQAPI.CStar.HQ(code: code, period: StockHQAPI.CStar.StockPeriod.Day)
         let url = cstar.url
@@ -25,6 +30,8 @@ class StockHQProvider {
         let modelObject:StockHQList? = try? jsonDecoder.decode(StockHQList.self, from: jsonStr.data(using: String.Encoding.utf8)!)
         //Cache
         cache[code] = modelObject
+        
+        return modelObject!
         
         //print("\(String(describing: modelObject?.predictMA5(predictedChange: 10)))")
         

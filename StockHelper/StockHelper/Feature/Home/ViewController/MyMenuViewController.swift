@@ -42,7 +42,7 @@ class MyMenuTableViewController: UITableViewController {
         menuData.append(menu)
         menu = Menu(title: "股票知识", storyboardName: "Study", storyboardId: "StudyTableViewController")
         menuData.append(menu)
-        menu = Menu(title: "A股防雷", storyboardName: "Document", storyboardId: "DocumentListViewController")
+        menu = Menu(title: "A股资料", storyboardName: "Document", storyboardId: "DocumentListViewController")
         menuData.append(menu)
         menu = Menu(title: "设置", storyboardName: "Setting", storyboardId: "SettingViewController")
         menuData.append(menu)

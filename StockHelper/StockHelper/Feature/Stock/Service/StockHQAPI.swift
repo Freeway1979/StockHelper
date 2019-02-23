@@ -35,7 +35,7 @@ enum StockHQAPI {
                 let r = str.range(of: "var tradeData_qlpic_")
                 let start = str.index((r?.upperBound)!, offsetBy: "000001_1_1=".count)
                 let end = str.index(str.endIndex, offsetBy: -2)
-                let jsonStr = String(str[start...end])
+                let jsonStr = String(str[start...end]).replacingOccurrences(of: "'", with: "\"")
                 return jsonStr
             }
         }

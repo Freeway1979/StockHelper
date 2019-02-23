@@ -10,23 +10,24 @@ import UIKit
 
 class MAStrategyViewController: UIViewController {
 
-    @IBOutlet weak var maLabel: UILabel!
-    @IBOutlet weak var maTextField: UITextField!
-    @IBOutlet weak var lastCloseTextField: UITextField!
+    @IBOutlet weak var ma20Button: UIButton!
+    @IBOutlet weak var ma10Button: UIButton!
+    @IBOutlet weak var ma5Button: UIButton!
+    @IBOutlet weak var codeTextField: UITextField!
     @IBOutlet weak var predictUpTextField: UITextField!
     @IBOutlet weak var predictMALabel: UILabel!
     @IBOutlet weak var predictMATextField: UITextField!
     
-    private var maPrice:Float {
+    private var stockCode:String {
         get {
-            if (self.maTextField.text != nil &&
-                self.maTextField.text!.count > 0) {
-                return Float(self.maTextField.text!)!
+            if (self.codeTextField.text != nil &&
+                self.codeTextField.text!.count > 0) {
+                return (self.codeTextField.text!)
             }
-            return 0
+            return ""
         }
         set {
-            self.maTextField.text! = String(newValue)
+            self.codeTextField.text! = (newValue)
         }
     }
     private var predictUp:Float {
@@ -53,29 +54,32 @@ class MAStrategyViewController: UIViewController {
             self.predictMATextField.text! = String(newValue)
         }
     }
-    private var lastClosePrice:Float {
-        get {
-            if (self.lastCloseTextField.text != nil &&
-                self.lastCloseTextField.text!.count > 0) {
-                return Float(self.lastCloseTextField.text!)!
-            }
-            return 0
-        }
-        set {
-            self.lastCloseTextField.text! = String(newValue)
-        }
+    
+    @IBAction func onMATypeButtonClicked(_ sender: UIButton) {
+        self.maType = MAType(rawValue: sender.tag)!
+        self.setupViews()
+        self.calculate()
     }
     
     @IBAction func onCalculateClicked(_ sender: UIButton) {
-        let num = self.maType.rawValue;
-        var price = Float(num - 1) * self.maPrice;
-        price += self.lastClosePrice * Float(1+self.predictUp / 100);
-        price = price / Float(num);
-        self.predictMAPrice = Float(String(format: "%.2f", price))!;
+        self.calculate()
+    }
+    
+    func calculate() {
+        //Dismiss keyboard
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        let days = self.maType.rawValue;
+        let code = self.stockCode
+        if code.count > 0 {
+            UIUtils.showLoading()
+            let model:StockHQList = StockHQProvider.getStockDayHQ(by: self.stockCode)
+            let price = model.predictedMA(predictedChange: self.predictUp, days: days)
+            self.predictMAPrice = Float(String(format: "%.2f", price))!;
+            UIUtils.dismissLoading()
+        }
     }
     
     var maType:MAType = .MA5
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,9 +88,12 @@ class MAStrategyViewController: UIViewController {
         self.setupViews();
     }
     
+    
     private func setupViews() -> Void {
-        self.maLabel.text! = String(format:"%d日均线",self.maType.rawValue);
         self.predictMALabel.text! = String(format:"预测%d日均线",self.maType.rawValue);
+        self.ma5Button.backgroundColor = self.ma5Button.tag == self.maType.rawValue ? UIColor.darkText : UIColor.lightGray
+         self.ma10Button.backgroundColor = self.ma10Button.tag == self.maType.rawValue ? UIColor.darkText : UIColor.lightGray
+         self.ma20Button.backgroundColor = self.ma20Button.tag == self.maType.rawValue ? UIColor.darkText : UIColor.lightGray
     }
 
     /*
