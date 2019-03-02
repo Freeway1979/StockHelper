@@ -9,7 +9,10 @@
 import Foundation
 
 enum MAType:Int {
+    case MA3 = 3
     case MA5 = 5
     case MA10 = 10
     case MA20 = 20
 }
+
+extension MAType: CaseIterable {}

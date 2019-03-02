@@ -10,14 +10,12 @@ import UIKit
 
 class MAStrategyViewController: UIViewController {
 
-    @IBOutlet weak var ma20Button: UIButton!
-    @IBOutlet weak var ma10Button: UIButton!
-    @IBOutlet weak var ma5Button: UIButton!
     @IBOutlet weak var codeTextField: UITextField!
     @IBOutlet weak var predictUpTextField: UITextField!
     @IBOutlet weak var predictMALabel: UILabel!
     @IBOutlet weak var predictMATextField: UITextField!
     
+    @IBOutlet weak var predictMAResultLabel: UILabel!
     private var stockCode:String {
         get {
             if (self.codeTextField.text != nil &&
@@ -42,24 +40,6 @@ class MAStrategyViewController: UIViewController {
             self.predictUpTextField.text! = String(newValue)
         }
     }
-    private var predictMAPrice:Float {
-        get {
-            if (self.predictMATextField.text != nil &&
-                self.predictMATextField.text!.count > 0) {
-                return Float(self.predictMATextField.text!)!
-            }
-            return 0
-        }
-        set {
-            self.predictMATextField.text! = String(newValue)
-        }
-    }
-    
-    @IBAction func onMATypeButtonClicked(_ sender: UIButton) {
-        self.maType = MAType(rawValue: sender.tag)!
-        self.setupViews()
-        self.calculate()
-    }
     
     @IBAction func onCalculateClicked(_ sender: UIButton) {
         self.calculate()
@@ -68,18 +48,23 @@ class MAStrategyViewController: UIViewController {
     func calculate() {
         //Dismiss keyboard
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-        let days = self.maType.rawValue;
         let code = self.stockCode
+        var mas: String = ""
         if code.count > 0 {
             UIUtils.showLoading()
             let model:StockHQList = StockHQProvider.getStockDayHQ(by: self.stockCode)
-            let price = model.predictedMA(predictedChange: self.predictUp, days: days)
-            self.predictMAPrice = Float(String(format: "%.2f", price))!;
+            
+            MAType.allCases.forEach {
+                let days = ($0.rawValue)
+                let price = model.predictedMA(predictedChange: self.predictUp, days: days)
+                let predictMAPrice = String(format: "   %d日预测均价:%.2f",days, price);
+                mas = "\(mas)\n\(predictMAPrice)\n"
+            }
+            self.predictMAResultLabel.text = mas;
+        
             UIUtils.dismissLoading()
         }
     }
-    
-    var maType:MAType = .MA5
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,10 +75,16 @@ class MAStrategyViewController: UIViewController {
     
     
     private func setupViews() -> Void {
-        self.predictMALabel.text! = String(format:"预测%d日均线",self.maType.rawValue);
-        self.ma5Button.backgroundColor = self.ma5Button.tag == self.maType.rawValue ? UIColor.darkText : UIColor.lightGray
-         self.ma10Button.backgroundColor = self.ma10Button.tag == self.maType.rawValue ? UIColor.darkText : UIColor.lightGray
-         self.ma20Button.backgroundColor = self.ma20Button.tag == self.maType.rawValue ? UIColor.darkText : UIColor.lightGray
+        self.predictMALabel.text! = "预测均线";
+        let label = self.predictMAResultLabel!;
+        label.layer.masksToBounds = true;
+        label.layer.cornerRadius = 10;
+        label.layer.borderColor = UIColor.lightGray.cgColor;
+        label.layer.borderWidth = 1;
+        
+        label.textColor = UIColor.white
+        label.backgroundColor = UIColor.darkGray
+        label.shadowColor = UIColor.gray
     }
 
     /*

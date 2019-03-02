@@ -29,13 +29,6 @@ class CalculatorViewController: UIViewController {
             let storyboard = UIStoryboard(name: "Calculator", bundle: nil)
             let childVC = storyboard.instantiateViewController(withIdentifier: "MAStrategyViewController") as! MAStrategyViewController
             //_ = childVC.view;
-            childVC.maType = .MA5
-            self.addChild(childVC);
-        }
-        do {
-            let storyboard = UIStoryboard(name: "Calculator", bundle: nil)
-            let childVC = storyboard.instantiateViewController(withIdentifier: "MAStrategyViewController") as! MAStrategyViewController
-            childVC.maType = .MA10
             self.addChild(childVC);
         }
         do {
