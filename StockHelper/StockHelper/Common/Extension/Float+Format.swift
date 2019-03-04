@@ -15,4 +15,7 @@ extension Float {
     var dot2String:String {
         return String(format: "%.2f", self)
     }
+    var roundedDot2Float:Float {
+        return (floorf(self * 100 + 0.56))/100
+    }
 }

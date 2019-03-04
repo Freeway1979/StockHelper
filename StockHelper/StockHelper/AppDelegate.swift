@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 //        let font:UIFont! = UIFont(name: "HelveticaNeue-Bold", size: 20);
 //        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font : font], for: UIControl.State.normal);
-        
+
         return true
     }
 

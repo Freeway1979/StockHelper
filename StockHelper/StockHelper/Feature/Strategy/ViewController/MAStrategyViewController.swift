@@ -60,6 +60,13 @@ class MAStrategyViewController: UIViewController {
                 let predictMAPrice = String(format: "   %d日预测均价:%.2f",days, price);
                 mas = "\(mas)\n\(predictMAPrice)\n"
             }
+            
+            let (zt,dt) = model.zhangDieTingPrice()
+            let ztStr = String(format: "   涨停价:%.2f", zt);
+            mas = "\(mas)\n\(ztStr)\n"
+            let dtStr = String(format: "   跌停价:%.2f", dt);
+            mas = "\(mas)\n\(dtStr)\n"
+            
             self.predictMAResultLabel.text = mas;
         
             UIUtils.dismissLoading()
@@ -75,7 +82,8 @@ class MAStrategyViewController: UIViewController {
     
     
     private func setupViews() -> Void {
-        self.predictMALabel.text! = "预测均线";
+        self.predictMALabel.text! = "预测价格";
+        self.predictUp = 10
         let label = self.predictMAResultLabel!;
         label.layer.masksToBounds = true;
         label.layer.cornerRadius = 10;

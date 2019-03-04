@@ -43,6 +43,16 @@ struct StockHQList :Codable {
         return sum / Float(days)
     }
     
+    func zhangDieTingPrice() -> (Float,Float) {
+        let count = datas.count
+        if count <= 0 {
+            return (0,0)
+        }
+        let lastClose:Float = datas[count-1][StockDataIndex.Close.rawValue].floatValue
+        let zt = (lastClose * 1.1).roundedDot2Float
+        let dt = (lastClose * 0.9).roundedDot2Float
+        return (Float(zt),Float(dt))
+    }
 }
 
 enum StockDataIndex:Int {

@@ -54,8 +54,16 @@ class DocumentListViewController: UIViewController {
         cell.title = "研报社"
         cell.accessoryType = .disclosureIndicator
         section.rows.append(cell)
+        self.tableData.append(section)
         
-       
+        // 3
+        section = TableViewSectionModel()
+        section.title = "常用网站"
+        section.id = "Section2"
+        cell = TableViewCellModel();
+        cell.title = "常用网站"
+        cell.accessoryType = .disclosureIndicator
+        section.rows.append(cell)
         
         self.tableData.append(section)
     }
@@ -119,13 +127,19 @@ extension DocumentListViewController:UITableViewDelegate {
         let cellModel = sectionModel.rows[indexPath.row]
         if sectionModel.id == "Section0" {
             let fileName = cellModel.data as! String
-            let url = "https://raw.githubusercontent.com/Freeway1979/StockHelper/master/document/collection/\(fileName)"
+            let url = "\(ServiceConfig.baseUrl)/collection/\(fileName)"
             TextViewController.open(url: url, title: cellModel.title, from: self)
 //            WebViewController.open(website: url, withtitle:cellModel.title, from: self)
         }
         if sectionModel.id == "Section1" {
             let storyboard = UIStoryboard(name: "Document", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "YanBaoSheDocumentListViewController") as! YanBaoSheDocumentListViewController
+            vc.title = sectionModel.title
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        if sectionModel.id == "Section2" {
+            let storyboard = UIStoryboard(name: "Document", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "WebSiteListViewController") as! WebSiteListViewController
             vc.title = sectionModel.title
             self.navigationController?.pushViewController(vc, animated: true)
         }

@@ -77,6 +77,36 @@
             </objects>
             <point key="canvasLocation" x="772" y="891"/>
         </scene>
+        <!--Web Site List View Controller-->
+        <scene sceneID="ogF-VT-F3O">
+            <objects>
+                <viewController storyboardIdentifier="WebSiteListViewController" id="sys-lm-1Oc" customClass="WebSiteListViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MrM-TD-6ie">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="AlV-N6-Od4">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="AlV-N6-Od4" firstAttribute="top" secondItem="yUj-nY-Fvg" secondAttribute="top" id="7zB-Wv-CM9"/>
+                            <constraint firstItem="AlV-N6-Od4" firstAttribute="leading" secondItem="yUj-nY-Fvg" secondAttribute="leading" id="glp-1y-wbO"/>
+                            <constraint firstItem="yUj-nY-Fvg" firstAttribute="trailing" secondItem="AlV-N6-Od4" secondAttribute="trailing" id="itc-Gb-Wj8"/>
+                            <constraint firstItem="yUj-nY-Fvg" firstAttribute="bottom" secondItem="AlV-N6-Od4" secondAttribute="bottom" id="x98-uj-P8M"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="yUj-nY-Fvg"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="AlV-N6-Od4" id="Jxa-0H-JXx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z1W-rj-UMe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1477" y="881"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="ItL-5n-KDj">
             <objects>

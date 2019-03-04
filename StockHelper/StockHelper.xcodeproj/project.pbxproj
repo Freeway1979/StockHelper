@@ -75,6 +75,8 @@
 		A1901AB221E8CBE100F14831 /* StockCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1901AB021E8CBE100F14831 /* StockCollectionViewCell.xib */; };
 		A1901AB521E8CBEE00F14831 /* TagCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1901AB321E8CBED00F14831 /* TagCollectionViewCell.xib */; };
 		A1901AB621E8CBEE00F14831 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1901AB421E8CBED00F14831 /* TagCollectionViewCell.swift */; };
+		A1D29809222BD0A9005FBB1B /* WebSiteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D29808222BD0A9005FBB1B /* WebSiteListViewController.swift */; };
+		A1D2980C222BD40B005FBB1B /* ThirdWebSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2980B222BD40B005FBB1B /* ThirdWebSite.swift */; };
 		A1D44CBA21D9F8730043A4A5 /* StockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D44CB921D9F8730043A4A5 /* StockService.swift */; };
 		A1D44CBC21D9FA500043A4A5 /* StockServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D44CBB21D9FA500043A4A5 /* StockServiceProvider.swift */; };
 		A1E1277821E6B76F00527DC0 /* LeadStockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E1277721E6B76F00527DC0 /* LeadStockViewController.swift */; };
@@ -183,6 +185,8 @@
 		A1901AB021E8CBE100F14831 /* StockCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StockCollectionViewCell.xib; sourceTree = "<group>"; };
 		A1901AB321E8CBED00F14831 /* TagCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagCollectionViewCell.xib; sourceTree = "<group>"; };
 		A1901AB421E8CBED00F14831 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
+		A1D29808222BD0A9005FBB1B /* WebSiteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSiteListViewController.swift; sourceTree = "<group>"; };
+		A1D2980B222BD40B005FBB1B /* ThirdWebSite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdWebSite.swift; sourceTree = "<group>"; };
 		A1D44CB921D9F8730043A4A5 /* StockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StockService.swift; path = StockHelper/Feature/Stock/Storyboard/StockService.swift; sourceTree = SOURCE_ROOT; };
 		A1D44CBB21D9FA500043A4A5 /* StockServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StockServiceProvider.swift; path = StockHelper/Feature/Stock/Storyboard/StockServiceProvider.swift; sourceTree = SOURCE_ROOT; };
 		A1E1277721E6B76F00527DC0 /* LeadStockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadStockViewController.swift; sourceTree = "<group>"; };
@@ -591,6 +595,7 @@
 		A13FEFA8220473E5002B1E7E /* Document */ = {
 			isa = PBXGroup;
 			children = (
+				A1D2980A222BD3D1005FBB1B /* Model */,
 				A13FEFB02204746F002B1E7E /* ViewController */,
 				A13FEFAD22047457002B1E7E /* Storyboard */,
 			);
@@ -611,6 +616,7 @@
 				A13FEFB122047483002B1E7E /* DocumentListViewController.swift */,
 				A13FEFB322047493002B1E7E /* DocumentDetailViewController.swift */,
 				A17DD2A522184C110078589D /* YanBaoSheDocumentListViewController.swift */,
+				A1D29808222BD0A9005FBB1B /* WebSiteListViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -667,6 +673,14 @@
 				A12A18D021E9CA3D004294B5 /* HeaderCollectionView.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		A1D2980A222BD3D1005FBB1B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A1D2980B222BD40B005FBB1B /* ThirdWebSite.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		A1F4428121E015C700999138 /* DB */ = {
@@ -979,6 +993,7 @@
 				06EDD3F4215245120035104B /* StockBlockChange.swift in Sources */,
 				A12CD64621F7EAF200CE5C70 /* WebSite.swift in Sources */,
 				A1D44CBC21D9FA500043A4A5 /* StockServiceProvider.swift in Sources */,
+				A1D29809222BD0A9005FBB1B /* WebSiteListViewController.swift in Sources */,
 				A1F4428D21E0D56A00999138 /* ENSideMenuNavigationController.swift in Sources */,
 				A1D44CBA21D9F8730043A4A5 /* StockService.swift in Sources */,
 				06EDD3F6215247980035104B /* Stock.swift in Sources */,
@@ -1017,6 +1032,7 @@
 				A1E1277821E6B76F00527DC0 /* LeadStockViewController.swift in Sources */,
 				A12A50BE221F7A040045D320 /* String+Common.swift in Sources */,
 				A1E1278E21E6C68600527DC0 /* UIViewController+Alert.swift in Sources */,
+				A1D2980C222BD40B005FBB1B /* ThirdWebSite.swift in Sources */,
 				A12A18D721EA0887004294B5 /* String+PinYin.swift in Sources */,
 				A12A18DE21EA2878004294B5 /* StockViewController.swift in Sources */,
 				A1343F9A21F46D7B0086FEEB /* TableViewSectionModel.swift in Sources */,
