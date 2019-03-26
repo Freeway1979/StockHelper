@@ -4,6 +4,51 @@
     "memo":"同花顺内置选股利器",
 },
 {
+   "title": "沪股通北向资金流向",
+    "url": "http://data.eastmoney.com/hsgt/index.html",
+    "memo":"沪股通北向资金流向",
+},
+{
+   "title": "投资者互动平台",
+    "url": "http://irm.p5w.net/gszz",
+    "memo":"",
+},
+{
+   "title": "涨跌停温度计",
+    "url": "http://stock.jrj.com.cn/tzzs/zdtwdj.shtml",
+    "memo":"沪股通北向资金流向",
+},
+{
+   "title": "一点仓位",
+    "url": "http://www.yidiancangwei.com",
+    "memo":"查股东仓位",
+},
+{
+   "title": "东方财富数据中心",
+    "url": "http://data.eastmoney.com/center",
+    "memo":"东方财富",
+},
+{
+   "title": "中国证监会官网",
+    "url": "http://kucun.mysteel.com",
+    "memo":"",
+},
+{
+   "title": "找钢网",
+    "url": "http://data.eastmoney.com/hsgt/index.html",
+    "memo":"",
+},
+{
+   "title": "生意社",
+    "url": "http://www.100ppi.com",
+    "memo":"",
+},
+{
+   "title": "淘股吧",
+    "url": "https://www.taoguba.com.cn/index",
+    "memo":"沪股通北向资金流向",
+},
+{
     "title": "发改委官网",
     "url": "http://www.ndrc.gov.cn",
     "memo":"发改委重大消息提前获取",
