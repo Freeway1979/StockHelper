@@ -7,5 +7,9 @@
     "title": "发改委官网",
     "url": "http://www.ndrc.gov.cn",
     "memo":"发改委重大消息提前获取",
-}
-]
+},
+{
+   "title": "沪股通北向资金流向",
+    "url": "http://data.eastmoney.com/hsgt/index.html",
+    "memo":"沪股通北向资金流向",
+}]
