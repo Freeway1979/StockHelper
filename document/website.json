@@ -29,13 +29,18 @@
     "memo":"东方财富",
 },
 {
+   "title": "巨潮资讯网",
+    "url": "http://www.cninfo.com.cn/new/index",
+    "memo":"",
+},
+{
    "title": "中国证监会官网",
-    "url": "http://kucun.mysteel.com",
+    "url": "http://www.csrc.gov.cn/pub/newsite",
     "memo":"",
 },
 {
    "title": "找钢网",
-    "url": "http://data.eastmoney.com/hsgt/index.html",
+    "url": "http://kucun.mysteel.com",
     "memo":"",
 },
 {
@@ -46,7 +51,7 @@
 {
    "title": "淘股吧",
     "url": "https://www.taoguba.com.cn/index",
-    "memo":"沪股通北向资金流向",
+    "memo":"",
 },
 {
     "title": "发改委官网",
