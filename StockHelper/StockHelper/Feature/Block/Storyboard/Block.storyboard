@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="253-5g-leY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="253-5g-leY">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,17 +30,11 @@
                             <outlet property="delegate" destination="9vQ-Dp-vAo" id="xLP-0r-LDe"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="热门板块" id="BK9-Kj-GUa">
-                        <barButtonItem key="leftBarButtonItem" title="菜单" id="yam-9L-Ipa">
-                            <connections>
-                                <action selector="toggleSideMenuBtn:" destination="9vQ-Dp-vAo" id="78s-CD-3eh"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="热门板块" id="oal-N5-X7x"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ENG-ZD-Na5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2069.5999999999999" y="-861.3193403298352"/>
+            <point key="canvasLocation" x="3008.8000000000002" y="-861.3193403298352"/>
         </scene>
         <!--板块-->
         <scene sceneID="TrZ-ew-dcT">
@@ -228,22 +222,25 @@
             <point key="canvasLocation" x="133.59999999999999" y="765.96701649175418"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="hou-Ky-Adf">
+        <scene sceneID="MSL-K1-Po7">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Dim-8d-MFf" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="59s-Nz-JZb" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="NQk-9c-kVO">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2Wt-4l-kLz">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Jf8-4c-b6K">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
-                        <segue destination="9vQ-Dp-vAo" kind="relationship" relationship="rootViewController" id="vyo-uN-uiY"/>
+                        <segue destination="9vQ-Dp-vAo" kind="relationship" relationship="rootViewController" id="KWj-9v-Bem"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ri7-sT-1pg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Bd-h2-guE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1130.4000000000001" y="-861.3193403298352"/>
+            <point key="canvasLocation" x="2069.5999999999999" y="-861.3193403298352"/>
         </scene>
     </scenes>
     <resources>

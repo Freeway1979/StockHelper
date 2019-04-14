@@ -244,32 +244,4 @@ extension HotBlockViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: self.view.frame.size.width, height: CGFloat(Theme.CollectionHeaderView.height))
     }
 }
-    
-extension HotBlockViewController:ENSideMenuDelegate {
-    
-    @IBAction func toggleSideMenuBtn(_ sender: UIBarButtonItem) {
-        toggleSideMenuView()
-    }
-    
-    // MARK: - ENSideMenu Delegate
-    func sideMenuWillOpen() {
-        print("sideMenuWillOpen")
-    }
-    
-    func sideMenuWillClose() {
-        print("sideMenuWillClose")
-    }
-    
-    func sideMenuShouldOpenSideMenu() -> Bool {
-        print("sideMenuShouldOpenSideMenu")
-        return true
-    }
-    
-    func sideMenuDidClose() {
-        print("sideMenuDidClose")
-    }
-    
-    func sideMenuDidOpen() {
-        print("sideMenuDidOpen")
-    }
-}
+

@@ -18,10 +18,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 //        let font:UIFont! = UIFont(name: "HelveticaNeue-Bold", size: 20);
 //        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font : font], for: UIControl.State.normal);
+        
+        changeUserAggent()
 
         return true
     }
 
+    func changeUserAggent()  {
+        let userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36"
+        UserDefaults.standard.set(userAgent, forKey: "UserAgent")
+    }
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

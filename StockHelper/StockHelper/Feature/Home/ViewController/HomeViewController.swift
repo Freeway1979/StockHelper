@@ -11,18 +11,35 @@ import ZKProgressHUD
 
 private let reuseIdentifier = "Cell"
 
+fileprivate let tagReuseIdentifier = "TagCollectionViewCell"
+fileprivate let headerReuseIdentifier = "HeaderCollectionView"
+fileprivate let columns = 4
+fileprivate let sectionInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+fileprivate let stockSectionInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+
+
 class HomeViewController: UICollectionViewController {
-    private enum LayoutKey:String {
-        case HotBlocks = "人气板块"
-        case ImportantBlocks = "重点板块"
-        case HotStocks = "人气股票"
+    enum SectionType:Int {
+        case BlockPeriod = 0
+        case HotBlocks = 1
+        case HotStocks = 2
+        func description() -> String {
+            switch self {
+            case .BlockPeriod: return "板块淘金"
+            case .HotBlocks: return "人气板块"
+            case .HotStocks: return "人气股票"
+            }
+        }
     }
+    private struct ItemData {
+        var title: String = ""
+        var onItemClicked : () -> Void
+    }
+    
     private class LayoutData {
-        var key:LayoutKey
         var title:String = ""
-        var data: [Any] = []
-        init(key:LayoutKey,title:String,data:[Any]) {
-            self.key = key
+        var data: [ItemData] = []
+        init(title:String,data:[ItemData]) {
             self.title = title
             self.data = data
         }
@@ -34,10 +51,16 @@ class HomeViewController: UICollectionViewController {
         super.viewDidLoad()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
+        // Register cell classes
+        self.collectionView.register(UINib(nibName:tagReuseIdentifier, bundle: nil), forCellWithReuseIdentifier: tagReuseIdentifier)
+        self.collectionView.register(UINib(nibName: headerReuseIdentifier,bundle:nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier)
+        
+        
         self.setupLayoutData()
         // Register cell classes
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
+        self.collectionView!.delegate = self;
         // Do any additional setup after loading the view.
         loadData()
         
@@ -45,27 +68,30 @@ class HomeViewController: UICollectionViewController {
     }
     
     private func setupLayoutData() {
-        var layout = LayoutData(key: .HotBlocks,
-                                title: LayoutKey.HotBlocks.rawValue,
-                                data: [])
-        self.layoutData.append(layout)
-        layout = LayoutData(key: .HotStocks,
-                            title: LayoutKey.HotStocks.rawValue,
-                            data: [])
-        self.layoutData.append(layout)
-        layout = LayoutData(key: .ImportantBlocks,
-                            title: LayoutKey.ImportantBlocks.rawValue,
-                            data: [])
-        self.layoutData.append(layout)
+        var item:ItemData?
+        var title:String
+        var layout:LayoutData?
+        var items:[ItemData] = []
+        
+        title = SectionType.BlockPeriod.description()
+        items.removeAll()
+        item = ItemData(title: "板块周期表", onItemClicked: {
+            print(item!.title)
+        })
+        items.append(item!)
+        
+        item = ItemData(title: "热门板块", onItemClicked: { 
+            print(item!.title)
+            let mainStoryboard: UIStoryboard = UIStoryboard(name: "Block",bundle: nil)
+            var destViewController : UIViewController
+            destViewController = mainStoryboard.instantiateViewController(withIdentifier: "HotBlockViewController")
+            self.navigationController?.navigationController?.pushViewController(destViewController, animated: true)
+        })
+        items.append(item!)
+        layout = LayoutData(title: title,data: items)
+        self.layoutData.append(layout!)
     }
-    private func getLayoutData(for key:LayoutKey) -> LayoutData? {
-        for item in self.layoutData {
-            if item.key == key {
-                return item
-            }
-        }
-        return nil
-    }
+    
     /*
     // MARK: - Navigation
 
@@ -99,9 +125,9 @@ class HomeViewController: UICollectionViewController {
             // 板块基本信息列表
             StockServiceProvider.getBlockList { [weak self] (blocks) in
                 print("getBlockList",blocks.count)
-                let layout = self?.getLayoutData(for: .HotBlocks)
-                layout?.data = StockServiceProvider.getSyncHotBlocks()
-                self?.reloadData()
+//                let layout = self?.getLayoutData(for: .HotBlocks)
+//                layout?.data = StockServiceProvider.getSyncHotBlocks()
+//                self?.reloadData()
             }
         })
         // 2
@@ -110,9 +136,9 @@ class HomeViewController: UICollectionViewController {
             // 股票基本信息列表
             StockServiceProvider.getStockList { [weak self] (stocks) in
                 print("getStockList",stocks.count)
-                let layout = self?.getLayoutData(for: .HotStocks)
-                layout?.data = StockServiceProvider.getSyncHotStocks()
-                self?.reloadData()
+//                let layout = self?.getLayoutData(for: .HotStocks)
+//                layout?.data = StockServiceProvider.getSyncHotStocks()
+//                self?.reloadData()
             }
         })
         // 3
@@ -144,62 +170,142 @@ class HomeViewController: UICollectionViewController {
         }
        
     }
-    
-    // MARK: UICollectionViewDataSource
-    
+}
+
+// MARK: UICollectionViewDataSource
+extension HomeViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return self.layoutData.count
     }
     
-    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        let layout = self.layoutData[section]
-        return layout.data.count
+        return self.layoutData[section].data.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        let layout = self.layoutData[indexPath.section]
-        let item = layout.data[indexPath.row]
+        let section = indexPath.section
+        let row = indexPath.row
+        let group = self.layoutData[section]
+        if section == SectionType.BlockPeriod.rawValue
+            || section == SectionType.HotBlocks.rawValue
+            || section == SectionType.HotStocks.rawValue
+        {
+            let item = group.data[row]
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tagReuseIdentifier, for: indexPath)
+                as! TagCollectionViewCell
+            cell.contentButton.text = item.title
+            
+            cell.onClicked = { () -> Void in
+                print("Button clicked:\(cell.contentButton.text!)")
+                item.onItemClicked()
+            }
+            // Configure the cell
+            
+            return cell
+        }
+
         
-        print(item)
-        
-        // Configure the cell
-        
+        // never go here
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tagReuseIdentifier, for: indexPath)
         return cell
     }
     
-    // MARK: UICollectionViewDelegate
-    
-    /*
-     // Uncomment this method to specify if the specified item should be highlighted during tracking
-     override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-     return true
-     }
-     */
-    
-    /*
-     // Uncomment this method to specify if the specified item should be selected
-     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-     return true
-     }
-     */
-    
-    /*
-     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-     override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-     return false
-     }
-     
-     override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-     return false
-     }
-     
-     override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-     
-     }
-     */
-
+    // Header
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let group = self.layoutData[indexPath.section]
+        //1
+        switch kind {
+        //2
+        case UICollectionView.elementKindSectionHeader:
+            //3
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                             withReuseIdentifier: headerReuseIdentifier,
+                                                                             for: indexPath) as! HeaderCollectionView
+            headerView.contentLabel.text = group.title
+            return headerView
+        default:
+            //4
+            assert(false, "Unexpected element kind")
+        }
+        return UICollectionViewCell(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    }
 }
+
+
+// MARK: UICollectionViewDelegate
+extension HomeViewController {
+    
+    //      Uncomment this method to specify if the specified item should be highlighted during tracking
+    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    
+    //      Uncomment this method to specify if the specified item should be selected
+    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let section = indexPath.section
+        let row = indexPath.row
+        let item = self.layoutData[section].data[row]
+        print(item)
+    }
+    
+    //      Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
+    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        return false
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+        
+    }
+    
+}
+
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    //1
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let screenWidth = UIScreen.main.bounds.size.width;
+        let height = Theme.CellView.height
+        var width = Int(UIScreen.main.bounds.size.width / CGFloat(columns))
+        if width < Int(Theme.TagButton.width) {
+            width = Int(Theme.TagButton.width)
+        }
+        if indexPath.section == SectionType.HotStocks.rawValue {
+            return CGSize(width: screenWidth, height: 60)
+        }
+        return CGSize(width: width, height: Int(height))
+    }
+    //3
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+//        if section == SectionType.HotStocks.rawValue {
+//            return stockSectionInsets
+//        }
+        return sectionInsets
+    }
+    // 4
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        if section == SectionType.HotBlocks.rawValue {
+            return 10
+        }
+        return 0
+    }
+    
+    // 5
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: self.view.frame.size.width, height: CGFloat(Theme.CollectionHeaderView.height))
+    }
+}
+
+
