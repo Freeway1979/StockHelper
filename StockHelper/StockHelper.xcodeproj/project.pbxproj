@@ -78,6 +78,12 @@
 		A19DDDDB224EF83800D63D7A /* Data.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A19DDDDA224EF83800D63D7A /* Data.storyboard */; };
 		A19DDDDD224F008800D63D7A /* DataBuildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19DDDDC224F008800D63D7A /* DataBuildViewController.swift */; };
 		A19DDDDF224FB7B300D63D7A /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19DDDDE224FB7B300D63D7A /* DataService.swift */; };
+		A1ABA3B12262DF5E00985F3D /* BlockCycleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ABA3B02262DF5E00985F3D /* BlockCycleViewController.swift */; };
+		A1ABA3B32262E32C00985F3D /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ABA3B22262E32C00985F3D /* Int+Extension.swift */; };
+		A1ABA3B62262F16700985F3D /* StackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ABA3B42262F16700985F3D /* StackTableViewCell.swift */; };
+		A1ABA3B72262F16700985F3D /* StackTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1ABA3B52262F16700985F3D /* StackTableViewCell.xib */; };
+		A1ABA3B92264AB7D00985F3D /* StackTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ABA3B82264AB7D00985F3D /* StackTableHeaderView.swift */; };
+		A1ABA3BD2264B13E00985F3D /* StackTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1ABA3BC2264B13E00985F3D /* StackTableHeaderView.xib */; };
 		A1D29809222BD0A9005FBB1B /* WebSiteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D29808222BD0A9005FBB1B /* WebSiteListViewController.swift */; };
 		A1D2980C222BD40B005FBB1B /* ThirdWebSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2980B222BD40B005FBB1B /* ThirdWebSite.swift */; };
 		A1D44CBA21D9F8730043A4A5 /* StockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D44CB921D9F8730043A4A5 /* StockService.swift */; };
@@ -191,6 +197,12 @@
 		A19DDDDA224EF83800D63D7A /* Data.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Data.storyboard; sourceTree = "<group>"; };
 		A19DDDDC224F008800D63D7A /* DataBuildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBuildViewController.swift; sourceTree = "<group>"; };
 		A19DDDDE224FB7B300D63D7A /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		A1ABA3B02262DF5E00985F3D /* BlockCycleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockCycleViewController.swift; sourceTree = "<group>"; };
+		A1ABA3B22262E32C00985F3D /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		A1ABA3B42262F16700985F3D /* StackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTableViewCell.swift; sourceTree = "<group>"; };
+		A1ABA3B52262F16700985F3D /* StackTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StackTableViewCell.xib; sourceTree = "<group>"; };
+		A1ABA3B82264AB7D00985F3D /* StackTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTableHeaderView.swift; sourceTree = "<group>"; };
+		A1ABA3BC2264B13E00985F3D /* StackTableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StackTableHeaderView.xib; sourceTree = "<group>"; };
 		A1D29808222BD0A9005FBB1B /* WebSiteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSiteListViewController.swift; sourceTree = "<group>"; };
 		A1D2980B222BD40B005FBB1B /* ThirdWebSite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdWebSite.swift; sourceTree = "<group>"; };
 		A1D44CB921D9F8730043A4A5 /* StockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StockService.swift; path = StockHelper/Feature/Stock/Storyboard/StockService.swift; sourceTree = SOURCE_ROOT; };
@@ -373,6 +385,7 @@
 				A1F4427E21E0122A00999138 /* BlockStockListViewController.swift */,
 				06EDD3C8215241970035104B /* BlockViewController.swift */,
 				A1E1277B21E6B99F00527DC0 /* HotBlockViewController.swift */,
+				A1ABA3B02262DF5E00985F3D /* BlockCycleViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -492,6 +505,7 @@
 				A12A50BB221F77590045D320 /* Data+GBK.swift */,
 				A12A50BD221F7A040045D320 /* String+Common.swift */,
 				A12A50C52220BED60045D320 /* String+GBK.swift */,
+				A1ABA3B22262E32C00985F3D /* Int+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -783,6 +797,10 @@
 				A1F5953521BCEDA400EC5ECB /* StackView.swift */,
 				A12A18C521E954B0004294B5 /* TagButton.xib */,
 				A12A18C721E9557B004294B5 /* TagButton.swift */,
+				A1ABA3B42262F16700985F3D /* StackTableViewCell.swift */,
+				A1ABA3B52262F16700985F3D /* StackTableViewCell.xib */,
+				A1ABA3B82264AB7D00985F3D /* StackTableHeaderView.swift */,
+				A1ABA3BC2264B13E00985F3D /* StackTableHeaderView.xib */,
 			);
 			path = VIew;
 			sourceTree = "<group>";
@@ -913,6 +931,7 @@
 				A1901AB221E8CBE100F14831 /* StockCollectionViewCell.xib in Resources */,
 				A155BFB221F769500026635A /* Common.storyboard in Resources */,
 				A12A18C621E954B0004294B5 /* TagButton.xib in Resources */,
+				A1ABA3BD2264B13E00985F3D /* StackTableHeaderView.xib in Resources */,
 				A10E4B4521CE5FED0092B671 /* Home.storyboard in Resources */,
 				A12A18D221E9CA3D004294B5 /* HeaderCollectionView.xib in Resources */,
 				06EDD3D1215241990035104B /* LaunchScreen.storyboard in Resources */,
@@ -926,6 +945,7 @@
 				A10E4B4321CE5EE00092B671 /* Message.storyboard in Resources */,
 				06EDD3CC215241970035104B /* Main.storyboard in Resources */,
 				A18EE06921E15FD800E67D4B /* Study.storyboard in Resources */,
+				A1ABA3B72262F16700985F3D /* StackTableViewCell.xib in Resources */,
 				A10E4B4721CE610F0092B671 /* Calculator.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1013,7 +1033,9 @@
 			files = (
 				A17DD2A622184C110078589D /* YanBaoSheDocumentListViewController.swift in Sources */,
 				A13FEFB622047FA1002B1E7E /* TextViewController.swift in Sources */,
+				A1ABA3B62262F16700985F3D /* StackTableViewCell.swift in Sources */,
 				A13FEFB222047483002B1E7E /* DocumentListViewController.swift in Sources */,
+				A1ABA3B12262DF5E00985F3D /* BlockCycleViewController.swift in Sources */,
 				A12A50B6221F632C0045D320 /* StockAPI.swift in Sources */,
 				065248B221C21D7C0047405C /* Float+Format.swift in Sources */,
 				065248B021C219020047405C /* PriceGridViewController.swift in Sources */,
@@ -1066,6 +1088,7 @@
 				A12A50C22220BDB40045D320 /* StockHQProvider.swift in Sources */,
 				A1E1277C21E6B99F00527DC0 /* HotBlockViewController.swift in Sources */,
 				A18EE06B21E1601900E67D4B /* StudyTableViewController.swift in Sources */,
+				A1ABA3B32262E32C00985F3D /* Int+Extension.swift in Sources */,
 				A1F4427F21E0122A00999138 /* BlockStockListViewController.swift in Sources */,
 				A1F5953621BCEDA400EC5ECB /* StackView.swift in Sources */,
 				A12A18CA21E95C64004294B5 /* StockUtils.swift in Sources */,
@@ -1081,6 +1104,7 @@
 				A12A18DE21EA2878004294B5 /* StockViewController.swift in Sources */,
 				A1343F9A21F46D7B0086FEEB /* TableViewSectionModel.swift in Sources */,
 				A10E4B3121CE543B0092B671 /* MyStocksViewController.swift in Sources */,
+				A1ABA3B92264AB7D00985F3D /* StackTableHeaderView.swift in Sources */,
 				A1F5953321BCDF9200EC5ECB /* MAType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

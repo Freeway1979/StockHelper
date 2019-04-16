@@ -67,6 +67,13 @@ class HomeViewController: UICollectionViewController {
 //        testGroup();
     }
     
+    private func gotoViewController(storyboard:String,storyboardId:String) {
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: storyboard,bundle: nil)
+        var destViewController : UIViewController
+        destViewController = mainStoryboard.instantiateViewController(withIdentifier: storyboardId)
+        self.navigationController?.navigationController?.pushViewController(destViewController, animated: true)
+    }
+    
     private func setupLayoutData() {
         var item:ItemData?
         var title:String
@@ -77,15 +84,13 @@ class HomeViewController: UICollectionViewController {
         items.removeAll()
         item = ItemData(title: "板块周期表", onItemClicked: {
             print(item!.title)
+            self.gotoViewController(storyboard: "Block", storyboardId: "BlockCycleViewController")
         })
         items.append(item!)
         
         item = ItemData(title: "热门板块", onItemClicked: { 
             print(item!.title)
-            let mainStoryboard: UIStoryboard = UIStoryboard(name: "Block",bundle: nil)
-            var destViewController : UIViewController
-            destViewController = mainStoryboard.instantiateViewController(withIdentifier: "HotBlockViewController")
-            self.navigationController?.navigationController?.pushViewController(destViewController, animated: true)
+            self.gotoViewController(storyboard: "Block", storyboardId: "HotBlockViewController")
         })
         items.append(item!)
         layout = LayoutData(title: title,data: items)

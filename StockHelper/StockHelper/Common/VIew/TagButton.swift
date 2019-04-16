@@ -34,8 +34,11 @@ class TagButton: UIButton {
                 self.bgColor = UIColor.orange
                 self.textColor = UIColor.white
             } else {
-                self.bgColor = UIColor.groupTableViewBackground
+                self.bgColor = UIColor.white
                 self.textColor = UIColor.black
+                self.layer.borderColor = UIColor.groupTableViewBackground.cgColor
+                self.layer.borderWidth = 1
+                self.layer.cornerRadius = 1
             }
             
         }
@@ -66,14 +69,15 @@ class TagButton: UIButton {
             self.setTitle(newValue, for: UIControl.State.normal)
         }
     }
-    private func setTextStyle(textStyle:TextStyle) {
+    
+    public func setTextStyle(textStyle:TextStyle) {
         switch textStyle {
         case .large:
-            self.titleLabel?.font = UIFont.systemFont(ofSize: 30)
+            self.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         case .small:
-            self.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+            self.titleLabel?.font = UIFont.systemFont(ofSize: 10)
         default:
-            self.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+            self.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         }
     }
     
