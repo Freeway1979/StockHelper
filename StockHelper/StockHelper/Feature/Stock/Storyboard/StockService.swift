@@ -34,6 +34,7 @@ extension StockService: TargetType {
             return "/yanbaoshe.json"
         }
     }
+    
     var method: Moya.Method {
         switch self {
         case .getStockList,.getBlockList,
