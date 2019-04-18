@@ -15,6 +15,7 @@ enum StockService {
     case getSimpleBlock2Stocks //Blocks and Stocks Code Only
     case getSimpleStock2Blocks //
     case getYanBaoShe
+    case getXuangu
 }
 
 // MARK: - TargetType Protocol Implementation
@@ -32,6 +33,8 @@ extension StockService: TargetType {
             return "/stock2blocks.dat"
         case .getYanBaoShe:
             return "/yanbaoshe.json"
+        case .getXuangu:
+            return "/xuangu.txt"
         }
     }
     
@@ -40,6 +43,7 @@ extension StockService: TargetType {
         case .getStockList,.getBlockList,
              .getSimpleBlock2Stocks,
              .getYanBaoShe,
+             .getXuangu,
              .getSimpleStock2Blocks:
             return .get
         }
@@ -49,6 +53,7 @@ extension StockService: TargetType {
         case .getStockList,.getBlockList,
              .getSimpleBlock2Stocks,
              .getYanBaoShe,
+             .getXuangu,
              .getSimpleStock2Blocks: // Send no parameters
             return .requestPlain
         }
@@ -58,12 +63,13 @@ extension StockService: TargetType {
         case .getStockList,.getBlockList,
              .getSimpleBlock2Stocks,
              .getYanBaoShe,
+             .getXuangu,
              .getSimpleStock2Blocks:
             return "Half measures are as bad as nothing at all.".utf8Encoded
         }
     }
     var headers: [String: String]? {
-        return ["Content-type": "application/json"]
+        return ["Content-type": "application/json,application/text"]
     }
 }
 // MARK: - Helpers

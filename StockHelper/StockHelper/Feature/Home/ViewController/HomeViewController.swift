@@ -23,11 +23,13 @@ class HomeViewController: UICollectionViewController {
         case BlockPeriod = 0
         case HotBlocks = 1
         case HotStocks = 2
+        case Xuangu = 3
         func description() -> String {
             switch self {
             case .BlockPeriod: return "板块淘金"
             case .HotBlocks: return "人气板块"
             case .HotStocks: return "人气股票"
+            case .Xuangu: return "智能选股"
             }
         }
     }
@@ -80,14 +82,16 @@ class HomeViewController: UICollectionViewController {
         var layout:LayoutData?
         var items:[ItemData] = []
         
+        // Group 1
         title = SectionType.BlockPeriod.description()
         items.removeAll()
+        // Item 1
         item = ItemData(title: "板块周期表", onItemClicked: {
             print(item!.title)
             self.gotoViewController(storyboard: "Block", storyboardId: "BlockCycleViewController")
         })
         items.append(item!)
-        
+        // Item 2
         item = ItemData(title: "热门板块", onItemClicked: { 
             print(item!.title)
             self.gotoViewController(storyboard: "Block", storyboardId: "HotBlockViewController")
@@ -95,6 +99,19 @@ class HomeViewController: UICollectionViewController {
         items.append(item!)
         layout = LayoutData(title: title,data: items)
         self.layoutData.append(layout!)
+        
+        // Group 2
+        title = SectionType.Xuangu.description()
+        items.removeAll()
+        // Item 1
+        item = ItemData(title: "自定义选股", onItemClicked: {
+            print(item!.title)
+            self.gotoViewController(storyboard: "Block", storyboardId: "SelectedStocksViewController")
+        })
+        items.append(item!)
+        layout = LayoutData(title: title,data: items)
+        self.layoutData.append(layout!)
+        
     }
     
     /*

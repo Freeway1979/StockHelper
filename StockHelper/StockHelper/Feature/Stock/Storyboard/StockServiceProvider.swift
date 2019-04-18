@@ -464,6 +464,27 @@ class StockServiceProvider {
         }
     }
     
+    
+    public static func getXuanguData(callback: @escaping (_ stocks:[String]) -> Void) {
+        // Get data from remote
+        let provider = MoyaProvider<StockService>()
+        provider.request(StockService.getXuangu) { result in
+            // do something with the result (read on for more details)
+            if case let .success(response) = result {
+                let responseText = try? response.mapString()
+                if responseText != nil {
+                    let arraySubstrings: [Substring] = responseText!.split(separator: ",")
+                    let arrayStrings: [String] = arraySubstrings.compactMap { "\($0)" }
+                    print(responseText as! String)
+                    callback(arrayStrings)
+                }
+            }
+        }
+    }
+    
+    
+    
+    
     public static func getBasicData() {
         // 板块基本信息列表
         getBlockList { (blocks) in
