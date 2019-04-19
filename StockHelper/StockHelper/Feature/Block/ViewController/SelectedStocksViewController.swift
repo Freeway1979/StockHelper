@@ -11,11 +11,8 @@ import UIKit
 fileprivate let tagReuseIdentifier = "TagCollectionViewCell"
 fileprivate let stockReuseIdentifier = "StockCollectionViewCell"
 fileprivate let headerReuseIdentifier = "HeaderCollectionView"
-fileprivate let columns = 4
+fileprivate let columns = 5
 fileprivate let sectionInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
-fileprivate let stockSectionInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-
-
 
 class SelectedStocksViewController: UICollectionViewController {
     
@@ -107,6 +104,7 @@ extension SelectedStocksViewController {
         cell.contentButton.style = .Default
         cell.contentButton.text = item.name
         cell.contentButton.userInfo = item
+        cell.contentButton.setTextStyle(textStyle: .medium)
         
         cell.onClicked = { () -> Void in
             print("Button clicked:\(cell.contentButton.text!)")
@@ -187,12 +185,8 @@ extension SelectedStocksViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height = Theme.CellView.height
-        var width = Int(UIScreen.main.bounds.size.width / CGFloat(columns))
-        if width < Int(Theme.TagButton.width) {
-            width = Int(Theme.TagButton.width)
-        }
-        return CGSize(width: width, height: Int(height))
+        
+        return CGSize(width: 80, height: 24)
     }
     //3
     func collectionView(_ collectionView: UICollectionView,
@@ -202,7 +196,7 @@ extension SelectedStocksViewController: UICollectionViewDelegateFlowLayout {
     }
     // 4
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
+        return 5
     }
     
     // 5
