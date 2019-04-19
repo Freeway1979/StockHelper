@@ -35,6 +35,7 @@ class SelectedStocksViewController: UICollectionViewController {
         
         //        self.collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "CollectionHeaderView")
         
+        self.title = "智能选股"
         self.prepareData()
         
         
@@ -43,26 +44,33 @@ class SelectedStocksViewController: UICollectionViewController {
     
     private func prepareData() {
        
-        StockServiceProvider.getXuanguData { (stockcodes) in
-            print(stockcodes)
+        StockServiceProvider.getXuanguData { [weak self] (stockcodes) in
             var blocks:[String:[String]] = [:]
             for code in stockcodes {
                 let blockcodes:[String] = StockServiceProvider.getBlockCodeList(of: code)
                 for blockcode in blockcodes {
-                    var stocks = blocks[blockcode]
-                    if (stocks == nil) {
-                        stocks = []
-                        stocks?.append(code)
-                        blocks[blockcode] = stocks
-                    }
-                    else {
-                        stocks?.append(code)
-                    }
+                    var stocks:[String] = blocks[blockcode] ?? []
+                    stocks.append(code)
+                    blocks.updateValue(stocks, forKey: blockcode)
                 }
             }
-            blocks.forEach({ (key,value) in
-                print(value.count)
+        
+            var block2stocksList:[Block2Stocks] = []
+            for item in blocks {
+                let block = StockServiceProvider.getBlock(by: item.key)
+                let block2stocks = Block2Stocks(block: block)
+                for stockcode in item.value {
+                    let stock = StockServiceProvider.getStock(by: stockcode)
+                    block2stocks.stocks?.append(stock)
+                }
+                block2stocksList.append(block2stocks)
+            }
+            
+            block2stocksList.sort(by: { (lhs, rhs) -> Bool in
+                return lhs.stocks!.count > rhs.stocks!.count
             })
+            self?.blocks = block2stocksList
+            self?.refreashCollectionViewData()
         }
         
         self.refreashCollectionViewData()

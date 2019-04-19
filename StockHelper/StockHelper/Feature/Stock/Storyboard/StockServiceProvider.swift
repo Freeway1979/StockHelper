@@ -473,7 +473,7 @@ class StockServiceProvider {
             if case let .success(response) = result {
                 let responseText = try? response.mapString()
                 if responseText != nil {
-                    let arraySubstrings: [Substring] = responseText!.split(separator: ",")
+                    let arraySubstrings: [Substring] = responseText!.replacingOccurrences(of: "\n", with: "").split(separator: ",")
                     let arrayStrings: [String] = arraySubstrings.compactMap { "\($0)" }
                     print(responseText as! String)
                     callback(arrayStrings)
