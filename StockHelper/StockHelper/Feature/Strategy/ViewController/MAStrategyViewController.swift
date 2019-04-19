@@ -47,7 +47,7 @@ class MAStrategyViewController: UIViewController {
     
     func calculate() {
         //Dismiss keyboard
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        UIApplication.shared.dismissKeyboard()
         let code = self.stockCode
         var mas: String = ""
         if code.count > 0 {

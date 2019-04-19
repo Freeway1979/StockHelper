@@ -60,7 +60,7 @@ class SymmetryViewController: UIViewController {
         let price = self.highPrice * 2 - self.lowPrice;
         self.topHighPrice = Float(String(format: "%.2f", price))!
         //Dismiss keyboard
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        UIApplication.shared.dismissKeyboard()
 
     }
     

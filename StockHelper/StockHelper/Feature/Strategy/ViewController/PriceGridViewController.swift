@@ -62,7 +62,7 @@ class PriceGridViewController: UIViewController {
            result += "Base                \(lowPrice.dot2String) ";
         self.resultLabel.text! = result;
         //Dismiss keyboard
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        UIApplication.shared.dismissKeyboard()
     }
     /*
     // MARK: - Navigation

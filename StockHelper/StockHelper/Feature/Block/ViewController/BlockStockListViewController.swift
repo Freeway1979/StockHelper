@@ -188,6 +188,9 @@ extension BlockStockListViewController:UISearchBarDelegate {
         
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        //Dismiss keyboard
+        UIApplication.shared.dismissKeyboard()
+        searchBar.text = ""
         self.refreshTableViewBySearch(keyword: "")
     }
 }
