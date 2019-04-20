@@ -90,7 +90,7 @@ extension WebSiteListViewController:UITableViewDelegate {
         let cellModel = sectionModel.rows[indexPath.row]
         if sectionModel.id == "Section0" {
             let url = cellModel.data as! String
-            WebViewController.open(website: url , withtitle: cellModel.title, from: self)
+            WebViewController.open(website: url , withtitle: cellModel.title, from: self.navigationController!)
         }
     }
     

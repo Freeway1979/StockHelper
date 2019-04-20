@@ -22,7 +22,7 @@ class Utils {
     }
     
     public static func openWenCai(from viewController:UIViewController) {
-        WebViewController.open(website: WebSite.WenCai, withtitle: "问财", from: viewController)
+        WebViewController.open(website: WebSite.WenCai, withtitle: "问财", from: viewController.navigationController!)
     }
     
     public static func parseJSONStringToObjects<T:Decodable>(jsonString:String) -> [T] {

@@ -15,7 +15,6 @@ fileprivate let tagReuseIdentifier = "TagCollectionViewCell"
 fileprivate let headerReuseIdentifier = "HeaderCollectionView"
 fileprivate let columns = 4
 fileprivate let sectionInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
-fileprivate let stockSectionInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
 
 
 class HomeViewController: UICollectionViewController {
@@ -24,18 +23,21 @@ class HomeViewController: UICollectionViewController {
         case HotBlocks = 1
         case HotStocks = 2
         case Xuangu = 3
+        case WebSite = 4
         func description() -> String {
             switch self {
             case .BlockPeriod: return "板块淘金"
             case .HotBlocks: return "人气板块"
             case .HotStocks: return "人气股票"
             case .Xuangu: return "智能选股"
+            case .WebSite: return "常用网站"
             }
         }
     }
     private struct ItemData {
         var title: String = ""
-        var onItemClicked : () -> Void
+        var data: String? = ""
+        var onItemClicked : (_ item:ItemData) -> Void
     }
     
     private class LayoutData {
@@ -86,14 +88,14 @@ class HomeViewController: UICollectionViewController {
         title = SectionType.BlockPeriod.description()
         items.removeAll()
         // Item 1
-        item = ItemData(title: "板块周期表", onItemClicked: {
-            print(item!.title)
+        item = ItemData(title: "板块周期表", data:nil, onItemClicked: { itemData in
+            print(itemData.title)
             self.gotoViewController(storyboard: "Block", storyboardId: "BlockCycleViewController")
         })
         items.append(item!)
         // Item 2
-        item = ItemData(title: "热门板块", onItemClicked: { 
-            print(item!.title)
+        item = ItemData(title: "热门板块",data: nil,onItemClicked: {itemData in
+            print(itemData.title)
             self.gotoViewController(storyboard: "Block", storyboardId: "HotBlockViewController")
         })
         items.append(item!)
@@ -104,25 +106,40 @@ class HomeViewController: UICollectionViewController {
         title = SectionType.Xuangu.description()
         items.removeAll()
         // Item 1
-        item = ItemData(title: "自定义选股", onItemClicked: {
-            print(item!.title)
+        item = ItemData(title: "自定义选股", data: nil,onItemClicked: { itemData in
+            print(itemData.title)
             self.gotoViewController(storyboard: "Block", storyboardId: "SelectedStocksViewController")
         })
         items.append(item!)
         layout = LayoutData(title: title,data: items)
         self.layoutData.append(layout!)
         
+        // Group 3
+        title = SectionType.WebSite.description()
+        items.removeAll()
+        // Item 1
+        item = ItemData(title: "问财选股", data: "https://www.iwencai.com", onItemClicked: {[weak self] itemData in
+            self?.openWebSite(itemData: itemData)
+        })
+        items.append(item!)
+        // Item 2
+        item = ItemData(title: "北向资金", data: "http://data.eastmoney.com/hsgt/index.html", onItemClicked: {[weak self] itemData in
+            self?.openWebSite(itemData: itemData)
+        })
+        items.append(item!)
+        // Item 3
+        item = ItemData(title: "涨跌温度计", data: "http://stock.jrj.com.cn/tzzs/zdtwdj.shtml", onItemClicked: { [weak self] itemData in
+            self?.openWebSite(itemData: itemData)
+        })
+        items.append(item!)
+        layout = LayoutData(title: title,data: items)
+        self.layoutData.append(layout!)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func openWebSite(itemData:ItemData) {
+        WebViewController.open(website: (itemData.data!), withtitle: itemData.title, from: (self.navigationController?.navigationController)!)
     }
-    */
+    
     func reloadData() {
         DispatchQueue.main.async(execute: {
             print(Thread.isMainThread)
@@ -212,6 +229,7 @@ extension HomeViewController {
         if section == SectionType.BlockPeriod.rawValue
             || section == SectionType.HotBlocks.rawValue
             || section == SectionType.HotStocks.rawValue
+            || section == SectionType.WebSite.rawValue
         {
             let item = group.data[row]
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tagReuseIdentifier, for: indexPath)
@@ -220,7 +238,7 @@ extension HomeViewController {
             
             cell.onClicked = { () -> Void in
                 print("Button clicked:\(cell.contentButton.text!)")
-                item.onItemClicked()
+                item.onItemClicked(item)
             }
             // Configure the cell
             
@@ -296,15 +314,15 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let screenWidth = UIScreen.main.bounds.size.width;
+    //let screenWidth = UIScreen.main.bounds.size.width;
         let height = Theme.CellView.height
         var width = Int(UIScreen.main.bounds.size.width / CGFloat(columns))
         if width < Int(Theme.TagButton.width) {
             width = Int(Theme.TagButton.width)
         }
-        if indexPath.section == SectionType.HotStocks.rawValue {
-            return CGSize(width: screenWidth, height: 60)
-        }
+//        if indexPath.section == SectionType.HotStocks.rawValue {
+//            return CGSize(width: screenWidth, height: 60)
+//        }
         return CGSize(width: width, height: Int(height))
     }
     //3
@@ -318,10 +336,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     }
     // 4
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        if section == SectionType.HotBlocks.rawValue {
-            return 10
-        }
-        return 0
+        return 5
     }
     
     // 5

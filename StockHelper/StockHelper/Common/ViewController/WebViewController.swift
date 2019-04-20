@@ -13,13 +13,12 @@ import ZKProgressHUD
 class WebViewController: UIViewController {
 
     private var url:String?
-    public static func open(website url:String,withtitle title:String, from viewController:UIViewController) {
+    public static func open(website url:String,withtitle title:String, from navigator:UINavigationController) {
         let storyboard = UIStoryboard(name: "Common", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
         vc.url = url
         vc.title = title
-        viewController.navigationController?.pushViewController(vc, animated: true)
-        
+        navigator.pushViewController(vc, animated: true)
     }
     
     @IBOutlet weak var webView: WKWebView!

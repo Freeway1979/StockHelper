@@ -87,7 +87,7 @@ extension YanBaoSheDocumentListViewController:UITableViewDelegate {
         if sectionModel.id == "Section0" {
             //https://github.com/Freeway1979/StockHelper/blob/master/document/image/5G.png
             let url = "\(ServiceConfig.baseImageUrl)/\(cellModel.data ?? "")?raw=true"
-            WebViewController.open(website: url , withtitle: cellModel.title, from: self)
+            WebViewController.open(website: url , withtitle: cellModel.title, from: self.navigationController!)
         }
     }
     
