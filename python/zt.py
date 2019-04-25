@@ -30,15 +30,10 @@ def parseZhangTing(date,fullpath,outfullpath):
         #print(line)                 # 后面跟 ',' 将忽略换行符
         # print(line, end = '')　　　# 在 Python 3中使用
         line = fr.readline()
-        matchObj = re.search("(\w+)\s{4}(\d+)\s{4}(\d+)\s{4}(\w+)\s{4}(.*)\n", line, re.I)
-        if matchObj:
-            #print(matchObj.group())
-            name = matchObj.group(1)
-            ztno = matchObj.group(2)
-            kbno = matchObj.group(3)
-            keywords = matchObj.group(4)
-            description = matchObj.group(5)
-            stock = "%s===%s===%s===%s===%s" % (date,name,ztno,keywords,description)
+        oo = line.split('    ')
+        if len(oo) > 3:
+            stock = "===".join(oo)
+            stock = stock.replace('\n','')
             stocks.append(stock)
             print(stock)
 
