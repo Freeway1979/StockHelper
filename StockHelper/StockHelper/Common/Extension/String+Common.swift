@@ -18,4 +18,13 @@ extension String {
             return self
         }
     }
+    
+    func toDictionary(encoding:String.Encoding) ->NSDictionary{
+        let jsonData:Data = self.data(using: encoding)!
+        let dict = try? JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers)
+        if dict != nil {
+            return dict as! NSDictionary
+        }
+        return NSDictionary()
+    }
 }

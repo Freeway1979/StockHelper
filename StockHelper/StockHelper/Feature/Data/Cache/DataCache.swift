@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+class DataCache {
+   public static var blockTops:WenCaiBlockTops?
+}

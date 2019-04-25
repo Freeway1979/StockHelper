@@ -8,11 +8,13 @@
 
 import UIKit
 import WebKit
+import SwiftSoup
 
 class DataBuildViewController: UIViewController {
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var tableView: UITableView!
     
+    var token:String?
     var dataServices: [DataService] = []
     
     override func viewDidLoad() {
@@ -25,7 +27,7 @@ class DataBuildViewController: UIViewController {
         self.tableView.reloadData()
         
         self.webView.evaluateJavaScript("navigator.userAgent") { (data, error) in
-            print(data,error)
+//            print(data,error)
             let userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36"
             self.webView.customUserAgent = userAgent
         }
@@ -34,10 +36,11 @@ class DataBuildViewController: UIViewController {
     @IBAction func onMenuButtonClicked(_ sender: UIBarButtonItem) {
          toggleSideMenuView()
     }
+    
+//    http://www.iwencai.com/stockpick/search?typed=0&preParams=&ts=1&f=1&qs=result_original&selfsectsn=&querytype=stock&searchfilter=&tid=stockpick&w=%E6%A6%82%E5%BF%B5%E6%9D%BF%E5%9D%97%E8%B5%84%E9%87%91+%E6%B6%A8%E8%B7%8C%E5%B9%85%E9%A1%BA%E5%BA%8F
+    
+    
     @IBAction func onBuildClicked(_ sender: UIButton) {
-        self.webView.evaluateJavaScript("navigator.userAgent") { (data, error) in
-            print(data,error)
-        }
         let url = WenCaiQuery.getUrl(keywords: dataServices[0].keywords)
         loadWebPage(with: url)
     }
@@ -49,7 +52,7 @@ class DataBuildViewController: UIViewController {
     
     func prepareData() {
         //var services = self.dataServices
-        let service = DataService(keywords: "二级行业板块", title: "二级行业板块", status: "ddd") { (data) -> String in
+        let service = DataService(keywords: "概念板块资金 涨跌幅顺序 成交额大于100亿", title: "概念板块资金", status: "ddd") { (data) -> String in
             return data;
         }
         dataServices.append(service)
@@ -95,13 +98,48 @@ extension DataBuildViewController: WKNavigationDelegate {
 //        }
         
         self.webView.evaluateJavaScript("document.body.innerHTML") { (data, error) in
+            
             let rs = data as! String
+            
             if (rs.contains("token")) {
                 print("token found")
+               self.token = self.parseTokenFromHTML(html: rs)
             } else {
                 print("token not found")
             }
-           print(rs)
+        
+            self.parseHTML(html: rs, callback: { (data) in
+                print(data)
+                var obj = WenCaiBlockTops(blocks: [], query: "", date: "")
+                obj.fillDataFromDictionary(dict: data)
+                DataCache.blockTops = obj
+                print(obj)
+            })
+        }
+    }
+    
+    func parseTokenFromHTML(html:String) -> String {
+        let pattern = "\"token\":\"(\\w+)\""
+        let regex = try! NSRegularExpression(pattern: pattern, options:[])
+        let matches = regex.matches(in: html, options: [], range: NSRange(html.startIndex...,in: html))
+        let match = matches.first
+        let rs = (String(html[Range((match?.range(at: 1))!, in: html)!]))
+        print(rs)
+        return rs
+    }
+    
+    func parseHTML(html:String, callback:@escaping (Dictionary<String, Any>) -> Void) {
+        let pattern = "var allResult = \\{(.*)\\}\\;"
+        let regex = try! NSRegularExpression(pattern: pattern, options:[])
+        let matches = regex.matches(in: html, options: [], range: NSRange(html.startIndex...,in: html))
+        let match = matches.first
+        if (match != nil) {
+            let rs = (String(html[Range((match?.range(at: 1))!, in: html)!]))
+            let jsonString = "{\(rs)}"
+            let cfEnc = CFStringEncodings.GB_18030_2000
+            let enc = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(cfEnc.rawValue))
+            let dict = jsonString.toDictionary(encoding: String.Encoding(rawValue: enc))
+            callback(dict as! Dictionary<String, Any>)
         }
     }
 

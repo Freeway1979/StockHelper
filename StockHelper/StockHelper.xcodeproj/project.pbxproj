@@ -51,8 +51,13 @@
 		A12A50C42220BDCA0045D320 /* StockHQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A50C32220BDCA0045D320 /* StockHQ.swift */; };
 		A12A50C62220BED60045D320 /* String+GBK.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A50C52220BED60045D320 /* String+GBK.swift */; };
 		A12A50C82220CFE70045D320 /* UIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A50C72220CFE70045D320 /* UIUtils.swift */; };
+		A12BB2EF226C0DB100AF6D49 /* WencaiResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12BB2EE226C0DB100AF6D49 /* WencaiResult.swift */; };
+		A12BB2F2226C177F00AF6D49 /* DataCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12BB2F1226C177F00AF6D49 /* DataCache.swift */; };
 		A12C7DF52268AF050014D260 /* SelectedStocksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12C7DF42268AF050014D260 /* SelectedStocksViewController.swift */; };
 		A12CD64621F7EAF200CE5C70 /* WebSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12CD64521F7EAF200CE5C70 /* WebSite.swift */; };
+		A12DB39C226B47AE00AD5E78 /* THSDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12DB39B226B47AE00AD5E78 /* THSDataService.swift */; };
+		A12DB39E226B4A3000AD5E78 /* THSDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12DB39D226B4A3000AD5E78 /* THSDataProvider.swift */; };
+		A12DB3A0226B4AB000AD5E78 /* JieJinStock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12DB39F226B4AB000AD5E78 /* JieJinStock.swift */; };
 		A132955921DB523C00A3B156 /* RemoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A132955821DB523C00A3B156 /* RemoteService.swift */; };
 		A1343F9221F45A310086FEEB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1343F9121F45A310086FEEB /* CloudKit.framework */; };
 		A1343F9521F45A830086FEEB /* iCloudUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1343F9421F45A830086FEEB /* iCloudUtils.swift */; };
@@ -170,8 +175,13 @@
 		A12A50C32220BDCA0045D320 /* StockHQ.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockHQ.swift; sourceTree = "<group>"; };
 		A12A50C52220BED60045D320 /* String+GBK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+GBK.swift"; sourceTree = "<group>"; };
 		A12A50C72220CFE70045D320 /* UIUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUtils.swift; sourceTree = "<group>"; };
+		A12BB2EE226C0DB100AF6D49 /* WencaiResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WencaiResult.swift; sourceTree = "<group>"; };
+		A12BB2F1226C177F00AF6D49 /* DataCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCache.swift; sourceTree = "<group>"; };
 		A12C7DF42268AF050014D260 /* SelectedStocksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedStocksViewController.swift; sourceTree = "<group>"; };
 		A12CD64521F7EAF200CE5C70 /* WebSite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSite.swift; sourceTree = "<group>"; };
+		A12DB39B226B47AE00AD5E78 /* THSDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSDataService.swift; sourceTree = "<group>"; };
+		A12DB39D226B4A3000AD5E78 /* THSDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSDataProvider.swift; sourceTree = "<group>"; };
+		A12DB39F226B4AB000AD5E78 /* JieJinStock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JieJinStock.swift; sourceTree = "<group>"; };
 		A132955821DB523C00A3B156 /* RemoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteService.swift; sourceTree = "<group>"; };
 		A1343F9021F45A130086FEEB /* StockHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StockHelper.entitlements; sourceTree = "<group>"; };
 		A1343F9121F45A310086FEEB /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -574,6 +584,14 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		A12BB2F0226C177100AF6D49 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				A12BB2F1226C177F00AF6D49 /* DataCache.swift */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
 		A12CD64321F7EAD000CE5C70 /* WebSite */ = {
 			isa = PBXGroup;
 			children = (
@@ -588,6 +606,16 @@
 			children = (
 			);
 			path = Config;
+			sourceTree = "<group>";
+		};
+		A12DB39A226B479D00AD5E78 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				A12DB39B226B47AE00AD5E78 /* THSDataService.swift */,
+				A19DDDDE224FB7B300D63D7A /* DataService.swift */,
+				A12DB39D226B4A3000AD5E78 /* THSDataProvider.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		A132955721DB521B00A3B156 /* Service */ = {
@@ -703,6 +731,8 @@
 		A19DDDD6224EF80600D63D7A /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				A12BB2F0226C177100AF6D49 /* Cache */,
+				A12DB39A226B479D00AD5E78 /* Service */,
 				A19DDDD9224EF82700D63D7A /* Model */,
 				A19DDDD8224EF81E00D63D7A /* Storyboard */,
 				A19DDDD7224EF81500D63D7A /* ViewController */,
@@ -730,7 +760,8 @@
 		A19DDDD9224EF82700D63D7A /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A19DDDDE224FB7B300D63D7A /* DataService.swift */,
+				A12DB39F226B4AB000AD5E78 /* JieJinStock.swift */,
+				A12BB2EE226C0DB100AF6D49 /* WencaiResult.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -976,6 +1007,7 @@
 				"${BUILT_PRODUCTS_DIR}/DeviceKit/DeviceKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 				"${BUILT_PRODUCTS_DIR}/Then/Then.framework",
 				"${BUILT_PRODUCTS_DIR}/ZKProgressHUD/ZKProgressHUD.framework",
 			);
@@ -985,6 +1017,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DeviceKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Then.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZKProgressHUD.framework",
 			);
@@ -1046,6 +1079,7 @@
 				065248B021C219020047405C /* PriceGridViewController.swift in Sources */,
 				A14115FB21DD8DA000E1B2BC /* MessageServiceProvider.swift in Sources */,
 				A19DDDDD224F008800D63D7A /* DataBuildViewController.swift in Sources */,
+				A12DB39E226B4A3000AD5E78 /* THSDataProvider.swift in Sources */,
 				A10E4B3921CE57E10092B671 /* HomeViewController.swift in Sources */,
 				A132955921DB523C00A3B156 /* RemoteService.swift in Sources */,
 				A12A50C62220BED60045D320 /* String+GBK.swift in Sources */,
@@ -1056,6 +1090,7 @@
 				06EDD3C9215241970035104B /* BlockViewController.swift in Sources */,
 				A1F5953D21BD5A5C00EC5ECB /* MessageDetailViewController.swift in Sources */,
 				A1F4428521E015FC00999138 /* StockDBProvider.swift in Sources */,
+				A12DB3A0226B4AB000AD5E78 /* JieJinStock.swift in Sources */,
 				A1F5953121BCCF1500EC5ECB /* MAStrategyViewController.swift in Sources */,
 				A12A50C42220BDCA0045D320 /* StockHQ.swift in Sources */,
 				06F587F921B928BF00D69159 /* CalculatorViewController.swift in Sources */,
@@ -1101,12 +1136,15 @@
 				06F587FE21B9312700D69159 /* SymmetryViewController.swift in Sources */,
 				A14115F721DD8CAA00E1B2BC /* MessageService.swift in Sources */,
 				065248B421C226C30047405C /* MainViewController.swift in Sources */,
+				A12BB2EF226C0DB100AF6D49 /* WencaiResult.swift in Sources */,
 				A1E1277821E6B76F00527DC0 /* LeadStockViewController.swift in Sources */,
 				A12A50BE221F7A040045D320 /* String+Common.swift in Sources */,
 				A1E1278E21E6C68600527DC0 /* UIViewController+Alert.swift in Sources */,
 				A1D2980C222BD40B005FBB1B /* ThirdWebSite.swift in Sources */,
 				A12A18D721EA0887004294B5 /* String+PinYin.swift in Sources */,
 				A12A18DE21EA2878004294B5 /* StockViewController.swift in Sources */,
+				A12BB2F2226C177F00AF6D49 /* DataCache.swift in Sources */,
+				A12DB39C226B47AE00AD5E78 /* THSDataService.swift in Sources */,
 				A1343F9A21F46D7B0086FEEB /* TableViewSectionModel.swift in Sources */,
 				A12C7DF52268AF050014D260 /* SelectedStocksViewController.swift in Sources */,
 				A10E4B3121CE543B0092B671 /* MyStocksViewController.swift in Sources */,

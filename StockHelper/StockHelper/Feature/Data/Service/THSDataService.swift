@@ -10,18 +10,17 @@ import Foundation
 
 import Moya
 
-enum DataService {
-    case getStockList //Only stocks
+enum THSDataService {
+    case getJiejinStocks(page:Int) //解禁股列表
 }
 
 // MARK: - TargetType Protocol Implementation
-extension DataService: TargetType {
-    var baseURL: URL { return URL(string: ServiceConfig.baseUrl)! }
+extension THSDataService: TargetType {
+    var baseURL: URL { return URL(string: ServiceConfig.THS)! }
     var path: String {
         switch self {
-        case .getJiejinStocks:
-            return "/blocks.json"
-        
+        case .getJiejinStocks(let page):
+            return "/market/xsjj/field/enddate/order/asc/page/\(page)/ajax/1/"
         }
     }
     
@@ -39,16 +38,20 @@ extension DataService: TargetType {
     }
     var sampleData: Data {
         switch self {
-        case .getStockList,.getBlockList,
-             .getSimpleBlock2Stocks,
-             .getYanBaoShe,
-             .getXuangu,
-             .getSimpleStock2Blocks:
+        case .getJiejinStocks:
             return "Half measures are as bad as nothing at all.".utf8Encoded
         }
     }
     var headers: [String: String]? {
-        return ["Content-type": "application/json,application/text"]
+        return ["Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+                "Accept-Encoding": "gzip, deflate",
+                "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+                "Cache-Control": "max-age=0",
+                "Connection": "keep-alive",
+                "Host": "data.10jqka.com.cn",
+                "Upgrade-Insecure-Requests": "1",
+                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36"
+        ]
     }
 }
 // MARK: - Helpers

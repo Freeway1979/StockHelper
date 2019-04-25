@@ -132,6 +132,11 @@ class HomeViewController: UICollectionViewController {
             self?.openWebSite(itemData: itemData)
         })
         items.append(item!)
+        // Item 4
+        item = ItemData(title: "限售解禁", data: "http://data.10jqka.com.cn/market/xsjj/", onItemClicked: { [weak self] itemData in
+            self?.openWebSite(itemData: itemData)
+        })
+        items.append(item!)
         layout = LayoutData(title: title,data: items)
         self.layoutData.append(layout!)
     }
@@ -196,8 +201,14 @@ class HomeViewController: UICollectionViewController {
                 print("getSimpleStock2BlockList")
             }
         })
-        
         // 5
+//        myQueue.async(group: group, qos: .default, flags: [], execute: {
+//            print("task 5")
+//            THSDataProvider.getJieJinStockList(callback: { (stocks) in
+//                print(stocks)
+//            })
+//        })
+        // all
         group.notify(queue: myQueue) {
             print("notify")
             
@@ -207,7 +218,6 @@ class HomeViewController: UICollectionViewController {
                 //ZKProgressHUD.showSuccess()
             })
         }
-       
     }
 }
 

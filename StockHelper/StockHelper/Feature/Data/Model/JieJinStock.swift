@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+struct JieJinStock {
+    var code: String
+    var date:String
+    var percentage: String
+    var number:String
+    var money:String
+}

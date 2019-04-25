@@ -8,6 +8,8 @@ target 'StockHelper' do
   # Pods for StockHelper
   pod 'Moya', '~> 11.0'
   pod 'DeviceKit', '~> 1.3'
+  # parse HTML
+  pod 'SwiftSoup'
   # UI
   # https://github.com/WangWenzhuang/ZKProgressHUD
   pod 'ZKProgressHUD'
