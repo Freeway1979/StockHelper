@@ -9,14 +9,16 @@ def getDateStr():
     dateStr = time.strftime("%Y%m%d", time.localtime()) 
     return dateStr
 
-def getLastLine(fullpath):
+def checkDateInFile(fullpath,keyword):
     fr = open(fullpath,'r',encoding='utf8')
     targetLine = ""
     while 1:
         mLine = fr.readline()
         if not mLine:
             break
-        targetLine = mLine
+        if keyword in mLine:
+            targetLine = mLine
+            break
     return targetLine   
 
 def parseZhangTing(date,fullpath,outfullpath):
@@ -60,11 +62,13 @@ def commitToGit():
     cmd = 'git push'
     os.system(cmd)
 
-def processZhangTing():
+def processZhangTing(dd):
     dateStr = getDateStr()
+    if dd:
+        dateStr = dd
     fullpath = "/Users/andy/Github/StockHelper/python/zhangting/%s.txt" % dateStr
     outfullpath = "/Users/andy/Github/StockHelper/document/zhangting.dat"
-    lastline = getLastLine(outfullpath)
+    lastline = checkDateInFile(outfullpath,dateStr)
     if dateStr in lastline:
         print("already found")
     else:
@@ -74,6 +78,6 @@ def processZhangTing():
     
 
 if __name__ == '__main__':
-    processZhangTing()
-else:
-    processZhangTing()
+    dd = sys.argv[1]
+    if dd:
+        processZhangTing(dd)
