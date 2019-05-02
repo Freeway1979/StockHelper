@@ -1,15 +1,14 @@
 //
-//  MyStocksViewController.swift
+//  StockNoteViewController.swift
 //  StockHelper
 //
-//  Created by Andy Liu on 2018/12/22.
-//  Copyright © 2018 Andy Liu. All rights reserved.
+//  Created by Andy Liu on 2019/5/1.
+//  Copyright © 2019 Andy Liu. All rights reserved.
 //
-
 import UIKit
 import ZKProgressHUD
 
-class MyStocksViewController: UIViewController {
+class StockNoteViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     private var tableData:[TableViewSectionModel] = []
@@ -19,12 +18,6 @@ class MyStocksViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.tableView.dataSource = self
         self.tableView.delegate = self
-//        self.tableView.contentInsetAdjustmentBehavior = .never
-        self.tableView.estimatedRowHeight = 0
-        self.tableView.estimatedSectionHeaderHeight = 0
-        self.tableView.estimatedSectionFooterHeight = 0
-
-        
         
         self.prepareTableViewData()
         self.tableView.reloadData()
@@ -34,13 +27,13 @@ class MyStocksViewController: UIViewController {
         ZKProgressHUD.show()
         // 1
         var section = TableViewSectionModel()
-        section.title = "600604 市北高新"
+        section.title = "基本信息"
         section.id = "Section0"
         
         var cell = TableViewCellModel();
         cell.data = ""
-        cell.id = "操盘笔记"
-        cell.title = "操盘笔记"
+        cell.id = "人气排名"
+        cell.title = "人气排名"
         cell.accessoryType = .disclosureIndicator
         section.rows.append(cell)
         
@@ -52,7 +45,7 @@ class MyStocksViewController: UIViewController {
 }
 
 
-extension MyStocksViewController:UITableViewDataSource {
+extension StockNoteViewController:UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.tableData.count
     }
@@ -74,33 +67,18 @@ extension MyStocksViewController:UITableViewDataSource {
         
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
-    }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let model:TableViewSectionModel = self.tableData[section]
-        
-        let headerView = Bundle.main.loadNibNamed("TableHeaderView", owner: self, options: nil)?.first as! TableHeaderView
-        headerView.titleLabel.text = model.title
-        
-        return headerView
-    }
 }
 
-extension MyStocksViewController:UITableViewDelegate {
+extension StockNoteViewController:UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sectionModel = self.tableData[indexPath.section]
         let cellModel = sectionModel.rows[indexPath.row]
-        if cellModel.id == "操盘笔记" {
-            let storyboard = UIStoryboard(name: "Stock", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "StockNoteViewController") as! StockNoteViewController
-            vc.title = "操盘笔记"
-            self.navigationController!.navigationController!.pushViewController(vc, animated: true)
+        if sectionModel.id == "Section0" {
+            let url = cellModel.data as! String
+            WebViewController.open(website: url , withtitle: cellModel.title, from: self.navigationController!)
         }
     }
     
 }
-
-

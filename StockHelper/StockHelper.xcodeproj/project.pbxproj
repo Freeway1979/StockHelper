@@ -70,6 +70,9 @@
 		A14115F721DD8CAA00E1B2BC /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14115F621DD8CAA00E1B2BC /* MessageService.swift */; };
 		A14115F921DD8D2A00E1B2BC /* ServiceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14115F821DD8D2A00E1B2BC /* ServiceConfig.swift */; };
 		A14115FB21DD8DA000E1B2BC /* MessageServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14115FA21DD8DA000E1B2BC /* MessageServiceProvider.swift */; };
+		A141D2672279B241000ED0EA /* StockNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A141D2662279B241000ED0EA /* StockNoteViewController.swift */; };
+		A141D269227ABD14000ED0EA /* TableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A141D268227ABD14000ED0EA /* TableHeaderView.xib */; };
+		A141D26B227ABD6B000ED0EA /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A141D26A227ABD6B000ED0EA /* TableHeaderView.swift */; };
 		A149FF6E21F304D0002512CF /* SweetAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A149FF6D21F304D0002512CF /* SweetAlert.swift */; };
 		A155BFAF21F766A80026635A /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A155BFAD21F766A80026635A /* WebViewController.swift */; };
 		A155BFB221F769500026635A /* Common.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A155BFB121F769500026635A /* Common.storyboard */; };
@@ -195,6 +198,9 @@
 		A14115F621DD8CAA00E1B2BC /* MessageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MessageService.swift; path = "StockHelper/Common/New Group/MessageService.swift"; sourceTree = SOURCE_ROOT; };
 		A14115F821DD8D2A00E1B2BC /* ServiceConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceConfig.swift; sourceTree = "<group>"; };
 		A14115FA21DD8DA000E1B2BC /* MessageServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MessageServiceProvider.swift; path = "StockHelper/Common/New Group/MessageServiceProvider.swift"; sourceTree = SOURCE_ROOT; };
+		A141D2662279B241000ED0EA /* StockNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockNoteViewController.swift; sourceTree = "<group>"; };
+		A141D268227ABD14000ED0EA /* TableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableHeaderView.xib; sourceTree = "<group>"; };
+		A141D26A227ABD6B000ED0EA /* TableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
 		A149FF6D21F304D0002512CF /* SweetAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetAlert.swift; sourceTree = "<group>"; };
 		A155BFAD21F766A80026635A /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		A155BFB121F769500026635A /* Common.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Common.storyboard; sourceTree = "<group>"; };
@@ -388,6 +394,7 @@
 				A10E4B3021CE543B0092B671 /* MyStocksViewController.swift */,
 				A1E1277721E6B76F00527DC0 /* LeadStockViewController.swift */,
 				A12A18DD21EA2878004294B5 /* StockViewController.swift */,
+				A141D2662279B241000ED0EA /* StockNoteViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -837,6 +844,8 @@
 				A1ABA3B52262F16700985F3D /* StackTableViewCell.xib */,
 				A1ABA3B82264AB7D00985F3D /* StackTableHeaderView.swift */,
 				A1ABA3BC2264B13E00985F3D /* StackTableHeaderView.xib */,
+				A141D268227ABD14000ED0EA /* TableHeaderView.xib */,
+				A141D26A227ABD6B000ED0EA /* TableHeaderView.swift */,
 			);
 			path = VIew;
 			sourceTree = "<group>";
@@ -972,6 +981,7 @@
 				A12A18D221E9CA3D004294B5 /* HeaderCollectionView.xib in Resources */,
 				06EDD3D1215241990035104B /* LaunchScreen.storyboard in Resources */,
 				A1901AB521E8CBEE00F14831 /* TagCollectionViewCell.xib in Resources */,
+				A141D269227ABD14000ED0EA /* TableHeaderView.xib in Resources */,
 				A10E4B4B21CE67D20092B671 /* Block.storyboard in Resources */,
 				06EDD3CE215241990035104B /* Assets.xcassets in Resources */,
 				A19DDDDB224EF83800D63D7A /* Data.storyboard in Resources */,
@@ -1082,6 +1092,7 @@
 				A12DB39E226B4A3000AD5E78 /* THSDataProvider.swift in Sources */,
 				A10E4B3921CE57E10092B671 /* HomeViewController.swift in Sources */,
 				A132955921DB523C00A3B156 /* RemoteService.swift in Sources */,
+				A141D2672279B241000ED0EA /* StockNoteViewController.swift in Sources */,
 				A12A50C62220BED60045D320 /* String+GBK.swift in Sources */,
 				A1343F9821F46D6E0086FEEB /* TableViewCellModel.swift in Sources */,
 				A1F4429121E0D73C00999138 /* MyMenuViewController.swift in Sources */,
@@ -1149,6 +1160,7 @@
 				A12C7DF52268AF050014D260 /* SelectedStocksViewController.swift in Sources */,
 				A10E4B3121CE543B0092B671 /* MyStocksViewController.swift in Sources */,
 				A1ABA3B92264AB7D00985F3D /* StackTableHeaderView.swift in Sources */,
+				A141D26B227ABD6B000ED0EA /* TableHeaderView.swift in Sources */,
 				A1F5953321BCDF9200EC5ECB /* MAType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

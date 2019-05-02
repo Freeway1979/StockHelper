@@ -30,7 +30,8 @@ def parseZhangTing(date,fullpath,outfullpath):
         #print(line)                 # 后面跟 ',' 将忽略换行符
         # print(line, end = '')　　　# 在 Python 3中使用
         line = fr.readline()
-        oo = line.split('    ')
+        text = "%s    %s" % (date,line)
+        oo = text.split('    ')
         if len(oo) > 3:
             stock = "===".join(oo)
             stock = stock.replace('\n','')
@@ -41,13 +42,16 @@ def parseZhangTing(date,fullpath,outfullpath):
     #print(stocks)
 
     # 写入文件
+    print('writing...')
     outstr = "\n".join(stocks)
     fw = open(outfullpath,'a+',encoding='utf-8')
     fw.write(outstr)
     fw.close()
+    print('written.')
 
 
 def commitToGit():
+    print('committing to git')
     #切换工作目录
     os.chdir("/Users/andy/Github/StockHelper/document/")
     cmd = "git add zhangting.dat"
@@ -56,6 +60,7 @@ def commitToGit():
     os.system(cmd)
     cmd = 'git push'
     os.system(cmd)
+    print('committed.')
 
 def processZhangTing(dd):
     dateStr = getDateStr()
@@ -73,6 +78,8 @@ def processZhangTing(dd):
     
 
 if __name__ == '__main__':
-    dd = sys.argv[1]
+    dd = '20190425'
+    if len(sys.argv)>1:
+        dd = sys.argv[1]
     if dd:
         processZhangTing(dd)
