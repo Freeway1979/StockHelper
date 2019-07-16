@@ -46,14 +46,15 @@ class DataBuildViewController: UIViewController {
     }
     
     func loadWebPage(with url:String) {
-        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-        self.webView.load(URLRequest(url: URL(string: encodedUrl!)!))
+        let encodedUrl:String = url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+        print(encodedUrl)
+        self.webView.load(URLRequest(url: URL(string: encodedUrl)!))
     }
     
     func prepareData() {
         //var services = self.dataServices
-        let service = DataService(keywords: "概念板块资金 涨跌幅顺序 成交额大于100亿", title: "概念板块资金", status: "ddd") { (data) -> String in
-            return data;
+        let service = DataService(keywords: "概念板块资金 涨跌幅顺序 成交额大于100亿", title: "概念板块资金", status: "ddd")  { (json, dict) in
+            
         }
         dataServices.append(service)
     }
@@ -103,46 +104,19 @@ extension DataBuildViewController: WKNavigationDelegate {
             
             if (rs.contains("token")) {
                 print("token found")
-               self.token = self.parseTokenFromHTML(html: rs)
+               self.token = WencaiUtils.parseTokenFromHTML(html: rs)
             } else {
                 print("token not found")
             }
         
-            self.parseHTML(html: rs, callback: { (data) in
-                print(data)
-                var obj = WenCaiBlockTops(blocks: [], query: "", date: "")
-                obj.fillDataFromDictionary(dict: data)
-                DataCache.blockTops = obj
-                print(obj)
+            WencaiUtils.parseHTML(html: rs, callback: { (data, dict) in
+//                var obj = WenCaiBlockTops(blocks: [], query: "", date: "")
+//                obj.fillDataFromDictionary(dict: dict)
+////                DataCache.blockTops = obj
+//                print(obj)
             })
         }
     }
-    
-    func parseTokenFromHTML(html:String) -> String {
-        let pattern = "\"token\":\"(\\w+)\""
-        let regex = try! NSRegularExpression(pattern: pattern, options:[])
-        let matches = regex.matches(in: html, options: [], range: NSRange(html.startIndex...,in: html))
-        let match = matches.first
-        let rs = (String(html[Range((match?.range(at: 1))!, in: html)!]))
-        print(rs)
-        return rs
-    }
-    
-    func parseHTML(html:String, callback:@escaping (Dictionary<String, Any>) -> Void) {
-        let pattern = "var allResult = \\{(.*)\\}\\;"
-        let regex = try! NSRegularExpression(pattern: pattern, options:[])
-        let matches = regex.matches(in: html, options: [], range: NSRange(html.startIndex...,in: html))
-        let match = matches.first
-        if (match != nil) {
-            let rs = (String(html[Range((match?.range(at: 1))!, in: html)!]))
-            let jsonString = "{\(rs)}"
-            let cfEnc = CFStringEncodings.GB_18030_2000
-            let enc = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(cfEnc.rawValue))
-            let dict = jsonString.toDictionary(encoding: String.Encoding(rawValue: enc))
-            callback(dict as! Dictionary<String, Any>)
-        }
-    }
-
 }
 
 extension DataBuildViewController: ENSideMenuDelegate {

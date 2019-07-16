@@ -19,13 +19,15 @@ fileprivate let sectionInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, righ
 
 class HomeViewController: UICollectionViewController {
     enum SectionType:Int {
-        case BlockPeriod = 0
-        case HotBlocks = 1
-        case HotStocks = 2
-        case Xuangu = 3
-        case WebSite = 4
+        case QuickActions = 0
+        case BlockPeriod
+        case HotBlocks
+        case HotStocks
+        case Xuangu
+        case WebSite
         func description() -> String {
             switch self {
+            case .QuickActions: return "快捷方式"
             case .BlockPeriod: return "板块淘金"
             case .HotBlocks: return "人气板块"
             case .HotStocks: return "人气股票"
@@ -83,6 +85,19 @@ class HomeViewController: UICollectionViewController {
         var title:String
         var layout:LayoutData?
         var items:[ItemData] = []
+        
+        
+        // Group 0
+        title = SectionType.QuickActions.description()
+        items.removeAll()
+        // Item 1
+        item = ItemData(title: "复盘总结", data:nil, onItemClicked: { itemData in
+            self.gotoViewController(storyboard: "Review", storyboardId: "ReviewDetailViewController")
+        })
+        items.append(item!)
+    
+        layout = LayoutData(title: title,data: items)
+        self.layoutData.append(layout!)
         
         // Group 1
         title = SectionType.BlockPeriod.description()
@@ -240,6 +255,7 @@ extension HomeViewController {
             || section == SectionType.HotBlocks.rawValue
             || section == SectionType.HotStocks.rawValue
             || section == SectionType.WebSite.rawValue
+            || section == SectionType.QuickActions.rawValue
         {
             let item = group.data[row]
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tagReuseIdentifier, for: indexPath)

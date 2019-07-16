@@ -7,13 +7,18 @@
 //
 
 import UIKit
+import WebKit
 
 class BlockCycleViewController: UIViewController {
 
+    @IBOutlet weak var webview: WKWebView!
+    
     @IBOutlet weak var leftTableView: UITableView!
     
     @IBOutlet weak var rightTableView: UITableView!
     
+    var token:String?
+    var dataService: DataService?
     
     let LeftTableViewCellId = "leftTableViewCell"
     let RightTableViewCellId = "StackTableViewCell"
@@ -41,8 +46,9 @@ class BlockCycleViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        self.webview.navigationDelegate = self;
+        WencaiUtils.prepareWebView(webview: webview);
         
         setupTableViews()
         
@@ -80,14 +86,55 @@ class BlockCycleViewController: UIViewController {
         }
         return topList
     }
-    private func prepareData() {
-        self.top10List.append(contentsOf: getMockupTopTenList())
-
-        for i in 0...9 {
-            let hotblock = LatestHotBlock(date: "04-0\(i+1)", blockList: getMockupTopTenList())
-            latestHotBlockList.append(hotblock)
+    
+    private func handleGNBlocksWithMoney(dict:Dictionary<String, Any>) {
+        let rs = dict["result"] as! [[Any]]
+        let titles = dict["title"] as! [String]
+        let s = titles[3]
+        let date = String(s.suffix(10))
+        
+        var count = 30
+        var blocks:[WenCaiBlockStat]? = DataCache.getBlocksByDate(date: date) ?? nil
+        if blocks == nil {
+            blocks = []
+            DataCache.setBlocksByDate(date: date, blocks: blocks!)
         }
-        latestHotBlockList.insert(LatestHotBlock(date: "", blockList: getMockupTopTenHeaderList()), at: 0)
+        blocks?.removeAll()
+        // if is today ,update it
+        // otherwise ignore
+        for item in rs {
+            print(item)
+            if (count > 0) {
+                let money = Float(item[5] as! String)!
+                let zhangting = Float(item[3] as! String)!
+                let block = WenCaiBlockStat(title: item[1] as! String, money: money, zhangting: 0, zhangfu: zhangting, score: 0)
+                print(block)
+                blocks?.append(block)
+            } else {
+                break
+            }
+            count = count - 1
+        }
+        print(DataCache.blockTops)
+    }
+    
+    private func prepareData() {
+        self.dataService = DataService(keywords: "概念板块资金 涨跌幅顺序 成交额大于100亿", title: "概念板块资金", status: "ddd")  { [unowned self] (json, dict) in
+//            print(json,dict)
+            print(dict.keys)
+            let arr = dict["result"] as! [Any]
+            self.handleGNBlocksWithMoney(dict: dict)
+        }
+        
+        WencaiUtils.loadWencaiQueryPage(webview: webview, dataService: self.dataService!)
+        
+//        self.top10List.append(contentsOf: getMockupTopTenList())
+//
+//        for i in 0...9 {
+//            let hotblock = LatestHotBlock(date: "04-0\(i+1)", blockList: getMockupTopTenList())
+//            latestHotBlockList.append(hotblock)
+//        }
+//        latestHotBlockList.insert(LatestHotBlock(date: "", blockList: getMockupTopTenHeaderList()), at: 0)
     }
     
     private func setupTableViews() {
@@ -104,6 +151,28 @@ class BlockCycleViewController: UIViewController {
 
     private func isLeftTableView(tableView:UITableView) -> Bool {
         return self.leftTableView == tableView
+    }
+    
+    override var shouldAutorotate: Bool {
+        return false
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .landscapeLeft
+    }
+    
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .landscapeLeft
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let value = UIInterfaceOrientation.landscapeLeft.rawValue
+        UIDevice.current.setValue(value, forKey: "orientation")
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        let value = UIInterfaceOrientation.portrait.rawValue
+        UIDevice.current.setValue(value, forKey: "orientation")
     }
     
 }
@@ -226,4 +295,27 @@ extension BlockCycleViewController:UITableViewDelegate {
         return []
     }
     
+}
+
+extension BlockCycleViewController: WKNavigationDelegate {
+    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        webView.evaluateJavaScript("document.body.innerHTML") { [unowned self] (data, error) in
+            
+            let rs = data as! String
+            
+            if (rs.contains("token")) {
+                print("token found")
+                self.token = WencaiUtils.parseTokenFromHTML(html: rs)
+            } else {
+                print("token not found")
+            }
+            
+            WencaiUtils.parseHTML(html: rs, callback: { (jsonString, dict) in
+                print(dict)
+                if ((self.dataService?.handler) != nil) {
+                    self.dataService?.handler!(jsonString,dict)
+                }
+            })
+        }
+    }
 }

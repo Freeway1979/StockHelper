@@ -27,4 +27,17 @@ extension String {
         }
         return NSDictionary()
     }
+    
+    var numberValue: NSNumber? {
+        if let value = Int(self) {
+            return NSNumber(value: value)
+        }
+        return nil
+    }
+    var floatNumberValue: NSNumber? {
+        if let value = Float(self) {
+            return NSNumber(value: value)
+        }
+        return nil
+    }
 }

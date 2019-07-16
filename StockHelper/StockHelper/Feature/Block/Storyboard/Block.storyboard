@@ -286,6 +286,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cxh-xO-u5t">
+                                <rect key="frame" x="50.666666666666657" y="296" width="313" height="144"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="313" id="cCR-Be-lQv"/>
+                                    <constraint firstAttribute="height" constant="144" id="sK4-uW-ujr"/>
+                                </constraints>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="d23-8T-10v">
                                 <rect key="frame" x="101" y="64" width="313" height="672"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -301,10 +313,12 @@
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="d3l-ic-tSB" firstAttribute="bottom" secondItem="h4b-cw-gaS" secondAttribute="bottom" id="2d2-m0-7bs"/>
+                            <constraint firstItem="cxh-xO-u5t" firstAttribute="centerY" secondItem="X4i-e9-LJ2" secondAttribute="centerY" id="8D3-TL-dt6"/>
                             <constraint firstItem="d3l-ic-tSB" firstAttribute="leading" secondItem="h4b-cw-gaS" secondAttribute="leading" id="PCv-9P-U4g"/>
                             <constraint firstItem="d23-8T-10v" firstAttribute="leading" secondItem="d3l-ic-tSB" secondAttribute="trailing" constant="1" id="btd-7Y-2Qu"/>
                             <constraint firstItem="h4b-cw-gaS" firstAttribute="trailing" secondItem="d23-8T-10v" secondAttribute="trailing" id="dke-HG-X5M"/>
                             <constraint firstItem="d23-8T-10v" firstAttribute="top" secondItem="h4b-cw-gaS" secondAttribute="top" id="haH-pn-GOC"/>
+                            <constraint firstItem="cxh-xO-u5t" firstAttribute="centerX" secondItem="X4i-e9-LJ2" secondAttribute="centerX" id="ncq-5T-6ah"/>
                             <constraint firstItem="d3l-ic-tSB" firstAttribute="top" secondItem="h4b-cw-gaS" secondAttribute="top" id="rUd-OU-bBq"/>
                             <constraint firstItem="h4b-cw-gaS" firstAttribute="bottom" secondItem="d23-8T-10v" secondAttribute="bottom" id="tQc-E5-nfM"/>
                         </constraints>
@@ -314,6 +328,7 @@
                     <connections>
                         <outlet property="leftTableView" destination="d3l-ic-tSB" id="3jT-fn-NhJ"/>
                         <outlet property="rightTableView" destination="d23-8T-10v" id="kOm-RD-qN8"/>
+                        <outlet property="webview" destination="cxh-xO-u5t" id="FsA-y8-fv4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SiW-4S-a2T" userLabel="First Responder" sceneMemberID="firstResponder"/>
