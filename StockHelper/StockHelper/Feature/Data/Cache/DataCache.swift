@@ -15,7 +15,12 @@ class DataCache {
         if (blockTops == nil) {
             blockTops = [:]
         }
-        return blockTops?[date]
+        var rs = blockTops?[date]
+        if rs == nil {
+            rs = []
+            blockTops?[date] = rs
+        }
+        return rs
     }
     
     public static func setBlocksByDate(date:String, blocks:[WenCaiBlockStat]) {
@@ -23,5 +28,12 @@ class DataCache {
             blockTops = [:]
         }
         blockTops?[date] = blocks;
+    }
+    
+    public static func printData() {
+        blockTops?.forEach({ (item) in
+            let (key, value) = item
+            print(key,value);
+        })
     }
 }

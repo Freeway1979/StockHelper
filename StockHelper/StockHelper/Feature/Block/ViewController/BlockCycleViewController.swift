@@ -18,7 +18,7 @@ class BlockCycleViewController: UIViewController {
     @IBOutlet weak var rightTableView: UITableView!
     
     var token:String?
-    var dataService: DataService?
+    var dataServices: [DataService] = []
     
     let LeftTableViewCellId = "leftTableViewCell"
     let RightTableViewCellId = "StackTableViewCell"
@@ -95,19 +95,20 @@ class BlockCycleViewController: UIViewController {
         
         var count = 30
         var blocks:[WenCaiBlockStat]? = DataCache.getBlocksByDate(date: date) ?? nil
-        if blocks == nil {
-            blocks = []
-            DataCache.setBlocksByDate(date: date, blocks: blocks!)
-        }
         blocks?.removeAll()
         // if is today ,update it
         // otherwise ignore
         for item in rs {
             print(item)
             if (count > 0) {
-                let money = Float(item[5] as! String)!
-                let zhangting = Float(item[3] as! String)!
-                let block = WenCaiBlockStat(title: item[1] as! String, money: money, zhangting: 0, zhangfu: zhangting, score: 0)
+                let money = (item[5] as! NSNumber).intValue
+                let zhangfu = (item[3] as! NSNumber).floatValue
+                let block = WenCaiBlockStat()
+                block.title = item[1] as! String
+                block.money = money
+                block.zhangting = 0
+                block.zhangfu = zhangfu
+                block.score = 0
                 print(block)
                 blocks?.append(block)
             } else {
@@ -115,19 +116,63 @@ class BlockCycleViewController: UIViewController {
             }
             count = count - 1
         }
-        print(DataCache.blockTops)
+        DataCache.setBlocksByDate(date: date, blocks: blocks ?? [])
+        DataCache.printData()
+    }
+    
+    private func handleGNBlocksWithZhangTingShu(dict:Dictionary<String, Any>) {
+        let rs = dict["result"] as! [[Any]]
+        let titles = dict["title"] as! [String]
+        let s = titles[3]
+        let date = String(s.suffix(10))
+        
+        var count = 30
+        let blocks:[WenCaiBlockStat]? = DataCache.getBlocksByDate(date: date) ?? nil
+        for item in rs {
+            print(item)
+            if (count > 0) {
+                let zhangting = (item[4] as! NSNumber).intValue
+                let title = item[1] as! String
+                var block = blocks?.first(where: { (block) -> Bool in
+                    return block.title == title
+                })
+                if (block != nil) {
+                    block?.zhangting = zhangting
+                }
+            } else {
+                break
+            }
+            count = count - 1
+        }
+        DataCache.setBlocksByDate(date: date, blocks: blocks ?? [])
+        DataCache.printData()
+    }
+    
+    func getDataService(by keywords:String) -> DataService? {
+        return self.dataServices.first { (dataService) -> Bool in
+            return dataService.keywords == keywords
+        }
+    }
+    
+    func loadDataPhase1() {
+        let dataService = DataService(keywords: "概念板块资金 涨跌幅顺序 成交额大于100亿", title: "概念板块资金", status: "ddd")  { [unowned self] (json, dict) in
+            self.handleGNBlocksWithMoney(dict: dict)
+            self.loadDataPhase2()
+        }
+        self.dataServices.append(dataService)
+        WencaiUtils.loadWencaiQueryPage(webview: webview, dataService: dataService)
+    }
+    
+    func loadDataPhase2() {
+        let dataService = DataService(keywords: "概念板块涨停数顺序 成交额大于100亿", title: "概念板块资金", status: "ddd")  { [unowned self] (json, dict) in
+            self.handleGNBlocksWithZhangTingShu(dict: dict)
+        }
+        self.dataServices.append(dataService)
+        WencaiUtils.loadWencaiQueryPage(webview: webview, dataService: dataService)
     }
     
     private func prepareData() {
-        self.dataService = DataService(keywords: "概念板块资金 涨跌幅顺序 成交额大于100亿", title: "概念板块资金", status: "ddd")  { [unowned self] (json, dict) in
-//            print(json,dict)
-            print(dict.keys)
-            let arr = dict["result"] as! [Any]
-            self.handleGNBlocksWithMoney(dict: dict)
-        }
-        
-        WencaiUtils.loadWencaiQueryPage(webview: webview, dataService: self.dataService!)
-        
+        self.loadDataPhase1();
 //        self.top10List.append(contentsOf: getMockupTopTenList())
 //
 //        for i in 0...9 {
@@ -310,10 +355,12 @@ extension BlockCycleViewController: WKNavigationDelegate {
                 print("token not found")
             }
             
-            WencaiUtils.parseHTML(html: rs, callback: { (jsonString, dict) in
+            WencaiUtils.parseHTML(html: rs, callback: { [unowned self] (jsonString, dict) in
                 print(dict)
-                if ((self.dataService?.handler) != nil) {
-                    self.dataService?.handler!(jsonString,dict)
+                let keywords = dict["query"] as! String
+                let dataService = self.getDataService(by: keywords)
+                if ((dataService?.handler) != nil) {
+                    dataService?.handler!(jsonString,dict)
                 }
             })
         }

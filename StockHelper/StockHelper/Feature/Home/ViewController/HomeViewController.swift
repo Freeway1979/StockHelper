@@ -95,6 +95,11 @@ class HomeViewController: UICollectionViewController {
             self.gotoViewController(storyboard: "Review", storyboardId: "ReviewDetailViewController")
         })
         items.append(item!)
+        // Item 2
+        item = ItemData(title: "涨停排行榜", data:nil, onItemClicked: { itemData in
+            self.gotoViewController(storyboard: "Review", storyboardId: "ReviewDetailViewController")
+        })
+        items.append(item!)
     
         layout = LayoutData(title: title,data: items)
         self.layoutData.append(layout!)

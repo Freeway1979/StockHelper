@@ -11,11 +11,15 @@ import Foundation
 let YIYI:Int64 = 100000000
 let YI100:Int64 = 100*YIYI
 
-struct WenCaiBlockStat {
-    var title:String
-    var money:Float //板块资金量
-    var zhangting:Int //板块涨停数
-    var zhangfu:Float //板块涨幅
-    var score: Float
+class WenCaiBlockStat {
+    var title:String = "" //板块名称
+    var money:Int = 0 //板块资金量
+    var zhangting:Int = 0 //板块涨停数
+    var zhangfu:Float = 0.0 //板块涨幅
+    var score: Int = 0 // 得分
+    
+    func buildScore()  {
+        self.score = Int(zhangting * 100 + zhangfu * 100 + money / 100000000 * 100)
+    }
 }
 
