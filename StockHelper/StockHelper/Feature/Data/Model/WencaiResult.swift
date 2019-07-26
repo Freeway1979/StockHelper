@@ -19,7 +19,10 @@ class WenCaiBlockStat {
     var score: Int = 0 // 得分
     
     func buildScore()  {
-        self.score = Int(zhangting * 100 + zhangfu * 100 + money / 100000000 * 100)
+        var score: Int = zhangting * 100;
+        score = score + Int(zhangfu * 100)
+        score = score + Int(money / 100000000 * 100)
+        self.score = score
     }
 }
 
