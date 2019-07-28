@@ -309,6 +309,7 @@ class BlockCycleViewController: UIViewController {
         self.leftTableView.dataSource = self
         self.rightTableView.delegate = self
         self.rightTableView.dataSource = self
+        self.leftTableView.tableFooterView = UIView(frame: CGRect(x: 0,y: 0,width: 0,height: 0))
         self.rightTableView.tableFooterView = UIView(frame: CGRect(x: 0,y: 0,width: 0,height: 0))
         
         self.leftTableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: LeftTableViewCellId)
