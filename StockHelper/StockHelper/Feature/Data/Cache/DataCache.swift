@@ -30,6 +30,27 @@ class DataCache {
         blockTops?[date] = blocks;
     }
     
+    public static func saveToDB() {
+        if blockTops?.count == 0 {
+            return
+        }
+        let encoder = JSONEncoder()
+        let data = try! encoder.encode(blockTops)
+        StockDBProvider.saveBlockLifeCycleData(data: data)
+        print("Save block tops to local and iCloud")
+    }
+    
+    public static func loadFromDB() {
+       let data = StockDBProvider.loadBlockLifeCycleData()
+        if (data != nil) {
+            let decoder = JSONDecoder()
+            let dict = try! decoder.decode([String:[WenCaiBlockStat]].self, from: data!)
+            blockTops?.removeAll()
+            blockTops = dict
+            print("Load block tops from local and iCloud")
+        }
+    }
+    
     public static func printData() {
         blockTops?.forEach({ (item) in
             let (key, value) = item

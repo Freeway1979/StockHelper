@@ -22,6 +22,7 @@ struct UserDefaultKeys {
         static let basicBlocksUpdateTime = "BasicStocksUpdateTime"
         static let hotBlocks = "HotBlocks"
         static let importantBlocks = "ImportantStocks"
+        static let blokLifeCycle = "BlokLifeCycle"
     }
 }
 
@@ -166,6 +167,24 @@ class StockDBProvider {
         UserDefaults.standard.synchronize()
         //iCloud
         iCloudUtils.set(anobject: blockPinYinMap, forKey: key)
+    }
+    
+    //-----------------------------------板块周期表----------------------------------
+    public static func loadBlockLifeCycleData() -> Data? {
+        let key = UserDefaultKeys.Block.blokLifeCycle
+        var data = UserDefaults.standard.object(forKey: key)
+        if data != nil {
+            return data as? Data
+        }
+        data = iCloudUtils.object(forKey: key) as? [String:String]
+        return data as? Data
+    }
+    public static func saveBlockLifeCycleData(data:Data) {
+        let key = UserDefaultKeys.Block.blokLifeCycle
+        UserDefaults.standard.set(data,forKey:key)
+        UserDefaults.standard.synchronize()
+        //iCloud
+        iCloudUtils.set(anobject: data, forKey: key)
     }
     
     public static func clearLocalUserDefaults() {

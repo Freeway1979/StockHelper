@@ -31,4 +31,10 @@ class Utils {
         let objects = try! decoder.decode([T].self, from: jsonData)
         return objects;
     }
+    
+    public static func appInitialize() {
+        DispatchQueue.global().async {
+            DataCache.loadFromDB();
+        }
+    }
 }

@@ -8,10 +8,10 @@
 
 import Foundation
 //一亿
-let YIYI:Int64 = 100000000
-let YI100:Int64 = 100*YIYI
+let YIYI:Int = 100000000
+let YI100:Int = 100*YIYI
 
-class WenCaiBlockStat {
+class WenCaiBlockStat : Codable {
     var title:String = "" //板块名称
     var money:Int = 0 //板块资金量
     var zhangting:Int = 0 //板块涨停数
@@ -21,8 +21,16 @@ class WenCaiBlockStat {
     func buildScore()  {
         var score: Int = zhangting * 100;
         score = score + Int(zhangfu * 100)
-        score = score + Int(money / 100000000 * 100)
+        if zhangting > 0 {
+            score = Int(Float(score) * 8 / 10) + Int(money / YIYI * 2 / 10)
+        }
         self.score = score
+    }
+    static let blacklist = ["富时罗素概念股","深股通","MSCI概念",
+                            "沪股通","MSCI预期","参股新三板","融资融券","独角兽概念",
+                            "证金持股"]
+    public static func isBlackList(title: String) -> Bool {
+        return blacklist.contains(title)
     }
 }
 

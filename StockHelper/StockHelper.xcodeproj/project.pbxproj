@@ -91,6 +91,7 @@
 		A1901AB221E8CBE100F14831 /* StockCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1901AB021E8CBE100F14831 /* StockCollectionViewCell.xib */; };
 		A1901AB521E8CBEE00F14831 /* TagCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1901AB321E8CBED00F14831 /* TagCollectionViewCell.xib */; };
 		A1901AB621E8CBEE00F14831 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1901AB421E8CBED00F14831 /* TagCollectionViewCell.swift */; };
+		A1915BC022EC3E1000BE582D /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1915BBF22EC3E1000BE582D /* Date+Extension.swift */; };
 		A19DDDDB224EF83800D63D7A /* Data.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A19DDDDA224EF83800D63D7A /* Data.storyboard */; };
 		A19DDDDD224F008800D63D7A /* DataBuildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19DDDDC224F008800D63D7A /* DataBuildViewController.swift */; };
 		A19DDDDF224FB7B300D63D7A /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19DDDDE224FB7B300D63D7A /* DataService.swift */; };
@@ -226,6 +227,7 @@
 		A1901AB021E8CBE100F14831 /* StockCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StockCollectionViewCell.xib; sourceTree = "<group>"; };
 		A1901AB321E8CBED00F14831 /* TagCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagCollectionViewCell.xib; sourceTree = "<group>"; };
 		A1901AB421E8CBED00F14831 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
+		A1915BBF22EC3E1000BE582D /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		A19DDDDA224EF83800D63D7A /* Data.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Data.storyboard; sourceTree = "<group>"; };
 		A19DDDDC224F008800D63D7A /* DataBuildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBuildViewController.swift; sourceTree = "<group>"; };
 		A19DDDDE224FB7B300D63D7A /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
@@ -542,6 +544,7 @@
 				A12A50BD221F7A040045D320 /* String+Common.swift */,
 				A12A50C52220BED60045D320 /* String+GBK.swift */,
 				A1ABA3B22262E32C00985F3D /* Int+Extension.swift */,
+				A1915BBF22EC3E1000BE582D /* Date+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1168,6 +1171,7 @@
 				A1D44CBC21D9FA500043A4A5 /* StockServiceProvider.swift in Sources */,
 				A1D29809222BD0A9005FBB1B /* WebSiteListViewController.swift in Sources */,
 				A1F4428D21E0D56A00999138 /* ENSideMenuNavigationController.swift in Sources */,
+				A1915BC022EC3E1000BE582D /* Date+Extension.swift in Sources */,
 				A1D44CBA21D9F8730043A4A5 /* StockService.swift in Sources */,
 				06EDD3F6215247980035104B /* Stock.swift in Sources */,
 				A1F4428F21E0D6F000999138 /* MyNavigationController.swift in Sources */,

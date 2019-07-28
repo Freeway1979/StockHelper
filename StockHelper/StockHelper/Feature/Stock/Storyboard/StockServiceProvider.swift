@@ -475,7 +475,7 @@ class StockServiceProvider {
                 if responseText != nil {
                     let arraySubstrings: [Substring] = responseText!.replacingOccurrences(of: "\n", with: "").split(separator: ",")
                     let arrayStrings: [String] = arraySubstrings.compactMap { "\($0)" }
-                    print(responseText as! String)
+
                     callback(arrayStrings)
                 }
             }
