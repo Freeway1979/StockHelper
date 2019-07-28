@@ -16,7 +16,16 @@ extension Date {
         let str = df.string(from: self)
         return str
     }
+    
     var isWorkingDay: Bool {
+        let weekday = self.weekDay
+        if (weekday >= 1 && weekday <= 5) {
+            return true
+        }
+        return false
+    }
+    
+    var weekDay: Int {
         var calendar = Calendar.current
         //Sunday: 1
         //Monday: 2
@@ -30,10 +39,6 @@ extension Date {
         calendar.locale = Locale.init(identifier: "zh_CN")
         var weekday = calendar.dateComponents([.weekday], from: self).weekday
         weekday = (weekday! - 1) % 7
-        if (weekday! >= 1 && weekday! <= 5) {
-            return true
-        }
-        
-        return false
+        return weekday!
     }
 }
