@@ -92,6 +92,7 @@
 		A1901AB521E8CBEE00F14831 /* TagCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1901AB321E8CBED00F14831 /* TagCollectionViewCell.xib */; };
 		A1901AB621E8CBEE00F14831 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1901AB421E8CBED00F14831 /* TagCollectionViewCell.swift */; };
 		A1915BC022EC3E1000BE582D /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1915BBF22EC3E1000BE582D /* Date+Extension.swift */; };
+		A1915BC222ED9B8400BE582D /* ZhangTingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1915BC122ED9B8400BE582D /* ZhangTingListViewController.swift */; };
 		A19DDDDB224EF83800D63D7A /* Data.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A19DDDDA224EF83800D63D7A /* Data.storyboard */; };
 		A19DDDDD224F008800D63D7A /* DataBuildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19DDDDC224F008800D63D7A /* DataBuildViewController.swift */; };
 		A19DDDDF224FB7B300D63D7A /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19DDDDE224FB7B300D63D7A /* DataService.swift */; };
@@ -228,6 +229,7 @@
 		A1901AB321E8CBED00F14831 /* TagCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagCollectionViewCell.xib; sourceTree = "<group>"; };
 		A1901AB421E8CBED00F14831 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		A1915BBF22EC3E1000BE582D /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		A1915BC122ED9B8400BE582D /* ZhangTingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhangTingListViewController.swift; sourceTree = "<group>"; };
 		A19DDDDA224EF83800D63D7A /* Data.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Data.storyboard; sourceTree = "<group>"; };
 		A19DDDDC224F008800D63D7A /* DataBuildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBuildViewController.swift; sourceTree = "<group>"; };
 		A19DDDDE224FB7B300D63D7A /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
@@ -424,6 +426,7 @@
 				A1E1277B21E6B99F00527DC0 /* HotBlockViewController.swift */,
 				A1ABA3B02262DF5E00985F3D /* BlockCycleViewController.swift */,
 				A12C7DF42268AF050014D260 /* SelectedStocksViewController.swift */,
+				A1915BC122ED9B8400BE582D /* ZhangTingListViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1185,6 +1188,7 @@
 				A1F4428C21E0D56A00999138 /* ENSideMenu.swift in Sources */,
 				A1F5953B21BD08E400EC5ECB /* MessageViewController.swift in Sources */,
 				06F5881B21BA38B600D69159 /* UITextField+Extension.swift in Sources */,
+				A1915BC222ED9B8400BE582D /* ZhangTingListViewController.swift in Sources */,
 				A12A50B42218DBC10045D320 /* JsonString2Objects.swift in Sources */,
 				06EDD3C5215241970035104B /* AppDelegate.swift in Sources */,
 				A12A50BC221F77590045D320 /* Data+GBK.swift in Sources */,
