@@ -27,7 +27,11 @@ class DataCache {
         if (blockTops == nil) {
             blockTops = [:]
         }
-        blockTops?[date] = blocks;
+        var theBlocks = blocks
+        if blocks.count > 20 {
+            theBlocks = Array(blocks[0...19])
+        }
+        blockTops?[date] = theBlocks;
     }
     
     public static func saveToDB() {

@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import ZKProgressHUD
 
 class BlockCycleViewController: UIViewController {
 
@@ -25,6 +26,7 @@ class BlockCycleViewController: UIViewController {
     let RightTableViewCellId = "StackTableViewCell"
     let RightTableHeaderView = "StackTableHeaderView"
     
+    var forceUpdate:Bool = false
     var top10List:[TopTen] = []
     var rightTopTenList:[OrderedBlockList] = []
     var runningDates:[String] = []
@@ -157,7 +159,10 @@ class BlockCycleViewController: UIViewController {
                 block.zhangting = 0
                 block.zhangfu = zhangfu
                 block.score = 0
-                blocks?.append(block)
+                if (!WenCaiBlockStat.isBlackList(title: title))
+                {
+                    blocks?.append(block)
+                }
             } else {
                 break
             }
@@ -276,18 +281,20 @@ class BlockCycleViewController: UIViewController {
     }
     
     private func prepareData() {
+        ZKProgressHUD.show()
         self.dates = self.generateDates()
         self.runningDates.append(contentsOf: self.dates)
-        DataCache.loadFromDB();
         self.loadWenCaiData(date: self.runningDates.last!)
     }
 
     private func loadWenCaiData(date:String) {
-        let blocks:[WenCaiBlockStat]? = DataCache.getBlocksByDate(date: date) ?? nil
-        if blocks?.count ?? 0 > 0 {
-            print("\(date) already exists, go next")
-            self.goNext()
-            return
+        if !forceUpdate {
+            let blocks:[WenCaiBlockStat]? = DataCache.getBlocksByDate(date: date) ?? nil
+            if blocks?.count ?? 0 > 0 {
+                print("\(date) already exists, go next")
+                self.goNext()
+                return
+            }
         }
         self.loadDataPhase1(date: date);
     }
@@ -302,6 +309,7 @@ class BlockCycleViewController: UIViewController {
     private func onDataLoaded() {
         DataCache.saveToDB()
         self.setupTableData()
+        ZKProgressHUD.dismiss()
     }
     
     private func setupTableViews() {
