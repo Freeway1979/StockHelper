@@ -26,7 +26,7 @@ class WencaiUtils {
     
    class func loadWebPage(with url:String,webview:WKWebView) {
         let encodedUrl:String = url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-        print(encodedUrl)
+//        print(encodedUrl)
         webview.load(URLRequest(url: URL(string: encodedUrl)!))
     }
     

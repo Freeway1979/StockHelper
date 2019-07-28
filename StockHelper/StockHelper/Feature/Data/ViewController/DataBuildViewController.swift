@@ -53,7 +53,7 @@ class DataBuildViewController: UIViewController {
     
     func prepareData() {
         //var services = self.dataServices
-        let service = DataService(keywords: "概念板块资金 涨跌幅顺序 成交额大于100亿", title: "概念板块资金", status: "ddd")  { (json, dict) in
+        let service = DataService(date: Date().formatWencaiDateString(), keywords: "概念板块资金 涨跌幅顺序 成交额大于100亿", title: "概念板块资金", status: "ddd")  { (date, json, dict) in
             
         }
         dataServices.append(service)

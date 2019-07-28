@@ -21,6 +21,7 @@ class BlockCycleViewController: UIViewController {
     var lastDate:String = ""
     var token:String?
     var dataServices: [DataService] = []
+    var selectedItem: String? = "OLED"
     
     let LeftTableViewCellId = "leftTableViewCell"
     let RightTableViewCellId = "StackTableViewCell"
@@ -76,25 +77,29 @@ class BlockCycleViewController: UIViewController {
     
     //左边的TopTen
     private func buildTopTen() -> [TopTen] {
-        var topList:[TopTen] = []
+        var blockScoreDic:[String:Int] = [:]
         DataCache.blockTops?.forEach({ (item) in
             let (_, value) = item
-            //
             value.forEach({ (block) in
-                var topTen = topList.first(where: { (topTen) -> Bool in
-                    return topTen.title == block.title
-                })
-                if (topTen == nil) {
-                    topTen = TopTen(title: block.title, score: 0)
-                    topList.append(topTen!)
+                var vv = blockScoreDic[block.title]
+                if (vv == nil) {
+                    vv = 0
                 }
-                var score:Int = topTen!.score
-                score = score + block.score
-                topTen?.score = score
+                vv = vv! + block.score
+                blockScoreDic[block.title] = vv
             })
         })
-        if topList.count > 10 {
-            return Array(topList[0...9])
+        
+        var topList:[TopTen] = []
+        var count = 0
+        for (k,v) in (Array(blockScoreDic).sorted {$0.1 > $1.1}) {
+            print("\(k):\(v)")
+            let topTen = TopTen(title: k, score: v)
+            topList.append(topTen)
+            count = count + 1
+            if (count >= 10) {
+                break
+            }
         }
         return topList
     }
@@ -108,35 +113,31 @@ class BlockCycleViewController: UIViewController {
             block = WenCaiBlockStat()
             block.title = date
             header.blockList.append(block)
-            print(date, 0, block.title)
         }
         topList.append(header)
-        print("-------------------------------")
         for i in 1...10 {
             var blockListObject = OrderedBlockList(order: i, blockList: [])
             self.dates.forEach { (date) in
                 let blocks : [WenCaiBlockStat] = DataCache.getBlocksByDate(date: date)!
-                let block: WenCaiBlockStat = blocks[i-1]
+                var block: WenCaiBlockStat;
+                if (blocks.count > i-1)
+                {
+                    block = blocks[i-1]
+                } else {
+                    block = WenCaiBlockStat()
+                    block.title = ""
+                }
                 blockListObject.blockList.append(block)
-                print(date, i, block.title)
             }
-            print("-------------------------------")
             topList.append(blockListObject)
         }
         return topList
     }
     
     private func handleGNBlocksWithMoney(date:String,dict:Dictionary<String, Any>) {
+        print("\(date) handleGNBlocksWithMoney")
         let rs = dict["result"] as! [[Any]]
         let isLastDate = date == self.lastDate
-        var date:String;
-        let titles = dict["title"] as! [Any]
-        if isLastDate {
-            let s = titles[3] as! String
-            date = String(s.suffix(10))
-        } else {
-            date = (((titles[3] as! NSDictionary).allValues[0]) as! [String]).last!
-        }
         var count = 50
         var blocks:[WenCaiBlockStat]? = DataCache.getBlocksByDate(date: date) ?? nil
         blocks?.removeAll()
@@ -172,11 +173,8 @@ class BlockCycleViewController: UIViewController {
     }
     
     private func handleGNBlocksWithZhangTingShu(date:String,dict:Dictionary<String, Any>) {
+        print("\(date) handleGNBlocksWithZhangTingShu")
         let rs = dict["result"] as! [[Any]]
-        let titles = dict["title"] as! [String]
-        let s = titles[3]
-        let date = String(s.suffix(10))
-        
         var count = 50
         var blocks:[WenCaiBlockStat]? = DataCache.getBlocksByDate(date: date) ?? nil
         for item in rs {
@@ -208,10 +206,6 @@ class BlockCycleViewController: UIViewController {
             }
             return rs
         })
-        
-        blocks?.forEach({ (block) in
-            print(block.title,block.score)
-        })
         DataCache.setBlocksByDate(date: date, blocks: blocks ?? [])
         self.goNext()
     }
@@ -232,8 +226,8 @@ class BlockCycleViewController: UIViewController {
     }
     
     func loadDataPhase1(date:String) {
-        let dataService = DataService(keywords: "\(date)概念板块资金 \(date)涨跌幅顺序 \(date)成交额大于100亿", title: "概念板块资金", status: "ddd")  { [unowned self] (json, dict) in
-            self.handleGNBlocksWithMoney(date:date,dict: dict)
+        let dataService = DataService(date: date, keywords: "\(date)概念板块资金 \(date)涨跌幅顺序 \(date)成交额大于100亿", title: "概念板块资金", status: "ddd")  { [unowned self] (date, json, dict) in
+            self.handleGNBlocksWithMoney(date: date,dict: dict)
             self.loadDataPhase2(date: date)
         }
         self.dataServices.append(dataService)
@@ -241,7 +235,8 @@ class BlockCycleViewController: UIViewController {
     }
     
     func loadDataPhase2(date:String) {
-        let dataService = DataService(keywords: "\(date)概念板块涨停数顺序 \(date)成交额大于100亿", title: "概念板块资金", status: "ddd")  { [unowned self] (json, dict) in
+        let dataService = DataService(date: date,keywords: "\(date)概念板块涨停数顺序 \(date)成交额大于100亿", title: "概念板块资金", status: "ddd")  { [unowned self] (date, json, dict) in
+
             self.handleGNBlocksWithZhangTingShu(date:date, dict: dict)
         }
         self.dataServices.append(dataService)
@@ -266,12 +261,9 @@ class BlockCycleViewController: UIViewController {
             }
             i = i + 1
         }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy.MM.dd"
-        dateFormatter.timeZone = TimeZone.init(identifier: "Asia/Shanghai")
-        dateFormatter.locale =  Locale.init(identifier: "zh_CN")
+        
         let rs = dates.map { (date) -> String in
-            let dateStr = dateFormatter.string(from: date)
+            let dateStr = date.formatWencaiDateString()
             let headerDateStr = "\(dateStr.suffix(5))\(self.weekdays[date.weekDay-1])"
             self.headerDates.append(headerDateStr)
             return dateStr
@@ -394,22 +386,39 @@ extension BlockCycleViewController:UITableViewDataSource {
             let blockList = hotblock.blockList
             stackView?.spacing = 0
             stackView?.distribution = .fillEqually
+            stackView?.subviews.forEach({ (view) in
+                view.removeFromSuperview()
+            })
             for i in 0...blockList.count-1 {
                 let button:UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: TableCellDimension.Width.rawValue, height: TableCellDimension.Height.rawValue))
                 let text = blockList[i].title
-                let color = indexPath.row==0 ? UIColor.white:getColorByScore(score: blockList[i].score)
+                var titleColor = UIColor.black
+                var bgcolor = indexPath.row == 0 ? UIColor.lightGray: UIColor.white
+                if (text == self.selectedItem) {
+                    bgcolor = UIColor.red
+                    titleColor = UIColor.white
+                }
                 button.titleLabel?.font = UIFont.systemFont(ofSize: 10)
-                button.backgroundColor = color
-                button.setTitleColor(UIColor.black, for: UIControl.State.normal)
+                button.backgroundColor = bgcolor
+                button.setTitleColor(titleColor, for: UIControl.State.normal)
                 button.setTitle(text, for: UIControl.State.normal)
                 button.layer.borderWidth = 0.3
                 button.layer.borderColor = UIColor.gray.cgColor
                 button.layer.cornerRadius = 0
+                button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
                 stackView?.addArrangedSubview(button)
             }
         }
 
         return cell
+    }
+    
+    @objc func buttonTapped(sender: UIButton) {
+        if (sender.titleLabel?.text != nil && sender.titleLabel?.text!.count ?? 0 > 0) {
+        self.selectedItem = sender.titleLabel?.text!
+        self.leftTableView.reloadData()
+        self.rightTableView.reloadData()
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -467,7 +476,13 @@ extension BlockCycleViewController:UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        if isLeftTableView(tableView: tableView) {
+           self.selectedItem = self.top10List[indexPath.row].title
+        } else {
+            
+        }
+        self.leftTableView.reloadData()
+        self.rightTableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
@@ -483,17 +498,17 @@ extension BlockCycleViewController: WKNavigationDelegate {
             let rs = data as! String
             
             if (rs.contains("token")) {
-                print("token found")
+//                print("token found")
                 self.token = WencaiUtils.parseTokenFromHTML(html: rs)
             } else {
-                print("token not found")
+//                print("token not found")
             }
             
             WencaiUtils.parseHTML(html: rs, callback: { [unowned self] (jsonString, dict) in
                 let keywords = dict["query"] as! String
                 let dataService = self.getDataService(by: keywords)
                 if ((dataService?.handler) != nil) {
-                    dataService?.handler!(jsonString,dict)
+                    dataService?.handler!(dataService!.date, jsonString,dict)
                 }
             })
         }

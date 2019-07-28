@@ -9,12 +9,16 @@
 import Foundation
 
 extension Date {
-    func format(_ dateFormat: String, LocalId: String = "zh_CN") -> String {
-        let df = DateFormatter()
-        df.locale = Locale(identifier: LocalId)
-        df.dateFormat = dateFormat
-        let str = df.string(from: self)
-        return str
+    func format(_ dateFormat: String = "yyyy.MM.dd") -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = dateFormat
+        dateFormatter.timeZone = TimeZone.init(identifier: "Asia/Shanghai")
+        dateFormatter.locale =  Locale.init(identifier: "zh_CN")
+        return dateFormatter.string(from: self)
+    }
+    
+    func formatWencaiDateString() -> String {
+        return self.format()
     }
     
     var isWorkingDay: Bool {

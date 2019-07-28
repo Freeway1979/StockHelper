@@ -82,7 +82,7 @@ extension WencaiBaseViewController: WKNavigationDelegate {
             WencaiUtils.parseHTML(html: rs, callback: { (jsonString, dict) in
                 print(dict)
                 if ((self.dataService?.handler) != nil) {
-                    self.dataService?.handler!(jsonString,dict)
+                    self.dataService?.handler!("", jsonString,dict)
                 }
             })
         }

@@ -24,10 +24,11 @@ class WenCaiQuery {
 
 
 struct DataService {
+    var date = ""
     var keywords = ""
     var title = ""
     var status:String?
-    var handler:((String,Dictionary<String, Any>) -> Void)? = nil
+    var handler:((String,String,Dictionary<String, Any>) -> Void)? = nil
 }
 
 enum WenCaiKeywords:String {
@@ -43,7 +44,7 @@ class DataManager {
     public static func prepareData() {
         dataServices.removeAll()
         let keywords = WenCaiKeywords.BankuaiHY.rawValue
-        let service = DataService(keywords: keywords, title: keywords, status: "未获取") { (json, dict) in
+        let service = DataService(date: Date().formatWencaiDateString(), keywords: keywords, title: keywords, status: "未获取") { (date, json, dict) in
             
         }
         
