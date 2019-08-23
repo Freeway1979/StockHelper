@@ -282,53 +282,35 @@
         <scene sceneID="KR9-gT-uBP">
             <objects>
                 <viewController storyboardIdentifier="ZhangTingListViewController" id="7eL-JA-DfQ" customClass="ZhangTingListViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="fqj-hf-em5">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="1SO-yN-dlq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jHy-2o-nYf">
-                                <rect key="frame" x="0.0" y="20" width="414" height="128"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="GZv-bs-B80"/>
-                                </constraints>
-                                <wkWebViewConfiguration key="configuration">
-                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences"/>
-                                </wkWebViewConfiguration>
-                            </wkWebView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IWs-uS-utx">
-                                <rect key="frame" x="0.0" y="20" width="414" height="616"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6b0-04-twk">
-                                <rect key="frame" x="56" y="671" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="jHy-2o-nYf" firstAttribute="trailing" secondItem="2F8-zv-ukm" secondAttribute="trailing" id="3mb-17-1Me"/>
-                            <constraint firstItem="jHy-2o-nYf" firstAttribute="leading" secondItem="2F8-zv-ukm" secondAttribute="leading" id="DaX-sc-nhy"/>
-                            <constraint firstItem="jHy-2o-nYf" firstAttribute="top" secondItem="2F8-zv-ukm" secondAttribute="top" id="J8L-Tj-yX8"/>
-                            <constraint firstItem="IWs-uS-utx" firstAttribute="top" secondItem="2F8-zv-ukm" secondAttribute="top" id="O8m-EB-AUN"/>
-                            <constraint firstItem="2F8-zv-ukm" firstAttribute="trailing" secondItem="IWs-uS-utx" secondAttribute="trailing" id="gQg-Fl-yon"/>
-                            <constraint firstItem="2F8-zv-ukm" firstAttribute="bottom" secondItem="IWs-uS-utx" secondAttribute="bottom" constant="100" id="ggA-kZ-iXd"/>
-                            <constraint firstItem="IWs-uS-utx" firstAttribute="leading" secondItem="2F8-zv-ukm" secondAttribute="leading" id="q45-RT-x32"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="2F8-zv-ukm"/>
-                    </view>
+                        <viewLayoutGuide key="safeArea" id="qJ6-k6-dms"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="csx-26-rJ4">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="o3c-fi-mt2">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </view>
+                            </collectionViewCell>
+                        </cells>
+                    </collectionView>
                     <connections>
-                        <outlet property="tableView" destination="IWs-uS-utx" id="w4t-xm-HL0"/>
-                        <outlet property="webview" destination="jHy-2o-nYf" id="WKE-BB-wsv"/>
+                        <outlet property="collectionView" destination="1SO-yN-dlq" id="gDe-K1-nTP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bqf-7g-Uyb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="246" y="-1669"/>
+            <point key="canvasLocation" x="244.92753623188409" y="-1669.5652173913045"/>
         </scene>
         <!--板块周期表-->
         <scene sceneID="bEd-5B-pKz">

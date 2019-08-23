@@ -2,22 +2,56 @@
 //  ZhangTingListViewController.swift
 //  StockHelper
 //
-//  Created by Andy Liu on 2019/7/28.
+//  Created by Andy Liu on 2019/8/11.
 //  Copyright © 2019 Andy Liu. All rights reserved.
+//
+
+import Foundation
+
+//
+//  HomeViewController.swift
+//  StockHelper
+//
+//  Created by Andy Liu on 2018/12/22.
+//  Copyright © 2018 Andy Liu. All rights reserved.
 //
 
 import UIKit
 import WebKit
 import ZKProgressHUD
 
+private let reuseIdentifier = "Cell"
+
+fileprivate let tagReuseIdentifier = "TagCollectionViewCell"
+fileprivate let headerReuseIdentifier = "HeaderCollectionView"
+fileprivate let columns = 4
+fileprivate let sectionInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+
+
 class ZhangTingListViewController: UIViewController {
     
-    let tableViewCellId = "StackTableViewCell"
+    @IBOutlet weak var collectionView: UICollectionView!
     
-    @IBOutlet weak var webview: WKWebView!
+    var webview: WKWebView!
     
-    @IBOutlet weak var tableView: UITableView!
+    private struct ItemData {
+        var title: String = ""
+        var data: String? = ""
+        var onItemClicked : (_ item:ItemData) -> Void
+    }
     
+    private class LayoutData {
+        var title:String = ""
+        var data: [ItemData] = []
+        init(title:String,data:[ItemData]) {
+            self.title = title
+            self.data = data
+        }
+    }
+    
+    private var layoutData:[LayoutData] = []
+    
+    // Wencai
     var dataServices: [DataService] = []
     var dataService: DataService?
     var token:String?
@@ -44,23 +78,67 @@ class ZhangTingListViewController: UIViewController {
         var gnList:[String]
     }
     
-    enum TableCellDimension:Int {
-        case Width = 60
-        case Height = 30
-    }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+        self.collectionView.dataSource = self;
+        self.collectionView.delegate = self;
+        // Register cell classes
+        self.collectionView.register(UINib(nibName:tagReuseIdentifier, bundle: nil), forCellWithReuseIdentifier: tagReuseIdentifier)
+        self.collectionView.register(UINib(nibName: headerReuseIdentifier,bundle:nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier)
+        
+        let theWebView = WKWebView(frame: CGRect(x: 0, y: 0, width: 1, height: 1))
+        self.view.addSubview(theWebView)
+        self.webview = theWebView
         self.webview.navigationDelegate = self;
-        self.title = "涨停排行榜"
         WencaiUtils.prepareWebView(webview: webview);
         
-        setupTableViews()
+        self.setupLayoutData()
+        // Register cell classes
+        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
+        self.collectionView!.delegate = self;
+        // Do any additional setup after loading the view.
+        loadData()
+    }
+    
+    private func gotoViewController(storyboard:String,storyboardId:String) {
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: storyboard,bundle: nil)
+        var destViewController : UIViewController
+        destViewController = mainStoryboard.instantiateViewController(withIdentifier: storyboardId)
+        self.navigationController?.navigationController?.pushViewController(destViewController, animated: true)
+    }
+    
+    private func setupLayoutData() {
+        var item:ItemData?
+        var title:String
+        var layout:LayoutData?
+        var items:[ItemData] = []
+        // Item 4
+        item = ItemData(title: "最高板损益值", data: "http://data.10jqka.com.cn/market/xsjj/", onItemClicked: { [weak self] itemData in
+            self?.openWebSite(itemData: itemData)
+        })
+        items.append(item!)
+        layout = LayoutData(title: "涨停情绪",data: items)
+        self.layoutData.append(layout!)
+    }
+    
+    private func openWebSite(itemData:ItemData) {
+        WebViewController.open(website: (itemData.data!), withtitle: itemData.title, from: (self.navigationController?.navigationController)!)
+    }
+    
+    func reloadData() {
+        DispatchQueue.main.async(execute: {
+            print(Thread.isMainThread)
+            self.collectionView.reloadData()
+        })
+        
+    }
+    
+    func loadData() -> Void {
         prepareData()
-        
     }
     
     func getDataService(by keywords:String) -> DataService? {
@@ -85,7 +163,7 @@ class ZhangTingListViewController: UIViewController {
     private func handleWenCaiResponse(date:String,dict:Dictionary<String, Any>) {
         print("\(date) handleWenCaiResponse")
         let rs = dict["result"] as! [[Any]]
-//        print(rs)
+        //        print(rs)
         var dict:[String:[ZhangTingStock]] = [:]
         for item in rs {
             let zt = (item[4] as! NSNumber).intValue
@@ -126,6 +204,7 @@ class ZhangTingListViewController: UIViewController {
             list.append(stock)
         }
         self.zhenfuList = list
+        print(list)
     }
     
     private func prepareData() {
@@ -137,7 +216,7 @@ class ZhangTingListViewController: UIViewController {
         }
         self.dataServices.append(dataService)
         
-        dataService = DataService(date: today,keywords: "振幅大于15且非科创板且上市天数大于20", title: "连续涨停数排行榜", status: "ddd")  { [unowned self] (date, json, dict) in
+        dataService = DataService(date: today,keywords: "振幅大于15且非科创板且上市天数大于20 开盘涨跌幅", title: "连续涨停数排行榜", status: "ddd")  { [unowned self] (date, json, dict) in
             self.handleWenCaiZhenFuResponse(date:date, dict: dict)
             self.goNext()
         }
@@ -146,147 +225,152 @@ class ZhangTingListViewController: UIViewController {
         self.loadWenCaiData(dataService: self.dataServices.first!)
     }
     
-    
-    private func setupTableData() {
-        self.tableView.reloadData()
+    private func convertToLayoutData() {
+        self.dataList.forEach { (item) in
+            let items:[ItemData] = item.stocks.map({ (stock) -> ItemData in
+                let itemData = ItemData(title: stock.name, data: stock.code, onItemClicked: { (itemData) in
+                    print(itemData)
+                })
+                return itemData
+            })
+            let layout = LayoutData(title: item.zhangting,data: items)
+            self.layoutData.append(layout)
+        }
     }
     
     private func onDataLoaded() {
-        self.setupTableData()
+        self.convertToLayoutData()
+        self.reloadData()
         ZKProgressHUD.dismiss()
     }
-    
-    private func setupTableViews() {
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.tableFooterView = UIView(frame: CGRect(x: 0,y: 0,width: 0,height: 0))
-//        self.tableView.register(UINib(nibName: tableViewCellId, bundle: nil), forCellReuseIdentifier: tableViewCellId)
-         self.tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: tableViewCellId)
-    }
-    
 }
 
-extension ZhangTingListViewController:UITableViewDataSource {
-    // MARK: - Table view data source
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
+// MARK: UICollectionViewDataSource
+extension ZhangTingListViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return self.layoutData.count
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-       return self.dataList.count
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.layoutData[section].data.count
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 30
-    }
-    
-    func createButton(text:String) -> UIButton {
-        let button:UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: TableCellDimension.Width.rawValue, height: TableCellDimension.Height.rawValue))
-        let titleColor = UIColor.black
-        let bgcolor = UIColor.white
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 10)
-        button.backgroundColor = bgcolor
-        button.setTitleColor(titleColor, for: UIControl.State.normal)
-        button.setTitle(text, for: UIControl.State.normal)
-        button.layer.borderWidth = 0.3
-        button.layer.borderColor = UIColor.gray.cgColor
-        button.layer.cornerRadius = 0
-        return button
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let section = indexPath.section
+        let row = indexPath.row
+        let group = self.layoutData[section]
         
-        let cellId =  tableViewCellId
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
+        let item = group.data[row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tagReuseIdentifier, for: indexPath)
+            as! TagCollectionViewCell
+        cell.contentButton.text = item.title
         
-        // Configure the cell...
-        
-//        let stackTableViewCell = cell as! StackTableViewCell
-//        let stackView = stackTableViewCell.stackView
-//
-        let dataItem = self.dataList[indexPath.row]
-        var text = dataItem.zhangting
-        let ztbutton:UIButton = self.createButton(text: text)
-        cell.addSubview(ztbutton)
-        let bounds = cell.bounds
-        let stackView = UIStackView(frame: CGRect(x: TableCellDimension.Width.rawValue, y: 0, width: Int(bounds.width - CGFloat(TableCellDimension.Width.rawValue)), height: TableCellDimension.Height.rawValue))
-        
-        let stocks = dataItem.stocks
-        stackView.spacing = 0
-        stackView.distribution = .fillEqually
-        stackView.subviews.forEach({ (view) in
-            view.removeFromSuperview()
-        })
-        
-        for i in 0...stocks.count-1 {
-            text = stocks[i].name
-            let button = self.createButton(text: text)
-            stackView.addArrangedSubview(button)
+        cell.onClicked = { () -> Void in
+            print("Button clicked:\(cell.contentButton.text!)")
+            item.onItemClicked(item)
         }
-        cell.addSubview(stackView)
+        // Configure the cell
+        
         return cell
+    
     }
     
-    @objc func buttonTapped(sender: UIButton) {
-//        if (sender.titleLabel?.text != nil && sender.titleLabel?.text!.count ?? 0 > 0) {
-//            self.tableView.reloadData()
-//        }
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return nil
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return nil
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0
+    // Header
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let group = self.layoutData[indexPath.section]
+        //1
+        switch kind {
+        //2
+        case UICollectionView.elementKindSectionHeader:
+            //3
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                             withReuseIdentifier: headerReuseIdentifier,
+                                                                             for: indexPath) as! HeaderCollectionView
+            headerView.contentLabel.text = group.title
+            return headerView
+        default:
+            //4
+            assert(false, "Unexpected element kind")
+        }
+        return UICollectionViewCell(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     }
 }
 
-extension ZhangTingListViewController: UITableViewDelegate {
-    // Override to support conditional editing of the table view.
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
+
+// MARK: UICollectionViewDelegate
+extension ZhangTingListViewController: UICollectionViewDelegate {
+    
+    //      Uncomment this method to specify if the specified item should be highlighted during tracking
+    func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    // Override to support editing the table view.
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        //        if editingStyle == .delete {
-        //            // Delete the row from the data source
-        //            tableView.deleteRows(at: [indexPath], with: .fade)
-        //        } else if editingStyle == .insert {
-        //            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        //        }
+    
+    //      Uncomment this method to specify if the specified item should be selected
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        return true
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let section = indexPath.section
+        let row = indexPath.row
+        let item = self.layoutData[section].data[row]
+        print(item)
+    }
     
-    // Override to support rearranging the table view.
-    func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+    //      Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
+    func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        return false
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
         
     }
     
-    // Override to support conditional rearranging of the table view.
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-    }
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        return []
-    }
-    
 }
+
+extension ZhangTingListViewController: UICollectionViewDelegateFlowLayout {
+    //1
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        //let screenWidth = UIScreen.main.bounds.size.width;
+        let height = Theme.CellView.height
+        var width = Int(UIScreen.main.bounds.size.width / CGFloat(columns))
+        if width < Int(Theme.TagButton.width) {
+            width = Int(Theme.TagButton.width)
+        }
+        //        if indexPath.section == SectionType.HotStocks.rawValue {
+        //            return CGSize(width: screenWidth, height: 60)
+        //        }
+        return CGSize(width: width, height: Int(height))
+    }
+    //3
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        //        if section == SectionType.HotStocks.rawValue {
+        //            return stockSectionInsets
+        //        }
+        return sectionInsets
+    }
+    // 4
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 5
+    }
+    
+    // 5
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: self.view.frame.size.width, height: CGFloat(Theme.CollectionHeaderView.height))
+    }
+}
+
+// WebKit
 
 extension ZhangTingListViewController: WKNavigationDelegate {
     
@@ -310,3 +394,4 @@ extension ZhangTingListViewController: WKNavigationDelegate {
         }
     }
 }
+

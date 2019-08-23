@@ -58,6 +58,7 @@
 		A12DB39C226B47AE00AD5E78 /* THSDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12DB39B226B47AE00AD5E78 /* THSDataService.swift */; };
 		A12DB39E226B4A3000AD5E78 /* THSDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12DB39D226B4A3000AD5E78 /* THSDataProvider.swift */; };
 		A12DB3A0226B4AB000AD5E78 /* JieJinStock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12DB39F226B4AB000AD5E78 /* JieJinStock.swift */; };
+		A12F65EC22FFC6030023CFAF /* ZhangTingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12F65EB22FFC6030023CFAF /* ZhangTingListViewController.swift */; };
 		A132955921DB523C00A3B156 /* RemoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A132955821DB523C00A3B156 /* RemoteService.swift */; };
 		A1343F9221F45A310086FEEB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1343F9121F45A310086FEEB /* CloudKit.framework */; };
 		A1343F9521F45A830086FEEB /* iCloudUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1343F9421F45A830086FEEB /* iCloudUtils.swift */; };
@@ -92,7 +93,6 @@
 		A1901AB521E8CBEE00F14831 /* TagCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1901AB321E8CBED00F14831 /* TagCollectionViewCell.xib */; };
 		A1901AB621E8CBEE00F14831 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1901AB421E8CBED00F14831 /* TagCollectionViewCell.swift */; };
 		A1915BC022EC3E1000BE582D /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1915BBF22EC3E1000BE582D /* Date+Extension.swift */; };
-		A1915BC222ED9B8400BE582D /* ZhangTingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1915BC122ED9B8400BE582D /* ZhangTingListViewController.swift */; };
 		A19DDDDB224EF83800D63D7A /* Data.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A19DDDDA224EF83800D63D7A /* Data.storyboard */; };
 		A19DDDDD224F008800D63D7A /* DataBuildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19DDDDC224F008800D63D7A /* DataBuildViewController.swift */; };
 		A19DDDDF224FB7B300D63D7A /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19DDDDE224FB7B300D63D7A /* DataService.swift */; };
@@ -194,6 +194,7 @@
 		A12DB39B226B47AE00AD5E78 /* THSDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSDataService.swift; sourceTree = "<group>"; };
 		A12DB39D226B4A3000AD5E78 /* THSDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSDataProvider.swift; sourceTree = "<group>"; };
 		A12DB39F226B4AB000AD5E78 /* JieJinStock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JieJinStock.swift; sourceTree = "<group>"; };
+		A12F65EB22FFC6030023CFAF /* ZhangTingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhangTingListViewController.swift; sourceTree = "<group>"; };
 		A132955821DB523C00A3B156 /* RemoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteService.swift; sourceTree = "<group>"; };
 		A1343F9021F45A130086FEEB /* StockHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StockHelper.entitlements; sourceTree = "<group>"; };
 		A1343F9121F45A310086FEEB /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -229,7 +230,6 @@
 		A1901AB321E8CBED00F14831 /* TagCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagCollectionViewCell.xib; sourceTree = "<group>"; };
 		A1901AB421E8CBED00F14831 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		A1915BBF22EC3E1000BE582D /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
-		A1915BC122ED9B8400BE582D /* ZhangTingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhangTingListViewController.swift; sourceTree = "<group>"; };
 		A19DDDDA224EF83800D63D7A /* Data.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Data.storyboard; sourceTree = "<group>"; };
 		A19DDDDC224F008800D63D7A /* DataBuildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBuildViewController.swift; sourceTree = "<group>"; };
 		A19DDDDE224FB7B300D63D7A /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
@@ -426,7 +426,7 @@
 				A1E1277B21E6B99F00527DC0 /* HotBlockViewController.swift */,
 				A1ABA3B02262DF5E00985F3D /* BlockCycleViewController.swift */,
 				A12C7DF42268AF050014D260 /* SelectedStocksViewController.swift */,
-				A1915BC122ED9B8400BE582D /* ZhangTingListViewController.swift */,
+				A12F65EB22FFC6030023CFAF /* ZhangTingListViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1182,13 +1182,13 @@
 				A12A50B22218DAEB0045D320 /* YanBao.swift in Sources */,
 				A14115F921DD8D2A00E1B2BC /* ServiceConfig.swift in Sources */,
 				A12A18DC21EA254F004294B5 /* Utils.swift in Sources */,
+				A12F65EC22FFC6030023CFAF /* ZhangTingListViewController.swift in Sources */,
 				A1F4429821E108B800999138 /* SettingViewController.swift in Sources */,
 				A152A0FF22C90070006B0DF4 /* DaBan.swift in Sources */,
 				A12A18D121E9CA3D004294B5 /* HeaderCollectionView.swift in Sources */,
 				A1F4428C21E0D56A00999138 /* ENSideMenu.swift in Sources */,
 				A1F5953B21BD08E400EC5ECB /* MessageViewController.swift in Sources */,
 				06F5881B21BA38B600D69159 /* UITextField+Extension.swift in Sources */,
-				A1915BC222ED9B8400BE582D /* ZhangTingListViewController.swift in Sources */,
 				A12A50B42218DBC10045D320 /* JsonString2Objects.swift in Sources */,
 				06EDD3C5215241970035104B /* AppDelegate.swift in Sources */,
 				A12A50BC221F77590045D320 /* Data+GBK.swift in Sources */,
