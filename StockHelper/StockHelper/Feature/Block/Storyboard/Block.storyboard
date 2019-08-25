@@ -278,10 +278,10 @@
             </objects>
             <point key="canvasLocation" x="133.59999999999999" y="765.96701649175418"/>
         </scene>
-        <!--Zhang Ting List View Controller-->
+        <!--涨停排行榜-->
         <scene sceneID="KR9-gT-uBP">
             <objects>
-                <viewController storyboardIdentifier="ZhangTingListViewController" id="7eL-JA-DfQ" customClass="ZhangTingListViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ZhangTingListViewController" title="涨停排行榜" id="7eL-JA-DfQ" customClass="ZhangTingListViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="1SO-yN-dlq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

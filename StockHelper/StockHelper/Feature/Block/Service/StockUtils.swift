@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class StockUtils {
     public static func getBlock(by code:String) -> Block {
@@ -94,5 +95,10 @@ class StockUtils {
     public static func hotStockKey(stock:Stock,block:Block) -> String {
         let key = "\(stock.code)_\(block.code)"
         return key;
+    }
+    
+    // UI
+    public static func openStockHQPage(code:String, name:String, from navigator:UINavigationController) {
+        WebViewController.open(website: "http://stockpage.10jqka.com.cn/\(code)/" , withtitle: name , from: navigator)
     }
 }

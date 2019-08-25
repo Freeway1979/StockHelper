@@ -24,8 +24,8 @@ private let reuseIdentifier = "Cell"
 
 fileprivate let tagReuseIdentifier = "TagCollectionViewCell"
 fileprivate let headerReuseIdentifier = "HeaderCollectionView"
-fileprivate let columns = 4
-fileprivate let sectionInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+fileprivate let columns = 5
+fileprivate let sectionInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
 
 
 class ZhangTingListViewController: UIViewController {
@@ -166,7 +166,7 @@ class ZhangTingListViewController: UIViewController {
         //        print(rs)
         var dict:[String:[ZhangTingStock]] = [:]
         for item in rs {
-            let zt = (item[4] as! NSNumber).intValue
+            let zt = (item[7] as! NSNumber).intValue
             let zhangting = "\(zt)连板"
             var list:[ZhangTingStock]? = dict[zhangting]
             if (list == nil) {
@@ -175,12 +175,13 @@ class ZhangTingListViewController: UIViewController {
             }
             let code = item[0] as! String
             let name = item[1] as! String
-            let gn:String? = item[7] as? String
+            let gn:String? = item[9] as? String
             var gnList:[String]? = []
             if (gn != nil) {
                 gnList = gn?.components(separatedBy: ";")
             }
-            let stock = ZhangTingStock(code: code, name: name, zhangting: zt, gnList: gnList ?? [])
+          
+            let stock = ZhangTingStock(code: String(code.prefix(6)), name: name, zhangting: zt, gnList: gnList ?? [])
             list?.append(stock)
             dict[zhangting] = list
         }
@@ -210,7 +211,8 @@ class ZhangTingListViewController: UIViewController {
     private func prepareData() {
         ZKProgressHUD.show()
         let today = Date().formatWencaiDateString()
-        var dataService = DataService(date: today,keywords: "连续涨停数大于0且连续涨停天数排序且上市天数大于20天且非ST 所属概念", title: "连续涨停数排行榜", status: "ddd")  { [unowned self] (date, json, dict) in
+        var dataService = DataService(date: today,keywords: "连续涨停数大于0且连续涨停天数排序且上市天数大于20天且非ST 所属概念 前500", title: "连续涨停数排行榜", status: "ddd")  { [unowned self] (date, json, dict) in
+            print(json)
             self.handleWenCaiResponse(date:date, dict: dict)
             self.goNext()
         }
@@ -228,8 +230,9 @@ class ZhangTingListViewController: UIViewController {
     private func convertToLayoutData() {
         self.dataList.forEach { (item) in
             let items:[ItemData] = item.stocks.map({ (stock) -> ItemData in
-                let itemData = ItemData(title: stock.name, data: stock.code, onItemClicked: { (itemData) in
+                let itemData = ItemData(title: stock.name, data: stock.code, onItemClicked: { [unowned self] (itemData) in
                     print(itemData)
+                    StockUtils.openStockHQPage(code: itemData.data!, name: itemData.title, from: self.navigationController!)
                 })
                 return itemData
             })
@@ -265,6 +268,7 @@ extension ZhangTingListViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tagReuseIdentifier, for: indexPath)
             as! TagCollectionViewCell
         cell.contentButton.text = item.title
+        cell.contentButton.setTextStyle(textStyle: TagButton.TextStyle.small)
         
         cell.onClicked = { () -> Void in
             print("Button clicked:\(cell.contentButton.text!)")
@@ -287,7 +291,8 @@ extension ZhangTingListViewController: UICollectionViewDataSource {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                              withReuseIdentifier: headerReuseIdentifier,
                                                                              for: indexPath) as! HeaderCollectionView
-            headerView.contentLabel.text = group.title
+            let title = indexPath.section == 0 ? group.title : "\(group.title)(\(group.data.count))"
+            headerView.contentLabel.text = title
             return headerView
         default:
             //4
@@ -340,11 +345,11 @@ extension ZhangTingListViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         //let screenWidth = UIScreen.main.bounds.size.width;
-        let height = Theme.CellView.height
-        var width = Int(UIScreen.main.bounds.size.width / CGFloat(columns))
-        if width < Int(Theme.TagButton.width) {
-            width = Int(Theme.TagButton.width)
-        }
+        let height = Theme.CellView.smallHeight
+        let width = Int(UIScreen.main.bounds.size.width / CGFloat(columns))
+//        if width < Int(Theme.TagButton.width) {
+//            width = Int(Theme.TagButton.width)
+//        }
         //        if indexPath.section == SectionType.HotStocks.rawValue {
         //            return CGSize(width: screenWidth, height: 60)
         //        }

@@ -11,6 +11,7 @@ import Foundation
 struct Theme {
     struct CellView {
         public static let height : Float = 30.0;
+        public static let smallHeight : Float = 22.0;
     }
     struct CollectionHeaderView {
         public static let height : Float = 40.0;

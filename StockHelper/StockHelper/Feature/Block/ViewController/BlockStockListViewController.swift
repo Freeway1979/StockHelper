@@ -153,6 +153,7 @@ extension BlockStockListViewController:UITableViewDelegate {
         let row = indexPath.row;
         let stock = self.displayedItems[row]
         print("Block \(stock.name) clicked")
+        StockUtils.openStockHQPage(code: stock.code, name: stock.name, from: self.navigationController!)
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
