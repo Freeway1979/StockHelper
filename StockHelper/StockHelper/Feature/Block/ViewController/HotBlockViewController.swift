@@ -63,8 +63,33 @@ class HotBlockViewController: UICollectionViewController {
         // Do any additional setup after loading the view.
     }
 
+    private func getHotBlocksFromBlockCycle() -> [HotBlock] {
+        let names:[String] = DataCache.getTopBlockNames()
+        var blocks:[HotBlock] = []
+        var count = 0
+        names.forEach({ name in
+            let block = StockUtils.getBlockByName(name)
+            if (block != nil && count < 10) {
+                let hotblock = HotBlock(block: block!)
+                hotblock.hotLevel = HotLevel.Level1
+                blocks.append(hotblock)
+                count = count + 1
+            }
+        })
+        return blocks
+    }
     private func prepareData() {
        self.hotblocks = StockUtils.getHotBlocks()
+       let blocks = self.getHotBlocksFromBlockCycle()
+        // 去重
+        blocks.forEach { [unowned self] (block) in
+            let foundBlock = self.hotblocks.first(where: { (bb) -> Bool in
+                return bb.block.code == block.block.code
+            })
+            if (foundBlock == nil) {
+                self.hotblocks.append(block)
+            }
+        }
        for item in self.hotblocks {
             item.selected = false
        }

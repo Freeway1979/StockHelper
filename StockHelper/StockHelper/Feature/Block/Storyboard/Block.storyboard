@@ -358,6 +358,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="h4b-cw-gaS"/>
                     </view>
+                    <navigationItem key="navigationItem" title="板块周期表" id="zNm-6i-FBf">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="Gd9-RB-93A">
+                            <connections>
+                                <action selector="onRefreshButtonClicked:" destination="7FD-yD-qS9" id="9my-ly-QyQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="leftTableView" destination="d3l-ic-tSB" id="3jT-fn-NhJ"/>

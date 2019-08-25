@@ -24,6 +24,14 @@ class StockServiceProvider {
     public static func getBlock(by code:String) -> Block {
         return blockMap[code]!
     }
+    
+    public static func getBlockByName(_ name:String) -> Block? {
+        let theBlock = blockMap.first { (code,block) -> Bool in
+            return (block.name == name)
+        }?.value
+        return theBlock
+    }
+    
     public static func getStock(by code:String) -> Stock {
         return stockMap[code]!
     }

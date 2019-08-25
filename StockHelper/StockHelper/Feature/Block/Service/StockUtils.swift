@@ -12,6 +12,11 @@ class StockUtils {
     public static func getBlock(by code:String) -> Block {
         return StockServiceProvider.getBlock(by: code)
     }
+    
+    public static func getBlockByName(_ name:String) -> Block? {
+        return StockServiceProvider.getBlockByName(name)
+    }
+    
     public static func getStock(by code:String) -> Stock {
         return StockServiceProvider.getStock(by:code)
     }

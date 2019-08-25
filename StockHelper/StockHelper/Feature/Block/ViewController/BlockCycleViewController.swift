@@ -66,6 +66,15 @@ class BlockCycleViewController: UIViewController {
         
     }
     
+    @IBAction func onRefreshButtonClicked(_ sender: UIBarButtonItem) {
+        self.showAlert(title: "提示", message: "你要重新加载吗(耗时1-2分钟)？", leftTitle: "我点错了", leftHandler: { (action) in
+            
+        }, rightTitle: "是的") { [unowned self] (action) in
+            self.forceUpdate = true
+            DataCache.reset()
+            self.prepareData()
+        }
+    }
     private let blackList = ["富时罗素概念股","深股通","MSCI概念","沪股通","MSCI预期","参股新三板"];
     
     private var colors = [UIColor.white,UIColor.blue,UIColor.green,UIColor.gray,UIColor.brown,UIColor.yellow,UIColor.red]
@@ -245,6 +254,7 @@ class BlockCycleViewController: UIViewController {
     private let weekdays = ["周一","周二","周三","周四","周五","周六","周日"]
     private let ONE_DAY:TimeInterval = 3600*24;
     private func generateDates() -> [String] {
+        self.headerDates.removeAll()
         var dates:[Date] = []
         let today = Date()
         var i = 0
@@ -275,6 +285,7 @@ class BlockCycleViewController: UIViewController {
     private func prepareData() {
         ZKProgressHUD.show()
         self.dates = self.generateDates()
+        self.runningDates.removeAll()
         self.runningDates.append(contentsOf: self.dates)
         self.loadWenCaiData(date: self.runningDates.last!)
     }

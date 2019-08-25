@@ -11,6 +11,32 @@ import Foundation
 class DataCache {
     public static var blockTops:[String:[WenCaiBlockStat]]? = [:]
     
+    public static func reset() {
+        blockTops?.removeAll()
+    }
+    
+    public static func getTopBlockNames() -> [String] {
+        var blockScoreDic:[String:Int] = [:]
+        self.blockTops?.forEach({ (item) in
+            let (_, value) = item
+            value.forEach({ (block) in
+                var vv = blockScoreDic[block.title]
+                if (vv == nil) {
+                    vv = 0
+                }
+                vv = vv! + block.score
+                blockScoreDic[block.title] = vv
+            })
+        })
+        
+        var topList:[String] = []
+        for (k,v) in (Array(blockScoreDic).sorted {$0.1 > $1.1}) {
+            print("\(k):\(v)")
+            topList.append(k)
+        }
+        return topList
+    }
+    
     public static func getBlocksByDate(date:String) -> [WenCaiBlockStat]? {
         if (blockTops == nil) {
             blockTops = [:]
