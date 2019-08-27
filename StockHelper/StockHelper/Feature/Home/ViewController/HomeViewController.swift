@@ -157,11 +157,6 @@ class HomeViewController: UICollectionViewController {
             self?.openWebSite(itemData: itemData)
         })
         items.append(item!)
-        // Item 4
-        item = ItemData(title: "头条", data: "http://stockpage.10jqka.com.cn/300110/", onItemClicked: { [weak self] itemData in
-        self?.openWebSite(itemData: itemData)
-        })
-        items.append(item!)
         // Item 5
         item = ItemData(title: "新股上市", data: "http://data.10jqka.com.cn/ipo/xgsgyzq/", onItemClicked: { [weak self] itemData in
             self?.openWebSite(itemData: itemData)

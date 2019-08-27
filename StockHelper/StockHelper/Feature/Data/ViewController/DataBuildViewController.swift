@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import ZKProgressHUD
 import SwiftSoup
 
 class DataBuildViewController: UIViewController {
@@ -23,10 +24,9 @@ class DataBuildViewController: UIViewController {
         self.webView.navigationDelegate = self;
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
-        self.prepareData()
         self.tableView.reloadData()
         
-        self.webView.evaluateJavaScript("navigator.userAgent") { (data, error) in
+        self.webView.evaluateJavaScript("navigator.userAgent") { [unowned self] (data, error) in
 //            print(data,error)
             let userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36"
             self.webView.customUserAgent = userAgent
@@ -41,23 +41,95 @@ class DataBuildViewController: UIViewController {
     
     
     @IBAction func onBuildClicked(_ sender: UIButton) {
-        let url = WenCaiQuery.getUrl(keywords: dataServices[0].keywords)
-        loadWebPage(with: url)
+        prepareData()
     }
     
-    func loadWebPage(with url:String) {
-        let encodedUrl:String = url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-        print(encodedUrl)
-        self.webView.load(URLRequest(url: URL(string: encodedUrl)!))
+    func reloadData() {
+        DispatchQueue.main.async(execute: {
+            print(Thread.isMainThread)
+            self.tableView.reloadData()
+        })
     }
     
-    func prepareData() {
-        //var services = self.dataServices
-        let service = DataService(date: Date().formatWencaiDateString(), keywords: "概念板块资金 涨跌幅顺序 成交额大于100亿", title: "概念板块资金", status: "ddd")  { (date, json, dict) in
-            
+    private func prepareData() {
+        ZKProgressHUD.show()
+        let today = Date().formatWencaiDateString()
+        let dataService = DataService(date: today,keywords: "所属概念 流通市值排序 前70", title: "个股和板块", status: "ddd")  { [unowned self] (date, json, dict) in
+            print(json)
+            self.buildPaginationService()
+            self.goNext()
         }
-        dataServices.append(service)
+        self.dataServices.append(dataService)
+         WencaiUtils.loadWencaiQueryPage(webview: self.webView, dataService: self.dataServices.first!)
     }
+    
+    func buildPaginationService() {
+        let today = Date().formatWencaiDateString()
+        let dataService = DataService(date: today,keywords: "cacheToken", title: "分页数据", status: "ddd")  { [unowned self] (date, json, dict) in
+            self.handleWenCaiResponse(date:date, dict: dict)
+            self.goNext()
+        }
+        self.dataServices.append(dataService)
+    }
+    
+    func goNext() {
+        self.dataServices.removeFirst(1)
+        if (self.dataServices.count == 0) {
+            self.onDataLoaded()
+        } else {
+            if (self.dataServices.first!.keywords == "cacheToken") {
+                let extra = "showType=[\"\",\"\",\"onTable\",\"onTable\",\"onTable\",\"onTable\",\"onTable\",\"onTable\",\"onTable\",\"onTable\",\"onTable\"]"
+                WencaiUtils.loadWencaiPaginationData(webview: self.webView, token: self.token!, perpage: 1, page: 1, extra: extra)
+            } else {
+                WencaiUtils.loadWencaiQueryPage(webview: self.webView, dataService: self.dataServices.first!)
+            }
+        }
+    }
+    
+    private func onDataLoaded() {
+//        self.convertToLayoutData()
+        self.reloadData()
+        ZKProgressHUD.dismiss()
+    }
+    
+    func getDataService(by keywords:String) -> DataService? {
+        return self.dataServices.first { (dataService) -> Bool in
+            return dataService.keywords == keywords
+        }
+    }
+    
+    private func handleWenCaiResponse(date:String,dict:Dictionary<String, Any>) {
+        print("\(date) handleWenCaiResponse")
+        let rs = dict["result"] as! [[Any]]
+        print(rs.count)
+//        var dict:[String:[ZhangTingStock]] = [:]
+//        for item in rs {
+//            let zt = (item[7] as! NSNumber).intValue
+//            let zhangting = "\(zt)连板"
+//            var list:[ZhangTingStock]? = dict[zhangting]
+//            if (list == nil) {
+//                list = []
+//                dict[zhangting] = list
+//            }
+//            let code = item[0] as! String
+//            let name = item[1] as! String
+//            let gn:String? = item[9] as? String
+//            var gnList:[String]? = []
+//            if (gn != nil) {
+//                gnList = gn?.components(separatedBy: ";")
+//            }
+//
+//            let stock = ZhangTingStock(code: String(code.prefix(6)), name: name, zhangting: zt, gnList: gnList ?? [])
+//            list?.append(stock)
+//            dict[zhangting] = list
+//        }
+//        // Sort Dictionary
+//        for (k,v) in (Array(dict).sorted {$0.key > $1.key}) {
+//            let item = DataItem(zhangting: k, stocks: v)
+//            self.dataList.append(item)
+//        }
+    }
+    
 }
 
 extension DataBuildViewController:UITableViewDataSource {
@@ -97,24 +169,28 @@ extension DataBuildViewController: WKNavigationDelegate {
 //                print(rs)
 //            }
 //        }
-        
-        self.webView.evaluateJavaScript("document.body.innerHTML") { (data, error) in
+        webView.evaluateJavaScript("document.body.innerHTML") { [unowned self] (data, error) in
             
             let rs = data as! String
             
             if (rs.contains("token")) {
-                print("token found")
-               self.token = WencaiUtils.parseTokenFromHTML(html: rs)
+                self.token = WencaiUtils.parseTokenFromHTML(html: rs)
+                WencaiUtils.parseHTML(html: rs, callback: { [unowned self] (jsonString, dict) in
+                    let keywords = dict["query"] as! String
+                    let dataService = self.getDataService(by: keywords)
+                    if ((dataService?.handler) != nil) {
+                        dataService?.handler!(dataService!.date, jsonString,dict)
+                    }
+                })
             } else {
-                print("token not found")
+                print(rs)
+                WencaiUtils.parseRawJSON(jsonString: rs, callback: { (dict) in
+                    let dataService = self.getDataService(by: "cacheToken")
+                    if ((dataService?.handler) != nil) {
+                        dataService?.handler!(dataService!.date, rs,dict as! Dictionary<String, Any>)
+                    }
+                })
             }
-        
-            WencaiUtils.parseHTML(html: rs, callback: { (data, dict) in
-//                var obj = WenCaiBlockTops(blocks: [], query: "", date: "")
-//                obj.fillDataFromDictionary(dict: dict)
-////                DataCache.blockTops = obj
-//                print(obj)
-            })
         }
     }
 }

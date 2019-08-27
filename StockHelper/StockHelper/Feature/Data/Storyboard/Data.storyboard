@@ -59,13 +59,9 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <wkWebView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PJ5-4Z-ink">
-                                <rect key="frame" x="0.0" y="148" width="408" height="614"/>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PJ5-4Z-ink">
+                                <rect key="frame" x="0.0" y="233" width="414" height="629"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="400" id="7HY-Vt-gsP"/>
-                                    <constraint firstAttribute="width" constant="300" id="Ov4-Ug-9Kl"/>
-                                </constraints>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
@@ -74,13 +70,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="PJ5-4Z-ink" firstAttribute="top" secondItem="YbS-eG-Acj" secondAttribute="bottom" constant="100" id="6nP-Lf-sxB"/>
                             <constraint firstItem="qmv-vG-KRV" firstAttribute="top" secondItem="YbS-eG-Acj" secondAttribute="bottom" constant="40" id="97d-gt-aoM"/>
                             <constraint firstItem="7am-Eo-l0d" firstAttribute="bottom" secondItem="qmv-vG-KRV" secondAttribute="bottom" id="CUb-05-hIf"/>
-                            <constraint firstItem="PJ5-4Z-ink" firstAttribute="top" secondItem="YbS-eG-Acj" secondAttribute="top" id="D95-e9-eQQ"/>
                             <constraint firstItem="PJ5-4Z-ink" firstAttribute="trailing" secondItem="7am-Eo-l0d" secondAttribute="trailing" id="Hsr-kC-Ad3"/>
                             <constraint firstItem="YbS-eG-Acj" firstAttribute="top" secondItem="7am-Eo-l0d" secondAttribute="top" constant="15" id="JIf-Lk-iMK"/>
+                            <constraint firstItem="7am-Eo-l0d" firstAttribute="bottom" secondItem="PJ5-4Z-ink" secondAttribute="bottom" id="OIn-d4-lJg"/>
+                            <constraint firstItem="PJ5-4Z-ink" firstAttribute="leading" secondItem="7am-Eo-l0d" secondAttribute="leading" id="V1H-aU-Tdo"/>
                             <constraint firstItem="7am-Eo-l0d" firstAttribute="trailing" secondItem="qmv-vG-KRV" secondAttribute="trailing" constant="15" id="amX-AS-BGS"/>
                             <constraint firstItem="qmv-vG-KRV" firstAttribute="leading" secondItem="7am-Eo-l0d" secondAttribute="leading" constant="15" id="cYO-1S-D8O"/>
+                            <constraint firstItem="7am-Eo-l0d" firstAttribute="trailing" secondItem="PJ5-4Z-ink" secondAttribute="trailing" id="ioN-ip-uwt"/>
                             <constraint firstItem="YbS-eG-Acj" firstAttribute="leading" secondItem="7am-Eo-l0d" secondAttribute="leading" constant="15" id="y2H-Gm-nTw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7am-Eo-l0d"/>
