@@ -155,7 +155,16 @@ class BlockCycleViewController: UIViewController {
         for item in rs {
             let title = item[1] as! String
             if (count > 0) {
-                let money = (item[5] as! NSNumber).intValue
+                var money:Int = 0
+                if (item[5] is String) {
+                    money = Int(Float(item[5] as! String)!)
+                }
+                else {
+                    money = (item[5] as! NSNumber).intValue
+                }
+                
+                
+                
                 var zhangfu:Float;
                 if isLastDate {
                     zhangfu = (item[3] as! NSNumber).floatValue

@@ -99,6 +99,6 @@ class StockUtils {
     
     // UI
     public static func openStockHQPage(code:String, name:String, from navigator:UINavigationController) {
-        WebViewController.open(website: "http://stockpage.10jqka.com.cn/\(code)/" , withtitle: name , from: navigator)
+        WebViewController.open(website: WebSite.getStockPageUrl(code: code), withtitle: name , from: navigator)
     }
 }
