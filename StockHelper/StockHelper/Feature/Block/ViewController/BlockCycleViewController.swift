@@ -159,16 +159,14 @@ class BlockCycleViewController: UIViewController {
                 if (item[5] is String) {
                     money = Int(Float(item[5] as! String)!)
                 }
-                else {
+                else if (item[5] is [NSNumber]) {
                     money = (item[5] as! NSNumber).intValue
                 }
                 
-                
-                
-                var zhangfu:Float;
-                if isLastDate {
+                var zhangfu:Float = 0;
+                if (item[3] is NSNumber) {
                     zhangfu = (item[3] as! NSNumber).floatValue
-                } else {
+                } else if (item[3] is [NSNumber]) {
                     zhangfu = (item[3] as! [NSNumber]).last!.floatValue
                 }
                 
@@ -198,7 +196,10 @@ class BlockCycleViewController: UIViewController {
         for item in rs {
             let title = item[1] as! String
             if (count > 0) {
-                let zhangting = (item[4] as! NSNumber).intValue
+                var zhangting = 0;
+                if (item[4] is NSNumber) {
+                   zhangting = (item[4] as! NSNumber).intValue
+                }
                 let block = blocks?.first(where: { (block) -> Bool in
                     return block.title == title
                 })
