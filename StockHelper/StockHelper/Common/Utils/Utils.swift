@@ -32,6 +32,16 @@ class Utils {
         return objects;
     }
     
+    public static func parseJSONGBKStringToObjects<T:Decodable>(jsonString:String) -> [T] {
+        let cfEnc = CFStringEncodings.GB_18030_2000
+        let enc = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(cfEnc.rawValue))
+        let jsonData:Data = jsonString.data(using: String.Encoding(rawValue: enc))!
+
+        let decoder = JSONDecoder()
+        let objects = try! decoder.decode([T].self, from: jsonData)
+        return objects;
+    }
+    
     public static func appInitialize() {
         DispatchQueue.global().async {
             DataCache.loadFromDB();

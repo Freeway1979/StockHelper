@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum BlockType:String,Decodable {
+enum BlockType:String,Codable {
     case TypeGN = "gn"
     case TypeHY = "hy"
     case TypeDY = "dy"
@@ -25,15 +25,43 @@ enum BlockType:String,Decodable {
     }
 }
 
-class Block:Decodable {
+class Block:Codable {
     var code:String = "";
     var name:String = "";
     var type:BlockType = .TypeGN ;
     var pinyin:String = "";
+    
+    var description:String {
+        return "\(code) \(name) \(type)"
+    }
+    
+    init(code:String, name:String) {
+        self.code = code
+        self.name = name
+    }
+    
     enum CodingKeys : String, CodingKey {
         case code
         case name
         case type
+        case pinyin
+    }
+    
+    required init(from decoder: Decoder) throws
+    {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decode(String.self, forKey: .name)
+        code = try container.decode(String.self, forKey: .code)
+        type = try container.decode(BlockType.self, forKey: .type)
+        pinyin = try container.decode(String.self, forKey: .pinyin)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(code, forKey: .code)
+        try container.encode(type, forKey: .type)
+        try container.encode(pinyin, forKey: .pinyin)
     }
 }
 

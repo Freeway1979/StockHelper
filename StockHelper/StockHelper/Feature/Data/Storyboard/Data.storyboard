@@ -19,10 +19,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YbS-eG-Acj">
-                                <rect key="frame" x="15" y="103" width="80" height="30"/>
+                                <rect key="frame" x="15" y="103" width="80" height="62"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="NzS-Zm-09b"/>
-                                    <constraint firstAttribute="height" constant="30" id="OSe-rQ-Lql"/>
+                                    <constraint firstAttribute="height" constant="62" id="dmQ-VJ-2U1"/>
                                 </constraints>
                                 <state key="normal" title="开始"/>
                                 <connections>
@@ -32,25 +31,28 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qmv-vG-KRV">
                                 <rect key="frame" x="15" y="173" width="384" height="689"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="689" id="1gf-AU-MrG"/>
+                                </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" textLabel="gTo-tj-U5j" detailTextLabel="VKj-uK-0nL" style="IBUITableViewCellStyleValue1" id="mI3-E6-OLp">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="Cell" textLabel="gTo-tj-U5j" detailTextLabel="g92-Hi-BFS" style="IBUITableViewCellStyleSubtitle" id="mI3-E6-OLp">
                                         <rect key="frame" x="0.0" y="28" width="384" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mI3-E6-OLp" id="wN3-Qd-K0z">
-                                            <rect key="frame" x="0.0" y="0.0" width="346" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="340" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gTo-tj-U5j">
-                                                    <rect key="frame" x="20" y="12" width="33.5" height="20.5"/>
+                                                    <rect key="frame" x="20" y="5" width="33.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VKj-uK-0nL">
-                                                    <rect key="frame" x="287" y="12" width="59" height="20.5"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="g92-Hi-BFS">
+                                                    <rect key="frame" x="20" y="25.5" width="44" height="14.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -60,8 +62,12 @@
                                 </prototypes>
                             </tableView>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PJ5-4Z-ink">
-                                <rect key="frame" x="0.0" y="233" width="414" height="629"/>
+                                <rect key="frame" x="413" y="861" width="1" height="1"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="1" id="eAl-KG-SdU"/>
+                                    <constraint firstAttribute="height" constant="1" id="sy0-4n-MjW"/>
+                                </constraints>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
@@ -70,17 +76,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="PJ5-4Z-ink" firstAttribute="top" secondItem="YbS-eG-Acj" secondAttribute="bottom" constant="100" id="6nP-Lf-sxB"/>
-                            <constraint firstItem="qmv-vG-KRV" firstAttribute="top" secondItem="YbS-eG-Acj" secondAttribute="bottom" constant="40" id="97d-gt-aoM"/>
                             <constraint firstItem="7am-Eo-l0d" firstAttribute="bottom" secondItem="qmv-vG-KRV" secondAttribute="bottom" id="CUb-05-hIf"/>
                             <constraint firstItem="PJ5-4Z-ink" firstAttribute="trailing" secondItem="7am-Eo-l0d" secondAttribute="trailing" id="Hsr-kC-Ad3"/>
-                            <constraint firstItem="YbS-eG-Acj" firstAttribute="top" secondItem="7am-Eo-l0d" secondAttribute="top" constant="15" id="JIf-Lk-iMK"/>
                             <constraint firstItem="7am-Eo-l0d" firstAttribute="bottom" secondItem="PJ5-4Z-ink" secondAttribute="bottom" id="OIn-d4-lJg"/>
-                            <constraint firstItem="PJ5-4Z-ink" firstAttribute="leading" secondItem="7am-Eo-l0d" secondAttribute="leading" id="V1H-aU-Tdo"/>
+                            <constraint firstItem="7am-Eo-l0d" firstAttribute="trailing" secondItem="YbS-eG-Acj" secondAttribute="trailing" constant="319" id="UN3-rP-863"/>
                             <constraint firstItem="7am-Eo-l0d" firstAttribute="trailing" secondItem="qmv-vG-KRV" secondAttribute="trailing" constant="15" id="amX-AS-BGS"/>
                             <constraint firstItem="qmv-vG-KRV" firstAttribute="leading" secondItem="7am-Eo-l0d" secondAttribute="leading" constant="15" id="cYO-1S-D8O"/>
-                            <constraint firstItem="7am-Eo-l0d" firstAttribute="trailing" secondItem="PJ5-4Z-ink" secondAttribute="trailing" id="ioN-ip-uwt"/>
-                            <constraint firstItem="YbS-eG-Acj" firstAttribute="leading" secondItem="7am-Eo-l0d" secondAttribute="leading" constant="15" id="y2H-Gm-nTw"/>
+                            <constraint firstItem="YbS-eG-Acj" firstAttribute="top" secondItem="7am-Eo-l0d" secondAttribute="top" constant="15" id="egC-Ne-xYa"/>
+                            <constraint firstItem="qmv-vG-KRV" firstAttribute="leading" secondItem="YbS-eG-Acj" secondAttribute="leading" id="jqB-fG-yQm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7am-Eo-l0d"/>
                     </view>
@@ -88,6 +91,11 @@
                         <barButtonItem key="leftBarButtonItem" title="菜单" id="EEz-wa-WPK">
                             <connections>
                                 <action selector="onMenuButtonClicked:" destination="VTN-Hp-vjd" id="vDq-B1-JyQ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="Bqf-aK-GQh">
+                            <connections>
+                                <action selector="onRefreshButtonClicked:" destination="VTN-Hp-vjd" id="u4q-dO-EhF"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

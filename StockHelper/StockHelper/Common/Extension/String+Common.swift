@@ -19,6 +19,12 @@ extension String {
         }
     }
     
+    func toDictionaryGBK() -> NSDictionary {
+        let cfEnc = CFStringEncodings.GB_18030_2000
+        let enc = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(cfEnc.rawValue))
+        return self.toDictionary(encoding: String.Encoding(rawValue: enc))
+    }
+
     func toDictionary(encoding:String.Encoding) ->NSDictionary{
         let jsonData:Data = self.data(using: encoding)!
         let dict = try? JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers)

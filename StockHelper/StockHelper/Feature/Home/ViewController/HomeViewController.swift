@@ -69,8 +69,7 @@ class HomeViewController: UICollectionViewController {
         self.collectionView!.delegate = self;
         // Do any additional setup after loading the view.
         loadData()
-        
-//        testGroup();
+       
     }
     
     private func gotoViewController(storyboard:String,storyboardId:String) {
@@ -191,48 +190,18 @@ class HomeViewController: UICollectionViewController {
         // 1
         myQueue.async(group: group, qos: .default, flags: [], execute: {
             print("task 1")
-            // 板块基本信息列表
-            StockServiceProvider.getBlockList { [weak self] (blocks) in
-                print("getBlockList",blocks.count)
-//                let layout = self?.getLayoutData(for: .HotBlocks)
-//                layout?.data = StockServiceProvider.getSyncHotBlocks()
-//                self?.reloadData()
-            }
+            StockServiceProvider.getBasicData()
+            StockServiceProvider.buildBlock2StocksCodeMap()
         })
         // 2
         myQueue.async(group: group, qos: .default, flags: [], execute: {
             print("task 2")
             // 股票基本信息列表
-            StockServiceProvider.getStockList { [weak self] (stocks) in
-                print("getStockList",stocks.count)
-//                let layout = self?.getLayoutData(for: .HotStocks)
-//                layout?.data = StockServiceProvider.getSyncHotStocks()
-//                self?.reloadData()
-            }
+//            StockServiceProvider.getStockList { [weak self] (stocks) in
+//                print("getStockList",stocks.count)
+//            }
         })
-        // 3
-        myQueue.async(group: group, qos: .default, flags: [], execute: {
-            print("task 3")
-            // 板块和股票映射关系(code)
-            StockServiceProvider.getSimpleBlock2StockList {
-                print("getSimpleBlock2StockList")
-            }
-        })
-        // 4
-        myQueue.async(group: group, qos: .default, flags: [], execute: {
-            print("task 4")
-            // 股票和板块映射关系(code)
-            StockServiceProvider.getSimpleStock2BlockList {
-                print("getSimpleStock2BlockList")
-            }
-        })
-        // 5
-//        myQueue.async(group: group, qos: .default, flags: [], execute: {
-//            print("task 5")
-//            THSDataProvider.getJieJinStockList(callback: { (stocks) in
-//                print(stocks)
-//            })
-//        })
+        
         // all
         group.notify(queue: myQueue) {
             print("notify")

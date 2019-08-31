@@ -10,8 +10,8 @@ import Foundation
 import Moya
 
 class StockServiceProvider {
-    private static var blocks:[Block] = []
-    private static var stocks:[Stock] = []
+    public static var blocks:[Block] = []
+    public static var stocks:[Stock] = []
     private static var stockMap:[String:Stock] = [:]
     private static var blockMap:[String:Block] = [:]
     
@@ -21,15 +21,30 @@ class StockServiceProvider {
     private static var hotStockMap:[String:HotStock] = [:]
     private static var hotBlockMap:[String:HotBlock] = [:]
     
+    public static func resetData() {
+        blocks.removeAll()
+        stocks.removeAll()
+        stockMap.removeAll()
+        blockMap.removeAll()
+        block2stocksCodeMap.removeAll()
+        stock2blocksCodeMap.removeAll()
+//        hotStockMap = [:]
+//        hotBlockMap = [:]
+    }
+    
+    public static func initData() {
+       getBasicData()
+    }
+    
     public static func getBlock(by code:String) -> Block {
         return blockMap[code]!
     }
     
     public static func getBlockByName(_ name:String) -> Block? {
-        let theBlock = blockMap.first { (code,block) -> Bool in
-            return (block.name == name)
-        }?.value
-        return theBlock
+        let block = blocks.first { (bb) -> Bool in
+            return bb.name == name
+        }
+        return block
     }
     
     public static func getStock(by code:String) -> Stock {
@@ -54,6 +69,32 @@ class StockServiceProvider {
         blockMap.removeAll()
         blockMap = _blockMap
     }
+
+    
+    public static func buildBlock2StocksCodeMap() {
+        for stock in stocks {
+            let stockCode = stock.code
+            let gnListStr = stock.gnListStr
+            let gnList:[String] = gnListStr.split(separator: ";").map(String.init)
+            var blocks:[String] = []
+            for gn in gnList {
+                let block = getBlockByName(gn)
+                if block != nil {
+                    // build block2stocks
+                    let blockCode:String = block!.code
+                    var stockCodes:[String]? = block2stocksCodeMap[blockCode];
+                    if stockCodes == nil {
+                        stockCodes = []
+                    }
+                    stockCodes?.append(stockCode)
+                    block2stocksCodeMap[blockCode] = stockCodes
+                    blocks.append(blockCode)
+                }
+            }
+            
+            stock2blocksCodeMap[stockCode] = blocks
+        }
+    }
     
     private static func parseJSONStringToStocks(jsonString:String) -> [Stock] {
         return jsonString.json2Objects()
@@ -71,40 +112,21 @@ class StockServiceProvider {
                 return
             }
             // Get data from local
-            if let data = StockDBProvider.loadBasicStocks() {
-                let stocks = parseJSONStringToStocks(jsonString: data)
-                let pinyinMap = StockDBProvider.loadStockPinYin()
-                for item in stocks {
-                    item.pinyin = pinyinMap[item.code] ?? ""
-                }
-                StockServiceProvider.stocks = stocks
-                buildStocksMap()
-                callback(stocks)
-                print("Getting stock data from local")
-                return;
+            let stocks:[Stock] = StockDBProvider.loadBasicStocks()
+            let pinyinMap = StockDBProvider.loadStockPinYin()
+            for item in stocks {
+                item.pinyin = pinyinMap[item.code] ?? ""
             }
-        }
-        // Get data from remote
-        let provider = MoyaProvider<StockService>()
-        provider.request(StockService.getStockList) { result in
-            // do something with the result (read on for more details)
-            if case let .success(response) = result {
-                let jsonString = try? response.mapString()
-                if jsonString != nil {
-                    StockDBProvider.saveBasicStocks(data: jsonString!)
-                    let stocks = parseJSONStringToStocks(jsonString: jsonString!)
-                    StockServiceProvider.stocks = stocks
-                    buildStocksMap()
-                    callback(stocks)
-                    translateStocks2PinYin(stocks: stocks)
-                    print("Getting stock data from remote")
-                }
-            }
+            StockServiceProvider.stocks = stocks
+            buildStocksMap()
+            callback(stocks)
+            print("Getting stock data from local")
+            return;
         }
     }
     
-    private static func parseJSONStringToBlocks(jsonString:String) -> [Block] {
-       return Utils.parseJSONStringToObjects(jsonString: jsonString)
+    public static func parseJSONStringToBlocks(jsonString:String) -> [Block] {
+       return Utils.parseJSONGBKStringToObjects(jsonString: jsonString)
     }
     
     /// 获取所有板块列表(code+name+type)
@@ -120,84 +142,16 @@ class StockServiceProvider {
                 return
             }
             // Get data from local
-            if let data = StockDBProvider.loadBasicBlocks() {
-                let blocks = parseJSONStringToBlocks(jsonString: data)
-                let pinyinMap = StockDBProvider.loadBlockPinYin()
-                for item in blocks {
-                    item.pinyin = pinyinMap[item.code] ?? ""
-                }
-                StockServiceProvider.blocks = blocks
-                buildBlocksMap()
-                callback(blocks)
-                print("Getting block data from local")
-                return;
+            let blocks = StockDBProvider.loadBasicBlocks()
+            let pinyinMap = StockDBProvider.loadBlockPinYin()
+            for item in blocks {
+                item.pinyin = pinyinMap[item.code] ?? ""
             }
-        }
-        // Get data from remote
-        let provider = MoyaProvider<StockService>()
-        provider.request(StockService.getBlockList) { result in
-            // do something with the result (read on for more details)
-            if case let .success(response) = result {
-                let jsonString = try? response.mapString()
-                if jsonString != nil {
-                    StockDBProvider.saveBasicBlocks(data: jsonString!)
-                    let blocks = parseJSONStringToBlocks(jsonString: jsonString!)
-                    StockServiceProvider.blocks = blocks
-                    buildBlocksMap()
-                    callback(blocks)
-                    translateBlocks2PinYin(blocks: blocks)
-                    print("Getting block data from remote")
-                }
-            }
-        }
-    }
-    
-    
-    /// 获取板块和股票映射列表（代码）
-    ///
-    /// - Parameter callback: <#callback description#>
-    public static func getSimpleBlock2StockList(callback:@escaping () -> Void ) {
-        let provider = MoyaProvider<StockService>()
-        provider.request(StockService.getSimpleBlock2Stocks) { result in
-            // do something with the result (read on for more details)
-            if case let .success(response) = result {
-                let jsonString = try? response.mapString()
-                if jsonString != nil {
-                    let blocksList = jsonString?.split(separator: "\n")
-                    for _block in blocksList! {
-                        let _stocks:[String] = _block.components(separatedBy:",")
-                        let length = _stocks.count - 1
-                        let blockCode = _stocks[0]
-                        let stocks = Array(_stocks[1...length])
-                        block2stocksCodeMap[blockCode] = stocks;
-                    }
-                    callback()
-                }
-            }
-        }
-    }
-    
-    /// 获取股票和板块映射列表（代码）
-    ///
-    /// - Parameter callback: <#callback description#>
-    public static func getSimpleStock2BlockList(callback:@escaping () -> Void ) {
-        let provider = MoyaProvider<StockService>()
-        provider.request(StockService.getSimpleStock2Blocks) { result in
-            // do something with the result (read on for more details)
-            if case let .success(response) = result {
-                let jsonString = try? response.mapString()
-                if jsonString != nil {
-                    let stockList = jsonString?.split(separator: "\n")
-                    for _stock in stockList! {
-                        let _blocks:[String] = _stock.components(separatedBy:",")
-                        let length = _blocks.count - 1
-                        let stockCode = _blocks[0]
-                        let blocks = Array(_blocks[1...length])
-                        stock2blocksCodeMap[stockCode] = blocks;
-                    }
-                    callback()
-                }
-            }
+            StockServiceProvider.blocks = blocks
+            buildBlocksMap()
+            callback(blocks)
+            print("Getting block data from local")
+            return;
         }
     }
     
@@ -208,13 +162,16 @@ class StockServiceProvider {
     ///   - callback: <#callback description#>
     public static func getSyncBlockStocksDetail(basicBlock:Block) -> Block2Stocks {
         let block = Block2Stocks(block: basicBlock)
-        let stockCodeList:[String] = block2stocksCodeMap[block.block.code]!
-        for code in stockCodeList {
-            let stock = stockMap[code]
-            if (stock != nil) {
-                block.stocks?.append(stock!)
+        let stockCodeList:[String]? = block2stocksCodeMap[block.block.code]
+        if stockCodeList != nil {
+            for code in stockCodeList! {
+                let stock = stockMap[code]
+                if (stock != nil) {
+                    block.stocks?.append(stock!)
+                }
             }
         }
+        
         return block
     }
     
@@ -445,7 +402,7 @@ class StockServiceProvider {
     }
     
     // MARK: PINYIN
-    private static func translateBlocks2PinYin(blocks:[Block]) {
+    public static func translateBlocks2PinYin(blocks:[Block]) {
         let queue = DispatchQueue(label: "com.chaser.stockhelper")
         queue.async {
             var pinyinMap:[String:String] = [:]
@@ -458,7 +415,7 @@ class StockServiceProvider {
             print("板块拼音转换结束")
         }
     }
-    private static func translateStocks2PinYin(stocks:[Stock]) {
+    public static func translateStocks2PinYin(stocks:[Stock]) {
         let queue = DispatchQueue(label: "com.chaser.stockhelper")
         queue.async {
             var pinyinMap:[String:String] = [:]
@@ -503,15 +460,6 @@ class StockServiceProvider {
         getStockList { (stocks) in
             print("getStockList",stocks.count)
             //translateStocks2PinYin(stocks: stocks)
-        }
-        // 板块和股票映射关系(code)
-        getSimpleBlock2StockList {
-            print("getSimpleBlock2StockList")
-        }
-        // 股票和板块映射关系(code)
-        getSimpleStock2BlockList {
-            print("getSimpleStock2BlockList")
-            
         }
     }
     

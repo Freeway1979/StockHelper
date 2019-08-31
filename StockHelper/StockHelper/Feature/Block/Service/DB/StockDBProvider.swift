@@ -28,37 +28,20 @@ struct UserDefaultKeys {
 
 class StockDBProvider {
     // Mark :Basic
-    public static func saveBasicBlocks(data:String) {
-        let key = UserDefaultKeys.Block.basicBlocks
-        UserDefaults.standard.set(data, forKey: key)
-        UserDefaults.standard.synchronize()
-        //iCloud
-        iCloudUtils.set(anobject: data, forKey: key)
+    public static func saveBasicBlocks(blocks:[Block]) {
+        StockUtils.saveData(data: blocks, key: UserDefaultKeys.Block.basicBlocks)
     }
-    public static func loadBasicBlocks() -> String? {
-        let key = UserDefaultKeys.Block.basicBlocks
-        var data = UserDefaults.standard.object(forKey: key) as? String
-        if data?.count == 0 {
-            //iCloud
-            data = iCloudUtils.object(forKey: key) as? String
-        }
-        return data;
+    
+    public static func loadBasicBlocks() -> [Block] {
+        return StockUtils.loadData(key: UserDefaultKeys.Block.basicBlocks)
     }
-    public static func saveBasicStocks(data:String) {
-        let key = UserDefaultKeys.Stock.basicStocks
-        UserDefaults.standard.set(data, forKey: key)
-        UserDefaults.standard.synchronize()
-        //iCloud
-        iCloudUtils.set(anobject: data, forKey: key)
+    
+    public static func saveBasicStocks(stocks:[Stock]) {
+      StockUtils.saveData(data: stocks, key: UserDefaultKeys.Stock.basicStocks)
     }
-    public static func loadBasicStocks() -> String? {
-        let key = UserDefaultKeys.Stock.basicStocks
-        var data = UserDefaults.standard.object(forKey: key) as? String
-        if data?.count == 0 {
-            //iCloud
-            data = iCloudUtils.object(forKey: key) as? String
-        }
-        return data;
+    
+    public static func loadBasicStocks() -> [Stock] {
+        return StockUtils.loadData(key: UserDefaultKeys.Stock.basicStocks)
     }
     // Mark:Hot
     public static func saveHotBlocks(data:String) {

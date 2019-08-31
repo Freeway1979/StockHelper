@@ -14,6 +14,12 @@ target 'StockHelper' do
   # https://github.com/WangWenzhuang/ZKProgressHUD
   pod 'ZKProgressHUD'
   
+  # UI组件库
+  # pod 'Eureka'
+  
+  # Button角标
+  # https://github.com/mustafaibrahim989/MIBadgeButton-Swift/tree/master/MIBadgeButton
+  
   target 'StockHelperTests' do
     inherit! :search_paths
     # Pods for testing

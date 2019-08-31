@@ -101,4 +101,39 @@ class StockUtils {
     public static func openStockHQPage(code:String, name:String, from navigator:UINavigationController) {
         WebViewController.open(website: WebSite.getStockPageUrl(code: code), withtitle: name , from: navigator)
     }
+    
+    
+    //
+    
+    // Mark :Basic
+    public static func saveData<T:Codable>(data:[T], key:String) {
+        do {
+            let data = try JSONEncoder().encode(data)
+            UserDefaults.standard.set(data, forKey: key)
+            UserDefaults.standard.synchronize()
+            //iCloud
+            iCloudUtils.set(anobject: data, forKey: key)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    public static func loadData<T:Codable>(key:String) -> [T] {
+        do {
+            var data = UserDefaults.standard.object(forKey: key) as? Data
+            if data?.count == 0 {
+                //iCloud
+                data = iCloudUtils.object(forKey: key) as? Data
+            }
+            if (data != nil)
+            {
+                let blocks = try JSONDecoder().decode([T].self, from: data!)
+                return blocks
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        return [];
+    }
+    
 }
