@@ -43,6 +43,7 @@ class HotBlockViewController: UICollectionViewController {
     private var associatedStocks:[Stock2Blocks] = []
 
     public var liandongStockCode:String?
+    public var liandongStockName:String?
     
     private var headerTitles = ["概念板块","关联股票"]
 
@@ -98,7 +99,7 @@ class HotBlockViewController: UICollectionViewController {
        let isLiandong:Bool = self.liandongStockCode != nil;
         if isLiandong {
             self.hotblocks = self.getHotBlocksFromStock(code: self.liandongStockCode!)
-            self.title = "股票联动"
+            self.title = "股票联动-\(self.liandongStockName!)"
         }
         else {
             self.hotblocks = StockUtils.getHotBlocks()
@@ -112,9 +113,9 @@ class HotBlockViewController: UICollectionViewController {
                     self.hotblocks.append(block)
                 }
             }
-            for item in self.hotblocks {
-                item.selected = false
-            }
+        }
+        for item in self.hotblocks {
+            item.selected = false
         }
        self.refreashCollectionViewData()
     }

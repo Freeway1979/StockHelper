@@ -252,6 +252,7 @@ class ZhangTingListViewController: UIViewController {
         var destViewController : HotBlockViewController
         destViewController = mainStoryboard.instantiateViewController(withIdentifier: "HotBlockViewController") as! HotBlockViewController
         destViewController.liandongStockCode = item.data
+        destViewController.liandongStockName = item.title
         self.navigationController?.pushViewController(destViewController, animated: true)
     }
     
