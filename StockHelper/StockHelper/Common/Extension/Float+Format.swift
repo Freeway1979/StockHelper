@@ -18,4 +18,7 @@ extension Float {
     var roundedDot2Float:Float {
         return (floorf(self * 100 + 0.56))/100
     }
+    var roundedDot1Float:Float {
+        return (floorf(self * 100 + 0.5))/100
+    }
 }

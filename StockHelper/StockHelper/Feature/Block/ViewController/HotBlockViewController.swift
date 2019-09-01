@@ -42,7 +42,9 @@ class HotBlockViewController: UICollectionViewController {
     private var hotblocks:[HotBlock] = []
     private var associatedStocks:[Stock2Blocks] = []
 
-    private var headerTitles = ["热门板块","关联股票"]
+    public var liandongStockCode:String?
+    
+    private var headerTitles = ["概念板块","关联股票"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +65,20 @@ class HotBlockViewController: UICollectionViewController {
         // Do any additional setup after loading the view.
     }
 
+    private func getHotBlocksFromStock(code:String) -> [HotBlock] {
+        let stock:Stock = StockServiceProvider.getStock(by: code)
+        let gnList:[String] = stock.gnList
+        var blocks:[HotBlock] = []
+        for gn in gnList {
+            let block = StockUtils.getBlockByName(gn)
+            if (block != nil) {
+                let hotblock = HotBlock(block: block!)
+                hotblock.hotLevel = HotLevel.Level1
+                blocks.append(hotblock)
+            }
+        }
+        return blocks
+    }
     private func getHotBlocksFromBlockCycle() -> [HotBlock] {
         let names:[String] = DataCache.getTopBlockNames()
         var blocks:[HotBlock] = []
@@ -79,20 +95,27 @@ class HotBlockViewController: UICollectionViewController {
         return blocks
     }
     private func prepareData() {
-       self.hotblocks = StockUtils.getHotBlocks()
-       let blocks = self.getHotBlocksFromBlockCycle()
-        // 去重
-        blocks.forEach { [unowned self] (block) in
-            let foundBlock = self.hotblocks.first(where: { (bb) -> Bool in
-                return bb.block.code == block.block.code
-            })
-            if (foundBlock == nil) {
-                self.hotblocks.append(block)
+       let isLiandong:Bool = self.liandongStockCode != nil;
+        if isLiandong {
+            self.hotblocks = self.getHotBlocksFromStock(code: self.liandongStockCode!)
+            self.title = "股票联动"
+        }
+        else {
+            self.hotblocks = StockUtils.getHotBlocks()
+            let blocks = self.getHotBlocksFromBlockCycle()
+            // 去重
+            blocks.forEach { [unowned self] (block) in
+                let foundBlock = self.hotblocks.first(where: { (bb) -> Bool in
+                    return bb.block.code == block.block.code
+                })
+                if (foundBlock == nil) {
+                    self.hotblocks.append(block)
+                }
+            }
+            for item in self.hotblocks {
+                item.selected = false
             }
         }
-       for item in self.hotblocks {
-            item.selected = false
-       }
        self.refreashCollectionViewData()
     }
     
@@ -156,7 +179,7 @@ extension HotBlockViewController {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: stockReuseIdentifier, for: indexPath)
                 as! StockCollectionViewCell
             cell.stockNameLabel.text = item.name
-            cell.codeLabel.text = item.code
+            cell.codeLabel.text = "\(item.code)      流通值:\(item.formatMoney)"
             return cell
         }
         

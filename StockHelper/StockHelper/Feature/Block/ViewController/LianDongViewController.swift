@@ -1,21 +1,12 @@
 //
-//  ZhangTingListViewController.swift
+//  LianDongViewController.swift
 //  StockHelper
 //
-//  Created by Andy Liu on 2019/8/11.
+//  Created by Andy Liu on 2019/9/1.
 //  Copyright © 2019 Andy Liu. All rights reserved.
 //
 
 import Foundation
-
-//
-//  HomeViewController.swift
-//  StockHelper
-//
-//  Created by Andy Liu on 2018/12/22.
-//  Copyright © 2018 Andy Liu. All rights reserved.
-//
-
 import UIKit
 import WebKit
 import ZKProgressHUD
@@ -28,7 +19,7 @@ fileprivate let columns = 5
 fileprivate let sectionInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
 
 
-class ZhangTingListViewController: UIViewController {
+class LianDongViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -180,7 +171,7 @@ class ZhangTingListViewController: UIViewController {
             if (gn != nil) {
                 gnList = gn?.components(separatedBy: ";")
             }
-          
+            
             let stock = ZhangTingStock(code: String(code.prefix(6)), name: name, zhangting: zt, gnList: gnList ?? [])
             list?.append(stock)
             dict[zhangting] = list
@@ -232,7 +223,7 @@ class ZhangTingListViewController: UIViewController {
             let items:[ItemData] = item.stocks.map({ (stock) -> ItemData in
                 let itemData = ItemData(title: stock.name, data: stock.code, onItemClicked: { [unowned self] (itemData) in
                     print(itemData)
-                    self.showLiandongActionSheet(item: itemData)
+                    StockUtils.openStockHQPage(code: itemData.data!, name: itemData.title, from: self.navigationController!)
                 })
                 return itemData
             })
@@ -246,39 +237,10 @@ class ZhangTingListViewController: UIViewController {
         self.reloadData()
         ZKProgressHUD.dismiss()
     }
-    
-    private func gotoHotBlockViewController(item: ItemData) {
-        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Block",bundle: nil)
-        var destViewController : HotBlockViewController
-        destViewController = mainStoryboard.instantiateViewController(withIdentifier: "HotBlockViewController") as! HotBlockViewController
-        destViewController.liandongStockCode = item.data
-        self.navigationController?.pushViewController(destViewController, animated: true)
-    }
-    
-    private func showLiandongActionSheet(item:ItemData) {
-        DispatchQueue.main.async { // 主线程执行
-            let alertController = UIAlertController(title: item.title, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
-            let cancelAction = UIAlertAction(title:"取消", style: .cancel, handler:{ (action) -> Void in
-                print("cancelled")
-            })
-            alertController.addAction(cancelAction)
-            let liandongAction = UIAlertAction(title:"股票联动", style: .default, handler:{ [unowned self] (action) -> Void in
-                print("联动\(String(describing: item.data))")
-                self.gotoHotBlockViewController(item: item)
-            })
-            alertController.addAction(liandongAction)
-            let hangqingAction = UIAlertAction(title:"股票行情", style: .default, handler:{ [unowned self] (action) -> Void in
-                print("行情\(String(describing: item.data))")
-                StockUtils.openStockHQPage(code: item.data!, name: item.title, from: self.navigationController!)
-            })
-            alertController.addAction(hangqingAction)
-            self.present(alertController, animated: true, completion: nil)
-        }
-    }
 }
 
 // MARK: UICollectionViewDataSource
-extension ZhangTingListViewController: UICollectionViewDataSource {
+extension LianDongViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return self.layoutData.count
@@ -306,7 +268,7 @@ extension ZhangTingListViewController: UICollectionViewDataSource {
         // Configure the cell
         
         return cell
-    
+        
     }
     
     // Header
@@ -333,7 +295,7 @@ extension ZhangTingListViewController: UICollectionViewDataSource {
 
 
 // MARK: UICollectionViewDelegate
-extension ZhangTingListViewController: UICollectionViewDelegate {
+extension LianDongViewController: UICollectionViewDelegate {
     
     //      Uncomment this method to specify if the specified item should be highlighted during tracking
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
@@ -368,7 +330,7 @@ extension ZhangTingListViewController: UICollectionViewDelegate {
     
 }
 
-extension ZhangTingListViewController: UICollectionViewDelegateFlowLayout {
+extension LianDongViewController: UICollectionViewDelegateFlowLayout {
     //1
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -376,9 +338,9 @@ extension ZhangTingListViewController: UICollectionViewDelegateFlowLayout {
         //let screenWidth = UIScreen.main.bounds.size.width;
         let height = Theme.CellView.height
         let width = Int(UIScreen.main.bounds.size.width / CGFloat(columns))
-//        if width < Int(Theme.TagButton.width) {
-//            width = Int(Theme.TagButton.width)
-//        }
+        //        if width < Int(Theme.TagButton.width) {
+        //            width = Int(Theme.TagButton.width)
+        //        }
         //        if indexPath.section == SectionType.HotStocks.rawValue {
         //            return CGSize(width: screenWidth, height: 60)
         //        }
@@ -406,7 +368,7 @@ extension ZhangTingListViewController: UICollectionViewDelegateFlowLayout {
 
 // WebKit
 
-extension ZhangTingListViewController: WKNavigationDelegate {
+extension LianDongViewController: WKNavigationDelegate {
     
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         webView.evaluateJavaScript("document.body.innerHTML") { [unowned self] (data, error) in

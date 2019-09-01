@@ -115,7 +115,7 @@ extension BlockStockListViewController:UITableViewDataSource {
         let isHotStock = self.isHotStock(stock: stock)
         let str = String.init(format: "%@ %@", stock.name,isHotStock ? "🐯":"")
         cell?.textLabel!.text = str;
-        cell?.detailTextLabel!.text = stock.code;
+        cell?.detailTextLabel!.text = "\(stock.code)      流通值:\(stock.formatMoney)"
         return cell!
     }
     

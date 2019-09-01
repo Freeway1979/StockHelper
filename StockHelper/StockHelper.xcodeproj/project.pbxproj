@@ -25,6 +25,7 @@
 		06F5881B21BA38B600D69159 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F5881A21BA38B600D69159 /* UITextField+Extension.swift */; };
 		563B3C7E18B840F2B49470B1 /* Pods_StockHelperTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB894E0D4080A19D5FDBAC33 /* Pods_StockHelperTests.framework */; };
 		A108395F231A77F8002D1B99 /* LoadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108395E231A77F8002D1B99 /* LoadData.swift */; };
+		A1083961231B59F0002D1B99 /* LianDongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1083960231B59F0002D1B99 /* LianDongViewController.swift */; };
 		A10E4B3121CE543B0092B671 /* MyStocksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10E4B3021CE543B0092B671 /* MyStocksViewController.swift */; };
 		A10E4B3921CE57E10092B671 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10E4B3821CE57E10092B671 /* HomeViewController.swift */; };
 		A10E4B4321CE5EE00092B671 /* Message.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A10E4B4221CE5EE00092B671 /* Message.storyboard */; };
@@ -163,6 +164,7 @@
 		39990CF90212CD11B1FECEBF /* Pods-StockHelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StockHelper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StockHelper/Pods-StockHelper.debug.xcconfig"; sourceTree = "<group>"; };
 		41C561ABB324A6CEBDD1BB43 /* Pods-StockHelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StockHelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-StockHelper/Pods-StockHelper.release.xcconfig"; sourceTree = "<group>"; };
 		A108395E231A77F8002D1B99 /* LoadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadData.swift; sourceTree = "<group>"; };
+		A1083960231B59F0002D1B99 /* LianDongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LianDongViewController.swift; sourceTree = "<group>"; };
 		A10E4B3021CE543B0092B671 /* MyStocksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyStocksViewController.swift; path = StockHelper/Feature/Block/ViewController/MyStocksViewController.swift; sourceTree = SOURCE_ROOT; };
 		A10E4B3821CE57E10092B671 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		A10E4B4221CE5EE00092B671 /* Message.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Message.storyboard; sourceTree = "<group>"; };
@@ -431,6 +433,7 @@
 				A1ABA3B02262DF5E00985F3D /* BlockCycleViewController.swift */,
 				A12C7DF42268AF050014D260 /* SelectedStocksViewController.swift */,
 				A12F65EB22FFC6030023CFAF /* ZhangTingListViewController.swift */,
+				A1083960231B59F0002D1B99 /* LianDongViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1235,6 +1238,7 @@
 				A13FAF5F2287B1F700F8A497 /* ReviewListViewController.swift in Sources */,
 				A12C7DF52268AF050014D260 /* SelectedStocksViewController.swift in Sources */,
 				A10E4B3121CE543B0092B671 /* MyStocksViewController.swift in Sources */,
+				A1083961231B59F0002D1B99 /* LianDongViewController.swift in Sources */,
 				A1ABA3B92264AB7D00985F3D /* StackTableHeaderView.swift in Sources */,
 				A141D26B227ABD6B000ED0EA /* TableHeaderView.swift in Sources */,
 				A1F5953321BCDF9200EC5ECB /* MAType.swift in Sources */,

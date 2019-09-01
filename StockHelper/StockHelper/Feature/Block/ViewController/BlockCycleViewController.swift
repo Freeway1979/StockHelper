@@ -18,6 +18,9 @@ class BlockCycleViewController: UIViewController {
     
     @IBOutlet weak var rightTableView: UITableView!
     
+    weak var rightFooterView: UILabel?
+    
+    var ztStockNames:String = ""
     var lastDate:String = ""
     var token:String?
     var dataServices: [DataService] = []
@@ -33,6 +36,12 @@ class BlockCycleViewController: UIViewController {
     var runningDates:[String] = []
     var dates:[String] = []
     var headerDates:[String] = []
+    
+    struct StockZT {
+        var code:String
+        var name:String
+        var zt: NSNumber
+    }
     
     class TopTen {
         var title: String = ""
@@ -312,6 +321,33 @@ class BlockCycleViewController: UIViewController {
         self.loadDataPhase1(date: date);
     }
     
+    private func handleBlockStocks(date:String,dict:Dictionary<String, Any>) {
+        print("\(date) handleBlockStocks")
+        let rs = dict["result"] as! [[Any]]
+        var stocks:[StockZT] = []
+        var ztNames:[String] = []
+        for item in rs {
+            let code = item[0] as! String
+            let name = item[1] as! String
+            let zt:NSNumber = 1 // item[4] as! NSNumber
+            let stock = StockZT(code: code, name: name, zt: zt)
+            stocks.append(stock)
+            let ztname = Int(truncating: zt) > 1 ? "\(name)[\(zt)]" : name
+            ztNames.append(ztname)
+        }
+        let ss = ztNames.joined(separator: " ")
+        self.ztStockNames = ss
+        self.rightFooterView?.text = ss
+    }
+    
+    private func loadBlockStocks(date:String, blockName:String) {
+        let dataService = DataService(date: date, keywords: "\(date)连续涨停数大于0 \(blockName) 非ST", title: "板块涨停股票", status: "ddd")  { [unowned self] (date, json, dict) in
+            self.handleBlockStocks(date: date,dict: dict)
+        }
+        self.dataServices.append(dataService)
+        WencaiUtils.loadWencaiQueryPage(webview: webview, dataService: dataService)
+    }
+    
     private func setupTableData() {
         self.top10List = self.buildTopTen()
         self.rightTopTenList = self.buildRightTopTenList()
@@ -325,13 +361,21 @@ class BlockCycleViewController: UIViewController {
         ZKProgressHUD.dismiss()
     }
     
+    private func getRightTableFooterView() -> UIView {
+       let view = UILabel(frame: CGRect(x: 0,y: 0,width: self.view.bounds.width - 100,height: 40))
+        view.text = self.ztStockNames
+        view.font = UIFont(name: "Arial", size: 12)
+        self.rightFooterView = view;
+        return view;
+    }
+
     private func setupTableViews() {
         self.leftTableView.delegate = self
         self.leftTableView.dataSource = self
         self.rightTableView.delegate = self
         self.rightTableView.dataSource = self
         self.leftTableView.tableFooterView = UIView(frame: CGRect(x: 0,y: 0,width: 0,height: 0))
-        self.rightTableView.tableFooterView = UIView(frame: CGRect(x: 0,y: 0,width: 0,height: 0))
+        self.rightTableView.tableFooterView = self.getRightTableFooterView()
         
         self.leftTableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: LeftTableViewCellId)
         self.rightTableView.register(UINib(nibName: RightTableViewCellId, bundle: nil), forCellReuseIdentifier: RightTableViewCellId)
@@ -440,6 +484,8 @@ extension BlockCycleViewController:UITableViewDataSource {
         self.selectedItem = sender.titleLabel?.text!
         self.leftTableView.reloadData()
         self.rightTableView.reloadData()
+            
+        self.loadBlockStocks(date: "2019.08.23", blockName: self.selectedItem!)
         }
     }
     

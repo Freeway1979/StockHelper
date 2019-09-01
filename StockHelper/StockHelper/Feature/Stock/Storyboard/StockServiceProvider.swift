@@ -75,7 +75,7 @@ class StockServiceProvider {
         for stock in stocks {
             let stockCode = stock.code
             let gnListStr = stock.gnListStr
-            let gnList:[String] = gnListStr.split(separator: ";").map(String.init)
+            let gnList:[String] = stock.gnList
             var blocks:[String] = []
             for gn in gnList {
                 let block = getBlockByName(gn)

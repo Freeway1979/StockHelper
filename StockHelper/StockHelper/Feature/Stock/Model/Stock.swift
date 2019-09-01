@@ -61,7 +61,19 @@ class Stock:Codable,Hashable {
     var tradeValue: String = "0";
     var gnListStr: String = ""
     var zt: Int = 0;
-    
+    var gnList:[String] {
+        return gnListStr.split(separator: ";").map(String.init)
+    }
+    var formatMoney:String {
+        let tradeValueInt:Float = Float(self.tradeValue) ?? 0
+        if tradeValueInt < 10000 {
+            return "\(tradeValueInt)"
+        };
+        if tradeValueInt < 100000000  {
+            return "\((tradeValueInt/10000).roundedDot1Float)万"
+        }
+        return "\((tradeValueInt/100000000).roundedDot1Float)亿"
+    }
     var description:String {
         return "\(code) \(name)"
     }
@@ -114,6 +126,9 @@ class HotStock:HotLevelable {
 class Stock2Blocks:Stock {
     init(stock:Stock) {
         super.init(code: stock.code, name: stock.name)
+        self.pinyin = stock.pinyin
+        self.tradeValue = stock.tradeValue
+        self.gnListStr = stock.gnListStr
     }
     lazy var blocks:[Block] = []
     required init(from decoder: Decoder) throws {
