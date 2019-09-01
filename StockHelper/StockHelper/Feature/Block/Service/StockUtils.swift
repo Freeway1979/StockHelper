@@ -18,6 +18,16 @@ class StockUtils {
         return StockServiceProvider.getBlockByName(name)
     }
     
+    public static func buildHotBlock(by name:String) -> HotBlock? {
+        let block = StockUtils.getBlockByName(name)
+        if (block != nil) {
+            let hotblock = HotBlock(block: block!)
+            hotblock.hotLevel = HotLevel.Level1
+            return hotblock
+        }
+        return nil
+    }
+    
     public static func getStock(by code:String) -> Stock {
         return StockServiceProvider.getStock(by:code)
     }

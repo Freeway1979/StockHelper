@@ -71,11 +71,9 @@ class HotBlockViewController: UICollectionViewController {
         let gnList:[String] = stock.gnList
         var blocks:[HotBlock] = []
         for gn in gnList {
-            let block = StockUtils.getBlockByName(gn)
-            if (block != nil) {
-                let hotblock = HotBlock(block: block!)
-                hotblock.hotLevel = HotLevel.Level1
-                blocks.append(hotblock)
+            let hotblock = StockUtils.buildHotBlock(by: gn)
+            if (hotblock != nil) {
+                blocks.append(hotblock!)
             }
         }
         return blocks
@@ -85,16 +83,28 @@ class HotBlockViewController: UICollectionViewController {
         var blocks:[HotBlock] = []
         var count = 0
         names.forEach({ name in
-            let block = StockUtils.getBlockByName(name)
-            if (block != nil && count < 10) {
-                let hotblock = HotBlock(block: block!)
-                hotblock.hotLevel = HotLevel.Level1
-                blocks.append(hotblock)
+            let hotblock = StockUtils.buildHotBlock(by: name)
+            if (hotblock != nil && count < 10) {
+                blocks.append(hotblock!)
                 count = count + 1
             }
         })
         return blocks
     }
+    
+    private func addBlockAndRefresh(name:String) {
+        let hotblock = StockUtils.buildHotBlock(by: name)
+        if (hotblock != nil) {
+            let foundBlock = self.hotblocks.first(where: { (bb) -> Bool in
+                return bb.block.code == hotblock!.block.code
+            })
+            if (foundBlock == nil) {
+                self.hotblocks.append(hotblock!)
+                self.refreashCollectionViewData()
+            }
+        }
+    }
+    
     private func prepareData() {
        let isLiandong:Bool = self.liandongStockCode != nil;
         if isLiandong {
