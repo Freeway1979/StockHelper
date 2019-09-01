@@ -17,6 +17,7 @@ class WenCaiBlockStat : Codable {
     var zhangting:Int = 0 //板块涨停数
     var zhangfu:Float = 0.0 //板块涨幅
     var score: Int = 0 // 得分
+    var ztNames: String = "" //涨停股票列表
     
     func buildScore()  {
         var score: Int = zhangting * 100;

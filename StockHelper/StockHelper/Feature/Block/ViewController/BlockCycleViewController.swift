@@ -321,29 +321,61 @@ class BlockCycleViewController: UIViewController {
         self.loadDataPhase1(date: date);
     }
     
-    private func handleBlockStocks(date:String,dict:Dictionary<String, Any>) {
-        print("\(date) handleBlockStocks")
+    private func handleBlockStocks(row: Int, col:Int,dict:Dictionary<String, Any>) {
         let rs = dict["result"] as! [[Any]]
         var stocks:[StockZT] = []
         var ztNames:[String] = []
         for item in rs {
             let code = item[0] as! String
             let name = item[1] as! String
-            let zt:NSNumber = 1 // item[4] as! NSNumber
+            var zt:NSNumber = 0
+            if item[4] is NSNumber {
+                zt = item[4] as! NSNumber
+            }
             let stock = StockZT(code: code, name: name, zt: zt)
             stocks.append(stock)
-            let ztname = Int(truncating: zt) > 1 ? "\(name)[\(zt)]" : name
+        }
+        stocks.sort { (lhs, rhs) -> Bool in
+            return lhs.zt.intValue > rhs.zt.intValue
+        }
+        for item in stocks {
+            let zt = item.zt.intValue
+            let name = item.name
+            let ztname = zt > 1 ? "\(name)[\(zt)]" : name
             ztNames.append(ztname)
         }
         let ss = ztNames.joined(separator: " ")
-        self.ztStockNames = ss
-        self.rightFooterView?.text = ss
+        self.ztStockNames = " \(ss)"
+        self.rightFooterView?.text = self.ztStockNames
+        
+        //save
+        let date = self.dates[col]
+        let blocks : [WenCaiBlockStat]? = DataCache.getBlocksByDate(date: date)
+        if blocks != nil {
+            let block: WenCaiBlockStat = blocks![row]
+            block.ztNames = ss
+        }
+        
+        ZKProgressHUD.dismiss()
     }
     
-    private func loadBlockStocks(date:String, blockName:String) {
-        let dataService = DataService(date: date, keywords: "\(date)连续涨停数大于0 \(blockName) 非ST", title: "板块涨停股票", status: "ddd")  { [unowned self] (date, json, dict) in
-            self.handleBlockStocks(date: date,dict: dict)
+    private func loadBlockStocks(row:Int, col: Int, blockName:String) {
+        let date = self.dates[col]
+        let blocks : [WenCaiBlockStat]? = DataCache.getBlocksByDate(date: date)
+        if blocks != nil {
+            let block: WenCaiBlockStat = blocks![row]
+            if block.ztNames.count > 0 {
+                self.ztStockNames = " \(block.ztNames)"
+                self.rightFooterView?.text = self.ztStockNames
+                return
+            }
         }
+        
+        let dataService = DataService(date: date, keywords: "\(date)连续涨停数大于0 \(blockName) 非ST", title: "板块涨停股票", status: "ddd")  { [unowned self] (date, json, dict) in
+            self.handleBlockStocks(row: row,col:col,dict: dict)
+        }
+        
+        ZKProgressHUD.show()
         self.dataServices.append(dataService)
         WencaiUtils.loadWencaiQueryPage(webview: webview, dataService: dataService)
     }
@@ -471,6 +503,7 @@ extension BlockCycleViewController:UITableViewDataSource {
                 button.layer.borderWidth = 0.3
                 button.layer.borderColor = UIColor.gray.cgColor
                 button.layer.cornerRadius = 0
+                button.tag = indexPath.row * 100 + i
                 button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
                 stackView?.addArrangedSubview(button)
             }
@@ -484,8 +517,9 @@ extension BlockCycleViewController:UITableViewDataSource {
         self.selectedItem = sender.titleLabel?.text!
         self.leftTableView.reloadData()
         self.rightTableView.reloadData()
-            
-        self.loadBlockStocks(date: "2019.08.23", blockName: self.selectedItem!)
+        let row = Int(sender.tag/100)
+        let col = Int(sender.tag % 100)
+        self.loadBlockStocks(row: row, col: col, blockName: self.selectedItem!)
         }
     }
     
