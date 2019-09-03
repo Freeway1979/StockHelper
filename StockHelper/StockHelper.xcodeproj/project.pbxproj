@@ -26,6 +26,9 @@
 		563B3C7E18B840F2B49470B1 /* Pods_StockHelperTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB894E0D4080A19D5FDBAC33 /* Pods_StockHelperTests.framework */; };
 		A108395F231A77F8002D1B99 /* LoadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108395E231A77F8002D1B99 /* LoadData.swift */; };
 		A1083961231B59F0002D1B99 /* LianDongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1083960231B59F0002D1B99 /* LianDongViewController.swift */; };
+		A1083967231DC4AB002D1B99 /* DataServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1083966231DC4AB002D1B99 /* DataServiceViewController.swift */; };
+		A1083969231DC805002D1B99 /* BlockDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1083968231DC805002D1B99 /* BlockDataService.swift */; };
+		A108396B231DD822002D1B99 /* StockDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108396A231DD822002D1B99 /* StockDataService.swift */; };
 		A10E4B3121CE543B0092B671 /* MyStocksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10E4B3021CE543B0092B671 /* MyStocksViewController.swift */; };
 		A10E4B3921CE57E10092B671 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10E4B3821CE57E10092B671 /* HomeViewController.swift */; };
 		A10E4B4321CE5EE00092B671 /* Message.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A10E4B4221CE5EE00092B671 /* Message.storyboard */; };
@@ -165,6 +168,9 @@
 		41C561ABB324A6CEBDD1BB43 /* Pods-StockHelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StockHelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-StockHelper/Pods-StockHelper.release.xcconfig"; sourceTree = "<group>"; };
 		A108395E231A77F8002D1B99 /* LoadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadData.swift; sourceTree = "<group>"; };
 		A1083960231B59F0002D1B99 /* LianDongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LianDongViewController.swift; sourceTree = "<group>"; };
+		A1083966231DC4AB002D1B99 /* DataServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataServiceViewController.swift; sourceTree = "<group>"; };
+		A1083968231DC805002D1B99 /* BlockDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockDataService.swift; sourceTree = "<group>"; };
+		A108396A231DD822002D1B99 /* StockDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDataService.swift; sourceTree = "<group>"; };
 		A10E4B3021CE543B0092B671 /* MyStocksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyStocksViewController.swift; path = StockHelper/Feature/Block/ViewController/MyStocksViewController.swift; sourceTree = SOURCE_ROOT; };
 		A10E4B3821CE57E10092B671 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		A10E4B4221CE5EE00092B671 /* Message.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Message.storyboard; sourceTree = "<group>"; };
@@ -819,6 +825,9 @@
 				A19DDDDC224F008800D63D7A /* DataBuildViewController.swift */,
 				A14CAAA022DAD79F000BE70E /* WencaiBaseViewController.swift */,
 				A14CAAA222DCC286000BE70E /* WencaiUtils.swift */,
+				A1083966231DC4AB002D1B99 /* DataServiceViewController.swift */,
+				A1083968231DC805002D1B99 /* BlockDataService.swift */,
+				A108396A231DD822002D1B99 /* StockDataService.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1196,9 +1205,11 @@
 				A152A0FF22C90070006B0DF4 /* DaBan.swift in Sources */,
 				A12A18D121E9CA3D004294B5 /* HeaderCollectionView.swift in Sources */,
 				A1F4428C21E0D56A00999138 /* ENSideMenu.swift in Sources */,
+				A108396B231DD822002D1B99 /* StockDataService.swift in Sources */,
 				A1F5953B21BD08E400EC5ECB /* MessageViewController.swift in Sources */,
 				06F5881B21BA38B600D69159 /* UITextField+Extension.swift in Sources */,
 				A12A50B42218DBC10045D320 /* JsonString2Objects.swift in Sources */,
+				A1083969231DC805002D1B99 /* BlockDataService.swift in Sources */,
 				06EDD3C5215241970035104B /* AppDelegate.swift in Sources */,
 				A12A50BC221F77590045D320 /* Data+GBK.swift in Sources */,
 				A12A18D921EA08E3004294B5 /* Array+PinYin.swift in Sources */,
@@ -1209,6 +1220,7 @@
 				A149FF6E21F304D0002512CF /* SweetAlert.swift in Sources */,
 				A19DDDDF224FB7B300D63D7A /* DataService.swift in Sources */,
 				A12A50C82220CFE70045D320 /* UIUtils.swift in Sources */,
+				A1083967231DC4AB002D1B99 /* DataServiceViewController.swift in Sources */,
 				A12A50C12220BDB40045D320 /* StockHQAPI.swift in Sources */,
 				06EDD3F0215244280035104B /* Block.swift in Sources */,
 				A12A18C821E9557B004294B5 /* TagButton.swift in Sources */,

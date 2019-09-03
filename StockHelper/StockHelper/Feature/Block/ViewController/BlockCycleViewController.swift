@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 import ZKProgressHUD
 
-class BlockCycleViewController: UIViewController {
+class BlockCycleViewController: DataServiceViewController {
 
     @IBOutlet weak var webview: WKWebView!
     
@@ -22,8 +22,6 @@ class BlockCycleViewController: UIViewController {
     
     var ztStockNames:String = ""
     var lastDate:String = ""
-    var token:String?
-    var dataServices: [DataService] = []
     var selectedItem: String? = "OLED"
     
     let LeftTableViewCellId = "leftTableViewCell"
@@ -155,7 +153,6 @@ class BlockCycleViewController: UIViewController {
     private func handleGNBlocksWithMoney(date:String,dict:Dictionary<String, Any>) {
         print("\(date) handleGNBlocksWithMoney")
         let rs = dict["result"] as! [[Any]]
-        let isLastDate = date == self.lastDate
         var count = 50
         var blocks:[WenCaiBlockStat]? = DataCache.getBlocksByDate(date: date) ?? nil
         blocks?.removeAll()
@@ -235,41 +232,25 @@ class BlockCycleViewController: UIViewController {
             return rs
         })
         DataCache.setBlocksByDate(date: date, blocks: blocks ?? [])
-        self.goNext()
-    }
-    
-    func goNext() {
-        _ = self.runningDates.popLast()
-        if (self.runningDates.count == 0) {
-            self.onDataLoaded()
-        } else {
-            self.loadWenCaiData(date: self.runningDates.last!)
-        }
     }
 
-    func getDataService(by keywords:String) -> DataService? {
-        return self.dataServices.first { (dataService) -> Bool in
-            return dataService.keywords == keywords
-        }
-    }
-    
-    func loadDataPhase1(date:String) {
-        let dataService = DataService(date: date, keywords: "\(date)概念板块资金 \(date)涨跌幅顺序 \(date)成交额大于100亿", title: "概念板块资金", status: "ddd")  { [unowned self] (date, json, dict) in
+    func prepareDataServices(date:String) {
+        var dataService = DataService(date: date, keywords: "\(date)概念板块资金 \(date)涨跌幅顺序 \(date)成交额大于100亿", title: "概念板块资金")
+        dataService.handler = { [unowned self] (date, json, dict) in
+            print("handleGNBlocksWithMoney", date)
             self.handleGNBlocksWithMoney(date: date,dict: dict)
-            self.loadDataPhase2(date: date)
         }
-        self.dataServices.append(dataService)
-        WencaiUtils.loadWencaiQueryPage(webview: webview, dataService: dataService)
-    }
-    
-    func loadDataPhase2(date:String) {
-        let dataService = DataService(date: date,keywords: "\(date)概念板块涨停数顺序 \(date)成交额大于100亿", title: "概念板块资金", status: "ddd")  { [unowned self] (date, json, dict) in
-
+        self.addService(dataService: dataService)
+        
+        dataService = DataService(date: date,keywords: "\(date)概念板块涨停数顺序 \(date)成交额大于100亿", title: "概念板块资金")
+        dataService.handler = { [unowned self] (date, json, dict) in
+            print("handleGNBlocksWithZhangTingShu", date)
             self.handleGNBlocksWithZhangTingShu(date:date, dict: dict)
         }
-        self.dataServices.append(dataService)
-        WencaiUtils.loadWencaiQueryPage(webview: webview, dataService: dataService)
+        self.addService(dataService: dataService)
     }
+    
+    
     private let weekdays = ["周一","周二","周三","周四","周五","周六","周日"]
     private let ONE_DAY:TimeInterval = 3600*24;
     private func generateDates() -> [String] {
@@ -306,7 +287,10 @@ class BlockCycleViewController: UIViewController {
         self.dates = self.generateDates()
         self.runningDates.removeAll()
         self.runningDates.append(contentsOf: self.dates)
-        self.loadWenCaiData(date: self.runningDates.last!)
+        for date in self.dates {
+            self.loadWenCaiData(date: date)
+        }
+        self.runService(webView: self.webview, dataService: self.getFirstService()!)
     }
 
     private func loadWenCaiData(date:String) {
@@ -314,11 +298,10 @@ class BlockCycleViewController: UIViewController {
             let blocks:[WenCaiBlockStat]? = DataCache.getBlocksByDate(date: date) ?? nil
             if blocks?.count ?? 0 > 0 {
                 print("\(date) already exists, go next")
-                self.goNext()
                 return
             }
         }
-        self.loadDataPhase1(date: date);
+        self.prepareDataServices(date: date)
     }
     
     private func handleBlockStocks(row: Int, col:Int,dict:Dictionary<String, Any>) {
@@ -355,8 +338,6 @@ class BlockCycleViewController: UIViewController {
             let block: WenCaiBlockStat = blocks![row]
             block.ztNames = ss
         }
-        
-        ZKProgressHUD.dismiss()
     }
     
     private func loadBlockStocks(row:Int, col: Int, blockName:String) {
@@ -367,17 +348,16 @@ class BlockCycleViewController: UIViewController {
             if block.ztNames.count > 0 {
                 self.ztStockNames = " \(block.ztNames)"
                 self.rightFooterView?.text = self.ztStockNames
+                self.onDataLoaded()
                 return
             }
         }
         
-        let dataService = DataService(date: date, keywords: "\(date)连续涨停数大于0 \(blockName) 非ST", title: "板块涨停股票", status: "ddd")  { [unowned self] (date, json, dict) in
+        let dataService = DataService(date: date, keywords: "\(date)连续涨停数大于0 \(blockName) 非ST", title: "板块涨停股票")
+        dataService.handler = { [unowned self] (date, json, dict) in
             self.handleBlockStocks(row: row,col:col,dict: dict)
         }
-        
-        ZKProgressHUD.show()
-        self.dataServices.append(dataService)
-        WencaiUtils.loadWencaiQueryPage(webview: webview, dataService: dataService)
+        self.addAndRunService(webView: self.webview, dataService: dataService)
     }
     
     private func setupTableData() {
@@ -387,7 +367,7 @@ class BlockCycleViewController: UIViewController {
         self.rightTableView.reloadData()
     }
     
-    private func onDataLoaded() {
+    override func onDataLoaded() {
         DataCache.saveToDB()
         self.setupTableData()
         ZKProgressHUD.dismiss()
@@ -593,26 +573,3 @@ extension BlockCycleViewController:UITableViewDelegate {
     
 }
 
-extension BlockCycleViewController: WKNavigationDelegate {
-    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        webView.evaluateJavaScript("document.body.innerHTML") { [unowned self] (data, error) in
-            
-            let rs = data as! String
-            
-            if (rs.contains("token")) {
-//                print("token found")
-                self.token = WencaiUtils.parseTokenFromHTML(html: rs)
-            } else {
-//                print("token not found")
-            }
-            
-            WencaiUtils.parseHTML(html: rs, callback: { [unowned self] (jsonString, dict) in
-                let keywords = dict["query"] as! String
-                let dataService = self.getDataService(by: keywords)
-                if ((dataService?.handler) != nil) {
-                    dataService?.handler!(dataService!.date, jsonString,dict)
-                }
-            })
-        }
-    }
-}

@@ -28,7 +28,7 @@ fileprivate let columns = 5
 fileprivate let sectionInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
 
 
-class ZhangTingListViewController: UIViewController {
+class ZhangTingListViewController: DataServiceViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -50,11 +50,6 @@ class ZhangTingListViewController: UIViewController {
     }
     
     private var layoutData:[LayoutData] = []
-    
-    // Wencai
-    var dataServices: [DataService] = []
-    var dataService: DataService?
-    var token:String?
     
     var zhenfuList:[ZhenFuStock] = []
     var dataList:[DataItem] = []
@@ -139,25 +134,8 @@ class ZhangTingListViewController: UIViewController {
     
     func loadData() -> Void {
         prepareData()
-    }
-    
-    func getDataService(by keywords:String) -> DataService? {
-        return self.dataServices.first { (dataService) -> Bool in
-            return dataService.keywords == keywords
-        }
-    }
-    
-    func goNext() {
-        self.dataServices.removeFirst(1)
-        if (self.dataServices.count == 0) {
-            self.onDataLoaded()
-        } else {
-            self.loadWenCaiData(dataService: self.dataServices.first!)
-        }
-    }
-    
-    func loadWenCaiData(dataService:DataService) {
-        WencaiUtils.loadWencaiQueryPage(webview: webview, dataService: dataService)
+        ZKProgressHUD.show()
+        self.runService(webView: self.webview, dataService: self.getFirstService()!)
     }
     
     private func handleWenCaiResponse(date:String,dict:Dictionary<String, Any>) {
@@ -209,22 +187,19 @@ class ZhangTingListViewController: UIViewController {
     }
     
     private func prepareData() {
-        ZKProgressHUD.show()
         let today = Date().formatWencaiDateString()
-        var dataService = DataService(date: today,keywords: "连续涨停数大于0且连续涨停天数排序且上市天数大于20天且非ST 所属概念 前500", title: "连续涨停数排行榜", status: "ddd")  { [unowned self] (date, json, dict) in
+        var dataService = DataService(date: today,keywords: "连续涨停数大于0且连续涨停天数排序且上市天数大于20天且非ST 所属概念 前500", title: "连续涨停数排行榜")
+        dataService.handler = { [unowned self] (date, json, dict) in
             print(json)
             self.handleWenCaiResponse(date:date, dict: dict)
-            self.goNext()
         }
-        self.dataServices.append(dataService)
-        
-        dataService = DataService(date: today,keywords: "振幅大于15且非科创板且上市天数大于20 开盘涨跌幅", title: "连续涨停数排行榜", status: "ddd")  { [unowned self] (date, json, dict) in
+        self.addService(dataService: dataService)
+
+        dataService = DataService(date: today,keywords: "振幅大于15且非科创板且上市天数大于20 开盘涨跌幅", title: "连续涨停数排行榜")
+        dataService.handler = { [unowned self] (date, json, dict) in
             self.handleWenCaiZhenFuResponse(date:date, dict: dict)
-            self.goNext()
         }
-        self.dataServices.append(dataService)
-        
-        self.loadWenCaiData(dataService: self.dataServices.first!)
+        self.addService(dataService: dataService)
     }
     
     private func convertToLayoutData() {
@@ -241,7 +216,7 @@ class ZhangTingListViewController: UIViewController {
         }
     }
     
-    private func onDataLoaded() {
+    override func onDataLoaded() {
         self.convertToLayoutData()
         self.reloadData()
         ZKProgressHUD.dismiss()
@@ -405,28 +380,4 @@ extension ZhangTingListViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// WebKit
-
-extension ZhangTingListViewController: WKNavigationDelegate {
-    
-    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        webView.evaluateJavaScript("document.body.innerHTML") { [unowned self] (data, error) in
-            
-            let rs = data as! String
-            
-            if (rs.contains("token")) {
-                self.token = WencaiUtils.parseTokenFromHTML(html: rs)
-            } else {
-            }
-            
-            WencaiUtils.parseHTML(html: rs, callback: { [unowned self] (jsonString, dict) in
-                let keywords = dict["query"] as! String
-                let dataService = self.getDataService(by: keywords)
-                if ((dataService?.handler) != nil) {
-                    dataService?.handler!(dataService!.date, jsonString,dict)
-                }
-            })
-        }
-    }
-}
 

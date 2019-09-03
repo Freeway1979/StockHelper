@@ -34,32 +34,24 @@ class WenCaiQuery {
 
 
 
-struct DataService {
+class DataService {
     var date = ""
     var keywords = ""
     var title = ""
     var status:String?
+    var paginationService:DataService?
+    var perpage: Int = 1000
     var handler:((String,String,Dictionary<String, Any>) -> Void)? = nil
-}
-
-enum WenCaiKeywords:String {
-    case BankuaiHY = "二级行业板块"
-    case BankuaiMoney = "概念板块资金 涨跌幅顺序"
-    case BankuaiZhangTing = "概念板块 涨停数排序"
-}
-
-class DataManager {
+    var onComplete:(([Any]?) -> Void)? = nil
+    init(date:String,keywords:String,title:String) {
+        self.date = date
+        self.keywords = keywords
+        self.title = title
+    }
     
-    private static var dataServices:[DataService] = []
-    
-    public static func prepareData() {
-        dataServices.removeAll()
-        let keywords = WenCaiKeywords.BankuaiHY.rawValue
-        let service = DataService(date: Date().formatWencaiDateString(), keywords: keywords, title: keywords, status: "未获取") { (date, json, dict) in
-            
-        }
+    func handleResponse(date:String,json:String,dict:Dictionary<String, Any>) {
         
-        dataServices.append(service)
     }
 }
+
 
