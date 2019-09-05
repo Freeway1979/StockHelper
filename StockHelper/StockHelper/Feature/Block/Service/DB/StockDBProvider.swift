@@ -15,6 +15,8 @@ struct UserDefaultKeys {
         static let basicStocksUpdateTime = "BasicStocksUpdateTime"
         static let hotStocks = "HotStocks"
         static let importantStocks = "ImportantStocks"
+        static let yingliStocks = "YingLiStocks"
+        static let niukuiStocks = "NiuKuiStocks"
     }
     struct Block {
         static let basicBlocks = "BasicBlocks"
@@ -43,6 +45,24 @@ class StockDBProvider {
     public static func loadBasicStocks() -> [Stock] {
         return StockUtils.loadData(key: UserDefaultKeys.Stock.basicStocks)
     }
+    // 盈利大于2000万
+    public static func saveYingLiStocks(stocks:[YingLiStock]) {
+        StockUtils.saveData(data: stocks, key: UserDefaultKeys.Stock.yingliStocks)
+    }
+    
+    public static func loadYingLiStocks() -> [YingLiStock] {
+        return StockUtils.loadData(key: UserDefaultKeys.Stock.yingliStocks)
+    }
+    
+    // 扭亏为盈（预告）
+    public static func saveNiuKuiStocks(stocks:[NiuKuiStock]) {
+        StockUtils.saveData(data: stocks, key: UserDefaultKeys.Stock.niukuiStocks)
+    }
+    
+    public static func loadNiuKuiStocks() -> [NiuKuiStock] {
+        return StockUtils.loadData(key: UserDefaultKeys.Stock.niukuiStocks)
+    }
+    
     // Mark:Hot
     public static func saveHotBlocks(data:String) {
         let key = UserDefaultKeys.Block.hotBlocks

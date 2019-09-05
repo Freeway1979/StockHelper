@@ -19,15 +19,20 @@ class DataBuildViewController: DataServiceViewController {
     
     enum TABLE_ITEM : Int {
         case BLOCK = 0
-        case STOCK = 1
+        case STOCK
+        case YINGLI_STOCK
+        case NIUKUI_STOCK
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         var items = LoadData.loadData()
+        items.removeAll()
         if items.count == 0 {
             items.append(LoadData(title: "概念板块", status: false, count: 0, updateTime: nil))
             items.append(LoadData(title: "股票列表", status: false, count: 0, updateTime: nil))
+            items.append(LoadData(title: "盈利超2000万", status: false, count: 0, updateTime: nil))
+            items.append(LoadData(title: "扭亏为盈", status: false, count: 0, updateTime: nil))
         }
         self.items = items
         self.tableView.delegate = self;
@@ -70,16 +75,16 @@ class DataBuildViewController: DataServiceViewController {
         self.removeServices()
         // Block
         var dataService = self.prepareBlockData()
-        self.addService(dataService: dataService)
-        if dataService.paginationService != nil {
-         self.addService(dataService: dataService.paginationService!)
-        }
+        self.addServiceWithPagination(dataService: dataService)
         // Stock
         dataService = self.prepareStockData()
-        self.addService(dataService: dataService)
-        if dataService.paginationService != nil {
-            self.addService(dataService: dataService.paginationService!)
-        }
+        self.addServiceWithPagination(dataService: dataService)
+        // 盈利
+        dataService = self.prepareYingLiStockData()
+        self.addServiceWithPagination(dataService: dataService)
+        // 扭亏
+        dataService = self.prepareNiuKuiStockData()
+        self.addServiceWithPagination(dataService: dataService)
     }
     
     // 所有概念板块
@@ -87,10 +92,7 @@ class DataBuildViewController: DataServiceViewController {
         let dataService = BlockDataService(date: Date().formatWencaiDateString(),keywords: "概念板块", title: "概念板块");
         dataService.onComplete = { [unowned self] (data) in
             guard let blocks = data else { return }
-            let index = TABLE_ITEM.BLOCK.rawValue
-            self.items[index].status = true
-            self.items[index].count = blocks.count
-            self.items[index].updateTime = Date()
+            self.finishItem(index: TABLE_ITEM.BLOCK.rawValue, count: blocks.count)
             StockServiceProvider.blocks = blocks as! [Block];
             StockServiceProvider.translateBlocks2PinYin(blocks: blocks as! [Block])
             StockDBProvider.saveBasicBlocks(blocks: blocks as! [Block])
@@ -105,10 +107,7 @@ class DataBuildViewController: DataServiceViewController {
         let dataService = StockDataService(date: today, keywords: "所属概念 前5000", title: "个股和板块")
         dataService.onComplete = { [unowned self] (data) in
             guard let stocks = data else { return }
-            let index = TABLE_ITEM.STOCK.rawValue
-            self.items[index].status = true
-            self.items[index].count = stocks.count
-            self.items[index].updateTime = Date()
+            self.finishItem(index: TABLE_ITEM.STOCK.rawValue, count: stocks.count)
             StockServiceProvider.stocks = stocks as! [Stock];
             StockServiceProvider.translateStocks2PinYin(stocks: stocks as! [Stock])
             StockDBProvider.saveBasicStocks(stocks: stocks as! [Stock])
@@ -116,6 +115,40 @@ class DataBuildViewController: DataServiceViewController {
             self.reloadData()
         }
         return dataService
+    }
+    
+    //盈利>2000万股票
+    private func prepareYingLiStockData() -> DataService {
+        let today = Date().formatWencaiDateString()
+        let dataService = YingLiStockDataService(date: today, keywords: "盈利超2000万", title: "盈利超2000万")
+        dataService.onComplete = { [unowned self] (data) in
+            guard let stocks = data else { return }
+            self.finishItem(index: TABLE_ITEM.YINGLI_STOCK.rawValue, count: stocks.count)
+            StockDBProvider.saveYingLiStocks(stocks: stocks as! [YingLiStock])
+            print("stocks", stocks.count)
+            self.reloadData()
+        }
+        return dataService
+    }
+    
+    //扭亏为盈股票
+    private func prepareNiuKuiStockData() -> DataService {
+        let today = Date().formatWencaiDateString()
+        let dataService = NiuKuiStockDataService(date: today, keywords: "扭亏为盈 流通市值", title: "扭亏为盈")
+        dataService.onComplete = { [unowned self] (data) in
+            guard let stocks = data else { return }
+            self.finishItem(index: TABLE_ITEM.NIUKUI_STOCK.rawValue, count: stocks.count)
+            StockDBProvider.saveNiuKuiStocks(stocks: stocks as! [NiuKuiStock])
+            print("stocks", stocks.count)
+            self.reloadData()
+        }
+        return dataService
+    }
+    
+    private func finishItem(index:Int, count:Int) {
+        self.items[index].status = true
+        self.items[index].count = count
+        self.items[index].updateTime = Date()
     }
     
     override func onDataLoaded() {

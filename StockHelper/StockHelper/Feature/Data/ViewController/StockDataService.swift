@@ -31,7 +31,7 @@ class StockDataService: DataService {
         
     }
     
-    private func handleWenCaiStocksResponse(date:String,dict:Dictionary<String, Any>) -> [Stock] {
+    func handleWenCaiStocksResponse(date:String,dict:Dictionary<String, Any>) -> [Any] {
         print("\(date) handleWenCaiStocksResponse")
         let rs = dict["result"] as! [[Any]]
         print(rs.count)
@@ -55,7 +55,7 @@ class StockDataService: DataService {
     }
     
     func handlePaginationResponse(date:String,json:String,dict:Dictionary<String, Any>) {
-        let stocks:[Stock] = self.handleWenCaiStocksResponse(date:date, dict: dict)
+        let stocks:[Stock] = self.handleWenCaiStocksResponse(date:date, dict: dict) as! [Stock]
         if self.onComplete != nil {
             self.onComplete!(stocks)
         }

@@ -109,6 +109,116 @@ class Stock:Codable,Hashable {
     }
 }
 
+class YingLiStock:Codable,Hashable {
+    static func == (lhs: YingLiStock, rhs: YingLiStock) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+    
+    func hash(into hasher: inout Hasher)
+    {
+        hasher.combine(self.code)
+    }
+    init(code:String) {
+        self.code = code
+    }
+    var code:String = "";
+    var tradeValue: String = "0";
+    var yingliValue: String = "0";
+    var yingshouValue: String = "0"
+    var yingliRise: String = "0"
+    
+    var description:String {
+        return "\(code) \(yingliValue) \(yingliRise)"
+    }
+    
+    enum CodingKeys : String, CodingKey {
+        case code
+        case yingliValue
+        case tradeValue
+        case yingshouValue
+        case yingliRise
+    }
+    
+    required init(from decoder: Decoder) throws
+    {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        code = try container.decode(String.self, forKey: .code)
+        yingliValue = try container.decode(String.self, forKey: .yingliValue)
+        tradeValue = try container.decode(String.self, forKey: .tradeValue)
+        yingshouValue = try container.decode(String.self, forKey: .yingshouValue)
+        yingliRise = try container.decode(String.self, forKey: .yingliRise)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(code, forKey: .code)
+        try container.encode(yingliValue, forKey: .yingliValue)
+        try container.encode(tradeValue, forKey: .tradeValue)
+        try container.encode(yingshouValue, forKey: .yingshouValue)
+        try container.encode(yingliRise, forKey: .yingliRise)
+    }
+}
+
+class NiuKuiStock:Codable,Hashable {
+    static func == (lhs: NiuKuiStock, rhs: NiuKuiStock) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+    
+    func hash(into hasher: inout Hasher)
+    {
+        hasher.combine(self.code)
+    }
+    init(code:String) {
+        self.code = code
+    }
+    var code:String = "";
+    //流通市值
+    var tradeValue: String = "0";
+    //盈利
+    var yingliValue: String = "0";
+    //上期盈利
+    var lastYingliValue: String = "0"
+    // 利润变动
+    var yingliRise: String = "0"
+    // 预告日期
+    var yugaoDate: String = ""
+    
+    var description:String {
+        return "\(code) \(yingliValue) \(yingliRise)"
+    }
+    
+    enum CodingKeys : String, CodingKey {
+        case code
+        case yingliValue
+        case tradeValue
+        case lastYingliValue
+        case yingliRise
+        case yugaoDate
+    }
+    
+    required init(from decoder: Decoder) throws
+    {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        code = try container.decode(String.self, forKey: .code)
+        yingliValue = try container.decode(String.self, forKey: .yingliValue)
+        tradeValue = try container.decode(String.self, forKey: .tradeValue)
+        lastYingliValue = try container.decode(String.self, forKey: .lastYingliValue)
+        yingliRise = try container.decode(String.self, forKey: .yingliRise)
+        yugaoDate = try container.decode(String.self, forKey: .yugaoDate)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(code, forKey: .code)
+        try container.encode(yingliValue, forKey: .yingliValue)
+        try container.encode(tradeValue, forKey: .tradeValue)
+        try container.encode(lastYingliValue, forKey: .lastYingliValue)
+        try container.encode(yingliRise, forKey: .yingliRise)
+        try container.encode(yugaoDate, forKey: .yugaoDate)
+    }
+}
+
+
 class HotStock:HotLevelable {
     var stock:Stock
     var block:Block

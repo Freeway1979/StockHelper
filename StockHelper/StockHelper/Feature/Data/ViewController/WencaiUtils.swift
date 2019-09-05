@@ -53,12 +53,18 @@ class WencaiUtils {
         guard let range2 = left.range(of: "]]") else {
             return (nil,"")
         }
-        let pattern = "<a href.*</a>,"
-        let regex = try! Regex(pattern)
         let rs = String(left.prefix(upTo: range2.lowerBound))
-        let rs2 = regex.replacingMatches(in: rs, with: "")
+        
+        var regex = "\"<a\\s+href=([^\\[<]+)>([^\\[<]+)</a>\""
+        var RE = try! NSRegularExpression(pattern: regex, options: .caseInsensitive)
+        var modified = RE.stringByReplacingMatches(in: rs, options: .reportProgress, range: NSRange(location: 0, length: rs.count), withTemplate: "$2")
+        
+        regex = "<a\\s+href=([^\\[<]+)>([^\\[<]+)</a>"
+        RE = try! NSRegularExpression(pattern: regex, options: .caseInsensitive)
+        modified = RE.stringByReplacingMatches(in: modified, options: .reportProgress, range: NSRange(location: 0, length: modified.count), withTemplate: "$2")
+        
 
-        let jsonString = "{\"result\":[[\(rs2)]]}"
+        let jsonString = "{\"result\":[[\(modified)]]}"
         
         let cfEnc = CFStringEncodings.GB_18030_2000
         let enc = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(cfEnc.rawValue))

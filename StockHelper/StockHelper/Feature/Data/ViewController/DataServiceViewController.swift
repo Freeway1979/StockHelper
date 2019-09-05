@@ -45,6 +45,13 @@ class DataServiceViewController: UIViewController {
         self.dataServices.append(dataService)
     }
     
+    func addServiceWithPagination(dataService:DataService) {
+        self.addService(dataService: dataService)
+        if dataService.paginationService != nil {
+            self.addService(dataService: dataService.paginationService!)
+        }
+    }
+    
     func addAndRunService(webView:WKWebView, dataService:DataService) {
         self.addService(dataService: dataService)
         self.runService(webView: webView, dataService: dataService)

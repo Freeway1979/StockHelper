@@ -47,4 +47,18 @@ class Utils {
             DataCache.loadFromDB();
         }
     }
+    
+    public static func getNumberString(serverData:Any) -> String {
+        var rs:String = "0"
+        if serverData is NSNumber {
+            rs = (serverData as? NSNumber)?.stringValue ?? "0"
+        }
+        if serverData is String {
+            rs = serverData as? String ?? "0"
+        }
+        if rs == "--" {
+            return "0"
+        }
+        return rs
+    }
 }
