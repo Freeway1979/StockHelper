@@ -17,6 +17,8 @@ struct UserDefaultKeys {
         static let importantStocks = "ImportantStocks"
         static let yingliStocks = "YingLiStocks"
         static let niukuiStocks = "NiuKuiStocks"
+        static let zhangtingshuStock = "ZhangTingShuStock"
+        static let jinjinStock = "JinJinStock"
     }
     struct Block {
         static let basicBlocks = "BasicBlocks"
@@ -29,6 +31,8 @@ struct UserDefaultKeys {
 }
 
 class StockDBProvider {
+    
+    
     // Mark :Basic
     public static func saveBasicBlocks(blocks:[Block]) {
         StockUtils.saveData(data: blocks, key: UserDefaultKeys.Block.basicBlocks)
@@ -48,19 +52,49 @@ class StockDBProvider {
     // 盈利大于2000万
     public static func saveYingLiStocks(stocks:[YingLiStock]) {
         StockUtils.saveData(data: stocks, key: UserDefaultKeys.Stock.yingliStocks)
+        DataCache.yingliStocks = stocks
     }
     
     public static func loadYingLiStocks() -> [YingLiStock] {
-        return StockUtils.loadData(key: UserDefaultKeys.Stock.yingliStocks)
+        let stocks:[YingLiStock] = StockUtils.loadData(key: UserDefaultKeys.Stock.yingliStocks)
+        DataCache.yingliStocks = stocks
+        return stocks
     }
     
     // 扭亏为盈（预告）
     public static func saveNiuKuiStocks(stocks:[NiuKuiStock]) {
         StockUtils.saveData(data: stocks, key: UserDefaultKeys.Stock.niukuiStocks)
+        DataCache.niukuiStocks = stocks
     }
     
     public static func loadNiuKuiStocks() -> [NiuKuiStock] {
-        return StockUtils.loadData(key: UserDefaultKeys.Stock.niukuiStocks)
+        let stocks:[NiuKuiStock] = StockUtils.loadData(key: UserDefaultKeys.Stock.niukuiStocks)
+        DataCache.niukuiStocks = stocks
+        return stocks
+    }
+    
+    // 120日内涨停数
+    public static func saveZhangTingShuStocks(stocks:[ZhangTingShuStock]) {
+        StockUtils.saveData(data: stocks, key: UserDefaultKeys.Stock.zhangtingshuStock)
+        DataCache.ztsStocks = stocks
+    }
+    
+    public static func loadZhangTingShuStocks() -> [ZhangTingShuStock] {
+        let stocks:[ZhangTingShuStock] = StockUtils.loadData(key: UserDefaultKeys.Stock.zhangtingshuStock)
+        DataCache.ztsStocks = stocks
+        return stocks
+    }
+    
+    // 将要解禁
+    public static func saveJieJinStockStocks(stocks:[JieJinStock]) {
+        StockUtils.saveData(data: stocks, key: UserDefaultKeys.Stock.jinjinStock)
+        DataCache.jiejinStocks = stocks
+    }
+    
+    public static func loadJieJinStockStocks() -> [JieJinStock] {
+        let stocks:[JieJinStock] = StockUtils.loadData(key: UserDefaultKeys.Stock.jinjinStock)
+        DataCache.jiejinStocks = stocks
+        return stocks
     }
     
     // Mark:Hot

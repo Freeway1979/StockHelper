@@ -9,6 +9,9 @@
 import Foundation
 
 class YingLiStockDataService: StockDataService {
+    convenience init() {
+        self.init(date: Date().formatWencaiDateString(), keywords: "盈利超2000万", title: "盈利超2000万")
+    }
     override func handleWenCaiStocksResponse(date:String,dict:Dictionary<String, Any>) -> [Any] {
         print("\(date) handleWenCaiStocksResponse")
         let rs = dict["result"] as! [[Any]]

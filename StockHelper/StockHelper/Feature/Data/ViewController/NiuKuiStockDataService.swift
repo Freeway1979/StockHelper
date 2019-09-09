@@ -9,6 +9,9 @@
 import Foundation
 
 class NiuKuiStockDataService: StockDataService {
+    convenience init() {
+        self.init(date: Date().formatWencaiDateString(), keywords: "扭亏为盈 流通市值", title: "扭亏为盈")
+    }
     override func handleWenCaiStocksResponse(date:String,dict:Dictionary<String, Any>) -> [Any] {
         print("\(date) NiuKuiStockDataService handleWenCaiStocksResponse")
         let rs = dict["result"] as! [[Any]]

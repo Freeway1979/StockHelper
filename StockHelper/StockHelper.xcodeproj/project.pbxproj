@@ -38,6 +38,8 @@
 		A10E4B4921CE67260092B671 /* Stock.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A10E4B4821CE67260092B671 /* Stock.storyboard */; };
 		A10E4B4B21CE67D20092B671 /* Block.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A10E4B4A21CE67D20092B671 /* Block.storyboard */; };
 		A113031223208232004051D7 /* NiuKuiStockDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A113031123208232004051D7 /* NiuKuiStockDataService.swift */; };
+		A11303142321B47C004051D7 /* ZhanggTingShuDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11303132321B47C004051D7 /* ZhanggTingShuDataService.swift */; };
+		A11303162321BBB8004051D7 /* JieJinStockDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11303152321BBB8004051D7 /* JieJinStockDataService.swift */; };
 		A12A18C621E954B0004294B5 /* TagButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = A12A18C521E954B0004294B5 /* TagButton.xib */; };
 		A12A18C821E9557B004294B5 /* TagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A18C721E9557B004294B5 /* TagButton.swift */; };
 		A12A18CA21E95C64004294B5 /* StockUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A18C921E95C64004294B5 /* StockUtils.swift */; };
@@ -64,7 +66,6 @@
 		A12CD64621F7EAF200CE5C70 /* WebSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12CD64521F7EAF200CE5C70 /* WebSite.swift */; };
 		A12DB39C226B47AE00AD5E78 /* THSDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12DB39B226B47AE00AD5E78 /* THSDataService.swift */; };
 		A12DB39E226B4A3000AD5E78 /* THSDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12DB39D226B4A3000AD5E78 /* THSDataProvider.swift */; };
-		A12DB3A0226B4AB000AD5E78 /* JieJinStock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12DB39F226B4AB000AD5E78 /* JieJinStock.swift */; };
 		A12F65EC22FFC6030023CFAF /* ZhangTingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12F65EB22FFC6030023CFAF /* ZhangTingListViewController.swift */; };
 		A132955921DB523C00A3B156 /* RemoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A132955821DB523C00A3B156 /* RemoteService.swift */; };
 		A1343F9221F45A310086FEEB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1343F9121F45A310086FEEB /* CloudKit.framework */; };
@@ -182,6 +183,8 @@
 		A10E4B4821CE67260092B671 /* Stock.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Stock.storyboard; sourceTree = "<group>"; };
 		A10E4B4A21CE67D20092B671 /* Block.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Block.storyboard; sourceTree = "<group>"; };
 		A113031123208232004051D7 /* NiuKuiStockDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NiuKuiStockDataService.swift; sourceTree = "<group>"; };
+		A11303132321B47C004051D7 /* ZhanggTingShuDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhanggTingShuDataService.swift; sourceTree = "<group>"; };
+		A11303152321BBB8004051D7 /* JieJinStockDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JieJinStockDataService.swift; sourceTree = "<group>"; };
 		A12A18C521E954B0004294B5 /* TagButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagButton.xib; sourceTree = "<group>"; };
 		A12A18C721E9557B004294B5 /* TagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagButton.swift; sourceTree = "<group>"; };
 		A12A18C921E95C64004294B5 /* StockUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockUtils.swift; sourceTree = "<group>"; };
@@ -208,7 +211,6 @@
 		A12CD64521F7EAF200CE5C70 /* WebSite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSite.swift; sourceTree = "<group>"; };
 		A12DB39B226B47AE00AD5E78 /* THSDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSDataService.swift; sourceTree = "<group>"; };
 		A12DB39D226B4A3000AD5E78 /* THSDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSDataProvider.swift; sourceTree = "<group>"; };
-		A12DB39F226B4AB000AD5E78 /* JieJinStock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JieJinStock.swift; sourceTree = "<group>"; };
 		A12F65EB22FFC6030023CFAF /* ZhangTingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhangTingListViewController.swift; sourceTree = "<group>"; };
 		A132955821DB523C00A3B156 /* RemoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteService.swift; sourceTree = "<group>"; };
 		A1343F9021F45A130086FEEB /* StockHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StockHelper.entitlements; sourceTree = "<group>"; };
@@ -834,6 +836,8 @@
 				A108396A231DD822002D1B99 /* StockDataService.swift */,
 				A108396C231F1E3C002D1B99 /* YingLiStockDataService.swift */,
 				A113031123208232004051D7 /* NiuKuiStockDataService.swift */,
+				A11303132321B47C004051D7 /* ZhanggTingShuDataService.swift */,
+				A11303152321BBB8004051D7 /* JieJinStockDataService.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -849,7 +853,6 @@
 		A19DDDD9224EF82700D63D7A /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A12DB39F226B4AB000AD5E78 /* JieJinStock.swift */,
 				A12BB2EE226C0DB100AF6D49 /* WencaiResult.swift */,
 				A108395E231A77F8002D1B99 /* LoadData.swift */,
 			);
@@ -1187,7 +1190,7 @@
 				06EDD3C9215241970035104B /* BlockViewController.swift in Sources */,
 				A1F5953D21BD5A5C00EC5ECB /* MessageDetailViewController.swift in Sources */,
 				A1F4428521E015FC00999138 /* StockDBProvider.swift in Sources */,
-				A12DB3A0226B4AB000AD5E78 /* JieJinStock.swift in Sources */,
+				A11303142321B47C004051D7 /* ZhanggTingShuDataService.swift in Sources */,
 				A1F5953121BCCF1500EC5ECB /* MAStrategyViewController.swift in Sources */,
 				A12A50C42220BDCA0045D320 /* StockHQ.swift in Sources */,
 				A13FAF652287C7C000F8A497 /* DateUtils.swift in Sources */,
@@ -1232,6 +1235,7 @@
 				06EDD3F0215244280035104B /* Block.swift in Sources */,
 				A12A18C821E9557B004294B5 /* TagButton.swift in Sources */,
 				A12A50C22220BDB40045D320 /* StockHQProvider.swift in Sources */,
+				A11303162321BBB8004051D7 /* JieJinStockDataService.swift in Sources */,
 				A1E1277C21E6B99F00527DC0 /* HotBlockViewController.swift in Sources */,
 				A18EE06B21E1601900E67D4B /* StudyTableViewController.swift in Sources */,
 				A1ABA3B32262E32C00985F3D /* Int+Extension.swift in Sources */,

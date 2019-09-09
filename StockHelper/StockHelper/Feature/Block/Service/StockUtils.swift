@@ -10,6 +10,63 @@ import Foundation
 import UIKit
 
 class StockUtils {
+    
+    public static func getYingLiStock(by code:String) -> YingLiStock? {
+        var stocks:[YingLiStock] = DataCache.yingliStocks
+        if stocks.count == 0 {
+           stocks = StockDBProvider.loadYingLiStocks()
+        }
+       let stock = stocks.first { (stock) -> Bool in
+            return stock.code == code
+        }
+        return stock
+    }
+    
+    public static func getNiuKuiStock(by code:String) -> NiuKuiStock? {
+        var stocks:[NiuKuiStock] = DataCache.niukuiStocks
+        if stocks.count == 0 {
+            stocks = StockDBProvider.loadNiuKuiStocks()
+        }
+        let stock = stocks.first { (stock) -> Bool in
+            return stock.code == code
+        }
+        return stock
+    }
+    
+    public static func getZhangTingShuStock(by code:String) -> ZhangTingShuStock? {
+        var stocks:[ZhangTingShuStock] = DataCache.ztsStocks
+        if stocks.count == 0 {
+            stocks = StockDBProvider.loadZhangTingShuStocks()
+        }
+        let stock = stocks.first { (stock) -> Bool in
+            return stock.code == code
+        }
+        return stock
+    }
+    
+    public static func getJieJinStocks(by code:String) -> [JieJinStock] {
+        var stocks:[JieJinStock] = DataCache.jiejinStocks
+        if stocks.count == 0 {
+            stocks = StockDBProvider.loadJieJinStockStocks()
+        }
+        var rs = stocks.filter({ (stock) -> Bool in
+            return stock.code == code
+        })
+        rs.sort { (lhs, rhs) -> Bool in
+            let r: ComparisonResult = lhs.date.compare(rhs.date)
+            if r == .orderedAscending {
+                return true
+            }
+            else if r == .orderedDescending {
+                return false
+            }
+            else {
+                return lhs.ratio.compare(rhs.ratio) == .orderedAscending
+            }
+        }
+        return rs
+    }
+    
     public static func getBlock(by code:String) -> Block {
         return StockServiceProvider.getBlock(by: code)
     }

@@ -43,6 +43,7 @@ class DataService {
     var perpage: Int = 1000
     var handler:((String,String,Dictionary<String, Any>) -> Void)? = nil
     var onComplete:(([Any]?) -> Void)? = nil
+    var onStart:(() -> Void)? = nil
     init(date:String,keywords:String,title:String) {
         self.date = date
         self.keywords = keywords

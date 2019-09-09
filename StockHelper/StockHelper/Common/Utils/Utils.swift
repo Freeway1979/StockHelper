@@ -61,4 +61,17 @@ class Utils {
         }
         return rs
     }
+    
+    public static func getNumber(serverData:Any) -> NSNumber {
+        var rs:NSNumber = 0
+        if serverData is NSNumber {
+            rs = (serverData as? NSNumber ?? 0)
+        }
+        if serverData is String {
+            if (serverData as! String) != "--" {
+                rs = (serverData as! String).numberValue ?? 0
+            }
+        }
+        return rs
+    }
 }

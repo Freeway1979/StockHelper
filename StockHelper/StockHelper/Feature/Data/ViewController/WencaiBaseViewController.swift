@@ -39,6 +39,9 @@ class WencaiBaseViewController: UIViewController {
     func loadWencaiQueryPage(webview:WKWebView,dataService: DataService) {
         prepareWebView(webview: webview)
         self.dataService = dataService
+        if dataService.onStart != nil {
+            dataService.onStart!()
+        }
         let url = WenCaiQuery.getUrl(keywords:dataService.keywords)
         loadWebPage(with: url, webview: webview)
     }

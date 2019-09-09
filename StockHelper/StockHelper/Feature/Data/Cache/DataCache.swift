@@ -11,6 +11,15 @@ import Foundation
 class DataCache {
     public static var blockTops:[String:[WenCaiBlockStat]]? = [:]
     
+    //盈利
+    public static var yingliStocks:[YingLiStock] = []
+    //扭亏
+    public static var niukuiStocks:[NiuKuiStock] = []
+    //解禁
+    public static var jiejinStocks:[JieJinStock] = []
+    //120日涨停数
+    public static var ztsStocks:[ZhangTingShuStock] = []
+    
     public static func reset() {
         blockTops?.removeAll()
     }

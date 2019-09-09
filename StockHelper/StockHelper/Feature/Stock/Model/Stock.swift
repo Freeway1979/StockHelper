@@ -218,6 +218,104 @@ class NiuKuiStock:Codable,Hashable {
     }
 }
 
+class ZhangTingShuStock:Codable,Hashable {
+    static func == (lhs: ZhangTingShuStock, rhs: ZhangTingShuStock) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+    
+    func hash(into hasher: inout Hasher)
+    {
+        hasher.combine(self.code)
+    }
+    init(code:String) {
+        self.code = code
+    }
+    var code:String = "";
+    var zt: String = "0";
+
+    var description:String {
+        return "\(code) \(zt)"
+    }
+    
+    enum CodingKeys : String, CodingKey {
+        case code
+        case zt
+    }
+    
+    required init(from decoder: Decoder) throws
+    {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        code = try container.decode(String.self, forKey: .code)
+        zt = try container.decode(String.self, forKey: .zt)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(code, forKey: .code)
+        try container.encode(zt, forKey: .zt)
+    }
+}
+
+class JieJinStock:Codable,Hashable {
+    static func == (lhs: JieJinStock, rhs: JieJinStock) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+    
+    func hash(into hasher: inout Hasher)
+    {
+        hasher.combine(self.code)
+    }
+    init(code:String) {
+        self.code = code
+    }
+    var code:String = "";
+    //解禁日志
+    var date: String = "";
+    //比例
+    var ratio: String = "0";
+    //金额
+    var money: String = "0"
+    //类型
+    var type: String = ""
+    // 成本
+    var price: String = "0"
+    
+    var description:String {
+        return "\(code) \(date) \(ratio)"
+    }
+    
+    enum CodingKeys : String, CodingKey {
+        case code
+        case date
+        case ratio
+        case money
+        case type
+        case price
+        case yugaoDate
+    }
+    
+    required init(from decoder: Decoder) throws
+    {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        code = try container.decode(String.self, forKey: .code)
+        date = try container.decode(String.self, forKey: .date)
+        ratio = try container.decode(String.self, forKey: .ratio)
+        money = try container.decode(String.self, forKey: .money)
+        type = try container.decode(String.self, forKey: .type)
+        price = try container.decode(String.self, forKey: .price)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(code, forKey: .code)
+        try container.encode(date, forKey: .date)
+        try container.encode(ratio, forKey: .ratio)
+        try container.encode(money, forKey: .money)
+        try container.encode(type, forKey: .type)
+        try container.encode(price, forKey: .price)
+    }
+}
+
 
 class HotStock:HotLevelable {
     var stock:Stock
