@@ -139,7 +139,7 @@ class DataBuildViewController: DataServiceViewController {
     private func prepareYingLiStockData() -> DataService {
         let dataService = YingLiStockDataService()
         dataService.onStart = { [unowned self] () in
-            self.title = "数据 - \(dataService.title)"
+            self.navigationController?.title = "数据 - \(dataService.title)"
         }
         dataService.onComplete = { [unowned self] (data) in
             guard let stocks = data else { return }
@@ -155,7 +155,7 @@ class DataBuildViewController: DataServiceViewController {
     private func prepareNiuKuiStockData() -> DataService {
         let dataService = NiuKuiStockDataService()
         dataService.onStart = { [unowned self] () in
-            self.title = "数据 - \(dataService.title)"
+            self.navigationController?.title = "数据 - \(dataService.title)"
         }
         dataService.onComplete = { [unowned self] (data) in
             guard let stocks = data else { return }
@@ -171,7 +171,7 @@ class DataBuildViewController: DataServiceViewController {
     private func prepareZhangTingShuStockData() -> DataService {
         let dataService = ZhangTingShuDataService()
         dataService.onStart = { [unowned self] () in
-            self.title = "数据 - \(dataService.title)"
+            self.navigationController?.title = "数据 - \(dataService.title)"
         }
         dataService.onComplete = { [unowned self] (data) in
             guard let stocks = data else { return }
@@ -187,7 +187,7 @@ class DataBuildViewController: DataServiceViewController {
     private func prepareJieJinStockData() -> DataService {
         let dataService = JieJinStockDataService()
         dataService.onStart = { [unowned self] () in
-            self.title = "数据 - \(dataService.title)"
+            self.navigationController?.title = "数据 - \(dataService.title)"
         }
         dataService.onComplete = { [unowned self] (data) in
             guard let stocks = data else { return }
@@ -209,6 +209,7 @@ class DataBuildViewController: DataServiceViewController {
     override func onDataLoaded() {
         super.onDataLoaded()
         self.title = "数据"
+        self.navigationController?.title = "数据"
         StockServiceProvider.buildBlock2StocksCodeMap()
         self.reloadData()
         ZKProgressHUD.dismiss()

@@ -40,10 +40,27 @@ extension String {
         }
         return nil
     }
+    
     var floatNumberValue: NSNumber? {
         if let value = Float(self) {
             return NSNumber(value: value)
         }
         return nil
     }
+    
+    var formatMoney:String {
+        let tradeValueInt:Float = Float(self) ?? 0
+        if tradeValueInt < 10000 {
+            return "\(tradeValueInt)"
+        };
+        if tradeValueInt < 100000000  {
+            return "\((tradeValueInt/10000).roundedDot1Float)万"
+        }
+        return "\((tradeValueInt/100000000).roundedDot1Float)亿"
+    }
+    
+    var formatDot2FloatString:String {
+        return String(format: "%.2f", self.floatValue);
+    }
+    
 }

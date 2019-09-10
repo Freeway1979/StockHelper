@@ -89,6 +89,12 @@ class BlockStockListViewController: UIViewController {
         return isHotStock
     }
     
+    private func gotoViewController(storyboard:String,storyboardId:String) {
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: storyboard,bundle: nil)
+        var destViewController : UIViewController
+        destViewController = mainStoryboard.instantiateViewController(withIdentifier: storyboardId)
+        self.navigationController?.pushViewController(destViewController, animated: true)
+    }
 }
 
 extension BlockStockListViewController:UITableViewDataSource {
@@ -152,8 +158,13 @@ extension BlockStockListViewController:UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = indexPath.row;
         let stock = self.displayedItems[row]
-        print("Block \(stock.name) clicked")
-        StockUtils.openStockHQPage(code: stock.code, name: stock.name, from: self.navigationController!)
+        print("Stock \(stock.name) clicked")
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Stock",bundle: nil)
+        var destViewController : UIViewController
+        destViewController = mainStoryboard.instantiateViewController(withIdentifier: "StockViewController")
+        (destViewController as! StockViewController).stockCode = stock.code
+        self.navigationController?.pushViewController(destViewController, animated: true)
+//        self.gotoViewController(storyboard: "Stock", storyboardId: "StockViewController")
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {

@@ -74,7 +74,6 @@ class StockServiceProvider {
     public static func buildBlock2StocksCodeMap() {
         for stock in stocks {
             let stockCode = stock.code
-            let gnListStr = stock.gnListStr
             let gnList:[String] = stock.gnList
             var blocks:[String] = []
             for gn in gnList {

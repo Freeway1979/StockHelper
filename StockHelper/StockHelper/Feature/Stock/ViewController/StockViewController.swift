@@ -13,6 +13,7 @@ class StockViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     private var tableData:[TableViewSectionModel] = []
+    var stockCode:String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,20 +28,79 @@ class StockViewController: UIViewController {
     
     private func prepareTableViewData() {
         ZKProgressHUD.show()
-        // Get My Stocks 获取我的自选股
+        let stock:Stock = StockUtils.getStock(by: stockCode)
         // 1
         var section = TableViewSectionModel()
-        section.title = "002668 奥马电器"
-        section.id = "Section0"
+        section.title = "基本情况"
+        section.id = "SectionBasic"
         
         var cell = TableViewCellModel();
-        cell.data = ""
+        cell.data = stockCode
         cell.id = "股票笔记"
         cell.title = "股票笔记"
         cell.accessoryType = .disclosureIndicator
         section.rows.append(cell)
         
+        cell = TableViewCellModel();
+        cell.data = stockCode
+        cell.id = "股票行情"
+        cell.title = "股票行情"
+        cell.accessoryType = .disclosureIndicator
+        section.rows.append(cell)
         self.tableData.append(section)
+        
+        section = TableViewSectionModel()
+        section.title = "120日内涨停数"
+        section.id = "SectionZTS"
+        
+        let zts:ZhangTingShuStock? = StockUtils.getZhangTingShuStock(by: stockCode)
+        cell = TableViewCellModel();
+        cell.data = stockCode
+        cell.id = "120日涨停数"
+        cell.title = "0"
+        if zts != nil {
+          cell.title = zts!.zt
+        }
+        section.rows.append(cell)
+        self.tableData.append(section)
+        
+        section = TableViewSectionModel()
+        section.title = "解禁数据"
+        section.id = "SectionJieJin"
+        let jiejinStocks:[JieJinStock] = StockUtils.getJieJinStocks(by: stockCode)
+        for item in jiejinStocks {
+            cell = TableViewCellModel();
+            cell.data = item.date
+            cell.id = "\(item.date) 比例:\(item.ratio.formatDot2FloatString)% 金额:\(item.money.formatMoney)"
+            cell.title = "\(item.date) 比例:\(item.ratio.formatDot2FloatString)% 金额:\(item.money.formatMoney)"
+            section.rows.append(cell)
+        }
+        self.tableData.append(section)
+        
+        section = TableViewSectionModel()
+        section.title = "盈利数据"
+        section.id = "SectionJieJin"
+        let yingLiStock:YingLiStock? = StockUtils.getYingLiStock(by: stockCode)
+        if yingLiStock != nil {
+            cell = TableViewCellModel();
+            cell.data = stockCode
+            var rise:String = yingLiStock!.yingliRise
+            if rise.contains("-") {
+                let f:Float = 0 - rise.floatValue
+                rise = String(f)
+                rise = rise.formatDot2FloatString
+                rise = "-\(rise)"
+            } else {
+                rise = rise.formatDot2FloatString
+            }
+            
+            let desc = "\(yingLiStock!.tradeValue.formatMoney) \(yingLiStock!.yingliValue.formatMoney) \(rise)%"
+            cell.id = desc
+            cell.title = desc
+            section.rows.append(cell)
+        }
+        self.tableData.append(section)
+        
         self.tableView.reloadData()
         ZKProgressHUD.dismiss()
     }
@@ -67,9 +127,12 @@ extension StockViewController:UITableViewDataSource {
         cell.textLabel?.text = cellModel.title
         cell.detailTextLabel?.text = cellModel.detail
         return cell
-        
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let sectionModel = self.tableData[section]
+        return sectionModel.title
+    }
     
 }
 
@@ -78,11 +141,17 @@ extension StockViewController:UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sectionModel = self.tableData[indexPath.section]
         let cellModel = sectionModel.rows[indexPath.row]
-        if indexPath.row == 0 {
-            let storyboard = UIStoryboard(name: "Stock", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "StockNoteViewController") as! WebViewController
-            vc.title = cellModel.title
-            self.navigationController!.pushViewController(vc, animated: true)
+        if sectionModel.id == "SectionBasic" {
+            if cellModel.id == "股票笔记" {
+                let storyboard = UIStoryboard(name: "Stock", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "StockNoteViewController") as! StockNoteViewController
+                vc.title = "操盘笔记"
+                self.navigationController!.pushViewController(vc, animated: true)
+            }
+            if cellModel.id == "股票行情" {
+                let stock:Stock = StockUtils.getStock(by: stockCode)
+                StockUtils.openStockHQPage(code: stock.code, name: stock.name, from: self.navigationController!)
+            }
         }
     }
 }

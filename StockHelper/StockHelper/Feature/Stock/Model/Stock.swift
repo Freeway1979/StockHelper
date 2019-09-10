@@ -65,14 +65,7 @@ class Stock:Codable,Hashable {
         return gnListStr.split(separator: ";").map(String.init)
     }
     var formatMoney:String {
-        let tradeValueInt:Float = Float(self.tradeValue) ?? 0
-        if tradeValueInt < 10000 {
-            return "\(tradeValueInt)"
-        };
-        if tradeValueInt < 100000000  {
-            return "\((tradeValueInt/10000).roundedDot1Float)万"
-        }
-        return "\((tradeValueInt/100000000).roundedDot1Float)亿"
+        return self.tradeValue.formatMoney
     }
     var description:String {
         return "\(code) \(name)"
