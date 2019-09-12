@@ -56,7 +56,7 @@ class ZhangTingListViewController: DataServiceViewController {
     
     struct DataItem {
         var zhangting:String
-        var stocks:[ZhangTingStock]
+        var stocks:[ZhangTingStockItem]
     }
     
     struct ZhenFuStock {
@@ -66,7 +66,7 @@ class ZhangTingListViewController: DataServiceViewController {
         var zhenfu:String
     }
     
-    struct ZhangTingStock {
+    struct ZhangTingStockItem {
         var code:String
         var name:String
         var zhangting:Int
@@ -142,11 +142,11 @@ class ZhangTingListViewController: DataServiceViewController {
         print("\(date) handleWenCaiResponse")
         let rs = dict["result"] as! [[Any]]
         //        print(rs)
-        var dict:[String:[ZhangTingStock]] = [:]
+        var dict:[String:[ZhangTingStockItem]] = [:]
         for item in rs {
             let zt = (item[7] as! NSNumber).intValue
             let zhangting = "\(zt)连板"
-            var list:[ZhangTingStock]? = dict[zhangting]
+            var list:[ZhangTingStockItem]? = dict[zhangting]
             if (list == nil) {
                 list = []
                 dict[zhangting] = list
@@ -159,7 +159,7 @@ class ZhangTingListViewController: DataServiceViewController {
                 gnList = gn?.components(separatedBy: ";")
             }
           
-            let stock = ZhangTingStock(code: String(code.prefix(6)), name: name, zhangting: zt, gnList: gnList ?? [])
+            let stock = ZhangTingStockItem(code: String(code.prefix(6)), name: name, zhangting: zt, gnList: gnList ?? [])
             list?.append(stock)
             dict[zhangting] = list
         }

@@ -19,6 +19,7 @@ struct UserDefaultKeys {
         static let niukuiStocks = "NiuKuiStocks"
         static let zhangtingshuStock = "ZhangTingShuStock"
         static let jinjinStock = "JinJinStock"
+        static let zhangtingStock = "ZhangTingStock"
     }
     struct Block {
         static let basicBlocks = "BasicBlocks"
@@ -94,6 +95,18 @@ class StockDBProvider {
     public static func loadJieJinStockStocks() -> [JieJinStock] {
         let stocks:[JieJinStock] = StockUtils.loadData(key: UserDefaultKeys.Stock.jinjinStock)
         DataCache.jiejinStocks = stocks
+        return stocks
+    }
+    
+    // 每日涨停
+    public static func saveZhangTingStocks(stocks:[ZhangTingStocks]) {
+        StockUtils.saveData(data: stocks, key: UserDefaultKeys.Stock.zhangtingStock)
+        DataCache.ztStocks = stocks
+    }
+    
+    public static func loadZhangTingStocks() -> [ZhangTingStocks] {
+        let stocks:[ZhangTingStocks] = StockUtils.loadData(key: UserDefaultKeys.Stock.zhangtingStock)
+        DataCache.ztStocks = stocks
         return stocks
     }
     

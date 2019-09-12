@@ -19,9 +19,53 @@ class DataCache {
     public static var jiejinStocks:[JieJinStock] = []
     //120日涨停数
     public static var ztsStocks:[ZhangTingShuStock] = []
+    //每日的涨停股票
+    public static var ztStocks:[ZhangTingStocks] = []
     
     public static func reset() {
         blockTops?.removeAll()
+        ztStocks.removeAll()
+    }
+    
+    public static func getZhangTingStocks(by date:String) -> ZhangTingStocks? {
+       return ztStocks.first { (s) -> Bool in
+           return s.date == date
+        }
+    }
+    
+    public static func getZhangTingStocks(date:String, gn:String) -> [ZhangTingStock] {
+        guard let stocksWithDate = getZhangTingStocks(by: date) else { return [] }
+        let stocks = stocksWithDate.stocks.filter { (stock) -> Bool in
+           let s = StockUtils.getStock(by: stock.code)
+            if s.gnList.contains(gn) {
+                return true
+            }
+            return false
+        }
+        return stocks
+    }
+    
+    public static func getDragonStocks(dates:[String], gn:String) -> [ZhangTingStock] {
+        var rs:[String:Int] = [:]
+        dates.forEach { (date) in
+            guard let stocksWithDate = getZhangTingStocks(by: date) else { return }
+            stocksWithDate.stocks.forEach({ (stock) in
+                let code = stock.code
+                let s = StockUtils.getStock(by: code)
+                if s.gnList.contains(gn) {
+                    if rs[code] == nil {
+                        rs[code] = 1
+                    } else {
+                        rs[code] = 1 + rs[code]!
+                    }
+                }
+            })
+        }
+        var topList:[ZhangTingStock] = []
+        for (k,v) in (Array(rs).sorted {$0.1 > $1.1}) {
+            topList.append(ZhangTingStock(code: k, zhangting: v))
+        }
+        return topList
     }
     
     public static func getTopBlockNames() -> [String] {
@@ -77,6 +121,8 @@ class DataCache {
         let data = try! encoder.encode(blockTops)
         StockDBProvider.saveBlockLifeCycleData(data: data)
         print("Save block tops to local and iCloud")
+        //每日涨停
+        StockDBProvider.saveZhangTingStocks(stocks: ztStocks)
     }
     
     public static func loadFromDB() {
@@ -88,6 +134,8 @@ class DataCache {
             blockTops = dict
             print("Load block tops from local and iCloud")
         }
+        //每日涨停
+        ztStocks = StockDBProvider.loadZhangTingStocks()
     }
     
     public static func printData() {

@@ -40,6 +40,7 @@
 		A113031223208232004051D7 /* NiuKuiStockDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A113031123208232004051D7 /* NiuKuiStockDataService.swift */; };
 		A11303142321B47C004051D7 /* ZhanggTingShuDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11303132321B47C004051D7 /* ZhanggTingShuDataService.swift */; };
 		A11303162321BBB8004051D7 /* JieJinStockDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11303152321BBB8004051D7 /* JieJinStockDataService.swift */; };
+		A11303182329CDE5004051D7 /* ZhangTingStock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11303172329CDE5004051D7 /* ZhangTingStock.swift */; };
 		A12A18C621E954B0004294B5 /* TagButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = A12A18C521E954B0004294B5 /* TagButton.xib */; };
 		A12A18C821E9557B004294B5 /* TagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A18C721E9557B004294B5 /* TagButton.swift */; };
 		A12A18CA21E95C64004294B5 /* StockUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A18C921E95C64004294B5 /* StockUtils.swift */; };
@@ -185,6 +186,7 @@
 		A113031123208232004051D7 /* NiuKuiStockDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NiuKuiStockDataService.swift; sourceTree = "<group>"; };
 		A11303132321B47C004051D7 /* ZhanggTingShuDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhanggTingShuDataService.swift; sourceTree = "<group>"; };
 		A11303152321BBB8004051D7 /* JieJinStockDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JieJinStockDataService.swift; sourceTree = "<group>"; };
+		A11303172329CDE5004051D7 /* ZhangTingStock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhangTingStock.swift; sourceTree = "<group>"; };
 		A12A18C521E954B0004294B5 /* TagButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagButton.xib; sourceTree = "<group>"; };
 		A12A18C721E9557B004294B5 /* TagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagButton.swift; sourceTree = "<group>"; };
 		A12A18C921E95C64004294B5 /* StockUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockUtils.swift; sourceTree = "<group>"; };
@@ -855,6 +857,7 @@
 			children = (
 				A12BB2EE226C0DB100AF6D49 /* WencaiResult.swift */,
 				A108395E231A77F8002D1B99 /* LoadData.swift */,
+				A11303172329CDE5004051D7 /* ZhangTingStock.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1167,6 +1170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A17DD2A622184C110078589D /* YanBaoSheDocumentListViewController.swift in Sources */,
+				A11303182329CDE5004051D7 /* ZhangTingStock.swift in Sources */,
 				A13FEFB622047FA1002B1E7E /* TextViewController.swift in Sources */,
 				A1ABA3B62262F16700985F3D /* StackTableViewCell.swift in Sources */,
 				A13FEFB222047483002B1E7E /* DocumentListViewController.swift in Sources */,
