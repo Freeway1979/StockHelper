@@ -537,12 +537,23 @@ extension BlockCycleViewController:UITableViewDataSource {
         }
     }
     
+    @objc func copyTopBlockNames(_ sender: UILongPressGestureRecognizer) {
+        becomeFirstResponder()
+        let board = UIPasteboard.general
+        let blocks = Array(DataCache.getTopBlockNames().prefix(10))
+        board.string = " (\(blocks.joined(separator: "或"))) "
+        ZKProgressHUD.showMessage("最强板块已复制到剪切板")
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if isLeftTableView(tableView: tableView) {
             var view: UITableViewHeaderFooterView? = tableView.dequeueReusableHeaderFooterView(withIdentifier: "LeftTableHeaderView")
             if view == nil {
                 view = UITableViewHeaderFooterView(frame: CGRect(x: 0, y: 0, width: 120, height: TableCellDimension.Height.rawValue))
             }
+            
+            view!.addGestureRecognizer(UILongPressGestureRecognizer(target: self,
+                                                              action: #selector(copyTopBlockNames(_:))))
             return view
         }
         return nil
