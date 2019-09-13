@@ -29,7 +29,8 @@ class StockViewController: UIViewController {
     private func prepareTableViewData() {
         ZKProgressHUD.show()
         let stock:Stock = StockUtils.getStock(by: stockCode)
-        // 1
+        self.title = "\(stock.name) \(stock.code)"
+        // 基本情况
         var section = TableViewSectionModel()
         section.title = "基本情况"
         section.id = "SectionBasic"
@@ -49,6 +50,22 @@ class StockViewController: UIViewController {
         section.rows.append(cell)
         self.tableData.append(section)
         
+        //热门板块
+        section = TableViewSectionModel()
+        section.title = "热门板块"
+        section.id = "SectionHotBlock"
+        // 看看是否在前十大热门板块中
+        let blocks:[String] = DataCache.getTopBlockNamesForStock(stock: stock)
+        for block in blocks {
+            cell = TableViewCellModel();
+            cell.data = stockCode
+            cell.id = block
+            cell.title = block
+            section.rows.append(cell)
+        }
+        self.tableData.append(section)
+        
+        //120日内涨停数
         section = TableViewSectionModel()
         section.title = "120日内涨停数"
         section.id = "SectionZTS"
@@ -64,19 +81,7 @@ class StockViewController: UIViewController {
         section.rows.append(cell)
         self.tableData.append(section)
         
-        section = TableViewSectionModel()
-        section.title = "解禁数据"
-        section.id = "SectionJieJin"
-        let jiejinStocks:[JieJinStock] = StockUtils.getJieJinStocks(by: stockCode)
-        for item in jiejinStocks {
-            cell = TableViewCellModel();
-            cell.data = item.date
-            cell.id = "\(item.date) 比例:\(item.ratio.formatDot2FloatString)% 金额:\(item.money.formatMoney)"
-            cell.title = "\(item.date) 比例:\(item.ratio.formatDot2FloatString)% 金额:\(item.money.formatMoney)"
-            section.rows.append(cell)
-        }
-        self.tableData.append(section)
-        
+        //盈利数据
         section = TableViewSectionModel()
         section.title = "盈利数据"
         section.id = "SectionJieJin"
@@ -100,6 +105,22 @@ class StockViewController: UIViewController {
             section.rows.append(cell)
         }
         self.tableData.append(section)
+        
+        //解禁数据
+        section = TableViewSectionModel()
+        section.title = "解禁数据"
+        section.id = "SectionJieJin"
+        let jiejinStocks:[JieJinStock] = StockUtils.getJieJinStocks(by: stockCode)
+        for item in jiejinStocks {
+            cell = TableViewCellModel();
+            cell.data = item.date
+            cell.id = "\(item.date) 比例:\(item.ratio.formatDot2FloatString)% 金额:\(item.money.formatMoney)"
+            cell.title = "\(item.date) 比例:\(item.ratio.formatDot2FloatString)% 金额:\(item.money.formatMoney)"
+            section.rows.append(cell)
+        }
+        self.tableData.append(section)
+        
+        
         
         self.tableView.reloadData()
         ZKProgressHUD.dismiss()

@@ -108,7 +108,6 @@ class ZhangTingListViewController: DataServiceViewController {
     
     private func setupLayoutData() {
         var item:ItemData?
-        var title:String
         var layout:LayoutData?
         var items:[ItemData] = []
         // Item 4
@@ -245,7 +244,7 @@ class ZhangTingListViewController: DataServiceViewController {
             alertController.addAction(liandongAction)
             let hangqingAction = UIAlertAction(title:"股票行情", style: .default, handler:{ [unowned self] (action) -> Void in
                 print("行情\(String(describing: item.data))")
-                StockUtils.openStockHQPage(code: item.data!, name: item.title, from: self.navigationController!)
+                StockUtils.gotoStockViewController(code: item.data!, from: self.navigationController!)
             })
             alertController.addAction(hangqingAction)
             self.present(alertController, animated: true, completion: nil)

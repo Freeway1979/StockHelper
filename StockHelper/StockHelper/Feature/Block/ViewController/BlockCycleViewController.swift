@@ -316,7 +316,7 @@ class BlockCycleViewController: DataServiceViewController {
     }
     
     private func prepareData() {
-        ZKProgressHUD.show()
+        
         self.dates = self.generateDates()
         self.runningDates.removeAll()
         self.runningDates.append(contentsOf: self.dates)
@@ -326,12 +326,29 @@ class BlockCycleViewController: DataServiceViewController {
         let firstService = self.getFirstService()
         if firstService == nil {
             self.setupTableData()
-            ZKProgressHUD.dismiss()
+            self.updateTitle()
             return
         }
+        ZKProgressHUD.show()
         self.runService(webView: self.webview, dataService: self.getFirstService()!)
     }
 
+    private func updateTitle() {
+        var title = "板块周期表-"
+        let dragons = DataCache.getMarketDragonStocks(dates: self.dates)
+        if dragons != nil && dragons?.count ?? 0 > 0 {
+            let stock = StockUtils.getStock(by: dragons!.first!.code)
+            title = "\(title)总龙头:\(stock.name)[\(dragons!.first!.zhangting)]"
+        }
+        let dragon = DataCache.getMarketDragonStock(date: self.lastDate)
+        if dragon != nil {
+            let stock = StockUtils.getStock(by: dragon!.code)
+            title = "\(title)空间龙:\(stock.name)[\(dragon!.zhangting)]"
+        }
+        self.navigationController?.title = title
+        self.title = title
+    }
+    
     private func loadWenCaiData(date:String) {
         if !forceUpdate {
             let blocks:[WenCaiBlockStat]? = DataCache.getBlocksByDate(date: date) ?? nil
@@ -343,42 +360,6 @@ class BlockCycleViewController: DataServiceViewController {
         self.prepareDataServices(date: date)
     }
     
-    private func handleBlockStocks(row: Int, col:Int,dict:Dictionary<String, Any>) {
-        let rs = dict["result"] as! [[Any]]
-        var stocks:[StockZT] = []
-        var ztNames:[String] = []
-        for item in rs {
-            let code = item[0] as! String
-            let name = item[1] as! String
-            var zt:NSNumber = 0
-            if item[4] is NSNumber {
-                zt = item[4] as! NSNumber
-            }
-            let stock = StockZT(code: code, name: name, zt: zt)
-            stocks.append(stock)
-        }
-        stocks.sort { (lhs, rhs) -> Bool in
-            return lhs.zt.intValue > rhs.zt.intValue
-        }
-        for item in stocks {
-            let zt = item.zt.intValue
-            let name = item.name
-            let ztname = zt > 1 ? "\(name)[\(zt)]" : name
-            ztNames.append(ztname)
-        }
-        let ss = ztNames.joined(separator: " ")
-        self.ztStockNames = " \(ss)"
-        self.rightFooterView?.text = self.ztStockNames
-        
-        //save
-        let date = self.dates[col]
-        let blocks : [WenCaiBlockStat]? = DataCache.getBlocksByDate(date: date)
-        if blocks != nil {
-            let block: WenCaiBlockStat = blocks![row]
-            block.ztNames = ss
-        }
-    }
-    
     private func loadBlockStocks(row:Int, col: Int, blockName:String) {
         let date = self.dates[col]
         let stocks = DataCache.getZhangTingStocks(date: date, gn: blockName)
@@ -386,24 +367,8 @@ class BlockCycleViewController: DataServiceViewController {
             let s = StockUtils.getStock(by: stock.code)
             return stock.zhangting > 1 ? "\(s.name)[\(stock.zhangting)]" : s.name
         }
-        self.rightFooterView?.text = ss.joined(separator: " ")
-        
-//        let blocks : [WenCaiBlockStat]? = DataCache.getBlocksByDate(date: date)
-//        if blocks != nil {
-//            let block: WenCaiBlockStat = blocks![row]
-//            if block.ztNames.count > 0 {
-//                self.ztStockNames = " \(block.ztNames)"
-//                self.rightFooterView?.text = self.ztStockNames
-//                self.onDataLoaded()
-//                return
-//            }
-//        }
-//
-//        let dataService = DataService(date: date, keywords: "\(date)连续涨停数大于0 \(blockName) 非ST", title: "板块涨停股票")
-//        dataService.handler = { [unowned self] (date, json, dict) in
-//            self.handleBlockStocks(row: row,col:col,dict: dict)
-//        }
-//        self.addAndRunService(webView: self.webview, dataService: dataService)
+        let text = ss.joined(separator: " ")
+        self.rightFooterView?.text = " \(text)"
     }
     
     private func setupTableData() {
@@ -416,19 +381,21 @@ class BlockCycleViewController: DataServiceViewController {
     override func onDataLoaded() {
         DataCache.saveToDB()
         self.rightFooterView?.text = "处理完毕"
+        self.updateTitle()
         self.setupTableData()
         ZKProgressHUD.dismiss()
     }
     
     func getDragonStock(gn:String) -> String {
         let stocks:[ZhangTingStock] = DataCache.getDragonStocks(dates: self.dates, gn: gn)
-        var ss:[String] = []
-        for i in 0...1 {
-            if stocks.count > i {
-                ss.append(StockUtils.getStock(by: stocks[i].code).name)
-            }
+        var dragon:String = " "
+        if stocks.count > 0 {
+            dragon = "\(dragon)\(StockUtils.getStock(by: stocks[0].code).name)[\(stocks[0].zhangting)]"
         }
-        return ss.joined(separator: " ")
+        if stocks.count > 1 {
+            dragon = "\(dragon)\(StockUtils.getStock(by: stocks[1].code).name)"
+        }
+        return dragon
     }
     
     private func getRightTableFooterView() -> UIView {
@@ -522,6 +489,7 @@ extension BlockCycleViewController:UITableViewDataSource {
             cell.textLabel!.text = title;
             cell.textLabel!.font = UIFont(name: "Arial", size: 12)
             cell.textLabel!.textAlignment = .center
+            cell.selectionStyle = .gray
         }
         else {
             let stackTableViewCell = cell as! StackTableViewCell

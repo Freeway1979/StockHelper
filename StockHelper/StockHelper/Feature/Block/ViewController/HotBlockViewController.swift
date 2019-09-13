@@ -246,7 +246,7 @@ extension HotBlockViewController {
         let row = indexPath.row
         if (section == SectionType.associatedStocks.rawValue) {
             let item = self.associatedStocks[row]
-            StockUtils.openStockHQPage(code: item.code, name: item.name, from: self.navigationController!)
+            StockUtils.gotoStockViewController(code: item.code, from: self.navigationController!)
         }
     }
     

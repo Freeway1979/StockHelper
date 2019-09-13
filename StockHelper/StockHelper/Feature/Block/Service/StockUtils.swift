@@ -169,6 +169,13 @@ class StockUtils {
         WebViewController.open(website: WebSite.getStockPageUrl(code: code), withtitle: name , from: navigator)
     }
     
+    public static func gotoStockViewController(code:String, from navigator:UINavigationController) {
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Stock",bundle: nil)
+        var destViewController : UIViewController
+        destViewController = mainStoryboard.instantiateViewController(withIdentifier: "StockViewController")
+        (destViewController as! StockViewController).stockCode = code
+        navigator.pushViewController(destViewController, animated: true)
+    }
     
     //
     

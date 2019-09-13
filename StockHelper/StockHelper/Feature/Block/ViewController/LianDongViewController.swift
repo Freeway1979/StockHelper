@@ -196,8 +196,7 @@ class LianDongViewController: DataServiceViewController {
         self.dataList.forEach { (item) in
             let items:[ItemData] = item.stocks.map({ (stock) -> ItemData in
                 let itemData = ItemData(title: stock.name, data: stock.code, onItemClicked: { [unowned self] (itemData) in
-                    print(itemData)
-                    StockUtils.openStockHQPage(code: itemData.data!, name: itemData.title, from: self.navigationController!)
+                    StockUtils.gotoStockViewController(code: itemData.data!, from: self.navigationController!)
                 })
                 return itemData
             })

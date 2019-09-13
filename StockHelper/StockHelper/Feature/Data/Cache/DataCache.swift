@@ -45,6 +45,37 @@ class DataCache {
         return stocks
     }
     
+    // 连板龙(高度板)
+    public static func getMarketDragonStock(date:String) -> ZhangTingStock? {
+        guard let stocksWithDate = getZhangTingStocks(by: date) else { return nil }
+        return stocksWithDate.stocks.first
+    }
+    
+    // 市场总龙头
+    public static func getMarketDragonStocks(dates:[String]) -> [ZhangTingStock]? {
+        var rs:[String:Int] = [:]
+        dates.forEach { (date) in
+            guard let stocksWithDate = getZhangTingStocks(by: date) else { return }
+            stocksWithDate.stocks.forEach({ (stock) in
+                let code = stock.code
+                if rs[code] == nil {
+                    rs[code] = 1
+                } else {
+                    rs[code] = 1 + rs[code]!
+                }
+            })
+        }
+        var topList:[ZhangTingStock] = []
+        for (k,v) in (Array(rs).sorted {$0.1 > $1.1}) {
+            topList.append(ZhangTingStock(code: k, zhangting: v))
+        }
+        if topList.count >= 3 {
+            return Array(topList.prefix(3))
+        }
+        return topList
+    }
+    
+    // 板块小龙头
     public static func getDragonStocks(dates:[String], gn:String) -> [ZhangTingStock] {
         var rs:[String:Int] = [:]
         dates.forEach { (date) in
@@ -65,7 +96,26 @@ class DataCache {
         for (k,v) in (Array(rs).sorted {$0.1 > $1.1}) {
             topList.append(ZhangTingStock(code: k, zhangting: v))
         }
+        if topList.count >= 3 {
+            return Array(topList.prefix(3))
+        }
         return topList
+    }
+    
+    public static func getTopBlockNamesForStock(stock:Stock) -> [String] {
+        // 看看是否在前十大热门板块中
+        let names:[String] = DataCache.getTopBlockNames()
+        var blocks:[String] = []
+        var count = 0
+        names.forEach({ name in
+            if (count < 10) {
+                if stock.gnList.contains(name) {
+                    blocks.append(name)
+                }
+                count = count + 1
+            }
+        })
+        return blocks
     }
     
     public static func getTopBlockNames() -> [String] {

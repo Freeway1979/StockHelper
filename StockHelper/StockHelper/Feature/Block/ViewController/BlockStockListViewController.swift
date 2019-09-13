@@ -159,12 +159,7 @@ extension BlockStockListViewController:UITableViewDelegate {
         let row = indexPath.row;
         let stock = self.displayedItems[row]
         print("Stock \(stock.name) clicked")
-        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Stock",bundle: nil)
-        var destViewController : UIViewController
-        destViewController = mainStoryboard.instantiateViewController(withIdentifier: "StockViewController")
-        (destViewController as! StockViewController).stockCode = stock.code
-        self.navigationController?.pushViewController(destViewController, animated: true)
-//        self.gotoViewController(storyboard: "Stock", storyboardId: "StockViewController")
+        StockUtils.gotoStockViewController(code: stock.code, from: self.navigationController!)
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
