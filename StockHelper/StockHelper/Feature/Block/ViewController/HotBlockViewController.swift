@@ -32,6 +32,18 @@ extension HotBlock {
     }
 }
 
+private var AssociatedObjectTopBlocksHandle: UInt8 = 0
+extension Stock2Blocks {
+    var topBlocksCount:Int {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedObjectTopBlocksHandle) as! Int
+        }
+        set {
+            objc_setAssociatedObject(self, &AssociatedObjectTopBlocksHandle, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+}
+
 class HotBlockViewController: UICollectionViewController {
     
     enum SectionType:Int {
@@ -42,10 +54,12 @@ class HotBlockViewController: UICollectionViewController {
     private var hotblocks:[HotBlock] = []
     private var associatedStocks:[Stock2Blocks] = []
 
+    private var sortByBlocksCount:Bool = true
     public var liandongStockCode:String?
     public var liandongStockName:String?
     
     private var headerTitles = ["概念板块","关联股票"]
+    private var associatedStocksOrderTitles = ["热门板块数排序","流通值排序"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -135,6 +149,23 @@ class HotBlockViewController: UICollectionViewController {
             return block.selected
         })
         self.associatedStocks = StockUtils.getAssociatedStockList(of: selectedHotblocks)
+        self.associatedStocks.forEach { (s) in
+            s.topBlocksCount = DataCache.getTopBlockNamesForStock(stock: s).count
+        }
+        self.sortByBlocksCount = true
+        self.associatedStocks.sort { (lhs, rhs) -> Bool in
+            // 热门板块数
+            if lhs.topBlocksCount > rhs.topBlocksCount {
+                return true
+            }
+            if lhs.topBlocksCount < rhs.topBlocksCount {
+                return false
+            }
+            // 市值
+            let lhsTrade = lhs.tradeValue.floatValue
+            let rhsTrade = rhs.tradeValue.floatValue
+            return lhsTrade < rhsTrade
+        }
         self.collectionView.reloadData()
     }
     
@@ -187,9 +218,11 @@ extension HotBlockViewController {
         }
         else if (section == SectionType.associatedStocks.rawValue) {
             let item = self.associatedStocks[row]
+            let hotblocksCount = DataCache.getTopBlockNamesForStock(stock: item).count
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: stockReuseIdentifier, for: indexPath)
                 as! StockCollectionViewCell
-            cell.stockNameLabel.text = item.name
+            let text = hotblocksCount > 0 ? "\(item.name)        热门:\(hotblocksCount)" : item.name
+            cell.stockNameLabel.text = text
             cell.codeLabel.text = "\(item.code)      流通值:\(item.formatMoney)"
             return cell
         }
@@ -215,7 +248,28 @@ extension HotBlockViewController {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                              withReuseIdentifier: headerReuseIdentifier,
                                                                              for: indexPath) as! HeaderCollectionView
-            headerView.contentLabel.text = headerTitles[indexPath.section]
+            
+            print("Section",indexPath.section)
+            if indexPath.section == 0 {
+                headerView.contentLabel.text = headerTitles[indexPath.section]
+            } else {
+                let text = "\(self.headerTitles[indexPath.section])   \(self.associatedStocksOrderTitles[self.sortByBlocksCount ? 0 : 1])"
+                headerView.contentLabel.text = text
+                headerView.onClicked = { [unowned self] () in
+                    self.sortByBlocksCount = !self.sortByBlocksCount
+                    self.associatedStocks.sort { (lhs, rhs) -> Bool in
+                        if self.sortByBlocksCount {
+                            return lhs.topBlocksCount > rhs.topBlocksCount
+                        }
+                        else {
+                            // 市值
+                            return lhs.tradeValue.floatValue < rhs.tradeValue.floatValue
+                        }
+                    }
+                    self.collectionView.reloadSections(IndexSet(integer: indexPath.section))
+                }
+            }
+            
             return headerView
         default:
             //4

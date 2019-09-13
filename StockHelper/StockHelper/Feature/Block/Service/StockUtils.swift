@@ -138,24 +138,6 @@ class StockUtils {
             })
             stocks.append(stock2blocks)
         }
-//        for stockCode in stockCodes {
-//            let blockCodeList = self.getBlockCodeList(of: stockCode)
-//            var hotblocksOfCode:[String] = []
-//            for hotblock in hotblocks {
-//                let bb = hotblock.block.code
-//                if blockCodeList.contains(bb) {
-//                    hotblocksOfCode.append(bb)
-//                }
-//            }
-//            if hotblocksOfCode.count >= limit {
-//                let stock2blocks = Stock2Blocks(stock: self.getStock(by: stockCode))
-//                for bb in hotblocksOfCode {
-//                    stock2blocks.blocks.append(self.getBlock(by: bb))
-//                }
-//                stocks.insert(stock2blocks)
-//            }
-//        }
-        // 3
         return stocks
     }
     
