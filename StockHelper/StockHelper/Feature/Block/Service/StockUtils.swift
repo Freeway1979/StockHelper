@@ -146,6 +146,21 @@ class StockUtils {
         return key;
     }
     
+    // 统计一个股票的概念和另外一个股票(龙头)的概念相同的概念数量
+    public static func getSameBlockNames(this:String, that:String) -> [String] {
+        let thisStock = getStock(by: this)
+        let thatStock = getStock(by: that)
+        let thisSet =  NSMutableSet(array: thisStock.gnList)
+        let thatSet =  NSMutableSet(array: thatStock.gnList)
+        thisSet.intersect(thatSet as! Set<AnyHashable>)
+        
+//        let rs:[String] = thisSet.map { (item) -> String in
+//            return item as! String
+//        }
+//        return rs
+        return thisSet.map { $0 as! String }
+    }
+    
     // UI
     public static func openStockHQPage(code:String, name:String, from navigator:UINavigationController) {
         WebViewController.open(website: WebSite.getStockPageUrl(code: code), withtitle: name , from: navigator)

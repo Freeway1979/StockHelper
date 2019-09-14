@@ -37,6 +37,7 @@ class ZhangTingListViewController: DataServiceViewController {
     private struct ItemData {
         var title: String = ""
         var data: String? = ""
+        var sameblocks:[String] = []
         var onItemClicked : (_ item:ItemData) -> Void
     }
     
@@ -62,7 +63,8 @@ class ZhangTingListViewController: DataServiceViewController {
     struct ZhenFuStock {
         var code:String
         var name:String
-        var zhangfu:String
+        var openZhangfu:String
+        var closeZhangfu:String
         var zhenfu:String
     }
     
@@ -107,20 +109,7 @@ class ZhangTingListViewController: DataServiceViewController {
     }
     
     private func setupLayoutData() {
-        var item:ItemData?
-        var layout:LayoutData?
-        var items:[ItemData] = []
-        // Item 4
-        item = ItemData(title: "最高板损益值", data: "http://data.10jqka.com.cn/market/xsjj/", onItemClicked: { [weak self] itemData in
-            self?.openWebSite(itemData: itemData)
-        })
-        items.append(item!)
-        layout = LayoutData(title: "涨停情绪",data: items)
-        self.layoutData.append(layout!)
-    }
-    
-    private func openWebSite(itemData:ItemData) {
-        WebViewController.open(website: (itemData.data!), withtitle: itemData.title, from: (self.navigationController?.navigationController)!)
+
     }
     
     func reloadData() {
@@ -177,9 +166,14 @@ class ZhangTingListViewController: DataServiceViewController {
             let zf = (item[4] as! String)
             let code = item[0] as! String
             let name = item[1] as! String
-            let zhangfu = (item[7] as! String)
-            let stock = ZhenFuStock(code: code, name: name, zhangfu: zhangfu, zhenfu: zf)
+            let openZhangfu = (item[7] as! String)
+            let closeZhangfu = (item[8] as! String)
+            let stock = ZhenFuStock(code: String(code.prefix(6)), name: name,
+                                    openZhangfu: openZhangfu, closeZhangfu: closeZhangfu,zhenfu: zf)
             list.append(stock)
+        }
+        list.sort { (lhs, rhs) -> Bool in
+            return lhs.zhenfu.floatValue > rhs.zhenfu.floatValue
         }
         self.zhenfuList = list
         print(list)
@@ -202,16 +196,37 @@ class ZhangTingListViewController: DataServiceViewController {
     }
     
     private func convertToLayoutData() {
-        self.dataList.forEach { (item) in
-            let items:[ItemData] = item.stocks.map({ (stock) -> ItemData in
-                let itemData = ItemData(title: stock.name, data: stock.code, onItemClicked: { [unowned self] (itemData) in
-                    print(itemData)
-                    self.showLiandongActionSheet(item: itemData)
-                })
-                return itemData
+        // 振幅清单
+        let items:[ItemData] = self.zhenfuList.map { (zf) -> ItemData in
+            let suffix:String = zf.closeZhangfu.floatValue > 0 ? "⇡" : "⇣"
+            let itemData = ItemData(title: "\(zf.name)\(suffix)", data: zf.code, sameblocks: [],
+                                    onItemClicked: { [unowned self] (itemData) in
+                                    StockUtils.openStockHQPage(code: zf.code, name: zf.name, from: self.navigationController!)
             })
-            let layout = LayoutData(title: item.zhangting,data: items)
-            self.layoutData.append(layout)
+            return itemData
+        }
+        let layout = LayoutData(title: "振幅榜单",data: items)
+        self.layoutData.append(layout)
+
+        // 涨停清单
+        let dragonCode = self.dataList.first?.stocks.first?.code
+        if dragonCode != nil {
+            self.dataList.forEach { (item) in
+                let items:[ItemData] = item.stocks.map({ (stock) -> ItemData in
+                    var sameblocks:[String] = []
+                    if stock.code != dragonCode {
+                       sameblocks = StockUtils.getSameBlockNames(this: stock.code, that: dragonCode!)
+                    }
+                    let itemData = ItemData(title: stock.name, data: stock.code, sameblocks: sameblocks,
+                                            onItemClicked: { [unowned self] (itemData) in
+                                                print(itemData)
+                                                self.showLiandongActionSheet(item: itemData)
+                    })
+                    return itemData
+                })
+                let layout = LayoutData(title: item.zhangting,data: items)
+                self.layoutData.append(layout)
+            }
         }
     }
     
@@ -273,7 +288,11 @@ extension ZhangTingListViewController: UICollectionViewDataSource {
             as! TagCollectionViewCell
         cell.contentButton.text = item.title
         cell.contentButton.setTextStyle(textStyle: TagButton.TextStyle.medium)
-        
+        if item.sameblocks.count > 0 {
+            let width = Int(UIScreen.main.bounds.size.width / CGFloat(columns))
+            cell.contentButton.badgeValue = String(item.sameblocks.count)
+            cell.contentButton.badgeOriginX = CGFloat(width-20)
+        }
         cell.onClicked = { () -> Void in
             print("Button clicked:\(cell.contentButton.text!)")
             item.onItemClicked(item)
@@ -297,6 +316,8 @@ extension ZhangTingListViewController: UICollectionViewDataSource {
                                                                              for: indexPath) as! HeaderCollectionView
             let title = indexPath.section == 0 ? group.title : "\(group.title)(\(group.data.count))"
             headerView.contentLabel.text = title
+            headerView.contentLabel.font = UIFont(name: "Arial", size: 18)
+            headerView.contentLabel.textColor = UIColor.blue
             return headerView
         default:
             //4

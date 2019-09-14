@@ -18,7 +18,6 @@ import Foundation
 
 import UIKit
 import WebKit
-import SwiftSoup
 
 class WencaiBaseViewController: UIViewController {
     var token:String?

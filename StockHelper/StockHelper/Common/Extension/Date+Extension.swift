@@ -45,4 +45,11 @@ extension Date {
         weekday = (weekday! - 1) % 7
         return weekday!
     }
+    
+    var hours:Int {
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone.init(identifier: "Asia/Shanghai")!;
+        calendar.locale = Locale.init(identifier: "zh_CN")
+        return calendar.dateComponents([.hour], from: self).hour ?? 0
+    }
 }

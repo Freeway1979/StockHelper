@@ -9,7 +9,6 @@
 import UIKit
 import WebKit
 import ZKProgressHUD
-import SwiftSoup
 
 class DataBuildViewController: DataServiceViewController {
     @IBOutlet weak var webView: WKWebView!

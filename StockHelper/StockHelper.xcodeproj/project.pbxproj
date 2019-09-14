@@ -65,8 +65,6 @@
 		A12BB2F2226C177F00AF6D49 /* DataCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12BB2F1226C177F00AF6D49 /* DataCache.swift */; };
 		A12C7DF52268AF050014D260 /* SelectedStocksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12C7DF42268AF050014D260 /* SelectedStocksViewController.swift */; };
 		A12CD64621F7EAF200CE5C70 /* WebSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12CD64521F7EAF200CE5C70 /* WebSite.swift */; };
-		A12DB39C226B47AE00AD5E78 /* THSDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12DB39B226B47AE00AD5E78 /* THSDataService.swift */; };
-		A12DB39E226B4A3000AD5E78 /* THSDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12DB39D226B4A3000AD5E78 /* THSDataProvider.swift */; };
 		A12F65EC22FFC6030023CFAF /* ZhangTingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12F65EB22FFC6030023CFAF /* ZhangTingListViewController.swift */; };
 		A132955921DB523C00A3B156 /* RemoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A132955821DB523C00A3B156 /* RemoteService.swift */; };
 		A1343F9221F45A310086FEEB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1343F9121F45A310086FEEB /* CloudKit.framework */; };
@@ -94,6 +92,8 @@
 		A155BFAF21F766A80026635A /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A155BFAD21F766A80026635A /* WebViewController.swift */; };
 		A155BFB221F769500026635A /* Common.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A155BFB121F769500026635A /* Common.storyboard */; };
 		A15D7B6323188F300013F5BB /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15D7B6223188F300013F5BB /* Regex.swift */; };
+		A162C11E232CA1EA00508384 /* UIButton+Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A162C11D232CA1EA00508384 /* UIButton+Badge.swift */; };
+		A162C120232CA2DC00508384 /* BadgeBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A162C11F232CA2DC00508384 /* BadgeBarButtonItem.swift */; };
 		A17DD2A622184C110078589D /* YanBaoSheDocumentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DD2A522184C110078589D /* YanBaoSheDocumentListViewController.swift */; };
 		A17DD2AA221866150078589D /* YanBaoServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DD2A9221866150078589D /* YanBaoServiceProvider.swift */; };
 		A18EE06921E15FD800E67D4B /* Study.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A18EE06821E15FD800E67D4B /* Study.storyboard */; };
@@ -211,8 +211,6 @@
 		A12BB2F1226C177F00AF6D49 /* DataCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCache.swift; sourceTree = "<group>"; };
 		A12C7DF42268AF050014D260 /* SelectedStocksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedStocksViewController.swift; sourceTree = "<group>"; };
 		A12CD64521F7EAF200CE5C70 /* WebSite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSite.swift; sourceTree = "<group>"; };
-		A12DB39B226B47AE00AD5E78 /* THSDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSDataService.swift; sourceTree = "<group>"; };
-		A12DB39D226B4A3000AD5E78 /* THSDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSDataProvider.swift; sourceTree = "<group>"; };
 		A12F65EB22FFC6030023CFAF /* ZhangTingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhangTingListViewController.swift; sourceTree = "<group>"; };
 		A132955821DB523C00A3B156 /* RemoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteService.swift; sourceTree = "<group>"; };
 		A1343F9021F45A130086FEEB /* StockHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StockHelper.entitlements; sourceTree = "<group>"; };
@@ -241,6 +239,8 @@
 		A155BFAD21F766A80026635A /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		A155BFB121F769500026635A /* Common.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Common.storyboard; sourceTree = "<group>"; };
 		A15D7B6223188F300013F5BB /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
+		A162C11D232CA1EA00508384 /* UIButton+Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Badge.swift"; sourceTree = "<group>"; };
+		A162C11F232CA2DC00508384 /* BadgeBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeBarButtonItem.swift; sourceTree = "<group>"; };
 		A17DD2A522184C110078589D /* YanBaoSheDocumentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YanBaoSheDocumentListViewController.swift; sourceTree = "<group>"; };
 		A17DD2A9221866150078589D /* YanBaoServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YanBaoServiceProvider.swift; sourceTree = "<group>"; };
 		A18EE06821E15FD800E67D4B /* Study.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Study.storyboard; sourceTree = "<group>"; };
@@ -569,6 +569,7 @@
 				A12A50C52220BED60045D320 /* String+GBK.swift */,
 				A1ABA3B22262E32C00985F3D /* Int+Extension.swift */,
 				A1915BBF22EC3E1000BE582D /* Date+Extension.swift */,
+				A162C11D232CA1EA00508384 /* UIButton+Badge.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -662,9 +663,7 @@
 		A12DB39A226B479D00AD5E78 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				A12DB39B226B47AE00AD5E78 /* THSDataService.swift */,
 				A19DDDDE224FB7B300D63D7A /* DataService.swift */,
-				A12DB39D226B4A3000AD5E78 /* THSDataProvider.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -935,6 +934,7 @@
 				A1ABA3BC2264B13E00985F3D /* StackTableHeaderView.xib */,
 				A141D268227ABD14000ED0EA /* TableHeaderView.xib */,
 				A141D26A227ABD6B000ED0EA /* TableHeaderView.swift */,
+				A162C11F232CA2DC00508384 /* BadgeBarButtonItem.swift */,
 			);
 			path = VIew;
 			sourceTree = "<group>";
@@ -1105,6 +1105,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-StockHelper/Pods-StockHelper-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/DeviceKit/DeviceKit.framework",
+				"${BUILT_PRODUCTS_DIR}/MIBadgeButton-Swift/MIBadgeButton_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
@@ -1115,6 +1116,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DeviceKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MIBadgeButton_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
@@ -1180,7 +1182,6 @@
 				065248B021C219020047405C /* PriceGridViewController.swift in Sources */,
 				A14115FB21DD8DA000E1B2BC /* MessageServiceProvider.swift in Sources */,
 				A19DDDDD224F008800D63D7A /* DataBuildViewController.swift in Sources */,
-				A12DB39E226B4A3000AD5E78 /* THSDataProvider.swift in Sources */,
 				A14CAAA322DCC286000BE70E /* WencaiUtils.swift in Sources */,
 				A10E4B3921CE57E10092B671 /* HomeViewController.swift in Sources */,
 				A132955921DB523C00A3B156 /* RemoteService.swift in Sources */,
@@ -1248,11 +1249,13 @@
 				A12A18CA21E95C64004294B5 /* StockUtils.swift in Sources */,
 				A17DD2AA221866150078589D /* YanBaoServiceProvider.swift in Sources */,
 				06F587FE21B9312700D69159 /* SymmetryViewController.swift in Sources */,
+				A162C120232CA2DC00508384 /* BadgeBarButtonItem.swift in Sources */,
 				A14115F721DD8CAA00E1B2BC /* MessageService.swift in Sources */,
 				A108395F231A77F8002D1B99 /* LoadData.swift in Sources */,
 				065248B421C226C30047405C /* MainViewController.swift in Sources */,
 				A12BB2EF226C0DB100AF6D49 /* WencaiResult.swift in Sources */,
 				A1E1277821E6B76F00527DC0 /* LeadStockViewController.swift in Sources */,
+				A162C11E232CA1EA00508384 /* UIButton+Badge.swift in Sources */,
 				A12A50BE221F7A040045D320 /* String+Common.swift in Sources */,
 				A1E1278E21E6C68600527DC0 /* UIViewController+Alert.swift in Sources */,
 				A1D2980C222BD40B005FBB1B /* ThirdWebSite.swift in Sources */,
@@ -1260,7 +1263,6 @@
 				A15D7B6323188F300013F5BB /* Regex.swift in Sources */,
 				A12A18DE21EA2878004294B5 /* StockViewController.swift in Sources */,
 				A12BB2F2226C177F00AF6D49 /* DataCache.swift in Sources */,
-				A12DB39C226B47AE00AD5E78 /* THSDataService.swift in Sources */,
 				A1343F9A21F46D7B0086FEEB /* TableViewSectionModel.swift in Sources */,
 				A13FAF5F2287B1F700F8A497 /* ReviewListViewController.swift in Sources */,
 				A12C7DF52268AF050014D260 /* SelectedStocksViewController.swift in Sources */,

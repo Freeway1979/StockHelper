@@ -350,7 +350,15 @@ class BlockCycleViewController: DataServiceViewController {
     }
     
     private func loadWenCaiData(date:String) {
-        if !forceUpdate {
+        let today = Date()
+        let isToday = date == today.formatWencaiDateString()
+        let isClosedMarket = today.hours > 3
+        var force:Bool = forceUpdate
+        // 当前收市前总是刷最新数据
+        if isToday && !isClosedMarket {
+            force = true
+        }
+        if !force {
             let blocks:[WenCaiBlockStat]? = DataCache.getBlocksByDate(date: date) ?? nil
             if blocks?.count ?? 0 > 0 {
                 print("\(date) already exists, go next")
