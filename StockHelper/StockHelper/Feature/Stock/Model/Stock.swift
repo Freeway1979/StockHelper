@@ -60,9 +60,17 @@ class Stock:Codable,Hashable {
     var pinyin:String = "";
     var tradeValue: String = "0";
     var gnListStr: String = ""
-    var zt: Int = 0;
+    
     var gnList:[String] {
         return gnListStr.split(separator: ";").map(String.init)
+    }
+    //120日内涨停数
+    var zts:Int {
+        let s:ZhangTingShuStock? = StockUtils.getZhangTingShuStock(by: code)
+        if s != nil {
+            return (s?.zt.numberValue!.intValue)!
+        }
+        return 0
     }
     var formatMoney:String {
         return self.tradeValue.formatMoney
@@ -77,7 +85,6 @@ class Stock:Codable,Hashable {
         case pinyin
         case tradeValue
         case gnListStr
-        case zt
     }
     
     required init(from decoder: Decoder) throws
@@ -88,7 +95,6 @@ class Stock:Codable,Hashable {
         pinyin = try container.decode(String.self, forKey: .pinyin)
         tradeValue = try container.decode(String.self, forKey: .tradeValue)
         gnListStr = try container.decode(String.self, forKey: .gnListStr)
-        zt = try container.decode(Int.self, forKey: .zt)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -98,7 +104,6 @@ class Stock:Codable,Hashable {
         try container.encode(pinyin, forKey: .pinyin)
         try container.encode(tradeValue, forKey: .tradeValue)
         try container.encode(gnListStr, forKey: .gnListStr)
-        try container.encode(zt, forKey: .zt)
     }
 }
 
