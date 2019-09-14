@@ -150,7 +150,7 @@ class HomeViewController: UICollectionViewController {
         // Item 1
         item = ItemData(title: "自定义选股", data: nil,onItemClicked: { itemData in
             print(itemData.title)
-            self.gotoViewController(storyboard: "Block", storyboardId: "SelectedStocksViewController")
+            self.gotoViewController(storyboard: "Data", storyboardId: "XuanguListViewController")
         })
         items.append(item!)
         layout = LayoutData(title: title,data: items)

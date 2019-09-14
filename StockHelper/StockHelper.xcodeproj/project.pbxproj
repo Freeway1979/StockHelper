@@ -94,6 +94,7 @@
 		A15D7B6323188F300013F5BB /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15D7B6223188F300013F5BB /* Regex.swift */; };
 		A162C11E232CA1EA00508384 /* UIButton+Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A162C11D232CA1EA00508384 /* UIButton+Badge.swift */; };
 		A162C120232CA2DC00508384 /* BadgeBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A162C11F232CA2DC00508384 /* BadgeBarButtonItem.swift */; };
+		A162C122232CADA200508384 /* XuanguListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A162C121232CADA200508384 /* XuanguListViewController.swift */; };
 		A17DD2A622184C110078589D /* YanBaoSheDocumentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DD2A522184C110078589D /* YanBaoSheDocumentListViewController.swift */; };
 		A17DD2AA221866150078589D /* YanBaoServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DD2A9221866150078589D /* YanBaoServiceProvider.swift */; };
 		A18EE06921E15FD800E67D4B /* Study.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A18EE06821E15FD800E67D4B /* Study.storyboard */; };
@@ -241,6 +242,7 @@
 		A15D7B6223188F300013F5BB /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		A162C11D232CA1EA00508384 /* UIButton+Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Badge.swift"; sourceTree = "<group>"; };
 		A162C11F232CA2DC00508384 /* BadgeBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeBarButtonItem.swift; sourceTree = "<group>"; };
+		A162C121232CADA200508384 /* XuanguListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XuanguListViewController.swift; sourceTree = "<group>"; };
 		A17DD2A522184C110078589D /* YanBaoSheDocumentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YanBaoSheDocumentListViewController.swift; sourceTree = "<group>"; };
 		A17DD2A9221866150078589D /* YanBaoServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YanBaoServiceProvider.swift; sourceTree = "<group>"; };
 		A18EE06821E15FD800E67D4B /* Study.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Study.storyboard; sourceTree = "<group>"; };
@@ -839,6 +841,7 @@
 				A113031123208232004051D7 /* NiuKuiStockDataService.swift */,
 				A11303132321B47C004051D7 /* ZhanggTingShuDataService.swift */,
 				A11303152321BBB8004051D7 /* JieJinStockDataService.swift */,
+				A162C121232CADA200508384 /* XuanguListViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1223,6 +1226,7 @@
 				A113031223208232004051D7 /* NiuKuiStockDataService.swift in Sources */,
 				A1F5953B21BD08E400EC5ECB /* MessageViewController.swift in Sources */,
 				06F5881B21BA38B600D69159 /* UITextField+Extension.swift in Sources */,
+				A162C122232CADA200508384 /* XuanguListViewController.swift in Sources */,
 				A12A50B42218DBC10045D320 /* JsonString2Objects.swift in Sources */,
 				A1083969231DC805002D1B99 /* BlockDataService.swift in Sources */,
 				06EDD3C5215241970035104B /* AppDelegate.swift in Sources */,

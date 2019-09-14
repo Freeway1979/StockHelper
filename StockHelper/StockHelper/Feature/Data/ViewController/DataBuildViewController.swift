@@ -55,7 +55,7 @@ class DataBuildViewController: DataServiceViewController {
          toggleSideMenuView()
     }
    
-    @IBAction func onRefreshButtonClicked(_ sender: UIBarButtonItem) {
+    func refreshServerData() {
         ZKProgressHUD.show()
         self.items.forEach { (item) in
             item.count = 0
@@ -66,6 +66,14 @@ class DataBuildViewController: DataServiceViewController {
         StockServiceProvider.resetData()
         prepareDataServices()
         self.runService(webView: self.webView, dataService: self.getFirstService()!)
+    }
+    
+    @IBAction func onRefreshButtonClicked(_ sender: UIBarButtonItem) {
+        self.showAlert(title: "提示", message: "你要重新加载吗(耗时1-2分钟)？", leftTitle: "我点错了", leftHandler: { (action) in
+            
+        }, rightTitle: "是的") { [unowned self] (action) in
+            self.refreshServerData()
+        }
     }
     
     @IBAction func onBuildClicked(_ sender: UIButton) {
