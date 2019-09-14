@@ -99,7 +99,7 @@ class StockViewController: UIViewController {
                 rise = rise.formatDot2FloatString
             }
             
-            let desc = "\(yingLiStock!.tradeValue.formatMoney) \(yingLiStock!.yingliValue.formatMoney) \(rise)%"
+            let desc = "流通值:\(yingLiStock!.tradeValue.formatMoney) 盈利:\(yingLiStock!.yingliValue.formatMoney) \(rise)%"
             cell.id = desc
             cell.title = desc
             section.rows.append(cell)

@@ -227,7 +227,17 @@ extension HotBlockViewController {
                 text = "\(text)       120日涨停数:\(item.zts)"
             }
             cell.stockNameLabel.text = text
-            cell.codeLabel.text = "\(item.code)             流通值:\(item.formatMoney)"
+            var detail = "\(item.code) 流通值:\(item.formatMoney)"
+            let yingli = item.yingliStr
+            if yingli != nil {
+                detail  = "\(detail)  \(yingli!)"
+            }
+            let jiejin = item.jiejinStr
+            if jiejin != nil {
+                detail  = "\(detail)  \(jiejin!)"
+            }
+            
+            cell.codeLabel.text = detail
             return cell
         }
         

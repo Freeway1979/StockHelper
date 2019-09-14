@@ -72,6 +72,29 @@ class Stock:Codable,Hashable {
         }
         return 0
     }
+    
+    var yingliStr:String? {
+        let s:YingLiStock? = StockUtils.getYingLiStock(by: code)
+        if s != nil {
+            return "盈利:\(s!.yingliRise.formatDot2FloatString)%"
+        }
+        return nil
+    }
+
+    var jiejinStr:String? {
+        let s:JieJinStock? = StockUtils.getJieJinStocks(by: code).first
+        if s != nil {
+           let date = s!.date
+           let today = Date()
+           let future = Date(timeInterval: 3600 * 24 * 30, since: today).formatWencaiDateString().replacingOccurrences(of: ".", with: "")
+           let rs = future.compare(date)
+           if rs != .orderedAscending {
+              return "解禁:\(date)"
+           }
+        }
+        return nil
+    }
+    
     var formatMoney:String {
         return self.tradeValue.formatMoney
     }
