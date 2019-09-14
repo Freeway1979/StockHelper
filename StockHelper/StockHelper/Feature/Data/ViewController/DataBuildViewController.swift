@@ -27,21 +27,28 @@ class DataBuildViewController: DataServiceViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var items = LoadData.loadData()
-//        items.removeAll()
-        if items.count == 0 {
-            items.append(LoadData(title: "概念板块", status: false, count: 0, updateTime: nil))
-            items.append(LoadData(title: "股票列表", status: false, count: 0, updateTime: nil))
-            items.append(LoadData(title: "盈利超2000万", status: false, count: 0, updateTime: nil))
-            items.append(LoadData(title: "扭亏为盈", status: false, count: 0, updateTime: nil))
-            items.append(LoadData(title: "120日内的涨停数", status: false, count: 0, updateTime: nil))
-            items.append(LoadData(title: "将要解禁", status: false, count: 0, updateTime: nil))
-        }
-        self.items = items
+        self.items = LoadData.loadData()
+        self.initialLoadData(title: "概念板块")
+        self.initialLoadData(title: "股票列表")
+        self.initialLoadData(title: "盈利超2000万")
+        self.initialLoadData(title: "扭亏为盈")
+        self.initialLoadData(title: "120日内的涨停数")
+        self.initialLoadData(title: "将要解禁")
+       
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         self.tableView.reloadData()
         self.setupWebView(webView: self.webView)
+    }
+    
+    func initialLoadData(title:String) {
+        var loadData = self.items.first { (item) -> Bool in
+            item.title == title
+        }
+        if loadData == nil {
+            loadData = LoadData(title: title, status: false, count: 0, updateTime: nil)
+            self.items.append(loadData!)
+        }
     }
     
     @IBAction func onMenuButtonClicked(_ sender: UIBarButtonItem) {
