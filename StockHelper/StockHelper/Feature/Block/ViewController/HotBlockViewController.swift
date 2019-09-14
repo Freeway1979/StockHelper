@@ -221,12 +221,13 @@ extension HotBlockViewController {
             let hotblocksCount = DataCache.getTopBlockNamesForStock(stock: item).count
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: stockReuseIdentifier, for: indexPath)
                 as! StockCollectionViewCell
-            var text = hotblocksCount > 0 ? "\(item.name)     热门:\(hotblocksCount)" : item.name
+            let spaces = item.name.count == 4 ? "     " : "         "
+            var text = hotblocksCount > 0 ? "\(item.name)\(spaces)热门:\(hotblocksCount)" : item.name
             if item.zts > 0 {
                 text = "\(text)       120日涨停数:\(item.zts)"
             }
             cell.stockNameLabel.text = text
-            cell.codeLabel.text = "\(item.code)      流通值:\(item.formatMoney)"
+            cell.codeLabel.text = "\(item.code)             流通值:\(item.formatMoney)"
             return cell
         }
         

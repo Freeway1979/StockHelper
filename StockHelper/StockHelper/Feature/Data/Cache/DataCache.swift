@@ -134,7 +134,7 @@ class DataCache {
         
         var topList:[String] = []
         for (k,v) in (Array(blockScoreDic).sorted {$0.1 > $1.1}) {
-            print("\(k):\(v)")
+//            print("\(k):\(v)")
             topList.append(k)
         }
         return topList
