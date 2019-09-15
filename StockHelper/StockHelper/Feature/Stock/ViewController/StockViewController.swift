@@ -99,7 +99,21 @@ class StockViewController: UIViewController {
                 rise = rise.formatDot2FloatString
             }
             
-            let desc = "流通值:\(yingLiStock!.tradeValue.formatMoney) 盈利:\(yingLiStock!.yingliValue.formatMoney) \(rise)%"
+            var desc = "流通值:\(yingLiStock!.tradeValue.formatMoney)"
+            cell.id = desc
+            cell.title = desc
+            section.rows.append(cell)
+            
+            desc = "盈利额:\(yingLiStock!.yingliValue.formatMoney)"
+            cell = TableViewCellModel();
+            cell.data = stockCode
+            cell.id = desc
+            cell.title = desc
+            section.rows.append(cell)
+            
+            cell = TableViewCellModel();
+            cell.data = stockCode
+            desc = "增长幅度:\(rise)%"
             cell.id = desc
             cell.title = desc
             section.rows.append(cell)

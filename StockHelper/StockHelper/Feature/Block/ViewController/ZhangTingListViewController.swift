@@ -198,7 +198,7 @@ class ZhangTingListViewController: DataServiceViewController {
     private func convertToLayoutData() {
         // 振幅清单
         let items:[ItemData] = self.zhenfuList.map { (zf) -> ItemData in
-            let suffix:String = zf.closeZhangfu.floatValue > 0 ? "⇡" : "⇣"
+            let suffix:String = zf.closeZhangfu.floatValue > 0 ? "↑" : "↓"
             let itemData = ItemData(title: "\(zf.name)\(suffix)", data: zf.code, sameblocks: [],
                                     onItemClicked: { [unowned self] (itemData) in
                                     StockUtils.openStockHQPage(code: zf.code, name: zf.name, from: self.navigationController!)
@@ -315,9 +315,9 @@ extension ZhangTingListViewController: UICollectionViewDataSource {
                                                                              withReuseIdentifier: headerReuseIdentifier,
                                                                              for: indexPath) as! HeaderCollectionView
             let title = indexPath.section == 0 ? group.title : "\(group.title)(\(group.data.count))"
-            headerView.contentLabel.text = title
+            headerView.contentLabel.text = "\(title)"
             headerView.contentLabel.font = UIFont(name: "Arial", size: 18)
-            headerView.contentLabel.textColor = UIColor.blue
+            headerView.contentLabel.textColor = UIColor.darkText
             return headerView
         default:
             //4

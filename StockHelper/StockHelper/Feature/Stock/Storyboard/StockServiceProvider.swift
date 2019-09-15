@@ -72,6 +72,7 @@ class StockServiceProvider {
 
     
     public static func buildBlock2StocksCodeMap() {
+        block2stocksCodeMap.removeAll()
         for stock in stocks {
             let stockCode = stock.code
             let gnList:[String] = stock.gnList
