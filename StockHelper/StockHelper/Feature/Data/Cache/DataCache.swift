@@ -45,6 +45,36 @@ class DataCache {
         return stocks
     }
     
+//    public static func buildLianXuZhangTingShu(dates:[String]) {
+//        let theDates = dates.sorted { (lhs, rhs) -> Bool in
+//            return lhs.compare(rhs) == .orderedAscending
+//        }
+//        var lastDate:String?
+//        theDates.forEach { (date) in
+//            let ztstocksWithDate:ZhangTingStocks = getZhangTingStocks(by: date)!
+//            var lastZtstocksWithDate:ZhangTingStocks?
+//            if lastDate != nil {
+//                lastZtstocksWithDate = getZhangTingStocks(by: lastDate!)
+//            }
+//            ztstocksWithDate.stocks.forEach({ (stock) in
+//                if lastZtstocksWithDate == nil {
+//                    stock.zhangting = 1
+//                } else {
+//                   let lastStock = lastZtstocksWithDate?.stocks.first(where: { (ztstock) -> Bool in
+//                        ztstock.code == stock.code
+//                    })
+//                    if lastStock != nil {
+//                        stock.zhangting = lastStock!.zhangting + 1
+//                    }
+//                }
+//            })
+//            ztstocksWithDate.stocks.sort { (lhs, rhs) -> Bool in
+//                return lhs.zhangting > rhs.zhangting
+//            }
+//            lastDate = date
+//        }
+//    }
+
     // 连板龙(高度板)
     public static func getMarketDragonStock(date:String) -> ZhangTingStock? {
         guard let stocksWithDate = getZhangTingStocks(by: date) else { return nil }

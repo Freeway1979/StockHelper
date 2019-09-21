@@ -240,7 +240,7 @@ class BlockCycleViewController: DataServiceViewController {
         let rs = dict["result"] as! [[Any]]
         let ztstocksWithDate = ZhangTingStocks(date: date, stocks: [])
         for item in rs {
-            let zt = Utils.getNumber(serverData:item[7]).intValue
+            let zt = Utils.getNumber(serverData:item[14]).intValue
             let code = item[0] as! String
             let stock = ZhangTingStock(code: String(code.prefix(6)), zhangting: zt)
             ztstocksWithDate.stocks.append(stock)
@@ -256,9 +256,17 @@ class BlockCycleViewController: DataServiceViewController {
     
     
     func prepareDataServices(date:String) {
-        var dataService = DataService(date: date, keywords: "\(date)概念板块资金 \(date)涨跌幅顺序 \(date)成交额大于100亿", title: "概念板块资金")
+        var dataService = DataService(date: date,keywords: "\(date)概念板块涨停数顺序 \(date)成交额大于100亿", title: "概念板块资金")
+        dataService.handler = { [unowned self] (date, json, dict) in
+            print("handleGNBlocksWithZhangTingShu", date)
+            self.handleGNBlocksWithZhangTingShu(date:date, dict: dict)
+        }
+        self.addService(dataService: dataService)
+        
+        dataService = DataService(date: date, keywords: "\(date)概念板块资金 \(date)涨幅 \(date)成交额大于100亿", title: "概念板块资金")
         dataService.onStart = { [unowned self] in
             self.rightFooterView?.text = "正在处理:\(date)"
+            self.title = "正在处理:\(date)"
         }
         dataService.handler = { [unowned self] (date, json, dict) in
             print("handleGNBlocksWithMoney", date)
@@ -266,15 +274,10 @@ class BlockCycleViewController: DataServiceViewController {
         }
         self.addService(dataService: dataService)
         
-        dataService = DataService(date: date,keywords: "\(date)概念板块涨停数顺序 \(date)成交额大于100亿", title: "概念板块资金")
-        dataService.handler = { [unowned self] (date, json, dict) in
-            print("handleGNBlocksWithZhangTingShu", date)
-            self.handleGNBlocksWithZhangTingShu(date:date, dict: dict)
-        }
-        self.addService(dataService: dataService)
+        
         
         if (DataCache.getZhangTingStocks(by:date) == nil) {
-            dataService = DataService(date: date,keywords: "\(date)连续涨停数大于0且连续涨停天数排序且上市天数大于20天且非ST 所属概念 前500", title: "连续涨停数排行榜")
+            dataService = DataService(date: date,keywords: "\(date)涨停且上市天数大于20天且非ST 所属概念 前500", title: "连续涨停数排行榜")
             dataService.handler = { [unowned self] (date, json, dict) in
                 print(json)
                 self.handleZhangTingResponse(date:date, dict: dict)
@@ -387,6 +390,7 @@ class BlockCycleViewController: DataServiceViewController {
     }
     
     override func onDataLoaded() {
+//        DataCache.buildLianXuZhangTingShu(dates: self.dates)
         DataCache.saveToDB()
         self.rightFooterView?.text = "处理完毕"
         self.updateTitle()

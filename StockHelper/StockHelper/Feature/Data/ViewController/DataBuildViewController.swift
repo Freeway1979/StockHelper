@@ -141,6 +141,7 @@ class DataBuildViewController: DataServiceViewController {
             guard let stocks = data else { return }
             self.finishItem(index: TABLE_ITEM.STOCK.rawValue, count: stocks.count)
             StockServiceProvider.stocks = stocks as! [Stock];
+            StockServiceProvider.buildStocksMap()
             StockServiceProvider.translateStocks2PinYin(stocks: stocks as! [Stock])
             StockDBProvider.saveBasicStocks(stocks: stocks as! [Stock])
             print("stocks", stocks.count)

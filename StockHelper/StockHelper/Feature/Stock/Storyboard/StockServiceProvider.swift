@@ -53,7 +53,7 @@ class StockServiceProvider {
     public static func getStockCodeListByBlockCode(_ code:String) -> [String] {
         return block2stocksCodeMap[code]!
     }
-    private static func buildStocksMap() {
+    public static func buildStocksMap() {
         var _stockMap:[String:Stock] = [:]
         for stock in stocks {
             _stockMap[stock.code] = stock

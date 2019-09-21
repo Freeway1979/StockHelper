@@ -39,10 +39,10 @@ class StockDataService: DataService {
         for item in rs {
             let code = item[0] as! String
             let name = item[1] as! String
-            let tradeValue = item[6] as? NSNumber
+            let tradeValue = Utils.getNumberString(serverData: item[6])
             let gn:String? = item[4] as? String
             let stock = Stock(code: String(code.prefix(6)), name: name)
-            stock.tradeValue = tradeValue != nil ? tradeValue!.stringValue : "0"
+            stock.tradeValue = tradeValue
             stock.gnListStr = gn ?? ""
             stocks.append(stock)
         }
