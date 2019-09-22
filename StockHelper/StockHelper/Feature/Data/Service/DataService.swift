@@ -48,10 +48,46 @@ class DataService {
         self.date = date
         self.keywords = keywords
         self.title = title
+        
+        self.paginationService = self.buildPaginationService()
+        if self.paginationService != nil {
+            self.paginationService?.handler = { [unowned self] (date, json, dict) in
+                self.handlePaginationResponse(date: date, json: json, dict: dict)
+            }
+        }
     }
     
     func handleResponse(date:String,json:String,dict:Dictionary<String, Any>) {
         
+    }
+    
+    // Pagination
+    func buildPaginationService() -> DataService? {
+           return nil
+    }
+    
+    private func handleWenCaiPaginationResponse(date:String,dict:Dictionary<String, Any>) -> [Any] {
+        print("\(date) handleWenCaiPaginationResponse")
+        let rs = dict["result"] as! [[Any]]
+        var list:[Any] = []
+        for item in rs {
+            let model = serverItemToModel(item: item)
+            if model != nil {
+                list.append(model!)
+            }
+        }
+        return list
+    }
+    
+    func serverItemToModel(item:[Any]) -> Any? {
+        return nil
+    }
+    
+    func handlePaginationResponse(date:String,json:String,dict:Dictionary<String, Any>) {
+        let list:[Any] = self.handleWenCaiPaginationResponse(date:date, dict: dict)
+        if self.onComplete != nil {
+            self.onComplete!(list)
+        }
     }
 }
 

@@ -129,7 +129,6 @@ class ZhangTingListViewController: DataServiceViewController {
     private func handleWenCaiResponse(date:String,dict:Dictionary<String, Any>) {
         print("\(date) handleWenCaiResponse")
         let rs = dict["result"] as! [[Any]]
-        //        print(rs)
         var dict:[String:[ZhangTingStockItem]] = [:]
         for item in rs {
             let zt = (item[7] as! NSNumber).intValue
@@ -181,12 +180,43 @@ class ZhangTingListViewController: DataServiceViewController {
     
     private func prepareData() {
         let today = Date().formatWencaiDateString()
-        var dataService = DataService(date: today,keywords: "连续涨停数大于0且连续涨停天数排序且上市天数大于20天且非ST 所属概念 前500", title: "连续涨停数排行榜")
-        dataService.handler = { [unowned self] (date, json, dict) in
-            print(json)
-            self.handleWenCaiResponse(date:date, dict: dict)
+        var dataService:DataService = ZhangTingDataService(date: today)
+        dataService.onComplete = { (data) in
+            guard var stocks:[ZhangTingStock] = data as? [ZhangTingStock] else { return }
+            let ztstocksWithDate = ZhangTingStocks(date: today, stocks: [])
+            stocks.sort { (lhs, rhs) -> Bool in
+               return lhs.zhangting > rhs.zhangting
+            }
+            DataCache.ztStocks.removeAll { (s) -> Bool in
+                return s.date == today
+            }
+            ztstocksWithDate.stocks.removeAll()
+            ztstocksWithDate.stocks = stocks
+            DataCache.ztStocks.append(ztstocksWithDate)
+            
+            //转换
+            var dict:[String:[ZhangTingStockItem]] = [:]
+            for item in stocks {
+                let zhangting = "\(item.zhangting)连板"
+                var list:[ZhangTingStockItem]? = dict[zhangting]
+                if (list == nil) {
+                    list = []
+                    
+                }
+                let stock = ZhangTingStockItem(code: item.code, name: item.name, zhangting: item.zhangting, gnList: item.gnList)
+                list?.append(stock)
+                dict[zhangting] = list
+            }
+            // Sort Dictionary
+            for (k,v) in (Array(dict).sorted {$0.key > $1.key}) {
+                let item = DataItem(zhangting: k, stocks: v)
+                self.dataList.append(item)
+            }
         }
         self.addService(dataService: dataService)
+        if dataService.paginationService != nil {
+            self.addService(dataService: dataService.paginationService!)
+        }
 
         dataService = DataService(date: today,keywords: "振幅大于15且非科创板且上市天数大于20 开盘涨跌幅", title: "连续涨停数排行榜")
         dataService.handler = { [unowned self] (date, json, dict) in

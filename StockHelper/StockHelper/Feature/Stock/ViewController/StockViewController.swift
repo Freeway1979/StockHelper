@@ -42,6 +42,13 @@ class StockViewController: UIViewController {
         cell.accessoryType = .disclosureIndicator
         section.rows.append(cell)
         
+        let desc = "流通值:\(stock.tradeValue.formatMoney)"
+        cell = TableViewCellModel();
+        cell.data = stockCode
+        cell.id = "流通市值"
+        cell.title = desc
+        section.rows.append(cell)
+        
         cell = TableViewCellModel();
         cell.data = stockCode
         cell.id = "股票行情"
@@ -87,8 +94,13 @@ class StockViewController: UIViewController {
         section.id = "SectionJieJin"
         let yingLiStock:YingLiStock? = StockUtils.getYingLiStock(by: stockCode)
         if yingLiStock != nil {
+            var desc = "盈利额:\(yingLiStock!.yingliValue.formatMoney)"
             cell = TableViewCellModel();
             cell.data = stockCode
+            cell.id = desc
+            cell.title = desc
+            section.rows.append(cell)
+            
             var rise:String = yingLiStock!.yingliRise
             if rise.contains("-") {
                 let f:Float = 0 - rise.floatValue
@@ -98,19 +110,6 @@ class StockViewController: UIViewController {
             } else {
                 rise = rise.formatDot2FloatString
             }
-            
-            var desc = "流通值:\(yingLiStock!.tradeValue.formatMoney)"
-            cell.id = desc
-            cell.title = desc
-            section.rows.append(cell)
-            
-            desc = "盈利额:\(yingLiStock!.yingliValue.formatMoney)"
-            cell = TableViewCellModel();
-            cell.data = stockCode
-            cell.id = desc
-            cell.title = desc
-            section.rows.append(cell)
-            
             cell = TableViewCellModel();
             cell.data = stockCode
             desc = "增长幅度:\(rise)%"

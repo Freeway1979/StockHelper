@@ -97,6 +97,7 @@
 		A162C122232CADA200508384 /* XuanguListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A162C121232CADA200508384 /* XuanguListViewController.swift */; };
 		A17DD2A622184C110078589D /* YanBaoSheDocumentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DD2A522184C110078589D /* YanBaoSheDocumentListViewController.swift */; };
 		A17DD2AA221866150078589D /* YanBaoServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DD2A9221866150078589D /* YanBaoServiceProvider.swift */; };
+		A1823F32233712D5008B1B3C /* ZhangTingDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1823F31233712D5008B1B3C /* ZhangTingDataService.swift */; };
 		A18EE06921E15FD800E67D4B /* Study.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A18EE06821E15FD800E67D4B /* Study.storyboard */; };
 		A18EE06B21E1601900E67D4B /* StudyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18EE06A21E1601900E67D4B /* StudyTableViewController.swift */; };
 		A1901AB121E8CBE100F14831 /* StockCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1901AAF21E8CBE000F14831 /* StockCollectionViewCell.swift */; };
@@ -245,6 +246,7 @@
 		A162C121232CADA200508384 /* XuanguListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XuanguListViewController.swift; sourceTree = "<group>"; };
 		A17DD2A522184C110078589D /* YanBaoSheDocumentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YanBaoSheDocumentListViewController.swift; sourceTree = "<group>"; };
 		A17DD2A9221866150078589D /* YanBaoServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YanBaoServiceProvider.swift; sourceTree = "<group>"; };
+		A1823F31233712D5008B1B3C /* ZhangTingDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhangTingDataService.swift; sourceTree = "<group>"; };
 		A18EE06821E15FD800E67D4B /* Study.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Study.storyboard; sourceTree = "<group>"; };
 		A18EE06A21E1601900E67D4B /* StudyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyTableViewController.swift; sourceTree = "<group>"; };
 		A1901AAF21E8CBE000F14831 /* StockCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -842,6 +844,7 @@
 				A11303132321B47C004051D7 /* ZhanggTingShuDataService.swift */,
 				A11303152321BBB8004051D7 /* JieJinStockDataService.swift */,
 				A162C121232CADA200508384 /* XuanguListViewController.swift */,
+				A1823F31233712D5008B1B3C /* ZhangTingDataService.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1201,6 +1204,7 @@
 				A11303142321B47C004051D7 /* ZhanggTingShuDataService.swift in Sources */,
 				A1F5953121BCCF1500EC5ECB /* MAStrategyViewController.swift in Sources */,
 				A12A50C42220BDCA0045D320 /* StockHQ.swift in Sources */,
+				A1823F32233712D5008B1B3C /* ZhangTingDataService.swift in Sources */,
 				A13FAF652287C7C000F8A497 /* DateUtils.swift in Sources */,
 				06F587F921B928BF00D69159 /* CalculatorViewController.swift in Sources */,
 				A1901AB121E8CBE100F14831 /* StockCollectionViewCell.swift in Sources */,

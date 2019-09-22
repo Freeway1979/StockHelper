@@ -14,45 +14,23 @@ class StockDataService: DataService {
         self.handler = { (date, json, dict) in
             
         }
-        self.paginationService = self.buildPaginationService()
     }
     
-    private func buildPaginationService() -> DataService {
-        let today = Date().formatWencaiDateString()
-        let dataService = DataService(date: today,keywords: "cacheToken", title: "StockList")
+    override func serverItemToModel(item:[Any]) -> Any {
+        let code = item[0] as! String
+        let name = item[1] as! String
+        let tradeValue = Utils.getNumberString(serverData: item[6])
+        let gn:String? = item[4] as? String
+        let stock = Stock(code: String(code.prefix(6)), name: name)
+        stock.tradeValue = tradeValue
+        stock.gnListStr = gn ?? ""
+        return stock
+    }
+    
+    override func buildPaginationService() -> DataService {
+        let dataService = DataService(date: self.date,keywords: "cacheToken", title: "StockList")
         dataService.perpage = 5000
-        dataService.handler = { [unowned self] (date, json, dict) in
-            self.handlePaginationResponse(date: date, json: json, dict: dict)
-        }
         return dataService
     }
-    
-    override func handleResponse(date:String,json:String,dict:Dictionary<String, Any>) {
-        
-    }
-    
-    func handleWenCaiStocksResponse(date:String,dict:Dictionary<String, Any>) -> [Any] {
-        print("\(date) handleWenCaiStocksResponse")
-        let rs = dict["result"] as! [[Any]]
-        print(rs.count)
-        var stocks:[Stock] = []
-        for item in rs {
-            let code = item[0] as! String
-            let name = item[1] as! String
-            let tradeValue = Utils.getNumberString(serverData: item[6])
-            let gn:String? = item[4] as? String
-            let stock = Stock(code: String(code.prefix(6)), name: name)
-            stock.tradeValue = tradeValue
-            stock.gnListStr = gn ?? ""
-            stocks.append(stock)
-        }
-        return stocks
-    }
-    
-    func handlePaginationResponse(date:String,json:String,dict:Dictionary<String, Any>) {
-        let stocks:[Stock] = self.handleWenCaiStocksResponse(date:date, dict: dict) as! [Stock]
-        if self.onComplete != nil {
-            self.onComplete!(stocks)
-        }
-    }
+
 }

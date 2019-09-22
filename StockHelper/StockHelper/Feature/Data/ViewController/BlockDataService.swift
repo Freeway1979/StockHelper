@@ -15,40 +15,17 @@ class BlockDataService: DataService {
         self.handler = { (date, json, dict) in
             
         }
-        self.paginationService = self.buildPaginationService()
     }
-
-    private func buildPaginationService() -> DataService {
-        let today = Date().formatWencaiDateString()
-        let dataService = DataService(date: today,keywords: "cacheToken", title: "BlockList")
-        dataService.handler = { [unowned self] (date, json, dict) in
-            self.handlePaginationResponse(date: date, json: json, dict: dict)
-        }
+    
+    override func buildPaginationService() -> DataService {
+        let dataService = DataService(date: self.date,keywords: "cacheToken", title: "BlockList")
         return dataService
     }
     
-    override func handleResponse(date:String,json:String,dict:Dictionary<String, Any>) {
-         
-    }
-    
-    private func handleWenCaiBlocksResponse(date:String,dict:Dictionary<String, Any>) -> [Block] {
-        print("\(date) handleWenCaiShandleWenCaiBlocksResponsetocksResponse")
-        let rs = dict["result"] as! [[Any]]
-        print(rs.count)
-        var blocks:[Block] = []
-        for item in rs {
-            let code = item[0] as! String
-            let name = item[1] as! String
-            let block = Block(code: String(code.prefix(6)), name: name)
-            blocks.append(block)
-        }
-        return blocks
-    }
-    
-    func handlePaginationResponse(date:String,json:String,dict:Dictionary<String, Any>) {
-        let blocks:[Block] = self.handleWenCaiBlocksResponse(date:date, dict: dict)
-        if self.onComplete != nil {
-            self.onComplete!(blocks)
-        }
+    override func serverItemToModel(item: [Any]) -> Any? {
+        let code = item[0] as! String
+        let name = item[1] as! String
+        let block = Block(code: String(code.prefix(6)), name: name)
+        return block
     }
 }
