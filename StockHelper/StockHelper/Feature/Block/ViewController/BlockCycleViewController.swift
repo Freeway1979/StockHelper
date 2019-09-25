@@ -24,7 +24,7 @@ class BlockCycleViewController: DataServiceViewController {
     var ztStockNames:String = ""
     var lastDate:String = ""
     var selectedItem: String? = "OLED"
-    
+    var tag: Int = 0
     let LeftTableViewCellId = "leftTableViewCell"
     let RightTableViewCellId = "StackTableViewCell"
     let RightTableHeaderView = "StackTableHeaderView"
@@ -401,6 +401,12 @@ class BlockCycleViewController: DataServiceViewController {
        let view = UILabel(frame: CGRect(x: 0,y: 0,width: self.view.bounds.width - 100,height: 40))
         view.text = self.ztStockNames
         view.font = UIFont(name: "Arial", size: 10)
+
+        let tapGesture = UITapGestureRecognizer(target:self, action: #selector(onRightFooterViewTapped(sender:)))
+        tapGesture.numberOfTouchesRequired =  1
+        view.addGestureRecognizer(tapGesture)
+        view.isUserInteractionEnabled = true
+        
         self.rightFooterView = view;
         return view;
     }
@@ -452,7 +458,29 @@ class BlockCycleViewController: DataServiceViewController {
         UIDevice.current.setValue(value, forKey: "orientation")
     }
     
+    private func gotoBlockZhangTingListViewController(date:String,blockName:String) {
+        if blockName.contains(date.substring(from: 5)) {
+            return
+        }
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Data",bundle: nil)
+        var destViewController : BlockZhangTingListViewController
+        destViewController = mainStoryboard.instantiateViewController(withIdentifier: "BlockZhangTingListViewController") as! BlockZhangTingListViewController
+        destViewController.dates = [date]
+        destViewController.blockName = blockName
+        self.navigationController?.pushViewController(destViewController, animated: true)
+    }
 }
+
+//extension BlockCycleViewController:UIGestureRecognizerDelegate{
+//
+//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+//
+//        if NSStringFromClass((touch.view?.classForCoder)!) == "UITableViewCellContentView" {
+//            return false
+//        }
+//        return true
+//    }
+//}
 
 extension BlockCycleViewController:UITableViewDataSource {
     // MARK: - Table view data source
@@ -525,14 +553,23 @@ extension BlockCycleViewController:UITableViewDataSource {
         return cell
     }
     
+    @objc func onRightFooterViewTapped(sender: UITapGestureRecognizer) {
+        if (self.selectedItem != nil && self.selectedItem! != "处理完成") {
+            let col = Int(self.tag % 100)
+            self.gotoBlockZhangTingListViewController(date: self.dates[col], blockName: self.selectedItem!)
+        }
+    }
+    
     @objc func buttonTapped(sender: UIButton) {
         if (sender.titleLabel?.text != nil && sender.titleLabel?.text!.count ?? 0 > 0) {
-        self.selectedItem = sender.titleLabel?.text!
-        self.leftTableView.reloadData()
-        self.rightTableView.reloadData()
-        let row = Int(sender.tag/100)
-        let col = Int(sender.tag % 100)
-        self.loadBlockStocks(row: row, col: col, blockName: self.selectedItem!)
+            self.selectedItem = sender.titleLabel?.text!
+            self.tag = sender.tag
+            self.leftTableView.reloadData()
+            self.rightTableView.reloadData()
+            let row = Int(sender.tag/100)
+            let col = Int(sender.tag % 100)
+            self.rightFooterView?.tag = sender.tag
+            self.loadBlockStocks(row: row, col: col, blockName: self.selectedItem!)
         }
     }
     
@@ -607,7 +644,7 @@ extension BlockCycleViewController:UITableViewDelegate {
             let dragon = self.getDragonStock(gn: self.selectedItem!)
             self.leftFooterView?.text = dragon
         } else {
-            
+            print(indexPath)
         }
         self.leftTableView.reloadData()
         self.rightTableView.reloadData()

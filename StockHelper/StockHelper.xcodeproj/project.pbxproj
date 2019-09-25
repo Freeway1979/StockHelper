@@ -98,6 +98,10 @@
 		A17DD2A622184C110078589D /* YanBaoSheDocumentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DD2A522184C110078589D /* YanBaoSheDocumentListViewController.swift */; };
 		A17DD2AA221866150078589D /* YanBaoServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DD2A9221866150078589D /* YanBaoServiceProvider.swift */; };
 		A1823F32233712D5008B1B3C /* ZhangTingDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1823F31233712D5008B1B3C /* ZhangTingDataService.swift */; };
+		A1823F3423375FB5008B1B3C /* BlockZhangTingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1823F3323375FB5008B1B3C /* BlockZhangTingListViewController.swift */; };
+		A1823F38233763DA008B1B3C /* ZhangTingStockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1823F36233763DA008B1B3C /* ZhangTingStockTableViewCell.swift */; };
+		A1823F39233763DA008B1B3C /* ZhangTingStockTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1823F37233763DA008B1B3C /* ZhangTingStockTableViewCell.xib */; };
+		A1823F3B23376F7B008B1B3C /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1823F3A23376F7B008B1B3C /* NSObject+Extension.swift */; };
 		A18EE06921E15FD800E67D4B /* Study.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A18EE06821E15FD800E67D4B /* Study.storyboard */; };
 		A18EE06B21E1601900E67D4B /* StudyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18EE06A21E1601900E67D4B /* StudyTableViewController.swift */; };
 		A1901AB121E8CBE100F14831 /* StockCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1901AAF21E8CBE000F14831 /* StockCollectionViewCell.swift */; };
@@ -247,6 +251,10 @@
 		A17DD2A522184C110078589D /* YanBaoSheDocumentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YanBaoSheDocumentListViewController.swift; sourceTree = "<group>"; };
 		A17DD2A9221866150078589D /* YanBaoServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YanBaoServiceProvider.swift; sourceTree = "<group>"; };
 		A1823F31233712D5008B1B3C /* ZhangTingDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhangTingDataService.swift; sourceTree = "<group>"; };
+		A1823F3323375FB5008B1B3C /* BlockZhangTingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockZhangTingListViewController.swift; sourceTree = "<group>"; };
+		A1823F36233763DA008B1B3C /* ZhangTingStockTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhangTingStockTableViewCell.swift; sourceTree = "<group>"; };
+		A1823F37233763DA008B1B3C /* ZhangTingStockTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZhangTingStockTableViewCell.xib; sourceTree = "<group>"; };
+		A1823F3A23376F7B008B1B3C /* NSObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
 		A18EE06821E15FD800E67D4B /* Study.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Study.storyboard; sourceTree = "<group>"; };
 		A18EE06A21E1601900E67D4B /* StudyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyTableViewController.swift; sourceTree = "<group>"; };
 		A1901AAF21E8CBE000F14831 /* StockCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -574,6 +582,7 @@
 				A1ABA3B22262E32C00985F3D /* Int+Extension.swift */,
 				A1915BBF22EC3E1000BE582D /* Date+Extension.swift */,
 				A162C11D232CA1EA00508384 /* UIButton+Badge.swift */,
+				A1823F3A23376F7B008B1B3C /* NSObject+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -781,6 +790,15 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		A1823F352337638B008B1B3C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A1823F36233763DA008B1B3C /* ZhangTingStockTableViewCell.swift */,
+				A1823F37233763DA008B1B3C /* ZhangTingStockTableViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		A18EE06521E15F9800E67D4B /* Study */ = {
 			isa = PBXGroup;
 			children = (
@@ -820,6 +838,7 @@
 		A19DDDD6224EF80600D63D7A /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				A1823F352337638B008B1B3C /* View */,
 				A12BB2F0226C177100AF6D49 /* Cache */,
 				A12DB39A226B479D00AD5E78 /* Service */,
 				A19DDDD9224EF82700D63D7A /* Model */,
@@ -845,6 +864,7 @@
 				A11303152321BBB8004051D7 /* JieJinStockDataService.swift */,
 				A162C121232CADA200508384 /* XuanguListViewController.swift */,
 				A1823F31233712D5008B1B3C /* ZhangTingDataService.swift */,
+				A1823F3323375FB5008B1B3C /* BlockZhangTingListViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1077,6 +1097,7 @@
 				A13FAF5D2287B16300F8A497 /* Review.storyboard in Resources */,
 				06EDD3D1215241990035104B /* LaunchScreen.storyboard in Resources */,
 				A1901AB521E8CBEE00F14831 /* TagCollectionViewCell.xib in Resources */,
+				A1823F39233763DA008B1B3C /* ZhangTingStockTableViewCell.xib in Resources */,
 				A141D269227ABD14000ED0EA /* TableHeaderView.xib in Resources */,
 				A10E4B4B21CE67D20092B671 /* Block.storyboard in Resources */,
 				06EDD3CE215241990035104B /* Assets.xcassets in Resources */,
@@ -1184,6 +1205,7 @@
 				A13FEFB222047483002B1E7E /* DocumentListViewController.swift in Sources */,
 				A1ABA3B12262DF5E00985F3D /* BlockCycleViewController.swift in Sources */,
 				A12A50B6221F632C0045D320 /* StockAPI.swift in Sources */,
+				A1823F3B23376F7B008B1B3C /* NSObject+Extension.swift in Sources */,
 				065248B221C21D7C0047405C /* Float+Format.swift in Sources */,
 				065248B021C219020047405C /* PriceGridViewController.swift in Sources */,
 				A14115FB21DD8DA000E1B2BC /* MessageServiceProvider.swift in Sources */,
@@ -1210,6 +1232,7 @@
 				A1901AB121E8CBE100F14831 /* StockCollectionViewCell.swift in Sources */,
 				06EDD3F4215245120035104B /* StockBlockChange.swift in Sources */,
 				A12CD64621F7EAF200CE5C70 /* WebSite.swift in Sources */,
+				A1823F3423375FB5008B1B3C /* BlockZhangTingListViewController.swift in Sources */,
 				A1D44CBC21D9FA500043A4A5 /* StockServiceProvider.swift in Sources */,
 				A1D29809222BD0A9005FBB1B /* WebSiteListViewController.swift in Sources */,
 				A1F4428D21E0D56A00999138 /* ENSideMenuNavigationController.swift in Sources */,
@@ -1227,6 +1250,7 @@
 				A12A18D121E9CA3D004294B5 /* HeaderCollectionView.swift in Sources */,
 				A1F4428C21E0D56A00999138 /* ENSideMenu.swift in Sources */,
 				A108396B231DD822002D1B99 /* StockDataService.swift in Sources */,
+				A1823F38233763DA008B1B3C /* ZhangTingStockTableViewCell.swift in Sources */,
 				A113031223208232004051D7 /* NiuKuiStockDataService.swift in Sources */,
 				A1F5953B21BD08E400EC5ECB /* MessageViewController.swift in Sources */,
 				06F5881B21BA38B600D69159 /* UITextField+Extension.swift in Sources */,
