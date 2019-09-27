@@ -23,7 +23,10 @@ enum StockHQAPI {
         var url:String {
             switch self {
             case .HQ(let code,let period):
-                let codeType:Int = code.starts(with: "6") ? 1 : 2
+                var codeType:Int = code.starts(with: "6") ? 1 : 2
+                if code == "000001" {
+                    codeType = 1;
+                }
                 let url = "http://cq.ssajax.cn/interact/getTradedata.ashx?pic=qlpic_\(code)_\(codeType)_\(period.rawValue)"
                 return url
             }

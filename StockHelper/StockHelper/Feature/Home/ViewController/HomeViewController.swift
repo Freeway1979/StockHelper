@@ -13,13 +13,15 @@ private let reuseIdentifier = "Cell"
 
 fileprivate let tagReuseIdentifier = "TagCollectionViewCell"
 fileprivate let headerReuseIdentifier = "HeaderCollectionView"
+fileprivate let dapanOverviewCollectionViewCell = "DapanOverviewCollectionViewCell"
 fileprivate let columns = 4
 fileprivate let sectionInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
 
 
 class HomeViewController: UICollectionViewController {
     enum SectionType:Int {
-        case QuickActions = 0
+        case DapanOverview = 0
+        case QuickActions
         case BlockPeriod
         case HotBlocks
         case HotStocks
@@ -27,6 +29,7 @@ class HomeViewController: UICollectionViewController {
         case WebSite
         func description() -> String {
             switch self {
+            case .DapanOverview: return "大盘概况"
             case .QuickActions: return "快捷方式"
             case .BlockPeriod: return "板块淘金"
             case .HotBlocks: return "人气板块"
@@ -59,6 +62,8 @@ class HomeViewController: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
         // Register cell classes
         self.collectionView.register(UINib(nibName:tagReuseIdentifier, bundle: nil), forCellWithReuseIdentifier: tagReuseIdentifier)
+        self.collectionView.register(UINib(nibName:dapanOverviewCollectionViewCell, bundle: nil), forCellWithReuseIdentifier: dapanOverviewCollectionViewCell)
+        
         self.collectionView.register(UINib(nibName: headerReuseIdentifier,bundle:nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier)
         
         
@@ -84,6 +89,11 @@ class HomeViewController: UICollectionViewController {
         var layout:LayoutData?
         var items:[ItemData] = []
         
+        
+         title = SectionType.DapanOverview.description()
+         items.removeAll()
+         layout = LayoutData(title: title,data: items)
+         self.layoutData.append(layout!)
         
         // Group 0
         title = SectionType.QuickActions.description()
@@ -186,6 +196,11 @@ class HomeViewController: UICollectionViewController {
             ZKProgressHUD.show()
         })
      
+//        let hqList:StockHQList = StockHQProvider.getStockDayHQ(by: "000001")
+//        let list = hqList.hqList
+//        print(list)
+        let rs = DapanOverview.getHQListFromServer(code: "000001", startDate: "20190701", endDate: "20190927")
+        
         // 1
         myQueue.async(group: group, qos: .default, flags: [], execute: {
             print("task 1")
@@ -222,6 +237,9 @@ extension HomeViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if section == SectionType.DapanOverview.rawValue {
+            return 1
+        }
         return self.layoutData[section].data.count
     }
     
@@ -249,6 +267,13 @@ extension HomeViewController {
             return cell
         }
 
+        if section == SectionType.DapanOverview.rawValue
+        {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dapanOverviewCollectionViewCell, for: indexPath)
+                as! DapanOverviewCollectionViewCell
+            // Configure the cell
+            return cell
+        }
         
         // never go here
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tagReuseIdentifier, for: indexPath)
@@ -293,6 +318,9 @@ extension HomeViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let section = indexPath.section
+        if section == SectionType.DapanOverview.rawValue {
+            return
+        }
         let row = indexPath.row
         let item = self.layoutData[section].data[row]
         print(item)
@@ -318,7 +346,12 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-    //let screenWidth = UIScreen.main.bounds.size.width;
+        let section = indexPath.section
+        if section == SectionType.DapanOverview.rawValue {
+            let screenWidth = UIScreen.main.bounds.size.width;
+            return CGSize(width: screenWidth, height: 120)
+        }
+   
         let height = Theme.CellView.height
         var width = Int(UIScreen.main.bounds.size.width / CGFloat(columns))
         if width < Int(Theme.TagButton.width) {

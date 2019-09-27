@@ -8,7 +8,6 @@ PODS:
     - Alamofire (~> 4.1)
     - Result (~> 3.0)
   - Result (3.2.4)
-  - SwiftSoup (1.7.2)
   - Then (2.3.0)
   - ZKProgressHUD (3.2):
     - Then
@@ -17,7 +16,6 @@ DEPENDENCIES:
   - DeviceKit
   - MIBadgeButton-Swift (from `https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git`, branch `master`)
   - Moya
-  - SwiftSoup
   - ZKProgressHUD
 
 SPEC REPOS:
@@ -26,7 +24,6 @@ SPEC REPOS:
     - DeviceKit
     - Moya
     - Result
-    - SwiftSoup
     - Then
     - ZKProgressHUD
 
@@ -46,10 +43,9 @@ SPEC CHECKSUMS:
   MIBadgeButton-Swift: 9e57309b00b168d75ca8fecb45bc75124a8ffddf
   Moya: a725035953bc1c0eb1be505ab903984501d82440
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
-  SwiftSoup: e5f61d37e3d802a4b5db81b4945de3da9bfdf115
   Then: ee21c97b85ff6062b9b0080c9abb1eea46743345
   ZKProgressHUD: 745775bf0be6c7ce831153198305facf796ebc94
 
-PODFILE CHECKSUM: 9946cc34e10ab193bc6c30c662a104f4a325a902
+PODFILE CHECKSUM: 787140cc4e48e3a788724886306f7bfba6d4ed35
 
 COCOAPODS: 1.5.0

@@ -52,4 +52,8 @@ extension Date {
         calendar.locale = Locale.init(identifier: "zh_CN")
         return calendar.dateComponents([.hour], from: self).hour ?? 0
     }
+    
+    var isMarketClosed:Bool {
+        return self.hours > 3
+    }
 }

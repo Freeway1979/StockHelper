@@ -71,6 +71,8 @@
 		A1343F9521F45A830086FEEB /* iCloudUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1343F9421F45A830086FEEB /* iCloudUtils.swift */; };
 		A1343F9821F46D6E0086FEEB /* TableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1343F9721F46D6E0086FEEB /* TableViewCellModel.swift */; };
 		A1343F9A21F46D7B0086FEEB /* TableViewSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1343F9921F46D7B0086FEEB /* TableViewSectionModel.swift */; };
+		A136A0B9233D785700658A78 /* DapanOverviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A136A0B7233D785700658A78 /* DapanOverviewCollectionViewCell.swift */; };
+		A136A0BA233D785700658A78 /* DapanOverviewCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A136A0B8233D785700658A78 /* DapanOverviewCollectionViewCell.xib */; };
 		A13FAF5D2287B16300F8A497 /* Review.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A13FAF5C2287B16300F8A497 /* Review.storyboard */; };
 		A13FAF5F2287B1F700F8A497 /* ReviewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13FAF5E2287B1F700F8A497 /* ReviewListViewController.swift */; };
 		A13FAF612287B21600F8A497 /* ReviewDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13FAF602287B21600F8A497 /* ReviewDetailViewController.swift */; };
@@ -125,6 +127,7 @@
 		A1E1277821E6B76F00527DC0 /* LeadStockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E1277721E6B76F00527DC0 /* LeadStockViewController.swift */; };
 		A1E1277C21E6B99F00527DC0 /* HotBlockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E1277B21E6B99F00527DC0 /* HotBlockViewController.swift */; };
 		A1E1278E21E6C68600527DC0 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E1278D21E6C68600527DC0 /* UIViewController+Alert.swift */; };
+		A1F2AB25233D8240007DFAE2 /* DapanOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F2AB24233D8240007DFAE2 /* DapanOverview.swift */; };
 		A1F4427F21E0122A00999138 /* BlockStockListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4427E21E0122A00999138 /* BlockStockListViewController.swift */; };
 		A1F4428521E015FC00999138 /* StockDBProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4428421E015FC00999138 /* StockDBProvider.swift */; };
 		A1F4428C21E0D56A00999138 /* ENSideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4428A21E0D56900999138 /* ENSideMenu.swift */; };
@@ -224,6 +227,8 @@
 		A1343F9421F45A830086FEEB /* iCloudUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudUtils.swift; sourceTree = "<group>"; };
 		A1343F9721F46D6E0086FEEB /* TableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellModel.swift; sourceTree = "<group>"; };
 		A1343F9921F46D7B0086FEEB /* TableViewSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSectionModel.swift; sourceTree = "<group>"; };
+		A136A0B7233D785700658A78 /* DapanOverviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DapanOverviewCollectionViewCell.swift; sourceTree = "<group>"; };
+		A136A0B8233D785700658A78 /* DapanOverviewCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DapanOverviewCollectionViewCell.xib; sourceTree = "<group>"; };
 		A13FAF5C2287B16300F8A497 /* Review.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Review.storyboard; sourceTree = "<group>"; };
 		A13FAF5E2287B1F700F8A497 /* ReviewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListViewController.swift; sourceTree = "<group>"; };
 		A13FAF602287B21600F8A497 /* ReviewDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailViewController.swift; sourceTree = "<group>"; };
@@ -279,6 +284,7 @@
 		A1E1277721E6B76F00527DC0 /* LeadStockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadStockViewController.swift; sourceTree = "<group>"; };
 		A1E1277B21E6B99F00527DC0 /* HotBlockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotBlockViewController.swift; sourceTree = "<group>"; };
 		A1E1278D21E6C68600527DC0 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
+		A1F2AB24233D8240007DFAE2 /* DapanOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DapanOverview.swift; sourceTree = "<group>"; };
 		A1F4427E21E0122A00999138 /* BlockStockListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockStockListViewController.swift; sourceTree = "<group>"; };
 		A1F4428421E015FC00999138 /* StockDBProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDBProvider.swift; sourceTree = "<group>"; };
 		A1F4428A21E0D56900999138 /* ENSideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSideMenu.swift; sourceTree = "<group>"; };
@@ -381,6 +387,7 @@
 		06EDD3E7215242380035104B /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				A136A0AD233D6FFB00658A78 /* DaPan */,
 				A13FAF592287B13100F8A497 /* Review */,
 				A19DDDD6224EF80600D63D7A /* Data */,
 				A13FEFA8220473E5002B1E7E /* Document */,
@@ -706,6 +713,40 @@
 				A1343F9921F46D7B0086FEEB /* TableViewSectionModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A136A0AD233D6FFB00658A78 /* DaPan */ = {
+			isa = PBXGroup;
+			children = (
+				A136A0B6233D70DA00658A78 /* ViewController */,
+				A136A0AF233D701D00658A78 /* Model */,
+				A136A0AE233D700900658A78 /* View */,
+			);
+			path = DaPan;
+			sourceTree = "<group>";
+		};
+		A136A0AE233D700900658A78 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A136A0B7233D785700658A78 /* DapanOverviewCollectionViewCell.swift */,
+				A136A0B8233D785700658A78 /* DapanOverviewCollectionViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A136A0AF233D701D00658A78 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A1F2AB24233D8240007DFAE2 /* DapanOverview.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A136A0B6233D70DA00658A78 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		A13FAF592287B13100F8A497 /* Review */ = {
@@ -1109,6 +1150,7 @@
 				06EDD3CC215241970035104B /* Main.storyboard in Resources */,
 				A18EE06921E15FD800E67D4B /* Study.storyboard in Resources */,
 				A1ABA3B72262F16700985F3D /* StackTableViewCell.xib in Resources */,
+				A136A0BA233D785700658A78 /* DapanOverviewCollectionViewCell.xib in Resources */,
 				A10E4B4721CE610F0092B671 /* Calculator.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1135,7 +1177,6 @@
 				"${BUILT_PRODUCTS_DIR}/MIBadgeButton-Swift/MIBadgeButton_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 				"${BUILT_PRODUCTS_DIR}/Then/Then.framework",
 				"${BUILT_PRODUCTS_DIR}/ZKProgressHUD/ZKProgressHUD.framework",
 			);
@@ -1146,7 +1187,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MIBadgeButton_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Then.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZKProgressHUD.framework",
 			);
@@ -1247,6 +1287,7 @@
 				A12F65EC22FFC6030023CFAF /* ZhangTingListViewController.swift in Sources */,
 				A1F4429821E108B800999138 /* SettingViewController.swift in Sources */,
 				A152A0FF22C90070006B0DF4 /* DaBan.swift in Sources */,
+				A1F2AB25233D8240007DFAE2 /* DapanOverview.swift in Sources */,
 				A12A18D121E9CA3D004294B5 /* HeaderCollectionView.swift in Sources */,
 				A1F4428C21E0D56A00999138 /* ENSideMenu.swift in Sources */,
 				A108396B231DD822002D1B99 /* StockDataService.swift in Sources */,
@@ -1283,6 +1324,7 @@
 				06F587FE21B9312700D69159 /* SymmetryViewController.swift in Sources */,
 				A162C120232CA2DC00508384 /* BadgeBarButtonItem.swift in Sources */,
 				A14115F721DD8CAA00E1B2BC /* MessageService.swift in Sources */,
+				A136A0B9233D785700658A78 /* DapanOverviewCollectionViewCell.swift in Sources */,
 				A108395F231A77F8002D1B99 /* LoadData.swift in Sources */,
 				065248B421C226C30047405C /* MainViewController.swift in Sources */,
 				A12BB2EF226C0DB100AF6D49 /* WencaiResult.swift in Sources */,
@@ -1466,6 +1508,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StockHelper/StockHelper.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 20190926;
 				DEVELOPMENT_TEAM = RTCEZS3U4Z;
 				INFOPLIST_FILE = StockHelper/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1486,6 +1529,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StockHelper/StockHelper.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 20190926;
 				DEVELOPMENT_TEAM = RTCEZS3U4Z;
 				INFOPLIST_FILE = StockHelper/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

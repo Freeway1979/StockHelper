@@ -14,4 +14,10 @@ extension String {
         let enc = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(cfEnc.rawValue))
         self.init(data: gbkData, encoding: String.Encoding(rawValue: enc))
     }
+    
+   public static var gbkEncoding:String.Encoding {
+        let cfEnc = CFStringEncodings.GB_18030_2000
+        let enc = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(cfEnc.rawValue))
+        return String.Encoding(rawValue: enc)
+    }
 }

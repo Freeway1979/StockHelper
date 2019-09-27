@@ -9,7 +9,7 @@ target 'StockHelper' do
   pod 'Moya'
   pod 'DeviceKit'
   # parse HTML
-  pod 'SwiftSoup'
+#  pod 'SwiftSoup'
   # UI
   # https://github.com/WangWenzhuang/ZKProgressHUD
   pod 'ZKProgressHUD'

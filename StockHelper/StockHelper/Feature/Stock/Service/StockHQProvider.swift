@@ -27,7 +27,8 @@ class StockHQProvider {
         let data = try? Data(contentsOf: URL(string: url)!)
         let jsonStr = cstar.parseData(data: data!)
         let jsonDecoder = JSONDecoder()
-        let modelObject:StockHQList? = try? jsonDecoder.decode(StockHQList.self, from: jsonStr.data(using: String.Encoding.utf8)!)
+        var modelObject:StockHQList? = try? jsonDecoder.decode(StockHQList.self, from: jsonStr.data(using: String.Encoding.utf8)!)
+        modelObject?.datas.reverse()
         //Cache
         cache[code] = modelObject
         

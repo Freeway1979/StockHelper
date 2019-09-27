@@ -8,10 +8,30 @@
 
 import Foundation
 
+enum StockHQType:String {
+    case Day = "Day"
+    case Week = "Week"
+    case Month = "Month"
+}
+
 struct StockHQList :Codable {
     var type:String = "Day"
     var code:String = ""
     var datas:[[String]] = []
+    
+    var hqList: [StockDayHQ] {
+        var list:[StockDayHQ] = []
+        let count = datas.count
+        for index in 0...count-1 {
+            let data = datas[index]
+            let hq = StockDayHQ(data: data)
+            hq.ma5 = calculateMA5(dataIndex: index)
+            hq.ma10 = calculateMA10(dataIndex: index)
+            hq.ma20 = calculateMA20(dataIndex: index)
+            list.append(hq)
+        }
+        return list
+    }
     
     func predictMA5(predictedChange:Float) -> Float {
         return self.predictedMA(predictedChange: predictedChange, days: 5)
@@ -21,6 +41,39 @@ struct StockHQList :Codable {
     }
     func predictMA20(predictedChange:Float) -> Float {
         return self.predictedMA(predictedChange: predictedChange, days: 20)
+    }
+    
+    func calculateMA5(dataIndex:Int) -> Float {
+        return calculateMA(dataIndex: dataIndex)
+    }
+    
+    func calculateMA10(dataIndex:Int) -> Float {
+        return calculateMA(dataIndex: dataIndex,days: 10)
+    }
+    
+    func calculateMA20(dataIndex:Int) -> Float {
+        return calculateMA(dataIndex: dataIndex, days: 20)
+    }
+    
+    func calculateMA(dataIndex:Int, days:Int = 5) -> Float {
+        let count = datas.count
+        if count <= dataIndex {
+            return 0
+        }
+        var sum:Float = 0
+        for index in dataIndex ..< dataIndex+days {
+            print(days,index)
+            if index < count {
+                let data = datas[index]
+                let date = data[StockDataIndex.Date.rawValue]
+                let close = data[StockDataIndex.Close.rawValue].floatValue
+                print (days,index,date,close)
+                sum = sum + close
+            } else {
+                sum = 0 // Reset
+            }
+        }
+        return sum / Float(days)
     }
     
     func predictedMA(predictedChange:Float, days:Int = 5) -> Float {
@@ -65,14 +118,18 @@ enum StockDataIndex:Int {
     case PriceChangePercentage = 6
     case Transactions = 7
     case TransactionsMoneny = 8
-    case TransactionsPercentage = 9
-    
 }
-struct StockDayHQ {
-    
+
+class StockDayHQ {
     //Stored
     var data:[String] = []
+    var ma5:Float = 0
+    var ma10:Float = 0
+    var ma20:Float = 0
     
+    required init(data:[String]) {
+        self.data = data
+    }
     //Computed
     var date: String {
         return data[StockDataIndex.Date.rawValue]
@@ -100,9 +157,6 @@ struct StockDayHQ {
     }
     var transactionsMoney: String {
         return data[StockDataIndex.TransactionsMoneny.rawValue]
-    }
-    var transactionsPercentage: Float {
-        return data[StockDataIndex.TransactionsPercentage.rawValue].floatValue
     }
 }
 
