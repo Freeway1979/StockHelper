@@ -29,15 +29,19 @@ class DapanOverview {
         return false
     }
     
-    var overviewTex: String {
+    var overviewTex: String = ""
+    
+    func parseData() {
         var text = ""
         if self.isDuoTou {
-            text = "\(text)多头走势 "
+            text = "多头走势 "
             sugguestCangWei = "60%以上"
         } else if self.isKoutou {
-            text = "\(text)空头走势 "
+            text = "空头走势 "
             warning = "空头"
             sugguestCangWei = "20%以下"
+        } else {
+           text = "震荡走势 "
         }
         let third = hqList[2]
         if third.isAboveMA5 && self.isDoubleBelowMA5 {
@@ -66,7 +70,7 @@ class DapanOverview {
             warning = "转空"
             sugguestCangWei = "30%以下"
         }
-        return text
+        overviewTex = text
     }
     
     var sugguestAction:String {
@@ -146,6 +150,7 @@ class DapanOverview {
             let hqList: [StockDayHQ] = hqListData.hqList
             hqListData.datas.removeAll()
             self.hqList = hqList
+            self.parseData()
             return hqList
         }
         return []

@@ -278,6 +278,9 @@ extension HomeViewController {
         {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dapanOverviewCollectionViewCell, for: indexPath)
                 as! DapanOverviewCollectionViewCell
+            cell.onClicked = { [unowned self] () in
+                StockUtils.openDapanHQPage(code: WebSite.Dapan_SH, name: "上证指数", from: (self.navigationController?.navigationController)!)
+            }
             self.dapanOverviewCell = cell
             // Configure the cell
             return cell

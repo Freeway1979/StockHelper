@@ -45,6 +45,9 @@
                                 <real key="value" value="17"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="onStatusButtonClicked:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Uoo-iV-VZD"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="仓位建议" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="joz-2J-8FM">
                         <rect key="frame" x="20" y="86" width="70" height="21"/>

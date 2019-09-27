@@ -13,6 +13,16 @@ struct WebSite {
     // 股票行情网页版
     public static let StockPage = "http://m.10jqka.com.cn/stockpage/hs_STOCKCODE/#&atab=geguNews"
     
+    public static let DapanPage = "http://m.10jqka.com.cn/stockpage/DAPAN/#&atab=geguNews"
+    
+    public static let Dapan_SH = "16_1A0001"
+    public static let Dapan_SZ = "32_399001"
+    public static let Dapan_CYB = "32_399006"
+    
+    public static func getDapanPageUrl(code:String) -> String {
+        return DapanPage.replacingOccurrences(of: "DAPAN", with: code)
+    }
+    
     public static func getStockPageUrl(code:String) -> String {
         return StockPage.replacingOccurrences(of: "STOCKCODE", with: code)
     }

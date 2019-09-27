@@ -17,6 +17,8 @@ class DapanOverviewCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var labelSugguestCangWei: UILabel!
     @IBOutlet weak var switchKeepWarning: UISwitch!
     
+    var onClicked:(() -> Void)? = nil
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -25,6 +27,13 @@ class DapanOverviewCollectionViewCell: UICollectionViewCell {
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 1
     }
+    
+    @IBAction func onStatusButtonClicked(_ sender: UIButton) {
+        if onClicked != nil {
+            onClicked!()
+        }
+    }
+    
     
     func toggleKeepWarning(keepWarning:Bool) {
         switchKeepWarning.isSelected = keepWarning
