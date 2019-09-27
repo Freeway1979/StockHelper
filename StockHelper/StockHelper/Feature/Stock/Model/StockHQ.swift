@@ -131,6 +131,31 @@ class StockDayHQ {
         self.data = data
     }
     //Computed
+    var isDuoTou: Bool {
+        return ma5 > ma10 && ma10 > ma20
+    }
+    var isKouTou: Bool {
+        return ma5 < ma10 && ma10 < ma20
+    }
+    var isAboveMA5:Bool {
+        return close > ma5
+    }
+    var isBelowMA5:Bool {
+        return close < ma5
+    }
+    var isAboveMA10:Bool {
+        return close > ma10
+    }
+    var isBelowMA10:Bool {
+        return close < ma10
+    }
+    var isAboveMA20:Bool {
+        return close > ma20
+    }
+    var isBelowMA20:Bool {
+        return close < ma20
+    }
+    
     var date: String {
         return data[StockDataIndex.Date.rawValue]
     }

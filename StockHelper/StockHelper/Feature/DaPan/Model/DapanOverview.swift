@@ -9,7 +9,18 @@
 import Foundation
 
 class DapanOverview {
-    static var hqList: [StockDayHQ] = []
+    
+    var hqList: [StockDayHQ] = []
+    
+    var warning:String?
+    
+    static let sharedInstance = DapanOverview()
+
+    private init() {
+
+    }
+
+    
     func hasDangerousKLines() -> Bool {
         return false
     }
@@ -19,35 +30,93 @@ class DapanOverview {
     }
     
     var overviewTex: String {
-        return "大盘安详"
+        var text = ""
+        if self.isDuoTou {
+            text = "\(text)多头走势 "
+            sugguestCangWei = "60%以上"
+        } else if self.isKoutou {
+            text = "\(text)空头走势 "
+            warning = "空头"
+            sugguestCangWei = "20%以下"
+        }
+        let third = hqList[2]
+        if third.isAboveMA5 && self.isDoubleBelowMA5 {
+            if third.isDuoTou {
+                text = "\(text)发生向下转势 "
+                warning = "转空"
+                sugguestCangWei = "30%以下"
+            } else {
+                text = "\(text)连续转弱 "
+                warning = "转弱"
+                sugguestCangWei = "30%以下"
+            }
+        }
+        if third.isBelowMA5 && self.isDoubleAboveMA5 {
+            if third.isKouTou {
+               text = "\(text)发生向上转势 "
+               sugguestCangWei = "30%以上"
+            } else {
+               text = "\(text)连续转强 "
+               sugguestCangWei = "30%以上"
+            }
+        }
+        let first = hqList[0]
+        if !self.isKoutou && first.isBelowMA5 && first.isBelowMA10 && first.isBelowMA20 {
+            text = "\(text)疑似空头走势 "
+            warning = "转空"
+            sugguestCangWei = "30%以下"
+        }
+        return text
     }
     
     var sugguestAction:String {
         return "持股"
     }
     
-    var sugguestCangWei:String {
-        return "50%"
-    }
+    var sugguestCangWei:String = "50%"
     
     var dapanStatus:String {
         return "弱势"
     }
     
     var dapanStatusBadge:String? {
-        return "危险"
+       if warning != nil {
+          return warning
+       }
+       //
+       return nil
     }
     
     var keepWarning:Bool = false
     
-    func parseData() -> Any {
-        
-        return (1)
+    var isKoutou: Bool {
+        let first:StockDayHQ = hqList.first!
+        let second:StockDayHQ = hqList[1]
+        return first.isKouTou && second.isKouTou
     }
     
-    public static func getHQListFromServer(code:String,startDate:String, endDate:String) -> [StockDayHQ] {
-        if DapanOverview.hqList.count > 0 && Date().isMarketClosed {
-            return DapanOverview.hqList
+    var isDuoTou: Bool {
+         let first:StockDayHQ = hqList.first!
+         let second:StockDayHQ = hqList[1]
+         return first.isDuoTou && second.isDuoTou
+    }
+    
+    //连续2天在5日线下方
+    var isDoubleBelowMA5:Bool {
+        let first:StockDayHQ = hqList.first!
+        let second:StockDayHQ = hqList[1]
+        return first.isBelowMA5 && second.isBelowMA5
+    }
+    //连续2天在5日线上方
+    var isDoubleAboveMA5:Bool {
+        let first:StockDayHQ = hqList.first!
+        let second:StockDayHQ = hqList[1]
+        return first.isAboveMA5 && second.isAboveMA5
+    }
+    
+    public func getHQListFromServer(code:String,startDate:String, endDate:String) -> [StockDayHQ] {
+        if hqList.count > 0 && Date().isMarketClosed {
+            return hqList
         }
         let csvData = try? String(contentsOf: URL(string: "http://quotes.money.163.com/service/chddata.html?code=0000001&start=20190219&end=20190927&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;VOTURNOVER;VATURNOVER")!, encoding: String.gbkEncoding)
         if csvData != nil {
@@ -76,7 +145,7 @@ class DapanOverview {
             var hqListData:StockHQList = StockHQList(type: "Day", code: code, datas: datas)
             let hqList: [StockDayHQ] = hqListData.hqList
             hqListData.datas.removeAll()
-            DapanOverview.hqList = hqList
+            self.hqList = hqList
             return hqList
         }
         return []

@@ -54,6 +54,8 @@ class HomeViewController: UICollectionViewController {
         }
     }
     
+    private var dapanOverviewCell:DapanOverviewCollectionViewCell?
+    
     private var layoutData:[LayoutData] = []
     
     override func viewDidLoad() {
@@ -199,7 +201,12 @@ class HomeViewController: UICollectionViewController {
 //        let hqList:StockHQList = StockHQProvider.getStockDayHQ(by: "000001")
 //        let list = hqList.hqList
 //        print(list)
-        let rs = DapanOverview.getHQListFromServer(code: "000001", startDate: "20190701", endDate: "20190927")
+        _ = DapanOverview.sharedInstance.getHQListFromServer(code: "000001", startDate: "20190701", endDate: "20190927")
+        let overview = DapanOverview.sharedInstance
+        DispatchQueue.main.async(execute: {
+            self.dapanOverviewCell?.applyModel(overviewText: overview.overviewTex, status: overview.dapanStatus, badge: overview.dapanStatusBadge, action: overview.sugguestAction, cangwei: overview.sugguestCangWei)
+                   
+        })
         
         // 1
         myQueue.async(group: group, qos: .default, flags: [], execute: {
@@ -271,6 +278,7 @@ extension HomeViewController {
         {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dapanOverviewCollectionViewCell, for: indexPath)
                 as! DapanOverviewCollectionViewCell
+            self.dapanOverviewCell = cell
             // Configure the cell
             return cell
         }
