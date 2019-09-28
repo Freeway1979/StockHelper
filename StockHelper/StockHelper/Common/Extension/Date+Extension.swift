@@ -17,6 +17,10 @@ extension Date {
         return dateFormatter.string(from: self)
     }
     
+    func formatSimpleDate() -> String {
+        self.format("yyyyMMdd")
+    }
+    
     func formatWencaiDateString() -> String {
         return self.format()
     }
@@ -54,6 +58,6 @@ extension Date {
     }
     
     var isMarketClosed:Bool {
-        return self.hours > 3
+        return self.hours > 15 || self.hours < 9
     }
 }

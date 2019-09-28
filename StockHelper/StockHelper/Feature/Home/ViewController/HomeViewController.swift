@@ -222,16 +222,10 @@ class HomeViewController: UICollectionViewController {
             self.present(alertController, animated: true, completion: nil)
         }
     }
-    func loadData() -> Void {
-        
-        let myQueue = DispatchQueue(label: "initData")
-        let group = DispatchGroup()
-        
-        DispatchQueue.main.async(execute: {
-            print(Thread.isMainThread)
-            ZKProgressHUD.show()
-        })
- 
+    
+    private let ONE_DAY:TimeInterval = 3600*24;
+    
+    func refreshDapanOverview() {
         let dataService = ZhangDieTingDataService(date: Date().formatWencaiDateString(), keywords: "涨跌停数且非ST", title: "涨跌停数且非ST")
         dataService.onComplete = { [unowned self] (data) in
             let list:[String] = data as! [String]
@@ -248,14 +242,27 @@ class HomeViewController: UICollectionViewController {
         }
         self.addService(dataService: dataService)
         self.runService(webView: self.webview, dataService: dataService)
+        let today = Date()
+        let endDate = today.formatSimpleDate()
+        let startDate = Date(timeInterval: -ONE_DAY * 90, since: today).formatSimpleDate()
         
-        _ = DapanOverview.sharedInstance.getHQListFromServer(code: "000001", startDate: "20190701", endDate: "20190927")
+        _ = DapanOverview.sharedInstance.getHQListFromServer(code: "000001", startDate: startDate, endDate: endDate)
         let overview = DapanOverview.sharedInstance
         DispatchQueue.main.async(execute: {
             self.dapanOverviewCell?.applyModel(overviewText: overview.overviewTex, status: overview.dapanStatus, badge: overview.dapanStatusBadge, action: overview.sugguestAction, cangwei: overview.sugguestCangWei)
                    
         })
+    }
+    func loadData() -> Void {
         
+        let myQueue = DispatchQueue(label: "initData")
+        let group = DispatchGroup()
+        
+        DispatchQueue.main.async(execute: {
+            print(Thread.isMainThread)
+            ZKProgressHUD.show()
+        })
+        self.refreshDapanOverview()
         // 1
         myQueue.async(group: group, qos: .default, flags: [], execute: {
             print("task 1")
@@ -354,6 +361,13 @@ extension HomeViewController {
                                                                              withReuseIdentifier: headerReuseIdentifier,
                                                                              for: indexPath) as! HeaderCollectionView
             headerView.contentLabel.text = group.title
+            
+            if indexPath.section == SectionType.DapanOverview.rawValue {
+                headerView.hideAction = false
+                headerView.onActionButtonClicked = { [unowned self] () in
+                    self.refreshDapanOverview()
+                }
+            }
             return headerView
         default:
             //4

@@ -169,7 +169,7 @@ class DapanOverview {
         if hqList.count > 0 && Date().isMarketClosed {
             return hqList
         }
-        let csvData = try? String(contentsOf: URL(string: "http://quotes.money.163.com/service/chddata.html?code=0000001&start=20190219&end=20190927&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;VOTURNOVER;VATURNOVER")!, encoding: String.gbkEncoding)
+        let csvData = try? String(contentsOf: URL(string: "http://quotes.money.163.com/service/chddata.html?code=0000001&start=\(startDate)&end=\(endDate)&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;VOTURNOVER;VATURNOVER")!, encoding: String.gbkEncoding)
         if csvData != nil {
             let list:[String] = csvData!.components(separatedBy: "\r\n")
             var datas:[[String]] = []
