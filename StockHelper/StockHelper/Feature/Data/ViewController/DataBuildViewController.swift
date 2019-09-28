@@ -93,22 +93,22 @@ class DataBuildViewController: DataServiceViewController {
         self.removeServices()
         // Block
         var dataService = self.prepareBlockData()
-        self.addServiceWithPagination(dataService: dataService)
+        self.addService(dataService: dataService)
 
         // Stock
         dataService = self.prepareStockData()
-        self.addServiceWithPagination(dataService: dataService)
+        self.addService(dataService: dataService)
         // 盈利
         dataService = self.prepareYingLiStockData()
-        self.addServiceWithPagination(dataService: dataService)
+        self.addService(dataService: dataService)
         // 扭亏
         dataService = self.prepareNiuKuiStockData()
-        self.addServiceWithPagination(dataService: dataService)
+        self.addService(dataService: dataService)
         dataService = self.prepareZhangTingShuStockData()
-        self.addServiceWithPagination(dataService: dataService)
+        self.addService(dataService: dataService)
         
         dataService = self.prepareJieJinStockData()
-        self.addServiceWithPagination(dataService: dataService)
+        self.addService(dataService: dataService)
         
     }
     

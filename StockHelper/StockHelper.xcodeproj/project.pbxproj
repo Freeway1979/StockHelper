@@ -128,6 +128,8 @@
 		A1E1277C21E6B99F00527DC0 /* HotBlockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E1277B21E6B99F00527DC0 /* HotBlockViewController.swift */; };
 		A1E1278E21E6C68600527DC0 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E1278D21E6C68600527DC0 /* UIViewController+Alert.swift */; };
 		A1F2AB25233D8240007DFAE2 /* DapanOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F2AB24233D8240007DFAE2 /* DapanOverview.swift */; };
+		A1F2AB27233F28E9007DFAE2 /* HomeViewController+DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F2AB26233F28E9007DFAE2 /* HomeViewController+DataService.swift */; };
+		A1F2AB29233F2F74007DFAE2 /* ZhangDieTingDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F2AB28233F2F74007DFAE2 /* ZhangDieTingDataService.swift */; };
 		A1F4427F21E0122A00999138 /* BlockStockListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4427E21E0122A00999138 /* BlockStockListViewController.swift */; };
 		A1F4428521E015FC00999138 /* StockDBProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4428421E015FC00999138 /* StockDBProvider.swift */; };
 		A1F4428C21E0D56A00999138 /* ENSideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4428A21E0D56900999138 /* ENSideMenu.swift */; };
@@ -285,6 +287,8 @@
 		A1E1277B21E6B99F00527DC0 /* HotBlockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotBlockViewController.swift; sourceTree = "<group>"; };
 		A1E1278D21E6C68600527DC0 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		A1F2AB24233D8240007DFAE2 /* DapanOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DapanOverview.swift; sourceTree = "<group>"; };
+		A1F2AB26233F28E9007DFAE2 /* HomeViewController+DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+DataService.swift"; sourceTree = "<group>"; };
+		A1F2AB28233F2F74007DFAE2 /* ZhangDieTingDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhangDieTingDataService.swift; sourceTree = "<group>"; };
 		A1F4427E21E0122A00999138 /* BlockStockListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockStockListViewController.swift; sourceTree = "<group>"; };
 		A1F4428421E015FC00999138 /* StockDBProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDBProvider.swift; sourceTree = "<group>"; };
 		A1F4428A21E0D56900999138 /* ENSideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSideMenu.swift; sourceTree = "<group>"; };
@@ -633,6 +637,7 @@
 				A10E4B3821CE57E10092B671 /* HomeViewController.swift */,
 				A1F4428E21E0D6F000999138 /* MyNavigationController.swift */,
 				A1F4429021E0D73C00999138 /* MyMenuViewController.swift */,
+				A1F2AB26233F28E9007DFAE2 /* HomeViewController+DataService.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -684,6 +689,7 @@
 			isa = PBXGroup;
 			children = (
 				A19DDDDE224FB7B300D63D7A /* DataService.swift */,
+				A1F2AB28233F2F74007DFAE2 /* ZhangDieTingDataService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1252,6 +1258,7 @@
 				A19DDDDD224F008800D63D7A /* DataBuildViewController.swift in Sources */,
 				A14CAAA322DCC286000BE70E /* WencaiUtils.swift in Sources */,
 				A10E4B3921CE57E10092B671 /* HomeViewController.swift in Sources */,
+				A1F2AB27233F28E9007DFAE2 /* HomeViewController+DataService.swift in Sources */,
 				A132955921DB523C00A3B156 /* RemoteService.swift in Sources */,
 				A141D2672279B241000ED0EA /* StockNoteViewController.swift in Sources */,
 				A12A50C62220BED60045D320 /* String+GBK.swift in Sources */,
@@ -1326,6 +1333,7 @@
 				A14115F721DD8CAA00E1B2BC /* MessageService.swift in Sources */,
 				A136A0B9233D785700658A78 /* DapanOverviewCollectionViewCell.swift in Sources */,
 				A108395F231A77F8002D1B99 /* LoadData.swift in Sources */,
+				A1F2AB29233F2F74007DFAE2 /* ZhangDieTingDataService.swift in Sources */,
 				065248B421C226C30047405C /* MainViewController.swift in Sources */,
 				A12BB2EF226C0DB100AF6D49 /* WencaiResult.swift in Sources */,
 				A1E1277821E6B76F00527DC0 /* LeadStockViewController.swift in Sources */,

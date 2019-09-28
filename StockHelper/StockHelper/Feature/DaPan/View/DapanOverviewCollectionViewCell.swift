@@ -17,7 +17,13 @@ class DapanOverviewCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var labelSugguestCangWei: UILabel!
     @IBOutlet weak var switchKeepWarning: UISwitch!
     
+    @IBOutlet weak var labelZTS: MIBadgeButton!
+    @IBOutlet weak var labelDTS: MIBadgeButton!
+    @IBOutlet weak var buttonQingXu: UIButton!
+    
     var onClicked:(() -> Void)? = nil
+    
+    var onQingXuClicked:(() -> Void)? = nil
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,6 +40,11 @@ class DapanOverviewCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    @IBAction func onQingXuButtonClicked(_ sender: UIButton) {
+      if onQingXuClicked != nil {
+            onQingXuClicked!()
+        }
+    }
     
     func toggleKeepWarning(keepWarning:Bool) {
         switchKeepWarning.isSelected = keepWarning
@@ -45,5 +56,15 @@ class DapanOverviewCollectionViewCell: UICollectionViewCell {
         buttonStatus.badgeString = badge
         labelSugguestAction.text = action
         labelSugguestCangWei.text = cangwei
+    }
+    
+    func updateZhangDieTingShu(zts:String,dts:String,dtsBadge:String?) {
+        self.labelZTS.setTitle(zts, for: UIControl.State.normal)
+        self.labelDTS.setTitle(dts, for: UIControl.State.normal)
+        self.labelDTS.badgeString = dtsBadge
+    }
+    
+    func updateChaoDuanQingXu(qingxu:String) {
+        self.buttonQingXu.setTitle(qingxu, for: UIControl.State.normal)
     }
 }

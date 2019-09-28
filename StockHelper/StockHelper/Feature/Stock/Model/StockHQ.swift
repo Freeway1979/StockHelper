@@ -62,12 +62,10 @@ struct StockHQList :Codable {
         }
         var sum:Float = 0
         for index in dataIndex ..< dataIndex+days {
-            print(days,index)
             if index < count {
                 let data = datas[index]
                 let date = data[StockDataIndex.Date.rawValue]
                 let close = data[StockDataIndex.Close.rawValue].floatValue
-                print (days,index,date,close)
                 sum = sum + close
             } else {
                 sum = 0 // Reset
@@ -85,7 +83,6 @@ struct StockHQList :Codable {
         let lastClose:Float = datas[count-1][StockDataIndex.Close.rawValue].floatValue
         for (index, data) in datas.enumerated().reversed()  {
             if (index+days-1) >= count {
-                print("\(index), \(data)")
                 sum = sum + data[StockDataIndex.Close.rawValue].floatValue
             }
             else {

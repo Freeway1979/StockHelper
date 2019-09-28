@@ -34,14 +34,16 @@ class DapanOverview {
     func parseData() {
         var text = ""
         if self.isDuoTou {
-            text = "多头走势 "
+            text = "多头行情 "
             sugguestCangWei = "60%以上"
+            dapanStatus = "强势"
+            sugguestAction = "持股"
         } else if self.isKoutou {
-            text = "空头走势 "
+            text = "空头行情 "
             warning = "空头"
             sugguestCangWei = "20%以下"
-        } else {
-           text = "震荡走势 "
+            dapanStatus = "弱势"
+            sugguestAction = "持币"
         }
         let third = hqList[2]
         if third.isAboveMA5 && self.isDoubleBelowMA5 {
@@ -49,19 +51,27 @@ class DapanOverview {
                 text = "\(text)发生向下转势 "
                 warning = "转空"
                 sugguestCangWei = "30%以下"
+                dapanStatus = "转弱"
+                sugguestAction = "减仓"
             } else {
                 text = "\(text)连续转弱 "
                 warning = "转弱"
                 sugguestCangWei = "30%以下"
+                dapanStatus = "转弱"
+                sugguestAction = "减仓"
             }
         }
         if third.isBelowMA5 && self.isDoubleAboveMA5 {
             if third.isKouTou {
                text = "\(text)发生向上转势 "
                sugguestCangWei = "30%以上"
+                dapanStatus = "转强"
+                sugguestAction = "加仓"
             } else {
                text = "\(text)连续转强 "
                sugguestCangWei = "30%以上"
+               dapanStatus = "转强"
+               sugguestAction = "加仓"
             }
         }
         let first = hqList[0]
@@ -69,19 +79,31 @@ class DapanOverview {
             text = "\(text)疑似空头走势 "
             warning = "转空"
             sugguestCangWei = "30%以下"
+            dapanStatus = "转弱"
+            sugguestAction = "减仓"
+        }
+        if self.isDuoTou && self.isDoubleBelowMA5In3Days {
+            text = "\(text)3日2次跌破5日线 "
+            warning = "谨慎转空"
+            sugguestCangWei = "30%以下"
+            dapanStatus = "转弱"
+            sugguestAction = "减仓"
+        }
+        if self.isKoutou && self.isDoubleAboveMA5In3Days {
+            text = "\(text)3日2次站上5日线 "
+            warning = "谨慎转多"
+            sugguestCangWei = "30%以下"
+            dapanStatus = "转强"
+            sugguestAction = "加仓"
         }
         overviewTex = text
     }
     
-    var sugguestAction:String {
-        return "持股"
-    }
+    var sugguestAction:String = "持股"
     
     var sugguestCangWei:String = "50%"
     
-    var dapanStatus:String {
-        return "弱势"
-    }
+    var dapanStatus:String = "弱势"
     
     var dapanStatusBadge:String? {
        if warning != nil {
@@ -91,6 +113,7 @@ class DapanOverview {
        return nil
     }
     
+    var chaoduanQingXu: ChaoDuanQingXu = .QingXuXiuFu
     var keepWarning:Bool = false
     
     var isKoutou: Bool {
@@ -103,6 +126,30 @@ class DapanOverview {
          let first:StockDayHQ = hqList.first!
          let second:StockDayHQ = hqList[1]
          return first.isDuoTou && second.isDuoTou
+    }
+    
+    // 3天2次站上5日线
+    var isDoubleAboveMA5In3Days:Bool {
+        var count = 0
+        for index in 0...2 {
+            let hq:StockDayHQ = hqList[index]
+            if hq.isAboveMA5 {
+                count = count + 1
+            }
+        }
+        return count >= 2
+    }
+    
+    // 3天2次跌破5日线
+    var isDoubleBelowMA5In3Days:Bool {
+        var count = 0
+        for index in 0...2 {
+            let hq:StockDayHQ = hqList[index]
+            if hq.isBelowMA5 {
+                count = count + 1
+            }
+        }
+        return count >= 2
     }
     
     //连续2天在5日线下方
@@ -125,7 +172,6 @@ class DapanOverview {
         let csvData = try? String(contentsOf: URL(string: "http://quotes.money.163.com/service/chddata.html?code=0000001&start=20190219&end=20190927&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;VOTURNOVER;VATURNOVER")!, encoding: String.gbkEncoding)
         if csvData != nil {
             let list:[String] = csvData!.components(separatedBy: "\r\n")
-            print(list)
             var datas:[[String]] = []
             let count = list.count
             for index in 1...count-1 {

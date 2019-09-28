@@ -8,6 +8,7 @@
 
 import UIKit
 import ZKProgressHUD
+import WebKit
 
 private let reuseIdentifier = "Cell"
 
@@ -16,9 +17,19 @@ fileprivate let headerReuseIdentifier = "HeaderCollectionView"
 fileprivate let dapanOverviewCollectionViewCell = "DapanOverviewCollectionViewCell"
 fileprivate let columns = 4
 fileprivate let sectionInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
-
+fileprivate let dapanSectionInsets = UIEdgeInsets(top: 1, left: 15, bottom: 1, right: 15)
 
 class HomeViewController: UICollectionViewController {
+    //Data Service
+    
+    @IBOutlet weak var webview: WKWebView!
+    var token:String?
+    var serviceIndex:Int = 0
+    var dataServices: [DataService] = []
+    var dataService: DataService?
+    var zts:Int = 0
+    var dts:Int = 0
+    
     enum SectionType:Int {
         case DapanOverview = 0
         case QuickActions
@@ -54,12 +65,17 @@ class HomeViewController: UICollectionViewController {
         }
     }
     
-    private var dapanOverviewCell:DapanOverviewCollectionViewCell?
+    public var dapanOverviewCell:DapanOverviewCollectionViewCell?
     
     private var layoutData:[LayoutData] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Data Service
+        self.webview.navigationDelegate = self;
+        WencaiUtils.prepareWebView(webview: webview);
+               
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         // Register cell classes
@@ -187,7 +203,25 @@ class HomeViewController: UICollectionViewController {
         })
  
     }
-        
+    
+    func showQingXuListActionSheet() {
+        DispatchQueue.main.async { // 主线程执行
+            let alertController = UIAlertController(title: "选择情绪周期", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+            let cancelAction = UIAlertAction(title:"取消", style: .cancel, handler:{ (action) -> Void in
+                print("cancelled")
+            })
+            alertController.addAction(cancelAction)
+            
+            let list = ChaoDuanQingXu.allValues
+            list.forEach { (qx) in
+                let action = UIAlertAction(title:qx.rawValue, style: .default, handler:{ [unowned self] (action) -> Void in
+                    self.dapanOverviewCell?.updateChaoDuanQingXu(qingxu: qx.rawValue)
+                })
+                alertController.addAction(action)
+            }
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
     func loadData() -> Void {
         
         let myQueue = DispatchQueue(label: "initData")
@@ -197,10 +231,24 @@ class HomeViewController: UICollectionViewController {
             print(Thread.isMainThread)
             ZKProgressHUD.show()
         })
-     
-//        let hqList:StockHQList = StockHQProvider.getStockDayHQ(by: "000001")
-//        let list = hqList.hqList
-//        print(list)
+ 
+        let dataService = ZhangDieTingDataService(date: Date().formatWencaiDateString(), keywords: "涨跌停数且非ST", title: "涨跌停数且非ST")
+        dataService.onComplete = { [unowned self] (data) in
+            let list:[String] = data as! [String]
+            self.zts = 0
+            self.dts = 0
+            list.forEach { (item) in
+                if item == "涨停" {
+                    self.zts = self.zts + 1
+                } else {
+                    self.dts = self.dts + 1
+                }
+            }
+            self.dapanOverviewCell?.updateZhangDieTingShu(zts: "\(self.zts)", dts: "\(self.dts)", dtsBadge: self.dts >= 10 ? "危险":nil)
+        }
+        self.addService(dataService: dataService)
+        self.runService(webView: self.webview, dataService: dataService)
+        
         _ = DapanOverview.sharedInstance.getHQListFromServer(code: "000001", startDate: "20190701", endDate: "20190927")
         let overview = DapanOverview.sharedInstance
         DispatchQueue.main.async(execute: {
@@ -281,6 +329,9 @@ extension HomeViewController {
             cell.onClicked = { [unowned self] () in
                 StockUtils.openDapanHQPage(code: WebSite.Dapan_SH, name: "上证指数", from: (self.navigationController?.navigationController)!)
             }
+            cell.onQingXuClicked = { [unowned self] () in
+                self.showQingXuListActionSheet()
+            }
             self.dapanOverviewCell = cell
             // Configure the cell
             return cell
@@ -360,7 +411,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         let section = indexPath.section
         if section == SectionType.DapanOverview.rawValue {
             let screenWidth = UIScreen.main.bounds.size.width;
-            return CGSize(width: screenWidth, height: 120)
+            return CGSize(width: screenWidth, height: 180)
         }
    
         let height = Theme.CellView.height
@@ -368,18 +419,15 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         if width < Int(Theme.TagButton.width) {
             width = Int(Theme.TagButton.width)
         }
-//        if indexPath.section == SectionType.HotStocks.rawValue {
-//            return CGSize(width: screenWidth, height: 60)
-//        }
         return CGSize(width: width, height: Int(height))
     }
     //3
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-//        if section == SectionType.HotStocks.rawValue {
-//            return stockSectionInsets
-//        }
+        if section == SectionType.DapanOverview.rawValue {
+            return dapanSectionInsets
+        }
         return sectionInsets
     }
     // 4

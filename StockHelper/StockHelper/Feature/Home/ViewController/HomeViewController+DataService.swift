@@ -1,8 +1,8 @@
 //
-//  WebViewNavigationDelegate.swift
+//  HomeViewController+DataService.swift
 //  StockHelper
 //
-//  Created by Andy Liu on 2019/9/3.
+//  Created by Andy Liu on 2019/9/28.
 //  Copyright © 2019 Andy Liu. All rights reserved.
 //
 
@@ -10,12 +10,7 @@ import Foundation
 import UIKit
 import WebKit
 
-class DataServiceViewController: UIViewController {
-    var token:String?
-    var serviceIndex:Int = 0
-    var dataServices: [DataService] = []
-    var dataService: DataService?
-    
+extension HomeViewController {
     func isAllCompleted() -> Bool {
         return serviceIndex == dataServices.count - 1
     }
@@ -73,7 +68,7 @@ class DataServiceViewController: UIViewController {
     
     func onDataLoaded() {
        print("onDataLoaded")
-       self.dataServices.removeAll()
+        self.dataServices.removeAll()
     }
     
     func goNext(webView:WKWebView) {
@@ -86,7 +81,7 @@ class DataServiceViewController: UIViewController {
             self.dataService = dataService
             if (dataService.keywords == "cacheToken") {
                 let extra = "showType=[\"\",\"\",\"onTable\",\"onTable\",\"onTable\",\"onTable\",\"onTable\",\"onTable\",\"onTable\",\"onTable\",\"onTable\"]"
-                let perpage:Int = dataService.perpage 
+                let perpage:Int = dataService.perpage
                 WencaiUtils.loadWencaiPaginationData(webview: webView, token: self.token!, perpage: perpage, page: 1, extra: extra)
             } else {
                 
@@ -110,7 +105,7 @@ class DataServiceViewController: UIViewController {
     }
 }
 
-extension DataServiceViewController: WKNavigationDelegate {
+extension HomeViewController: WKNavigationDelegate {
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         //        //   修改界面元素的值
         //        let findInputScript = "document.getElementsByTagName('textarea')[0].value='二级行业板块';";
@@ -137,3 +132,6 @@ extension DataServiceViewController: WKNavigationDelegate {
         }
     }
 }
+
+
+

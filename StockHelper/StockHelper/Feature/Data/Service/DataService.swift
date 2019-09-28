@@ -44,6 +44,7 @@ class DataService {
     var handler:((String,String,Dictionary<String, Any>) -> Void)? = nil
     var onComplete:(([Any]?) -> Void)? = nil
     var onStart:(() -> Void)? = nil
+    var onServerItem2Model:(([Any]) -> Any)? = nil
     init(date:String,keywords:String,title:String) {
         self.date = date
         self.keywords = keywords
@@ -71,7 +72,12 @@ class DataService {
         let rs = dict["result"] as! [[Any]]
         var list:[Any] = []
         for item in rs {
-            let model = serverItemToModel(item: item)
+            var model:Any?
+            if self.onServerItem2Model != nil {
+                model = self.onServerItem2Model!(item)
+            } else {
+                model = serverItemToModel(item: item)
+            }
             if model != nil {
                 list.append(model!)
             }
