@@ -225,6 +225,23 @@ class HomeViewController: UICollectionViewController {
     
     private let ONE_DAY:TimeInterval = 3600*24;
     
+    var loadingCount = 0
+    func showLoading() {
+        if loadingCount == 0 {
+            DispatchQueue.main.async(execute: {
+                ZKProgressHUD.show()
+            })
+        }
+        loadingCount = loadingCount + 1
+    }
+    func hideLoading() {
+        loadingCount = loadingCount - 1
+        if loadingCount == 0 {
+            DispatchQueue.main.async(execute: {
+                ZKProgressHUD.dismiss()
+            })
+        }
+    }
     func refreshDapanOverview() {
         let dataService = ZhangDieTingDataService(date: Date().formatWencaiDateString(), keywords: "涨跌停数且非ST", title: "涨跌停数且非ST")
         dataService.onComplete = { [unowned self] (data) in
@@ -239,13 +256,14 @@ class HomeViewController: UICollectionViewController {
                 }
             }
             self.dapanOverviewCell?.updateZhangDieTingShu(zts: "\(self.zts)", dts: "\(self.dts)", dtsBadge: self.dts >= 10 ? "危险":nil)
+            self.hideLoading()
         }
         self.addService(dataService: dataService)
         self.runService(webView: self.webview, dataService: dataService)
         let today = Date()
         let endDate = today.formatSimpleDate()
         let startDate = Date(timeInterval: -ONE_DAY * 90, since: today).formatSimpleDate()
-        
+        //TODO:可以切换 创业板/深圳成指/上证指数
         _ = DapanOverview.sharedInstance.getHQListFromServer(code: "000001", startDate: startDate, endDate: endDate)
         let overview = DapanOverview.sharedInstance
         DispatchQueue.main.async(execute: {
@@ -258,10 +276,8 @@ class HomeViewController: UICollectionViewController {
         let myQueue = DispatchQueue(label: "initData")
         let group = DispatchGroup()
         
-        DispatchQueue.main.async(execute: {
-            print(Thread.isMainThread)
-            ZKProgressHUD.show()
-        })
+        self.showLoading()
+        
         self.refreshDapanOverview()
         // 1
         myQueue.async(group: group, qos: .default, flags: [], execute: {
@@ -279,14 +295,9 @@ class HomeViewController: UICollectionViewController {
         })
         
         // all
-        group.notify(queue: myQueue) {
+        group.notify(queue: myQueue) { [unowned self] in
             print("notify")
-            
-            DispatchQueue.main.async(execute: {
-                print(Thread.isMainThread)
-                ZKProgressHUD.dismiss()
-                //ZKProgressHUD.showSuccess()
-            })
+            self.hideLoading()
         }
     }
 }
@@ -365,6 +376,7 @@ extension HomeViewController {
             if indexPath.section == SectionType.DapanOverview.rawValue {
                 headerView.hideAction = false
                 headerView.onActionButtonClicked = { [unowned self] () in
+                    self.showLoading()
                     self.refreshDapanOverview()
                 }
             }
