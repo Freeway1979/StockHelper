@@ -11,9 +11,9 @@ import Foundation
 class StockDataService: DataService {
     override init(date: String, keywords: String, title: String) {
         super.init(date: date, keywords: keywords, title: title)
-        self.handler = { (date, json, dict) in
-            
-        }
+//        self.handler = { (date, json, dict) in
+//            
+//        }
     }
     
     override func serverItemToModel(item:[Any]) -> Any {

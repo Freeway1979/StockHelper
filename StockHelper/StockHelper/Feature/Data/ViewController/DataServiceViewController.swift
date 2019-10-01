@@ -21,6 +21,7 @@ class DataServiceViewController: UIViewController {
     }
     
     func removeServices() {
+        serviceIndex = 0
         self.dataServices.removeAll()
         self.dataService = nil
     }

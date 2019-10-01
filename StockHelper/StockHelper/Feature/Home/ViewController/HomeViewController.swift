@@ -215,6 +215,9 @@ class HomeViewController: UICollectionViewController {
     
     var loadingCount = 0
     func showLoading() {
+        if loadingCount < 0 {
+            loadingCount = 0
+        }
         if loadingCount == 0 {
             DispatchQueue.main.async(execute: {
                 ZKProgressHUD.show()

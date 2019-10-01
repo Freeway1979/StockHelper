@@ -16,6 +16,7 @@ extension HomeViewController {
     }
     
     func removeServices() {
+        serviceIndex = 0
         self.dataServices.removeAll()
         self.dataService = nil
     }
@@ -68,7 +69,7 @@ extension HomeViewController {
     
     func onDataLoaded() {
        print("onDataLoaded")
-        self.dataServices.removeAll()
+       self.removeServices()
     }
     
     func goNext(webView:WKWebView) {
