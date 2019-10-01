@@ -10,6 +10,11 @@ import Foundation
 
 struct WebSite {
     public static let WenCai = "https://www.iwencai.com/"
+    public static let ZhangDieTing = "http://stock.jrj.com.cn/tzzs/zdtwdj.shtml"
+    public static let JieJin = "http://data.10jqka.com.cn/market/xsjj/"
+    public static let NewStock = "http://data.10jqka.com.cn/ipo/xgsgyzq/"
+    //北向资金
+    public static let NorthMoney = "http://data.eastmoney.com/hsgt/index.html"
     // 股票行情网页版
     public static let StockPage = "http://m.10jqka.com.cn/stockpage/hs_STOCKCODE/#&atab=geguNews"
     

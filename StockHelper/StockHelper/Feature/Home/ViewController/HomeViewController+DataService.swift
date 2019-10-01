@@ -103,6 +103,50 @@ extension HomeViewController {
             self.goNext(webView: webView)
         }
     }
+    
+    func handleNorthMoneyData(html:String) -> [String] {
+        let lines = html.components(separatedBy: "\n")
+        var start:Bool = false
+        var validLines:[String] = []
+        var count = 0
+        for index in 0 ..< lines.count {
+            let line = (lines[index])
+            if line.contains("id=\"north_zjl\"") {
+                start = true
+            }
+            if start {
+                if count < 3 && line.contains("当日净流入") {
+                    validLines.append(line)
+                    count = count + 1
+                }
+            }
+            if count >= 3 {
+                break
+            }
+        }
+        var result:[String] = []
+        validLines.forEach { (line) in
+            print(line)
+            var pattern = ">([\\-0-9\\.万亿]+)元</span></span></span><span>当日余额(.*)>([\\-0-9\\.万亿]+)亿元</span></span></span></li>"
+            var regex = try? NSRegularExpression(pattern: pattern, options:[])
+            var matches = regex!.matches(in: line, options: [], range: NSRange(line.startIndex...,in: line))
+            if matches.count > 0 {
+                let match = matches.first
+                let rs = (String(line[Range((match?.range(at: 1))!, in: line)!]))
+                result.append(rs)
+            } else {
+                pattern = ">([\\-0-9\\.万亿]+)元</span></span></span></li>"
+                regex = try? NSRegularExpression(pattern: pattern, options:[])
+                matches = regex!.matches(in: line, options: [], range: NSRange(line.startIndex...,in: line))
+                if matches.count > 0 {
+                    let match = matches.first
+                    let rs = (String(line[Range((match?.range(at: 1))!, in: line)!]))
+                    result.append(rs)
+                }
+            }
+        }
+        return result
+    }
 }
 
 extension HomeViewController: WKNavigationDelegate {
@@ -120,6 +164,11 @@ extension HomeViewController: WKNavigationDelegate {
         //        }
         webView.evaluateJavaScript("document.body.innerHTML") { [unowned self] (data, error) in
             let rs = data as! String
+            if (webView.url?.absoluteString == WebSite.NorthMoney) {
+                let northMoney = self.handleNorthMoneyData(html: rs)
+                self.onNorthMoneyHandled(northMoney: northMoney)
+                return
+            }
             if (rs.contains("\"token\":")) {
                 self.token = WencaiUtils.parseTokenFromHTML(html: rs)
                 WencaiUtils.parseHTML(html: rs, callback: { [unowned self] (jsonString, dict) in

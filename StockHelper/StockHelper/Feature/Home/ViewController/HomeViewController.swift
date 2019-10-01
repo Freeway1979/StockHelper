@@ -71,7 +71,6 @@ class HomeViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //Data Service
         self.webview.navigationDelegate = self;
         WencaiUtils.prepareWebView(webview: webview);
@@ -126,13 +125,7 @@ class HomeViewController: UICollectionViewController {
             self.gotoViewController(storyboard: "Block", storyboardId: "ZhangTingListViewController")
         })
         items.append(item!)
-       
-        layout = LayoutData(title: title,data: items)
-        self.layoutData.append(layout!)
         
-        // Group 1
-        title = SectionType.BlockPeriod.description()
-        items.removeAll()
         // Item 1
         item = ItemData(title: "板块周期表", data:nil, onItemClicked: { itemData in
             print(itemData.title)
@@ -145,12 +138,7 @@ class HomeViewController: UICollectionViewController {
             self.gotoViewController(storyboard: "Block", storyboardId: "HotBlockViewController")
         })
         items.append(item!)
-        layout = LayoutData(title: title,data: items)
-        self.layoutData.append(layout!)
         
-        // Group 2
-        title = SectionType.Xuangu.description()
-        items.removeAll()
         // Item 1
         item = ItemData(title: "自定义选股", data: nil,onItemClicked: { itemData in
             print(itemData.title)
@@ -164,27 +152,27 @@ class HomeViewController: UICollectionViewController {
         title = SectionType.WebSite.description()
         items.removeAll()
         // Item 1
-        item = ItemData(title: "问财选股", data: "https://www.iwencai.com", onItemClicked: {[weak self] itemData in
+        item = ItemData(title: "问财选股", data: WebSite.WenCai, onItemClicked: {[weak self] itemData in
             self?.openWebSite(itemData: itemData)
         })
         items.append(item!)
         // Item 2
-        item = ItemData(title: "北向资金", data: "http://data.eastmoney.com/hsgt/index.html", onItemClicked: {[weak self] itemData in
+        item = ItemData(title: "北向资金", data: WebSite.NorthMoney, onItemClicked: {[weak self] itemData in
             self?.openWebSite(itemData: itemData)
         })
         items.append(item!)
         // Item 3
-        item = ItemData(title: "涨跌温度计", data: "http://stock.jrj.com.cn/tzzs/zdtwdj.shtml", onItemClicked: { [weak self] itemData in
+        item = ItemData(title: "涨跌温度计", data: WebSite.ZhangDieTing, onItemClicked: { [weak self] itemData in
             self?.openWebSite(itemData: itemData)
         })
         items.append(item!)
         // Item 4
-        item = ItemData(title: "限售解禁", data: "http://data.10jqka.com.cn/market/xsjj/", onItemClicked: { [weak self] itemData in
+        item = ItemData(title: "限售解禁", data: WebSite.JieJin, onItemClicked: { [weak self] itemData in
             self?.openWebSite(itemData: itemData)
         })
         items.append(item!)
         // Item 5
-        item = ItemData(title: "新股上市", data: "http://data.10jqka.com.cn/ipo/xgsgyzq/", onItemClicked: { [weak self] itemData in
+        item = ItemData(title: "新股上市", data: WebSite.NewStock, onItemClicked: { [weak self] itemData in
             self?.openWebSite(itemData: itemData)
         })
         items.append(item!)
@@ -256,7 +244,7 @@ class HomeViewController: UICollectionViewController {
                 }
             }
             self.dapanOverviewCell?.updateZhangDieTingShu(zts: "\(self.zts)", dts: "\(self.dts)", dtsBadge: self.dts >= 10 ? "危险":nil)
-            self.hideLoading()
+            WencaiUtils.loadWebPage(with: WebSite.NorthMoney, webview: self.webview)
         }
         self.addService(dataService: dataService)
         self.runService(webView: self.webview, dataService: dataService)
@@ -271,6 +259,14 @@ class HomeViewController: UICollectionViewController {
                    
         })
     }
+    
+    func onNorthMoneyHandled(northMoney:[String]) {
+        self.hideLoading()
+        if northMoney.count > 2 {
+            self.dapanOverviewCell?.updateNorthMoney(hgt: northMoney[0], sgt: northMoney[1], northMoney: northMoney[2])
+        }
+    }
+
     func loadData() -> Void {
         
         let myQueue = DispatchQueue(label: "initData")
@@ -437,7 +433,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         let section = indexPath.section
         if section == SectionType.DapanOverview.rawValue {
             let screenWidth = UIScreen.main.bounds.size.width;
-            return CGSize(width: screenWidth, height: 180)
+            return CGSize(width: screenWidth, height: 220)
         }
    
         let height = Theme.CellView.height

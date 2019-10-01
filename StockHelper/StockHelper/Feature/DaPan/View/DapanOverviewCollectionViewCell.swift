@@ -9,6 +9,16 @@
 import UIKit
 import MIBadgeButton_Swift
 
+private extension UILabel {
+    func setTextColor(with moneyText:String) {
+        if moneyText.contains("-") {
+            self.textColor = UIColor.green
+        } else {
+            self.textColor = UIColor.red
+        }
+    }
+}
+
 class DapanOverviewCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var labelOverviewText: UILabel!
@@ -21,6 +31,10 @@ class DapanOverviewCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var labelDTS: MIBadgeButton!
     @IBOutlet weak var buttonQingXu: UIButton!
     
+    @IBOutlet weak var labelHGT: UILabel!
+    @IBOutlet weak var labelSGT: UILabel!
+    @IBOutlet weak var labelNorthMoney: UILabel!
+    
     var onClicked:(() -> Void)? = nil
     
     var onQingXuClicked:(() -> Void)? = nil
@@ -29,9 +43,9 @@ class DapanOverviewCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        self.layer.borderColor = UIColor.groupTableViewBackground.cgColor
-        self.layer.borderWidth = 1
-        self.layer.cornerRadius = 1
+//        self.layer.borderColor = UIColor.groupTableViewBackground.cgColor
+//        self.layer.borderWidth = 1
+//        self.layer.cornerRadius = 1
     }
     
     @IBAction func onStatusButtonClicked(_ sender: UIButton) {
@@ -66,5 +80,15 @@ class DapanOverviewCollectionViewCell: UICollectionViewCell {
     
     func updateChaoDuanQingXu(qingxu:String) {
         self.buttonQingXu.setTitle(qingxu, for: UIControl.State.normal)
+    }
+    
+    
+    func updateNorthMoney(hgt:String,sgt:String,northMoney:String) {
+        self.labelHGT.text = hgt
+        self.labelHGT.setTextColor(with: hgt)
+        self.labelSGT.text = sgt
+        self.labelSGT.setTextColor(with: sgt)
+        self.labelNorthMoney.text = northMoney
+        self.labelNorthMoney.setTextColor(with: northMoney)
     }
 }
