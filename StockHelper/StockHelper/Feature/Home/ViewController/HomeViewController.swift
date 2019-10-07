@@ -436,7 +436,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         let section = indexPath.section
         if section == SectionType.DapanOverview.rawValue {
             let screenWidth = UIScreen.main.bounds.size.width;
-            return CGSize(width: screenWidth, height: 220)
+            return CGSize(width: screenWidth, height: 254)
         }
    
         let height = Theme.CellView.height

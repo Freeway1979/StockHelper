@@ -35,6 +35,13 @@ class DapanOverviewCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var labelSGT: UILabel!
     @IBOutlet weak var labelNorthMoney: UILabel!
     
+    @IBOutlet weak var buttonMarketDragon: MIBadgeButton!
+    @IBOutlet weak var buttonDragon: MIBadgeButton!
+    
+    @IBAction func onMarketDragonClicked(_ sender: MIBadgeButton) {
+        
+    }
+    
     var onClicked:(() -> Void)? = nil
     
     var onQingXuClicked:(() -> Void)? = nil
