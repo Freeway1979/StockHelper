@@ -10,7 +10,7 @@ import Foundation
 
 class DataCache {
     public static var blockTops:[String:[WenCaiBlockStat]]? = [:]
-    
+    public static var marketDragon:ZhangTingStock?
     //盈利
     public static var yingliStocks:[YingLiStock] = []
     //扭亏
@@ -43,6 +43,14 @@ class DataCache {
             return false
         }
         return stocks
+    }
+    
+    public static func getZhangTingStock(date:String, code:String) -> ZhangTingStock? {
+        guard let stocksWithDate = getZhangTingStocks(by: date) else { return nil }
+        let stock = stocksWithDate.stocks.first { (stock) -> Bool in
+            return stock.code == code
+        }
+        return stock
     }
     
 //    public static func buildLianXuZhangTingShu(dates:[String]) {

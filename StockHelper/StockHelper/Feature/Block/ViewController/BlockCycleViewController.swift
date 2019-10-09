@@ -268,9 +268,6 @@ class BlockCycleViewController: DataServiceViewController {
                 DataCache.ztStocks.append(ztstocksWithDate)
             }
             self.addService(dataService: dataService)
-            if dataService.paginationService != nil {
-                self.addService(dataService: dataService.paginationService!)
-            }
 //        }
     }
     
@@ -329,6 +326,7 @@ class BlockCycleViewController: DataServiceViewController {
         if dragons != nil && dragons?.count ?? 0 > 0 {
             let stock = StockUtils.getStock(by: dragons!.first!.code)
             title = "\(title)总龙头:\(stock.name)[\(dragons!.first!.zhangting)]"
+            DataCache.marketDragon = dragons?.first
         }
         let dragon = DataCache.getMarketDragonStock(date: self.lastDate)
         if dragon != nil {

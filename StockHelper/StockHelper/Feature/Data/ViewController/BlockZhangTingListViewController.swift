@@ -19,10 +19,12 @@ class BlockZhangTingListViewController: UIViewController {
     public var dates:[String] = []
     public var blockName:String = ""
     var dataList:[ZhangTingStock] = []
+    var dragonCode:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = self.blockName
+        self.dragonCode = DataCache.marketDragon?.code
         self.prepareData()
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
@@ -72,23 +74,38 @@ extension BlockZhangTingListViewController:UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let view:ZhangTingStockTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! ZhangTingStockTableViewCell
         let s = self.dataList[indexPath.row]
         let stock = StockUtils.getStock(by: s.code)
-        let dragons = 1
-        let title:String = "连板:\(s.zhangting) 叠加龙头概念:\(dragons)"
-        var line1:String = "\(s.code) 流通值:\(stock.tradeValue.formatMoney)"
+        let name = stock.name
+        let view:ZhangTingStockTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! ZhangTingStockTableViewCell
+        var title:String = ""
+        var line1:String = ""
+        var line2:String = ""
+        var badge:String = ""
+        line1 = "\(stock.code) 流通值:\(stock.tradeValue.formatMoney)"
         let yingli = stock.yingliStr
         if yingli != nil {
-            line1 = "\(line1) 盈利:\(yingli!)"
+            line1 = "\(line1) \(yingli!)"
         }
         let jiejin = stock.jiejinStr
         if jiejin != nil {
-            line1 = "\(line1) 解禁:\(jiejin!)"
+            line1 = "\(line1) \(jiejin!)"
         }
-        let line2:String = "封单额\(s.ztMoney.formatMoney) 封成比:\(s.ztRatioBills.formatDot2FloatString) 封流比:\(s.ztRatioMoney.formatDot2FloatString)"
-        let badge = s.ztBanType
-        view.applyModel(name: s.name, title: title, line1: line1, line2: line2, badge: badge)
+        let hotblocksCount = DataCache.getTopBlockNamesForStock(stock: stock).count
+        
+        line2 = "封单额\(s.ztMoney.formatMoney) 封成比:\(s.ztRatioBills.formatDot2FloatString) 封流比:\(s.ztRatioMoney.formatDot2FloatString)"
+        badge = s.ztBanType
+        
+        if hotblocksCount > 0 {
+            title = "\(title) 热门概念:\(hotblocksCount)"
+        }
+        if dragonCode != nil && stock.code != dragonCode {
+           let sameblocks = StockUtils.getSameBlockNames(this: stock.code, that: dragonCode!)
+            if sameblocks.count > 0 {
+                title = "\(title) 龙头概念:\(sameblocks.count)"
+            }
+        }
+        view.applyModel(name: name, title: title, line1: line1, line2: line2, badge: badge)
         return view
     }
 }

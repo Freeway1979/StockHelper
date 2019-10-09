@@ -14,22 +14,28 @@ class BlockStockListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    private let today = Date().formatWencaiDateString()
+    private let cellID:String = "ZhangTingStockTableViewCell"
     var block:Block2Stocks?;
     private var keyword:String = ""
-    
-    private var displayedItems:[Stock] = []
-    private var stocks:[Stock] {
-        get {
-            return self.block?.stocks ?? []
-        }
+    var isForBlock: Bool {
+        return self.block != nil
     }
+    var dragonCode:String?
+    private var displayedItems:[Stock] = []
+    private var stocks:[Stock] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = self.block?.block.name
+        if isForBlock {
+            self.title = self.block?.block.name
+            self.stocks = self.block?.stocks ?? []
+        }
+        self.dragonCode = DataCache.marketDragon?.code
         self.tableView.delegate = self;
         self.tableView.dataSource = self
         self.searchBar.delegate = self;
-        self.view.addSubview(tableView)
+        self.view.addSubview(self.tableView)
+        self.tableView.register(UINib(nibName: "ZhangTingStockTableViewCell", bundle: nil), forCellReuseIdentifier: "ZhangTingStockTableViewCell")
         // Do any additional setup after loading the view, typically from a nib.
         self.refreshTableView()
     }
@@ -64,26 +70,24 @@ class BlockStockListViewController: UIViewController {
         
         let block = self.block?.block;
         self.displayedItems = list.sorted(by: { (lhs:Stock, rhs:Stock) -> Bool in
-            let lhsHot:Bool = StockServiceProvider.isHotStock(stock: lhs, block: block!)
-            let rhsHot:Bool = StockServiceProvider.isHotStock(stock: rhs, block: block!)
-            let lhsPinYin = lhs.pinyin
-            let rhsPinYin = rhs.pinyin
-            
-            let finalLHS = String(format: "%@%@", lhsHot ? "A":"B",lhsPinYin)
-            let finalRHS = String(format: "%@%@", rhsHot ? "A":"B",rhsPinYin)
-            
-            // Am I smart?!
-            let rs:ComparisonResult = finalLHS.compare(finalRHS)
-            if rs == .orderedAscending {
+            let lhsHot:Bool = isForBlock ? StockServiceProvider.isHotStock(stock: lhs, block: block!) : false
+            let rhsHot:Bool = isForBlock ? StockServiceProvider.isHotStock(stock: rhs, block: block!) : false
+            if lhsHot && !rhsHot {
                 return true
             }
-            return false
+            if !lhsHot && rhsHot {
+                return false
+            }
+            return lhs.tradeValue.floatValue < rhs.tradeValue.floatValue
         })
         
         self.tableView.reloadData();
     }
     
     private func isHotStock(stock:Stock) -> Bool {
+        if !isForBlock {
+           return false
+        }
         let block = self.block?.block
         let isHotStock = StockServiceProvider.isHotStock(stock: stock, block: block!)
         return isHotStock
@@ -111,18 +115,43 @@ extension BlockStockListViewController:UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellId = "reuseIdentifier"
-        var cell = tableView.dequeueReusableCell(withIdentifier: cellId)
-        if cell == nil {
-            cell = UITableViewCell (style: .subtitle, reuseIdentifier: cellId)
-        }
-        // Configure the cell...
         let stock = self.displayedItems[indexPath.row];
         let isHotStock = self.isHotStock(stock: stock)
-        let str = String.init(format: "%@ %@", stock.name,isHotStock ? "🐯":"")
-        cell?.textLabel!.text = str;
-        cell?.detailTextLabel!.text = "\(stock.code)      流通值:\(stock.formatMoney)"
-        return cell!
+        let name = stock.name
+        let view:ZhangTingStockTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! ZhangTingStockTableViewCell
+        var title:String = ""
+        var line1:String = ""
+        var line2:String = ""
+        var badge:String = ""
+        line1 = "\(stock.code) 流通值:\(stock.tradeValue.formatMoney)"
+        let yingli = stock.yingliStr
+        if yingli != nil {
+            line1 = "\(line1) \(yingli!)"
+        }
+        let jiejin = stock.jiejinStr
+        if jiejin != nil {
+            line1 = "\(line1) \(jiejin!)"
+        }
+        let hotblocksCount = DataCache.getTopBlockNamesForStock(stock: stock).count
+        let s:ZhangTingStock? = DataCache.getZhangTingStock(date: today, code: stock.code)
+        if s != nil {
+            line2 = "封单额\(s!.ztMoney.formatMoney) 封成比:\(s!.ztRatioBills.formatDot2FloatString) 封流比:\(s!.ztRatioMoney.formatDot2FloatString)"
+            badge = s!.ztBanType
+        }
+        if hotblocksCount > 0 {
+            title = "\(title) 热门概念:\(hotblocksCount)"
+        }
+        if dragonCode != nil && stock.code != dragonCode {
+           let sameblocks = StockUtils.getSameBlockNames(this: stock.code, that: dragonCode!)
+            if sameblocks.count > 0 {
+                title = "\(title) 龙头概念:\(sameblocks.count)"
+            }
+        }
+        if isHotStock {
+            title = "\(title)🐯"
+        }
+        view.applyModel(name: name, title: title, line1: line1, line2: line2, badge: badge)
+        return view
     }
     
 }
@@ -163,23 +192,26 @@ extension BlockStockListViewController:UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let stock = self.displayedItems[indexPath.row]
-        let block = self.block?.block
-        let isHotStock = self.isHotStock(stock: stock)
-        let hotTitle = isHotStock ? "取消热门":"设为热门"
-        let setHotAction = UITableViewRowAction(style: UITableViewRowAction.Style.normal,
-                                                title: hotTitle) { [weak self] (rowAction, indexPath) in
-                                                    let stock = self!.displayedItems[indexPath.row]
-                                                    if isHotStock {
-                                                        StockServiceProvider.removeHotStock(stock: stock, block: block!)
-                                                    } else {
-                                                        StockServiceProvider.setHotStock(stock: stock, block: block!, hotLevel: .Level1)
-                                                    }
-                                                    self?.tableView?.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+        if isForBlock {
+            let stock = self.displayedItems[indexPath.row]
+            let block = self.block?.block
+            let isHotStock = self.isHotStock(stock: stock)
+            let hotTitle = isHotStock ? "取消热门":"设为热门"
+            let setHotAction = UITableViewRowAction(style: UITableViewRowAction.Style.normal,
+                                                    title: hotTitle) { [weak self] (rowAction, indexPath) in
+                                                        let stock = self!.displayedItems[indexPath.row]
+                                                        if isHotStock {
+                                                            StockServiceProvider.removeHotStock(stock: stock, block: block!)
+                                                        } else {
+                                                            StockServiceProvider.setHotStock(stock: stock, block: block!, hotLevel: .Level1)
+                                                        }
+                                                        self?.tableView?.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+            }
+            setHotAction.backgroundEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+            setHotAction.backgroundColor = UIColor.red
+            return [setHotAction]
         }
-        setHotAction.backgroundEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
-        setHotAction.backgroundColor = UIColor.red
-        return [setHotAction]
+        return nil
     }
     
 }

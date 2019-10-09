@@ -214,9 +214,6 @@ class ZhangTingListViewController: DataServiceViewController {
             }
         }
         self.addService(dataService: dataService)
-        if dataService.paginationService != nil {
-            self.addService(dataService: dataService.paginationService!)
-        }
 
         dataService = DataService(date: today,keywords: "振幅大于15且非科创板且上市天数大于20 开盘涨跌幅", title: "连续涨停数排行榜")
         dataService.handler = { [unowned self] (date, json, dict) in
