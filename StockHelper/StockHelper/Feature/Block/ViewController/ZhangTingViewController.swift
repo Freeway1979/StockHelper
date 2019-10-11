@@ -306,10 +306,8 @@ extension ZhangTingViewController:UITableViewDataSource {
 }
 
 extension ZhangTingViewController:UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        //let item = self.layoutData[indexPath.section].data[indexPath.row]
-            
+        let item:ZhangTingStock = self.layoutData[indexPath.section].data[indexPath.row]
+        StockUtils.gotoStockViewController(code: item.code, from: self.navigationController!)
     }
 }

@@ -12,6 +12,21 @@ import ZKProgressHUD
 class StockViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
+    private enum DataId: String {
+        case SECTION_BASIC = "基本情况"
+        case CELL_STOCK_NOTE = "股票笔记"
+        case CELL_STOCK_TRADE_MONEY = "流通市值"
+        case CELL_STOCK_HQ = "股票行情"
+        case CELL_STOCK_LIANDONG = "股票联动"
+        
+        case SECTION_HOT_BLOCK = "热门板块"
+        case SECTION_ZT_IN_120 = "120日涨停数"
+        case CELL_ZT_IN_120 = "120日内涨停数"
+
+        case SECTION_STOCK_PROFIT = "盈利数据"
+        case SECTION_STOCK_JIEJIN = "解禁数据"
+    }
+    
     private var tableData:[TableViewSectionModel] = []
     var stockCode:String = ""
     
@@ -32,35 +47,43 @@ class StockViewController: UIViewController {
         self.title = "\(stock.name) \(stock.code)"
         // 基本情况
         var section = TableViewSectionModel()
-        section.title = "基本情况"
-        section.id = "SectionBasic"
+        section.title = DataId.SECTION_BASIC.rawValue
+        section.id = DataId.SECTION_BASIC.rawValue
         
         var cell = TableViewCellModel();
         cell.data = stockCode
-        cell.id = "股票笔记"
-        cell.title = "股票笔记"
+        cell.id = DataId.CELL_STOCK_NOTE.rawValue
+        cell.title = DataId.CELL_STOCK_NOTE.rawValue
         cell.accessoryType = .disclosureIndicator
         section.rows.append(cell)
         
         let desc = "流通值:\(stock.tradeValue.formatMoney)"
         cell = TableViewCellModel();
         cell.data = stockCode
-        cell.id = "流通市值"
+        cell.id = DataId.CELL_STOCK_TRADE_MONEY.rawValue
         cell.title = desc
         section.rows.append(cell)
         
         cell = TableViewCellModel();
         cell.data = stockCode
-        cell.id = "股票行情"
-        cell.title = "股票行情"
+        cell.id = DataId.CELL_STOCK_HQ.rawValue
+        cell.title = DataId.CELL_STOCK_HQ.rawValue
         cell.accessoryType = .disclosureIndicator
         section.rows.append(cell)
+        
+        cell = TableViewCellModel();
+        cell.data = stockCode
+        cell.id = DataId.CELL_STOCK_LIANDONG.rawValue
+        cell.title = DataId.CELL_STOCK_LIANDONG.rawValue
+        cell.accessoryType = .disclosureIndicator
+        section.rows.append(cell)
+        
         self.tableData.append(section)
         
         //热门板块
         section = TableViewSectionModel()
-        section.title = "热门板块"
-        section.id = "SectionHotBlock"
+        section.title = DataId.SECTION_HOT_BLOCK.rawValue
+        section.id = DataId.SECTION_HOT_BLOCK.rawValue
         // 看看是否在前十大热门板块中
         let blocks:[String] = DataCache.getTopBlockNamesForStock(stock: stock)
         for block in blocks {
@@ -74,13 +97,13 @@ class StockViewController: UIViewController {
         
         //120日内涨停数
         section = TableViewSectionModel()
-        section.title = "120日内涨停数"
-        section.id = "SectionZTS"
+        section.title = DataId.SECTION_ZT_IN_120.rawValue
+        section.id = DataId.SECTION_ZT_IN_120.rawValue
         
         let zts:ZhangTingShuStock? = StockUtils.getZhangTingShuStock(by: stockCode)
         cell = TableViewCellModel();
         cell.data = stockCode
-        cell.id = "120日涨停数"
+        cell.id = DataId.CELL_ZT_IN_120.rawValue
         cell.title = "0"
         if zts != nil {
           cell.title = zts!.zt
@@ -90,8 +113,8 @@ class StockViewController: UIViewController {
         
         //盈利数据
         section = TableViewSectionModel()
-        section.title = "盈利数据"
-        section.id = "SectionJieJin"
+        section.title = DataId.SECTION_STOCK_PROFIT.rawValue
+        section.id = DataId.SECTION_STOCK_PROFIT.rawValue
         let yingLiStock:YingLiStock? = StockUtils.getYingLiStock(by: stockCode)
         if yingLiStock != nil {
             var desc = "盈利额:\(yingLiStock!.yingliValue.formatMoney)"
@@ -121,8 +144,8 @@ class StockViewController: UIViewController {
         
         //解禁数据
         section = TableViewSectionModel()
-        section.title = "解禁数据"
-        section.id = "SectionJieJin"
+        section.title = DataId.SECTION_STOCK_JIEJIN.rawValue
+        section.id = DataId.SECTION_STOCK_JIEJIN.rawValue
         let jiejinStocks:[JieJinStock] = StockUtils.getJieJinStocks(by: stockCode)
         for item in jiejinStocks {
             cell = TableViewCellModel();
@@ -139,6 +162,14 @@ class StockViewController: UIViewController {
         ZKProgressHUD.dismiss()
     }
     
+    private func gotoHotBlockViewController(stock: Stock) {
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Block",bundle: nil)
+        var destViewController : HotBlockViewController
+        destViewController = mainStoryboard.instantiateViewController(withIdentifier: "HotBlockViewController") as! HotBlockViewController
+        destViewController.liandongStockCode = stock.code
+        destViewController.liandongStockName = stock.name
+        self.navigationController?.pushViewController(destViewController, animated: true)
+    }
 }
 
 
@@ -175,16 +206,21 @@ extension StockViewController:UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sectionModel = self.tableData[indexPath.section]
         let cellModel = sectionModel.rows[indexPath.row]
-        if sectionModel.id == "SectionBasic" {
-            if cellModel.id == "股票笔记" {
+        if sectionModel.id == DataId.SECTION_BASIC.rawValue {
+            if cellModel.id == DataId.CELL_STOCK_NOTE.rawValue {
                 let storyboard = UIStoryboard(name: "Stock", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: "StockNoteViewController") as! StockNoteViewController
                 vc.title = "操盘笔记"
                 self.navigationController!.pushViewController(vc, animated: true)
             }
-            if cellModel.id == "股票行情" {
+            if cellModel.id == DataId.CELL_STOCK_HQ.rawValue {
                 let stock:Stock = StockUtils.getStock(by: stockCode)
                 StockUtils.openStockHQPage(code: stock.code, name: stock.name, from: self.navigationController!)
+            }
+            
+            if cellModel.id == DataId.CELL_STOCK_LIANDONG.rawValue {
+                let stock:Stock = StockUtils.getStock(by: stockCode)
+                self.gotoHotBlockViewController(stock: stock)
             }
         }
     }

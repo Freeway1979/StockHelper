@@ -96,6 +96,12 @@ class DapanOverview {
             dapanStatus = "转强"
             sugguestAction = "加仓"
         }
+        if self.isCuoRouXian {
+            text = "\(text)搓揉线,可能变盘 "
+        }
+        if self.isFanCuoRouXian {
+            text = "\(text)反搓揉线,可能变盘 "
+        }
         overviewTex = text
     }
     
@@ -165,11 +171,26 @@ class DapanOverview {
         return first.isAboveMA5 && second.isAboveMA5
     }
     
+    //搓揉线
+    var isCuoRouXian:Bool {
+        let first:StockDayHQ = hqList.first!
+        let second:StockDayHQ = hqList[1]
+        return second.isShangYingXian && first.isXiaYingXian
+    }
+    //反搓揉线
+    var isFanCuoRouXian:Bool {
+        let first:StockDayHQ = hqList.first!
+        let second:StockDayHQ = hqList[1]
+        return second.isXiaYingXian && first.isShangYingXian
+    }
+    
     public func getHQListFromServer(code:String,startDate:String, endDate:String) -> [StockDayHQ] {
         if hqList.count > 0 && Date().isMarketClosed {
             return hqList
         }
-        let csvData = try? String(contentsOf: URL(string: "http://quotes.money.163.com/service/chddata.html?code=0000001&start=\(startDate)&end=\(endDate)&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;VOTURNOVER;VATURNOVER")!, encoding: String.gbkEncoding)
+        let url = "http://quotes.money.163.com/service/chddata.html?code=0000001&start=\(startDate)&end=\(endDate)&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;VOTURNOVER;VATURNOVER"
+        
+        let csvData = try? String(contentsOf: URL(string: url)!, encoding: String.gbkEncoding)
         if csvData != nil {
             let list:[String] = csvData!.components(separatedBy: "\r\n")
             var datas:[[String]] = []

@@ -152,6 +152,26 @@ class StockDayHQ {
     var isBelowMA20:Bool {
         return close < ma20
     }
+    //上影线
+    var isShangYingXian:Bool {
+        let max:Float = [open, close].max()!
+        return (high * 1000 / max) > 5
+    }
+    //下影线
+    var isXiaYingXian:Bool {
+        let min:Float = [open, close].min()!
+        return (min * 1000 / low) > 5
+    }
+    //长上影线
+    var isChangShangYingXian:Bool {
+        let max:Float = [open, close].max()!
+        return (high * 1000 / max) > 20
+    }
+    //长下影线
+    var isChangXiaYingXian:Bool {
+        let min:Float = [open, close].min()!
+        return (min * 1000 / low) > 15
+    }
     
     var date: String {
         return data[StockDataIndex.Date.rawValue]
