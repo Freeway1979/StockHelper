@@ -24,14 +24,13 @@ class WencaiUtils {
     
     class func loadWencaiPaginationData(webview:WKWebView,token:String,perpage:Int, page:Int, extra: String) {
         let url = WenCaiQuery.getPaginationUrl(token: token,perpage: perpage,page: page, extra:extra)
-        print(url)
         self.loadWebPage(with: url, webview: webview)
     }
     //    http://www.iwencai.com/stockpick/search?typed=0&preParams=&ts=1&f=1&qs=result_original&selfsectsn=&querytype=stock&searchfilter=&tid=stockpick&w=%E6%A6%82%E5%BF%B5%E6%9D%BF%E5%9D%97%E8%B5%84%E9%87%91+%E6%B6%A8%E8%B7%8C%E5%B9%85%E9%A1%BA%E5%BA%8F
     
    class func loadWebPage(with url:String,webview:WKWebView) {
+        print(url)
         let encodedUrl:String = url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-        print(encodedUrl)
         webview.load(URLRequest(url: URL(string: encodedUrl)!))
     }
     
@@ -84,6 +83,8 @@ class WencaiUtils {
             let enc = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(cfEnc.rawValue))
             let dict = jsonString.toDictionary(encoding: String.Encoding(rawValue: enc))
             callback(jsonString, dict as! Dictionary<String, Any>)
+        } else {
+            callback("", [:])
         }
     }
     

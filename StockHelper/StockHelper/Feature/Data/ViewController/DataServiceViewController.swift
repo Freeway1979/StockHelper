@@ -106,8 +106,8 @@ class DataServiceViewController: UIViewController {
             } else {
                 dataService.handleResponse(date: dataService.date, json: json, dict: dict!)
             }
-            self.goNext(webView: webView)
         }
+        self.goNext(webView: webView)
     }
 }
 
@@ -126,6 +126,7 @@ extension DataServiceViewController: WKNavigationDelegate {
         //        }
         webView.evaluateJavaScript("document.body.innerHTML") { [unowned self] (data, error) in
             let rs = data as! String
+            //{"code":130,"error":"token已失效","success":false}
             if (rs.contains("\"token\":")) {
                 self.token = WencaiUtils.parseTokenFromHTML(html: rs)
                 WencaiUtils.parseHTML(html: rs, callback: { [unowned self] (jsonString, dict) in

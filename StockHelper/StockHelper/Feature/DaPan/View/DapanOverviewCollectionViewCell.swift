@@ -98,4 +98,17 @@ class DapanOverviewCollectionViewCell: UICollectionViewCell {
         self.labelNorthMoney.text = northMoney
         self.labelNorthMoney.setTextColor(with: northMoney)
     }
+    
+    func updateDragons(marketDragon:ZhangTingStock?,gaoduDragon:ZhangTingStock?) {
+        //市场龙头
+        var title = marketDragon?.name ?? "-"
+        var badge = marketDragon?.ztBanType ?? ""
+        self.buttonMarketDragon.setTitle(title, for: UIControl.State.normal)
+        self.buttonMarketDragon.badgeString = badge
+        //空间龙头
+        title = gaoduDragon?.name ?? "-"
+        badge = gaoduDragon?.ztBanType ?? ""
+        self.buttonMarketDragon.setTitle(title, for: UIControl.State.normal)
+        self.buttonMarketDragon.badgeString = badge
+    }
 }

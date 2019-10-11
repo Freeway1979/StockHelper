@@ -10,7 +10,10 @@ import Foundation
 
 class DataCache {
     public static var blockTops:[String:[WenCaiBlockStat]]? = [:]
+    //市场总龙头
     public static var marketDragon:ZhangTingStock?
+    //空间龙头
+    public static var gaoduDragon:ZhangTingStock?
     //盈利
     public static var yingliStocks:[YingLiStock] = []
     //扭亏

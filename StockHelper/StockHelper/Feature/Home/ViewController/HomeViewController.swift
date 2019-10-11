@@ -257,10 +257,10 @@ class HomeViewController: UICollectionViewController {
         //TODO:可以切换 创业板/深圳成指/上证指数
         _ = DapanOverview.sharedInstance.getHQListFromServer(code: "000001", startDate: startDate, endDate: endDate)
         let overview = DapanOverview.sharedInstance
-        DispatchQueue.main.async(execute: {
+        DispatchQueue.main.async { [unowned self] in
             self.dapanOverviewCell?.applyModel(overviewText: overview.overviewTex, status: overview.dapanStatus, badge: overview.dapanStatusBadge, action: overview.sugguestAction, cangwei: overview.sugguestCangWei)
-                   
-        })
+            self.dapanOverviewCell?.updateDragons(marketDragon: DataCache.marketDragon, gaoduDragon: DataCache.gaoduDragon)
+        }
     }
     
     func onNorthMoneyHandled(northMoney:[String]) {

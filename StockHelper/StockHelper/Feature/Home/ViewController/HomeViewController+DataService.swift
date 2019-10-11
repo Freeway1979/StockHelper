@@ -101,8 +101,8 @@ extension HomeViewController {
             } else {
                 dataService.handleResponse(date: dataService.date, json: json, dict: dict!)
             }
-            self.goNext(webView: webView)
         }
+        self.goNext(webView: webView)
     }
     
     func handleNorthMoneyData(html:String) -> [String] {

@@ -236,8 +236,9 @@ class BlockCycleViewController: DataServiceViewController {
     func prepareDataServices(date:String) {
        var dataService = DataService(date: date, keywords: "\(date)概念板块资金 \(date)涨幅 \(date)成交额大于100亿", title: "概念板块资金")
         dataService.onStart = { [unowned self] in
-            self.rightFooterView?.text = "正在处理:\(date)"
-            self.title = "正在处理:\(date)"
+            let msg = "正在处理:\(date)"
+            self.navigationController?.navigationController?.title = msg
+            self.navigationController?.title = msg
         }
         dataService.handler = { [unowned self] (date, json, dict) in
             print("handleGNBlocksWithMoney", date)
@@ -332,6 +333,7 @@ class BlockCycleViewController: DataServiceViewController {
         if dragon != nil {
             let stock = StockUtils.getStock(by: dragon!.code)
             title = "\(title)空间龙:\(stock.name)[\(dragon!.zhangting)]"
+            DataCache.gaoduDragon = dragon
         }
         self.navigationController?.title = title
         self.title = title
