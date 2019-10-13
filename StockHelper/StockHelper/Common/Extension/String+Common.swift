@@ -34,6 +34,10 @@ extension String {
         return NSDictionary()
     }
     
+    func toList(separator: Character) -> [String] {
+      return self.split(separator: separator).map(String.init)
+    }
+    
     var numberValue: NSNumber? {
         if let value = Int(self) {
             return NSNumber(value: value)
@@ -62,5 +66,4 @@ extension String {
     var formatDot2FloatString:String {
         return String(format: "%.2f", self.floatValue);
     }
-    
 }

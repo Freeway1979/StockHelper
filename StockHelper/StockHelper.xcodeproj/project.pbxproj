@@ -122,6 +122,8 @@
 		A1ABA3BD2264B13E00985F3D /* StackTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1ABA3BC2264B13E00985F3D /* StackTableHeaderView.xib */; };
 		A1AEB440234D646A00FD9FEE /* XuanguDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AEB43F234D646A00FD9FEE /* XuanguDataService.swift */; };
 		A1AEB444234E250D00FD9FEE /* BlockStockListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AEB443234E250D00FD9FEE /* BlockStockListViewController.swift */; };
+		A1AEB4462352014400FD9FEE /* StockTagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AEB4452352014400FD9FEE /* StockTagViewController.swift */; };
+		A1AEB4482352150700FD9FEE /* TableCRUDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AEB4472352150700FD9FEE /* TableCRUDViewController.swift */; };
 		A1D29809222BD0A9005FBB1B /* WebSiteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D29808222BD0A9005FBB1B /* WebSiteListViewController.swift */; };
 		A1D2980C222BD40B005FBB1B /* ThirdWebSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D2980B222BD40B005FBB1B /* ThirdWebSite.swift */; };
 		A1D44CBA21D9F8730043A4A5 /* StockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D44CB921D9F8730043A4A5 /* StockService.swift */; };
@@ -285,6 +287,8 @@
 		A1ABA3BE2266211800985F3D /* wencai.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = wencai.md; sourceTree = "<group>"; };
 		A1AEB43F234D646A00FD9FEE /* XuanguDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XuanguDataService.swift; sourceTree = "<group>"; };
 		A1AEB443234E250D00FD9FEE /* BlockStockListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockStockListViewController.swift; sourceTree = "<group>"; };
+		A1AEB4452352014400FD9FEE /* StockTagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockTagViewController.swift; sourceTree = "<group>"; };
+		A1AEB4472352150700FD9FEE /* TableCRUDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCRUDViewController.swift; sourceTree = "<group>"; };
 		A1D29808222BD0A9005FBB1B /* WebSiteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSiteListViewController.swift; sourceTree = "<group>"; };
 		A1D2980B222BD40B005FBB1B /* ThirdWebSite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdWebSite.swift; sourceTree = "<group>"; };
 		A1D44CB921D9F8730043A4A5 /* StockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StockService.swift; path = StockHelper/Feature/Stock/Storyboard/StockService.swift; sourceTree = SOURCE_ROOT; };
@@ -465,6 +469,7 @@
 				A1E1277721E6B76F00527DC0 /* LeadStockViewController.swift */,
 				A12A18DD21EA2878004294B5 /* StockViewController.swift */,
 				A141D2662279B241000ED0EA /* StockNoteViewController.swift */,
+				A1AEB4452352014400FD9FEE /* StockTagViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -843,6 +848,7 @@
 				A155BFAD21F766A80026635A /* WebViewController.swift */,
 				A155BFB121F769500026635A /* Common.storyboard */,
 				A13FEFB522047FA1002B1E7E /* TextViewController.swift */,
+				A1AEB4472352150700FD9FEE /* TableCRUDViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1321,8 +1327,10 @@
 				A12A50B42218DBC10045D320 /* JsonString2Objects.swift in Sources */,
 				A1083969231DC805002D1B99 /* BlockDataService.swift in Sources */,
 				06EDD3C5215241970035104B /* AppDelegate.swift in Sources */,
+				A1AEB4462352014400FD9FEE /* StockTagViewController.swift in Sources */,
 				A12A50BC221F77590045D320 /* Data+GBK.swift in Sources */,
 				A12A18D921EA08E3004294B5 /* Array+PinYin.swift in Sources */,
+				A1AEB4482352150700FD9FEE /* TableCRUDViewController.swift in Sources */,
 				A1901AB621E8CBEE00F14831 /* TagCollectionViewCell.swift in Sources */,
 				A1343F9521F45A830086FEEB /* iCloudUtils.swift in Sources */,
 				A13FAF612287B21600F8A497 /* ReviewDetailViewController.swift in Sources */,
@@ -1532,9 +1540,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StockHelper/StockHelper.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20191010;
+				CURRENT_PROJECT_VERSION = 20191012;
 				DEVELOPMENT_TEAM = RTCEZS3U4Z;
 				INFOPLIST_FILE = StockHelper/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1553,9 +1562,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StockHelper/StockHelper.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20191010;
+				CURRENT_PROJECT_VERSION = 20191012;
 				DEVELOPMENT_TEAM = RTCEZS3U4Z;
 				INFOPLIST_FILE = StockHelper/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

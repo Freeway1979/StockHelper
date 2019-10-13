@@ -77,7 +77,7 @@ class ZhangTingStock:Codable,Hashable {
     var ztKaiBan:Int = 0
     var gnListStr:String = ""
     var gnList:[String] {
-        return gnListStr.split(separator: ";").map(String.init)
+        return gnListStr.toList(separator: ";")
     }
     
     required init(code:String, zhangting:Int) {

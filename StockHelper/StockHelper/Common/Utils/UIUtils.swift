@@ -20,4 +20,15 @@ class UIUtils {
             ZKProgressHUD.dismiss()
         })
     }
+    
+    public static func gotoViewController(storyboard:String,storyboardId:String, from navigationController:UINavigationController) -> UIViewController {
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: storyboard,bundle: nil)
+        var destViewController : UIViewController
+        destViewController = mainStoryboard.instantiateViewController(withIdentifier: storyboardId)
+        navigationController.pushViewController(destViewController, animated: true)
+        return destViewController
+    }
+    
+    
+    
 }

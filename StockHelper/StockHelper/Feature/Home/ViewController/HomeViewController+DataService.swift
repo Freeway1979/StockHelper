@@ -83,6 +83,10 @@ extension HomeViewController {
             if (dataService.keywords == "cacheToken") {
                 let extra = "showType=[\"\",\"\",\"onTable\",\"onTable\",\"onTable\",\"onTable\",\"onTable\",\"onTable\",\"onTable\",\"onTable\",\"onTable\"]"
                 let perpage:Int = dataService.perpage
+                if self.token == nil {
+                    self.goNext(webView: webView)
+                    return
+                }
                 WencaiUtils.loadWencaiPaginationData(webview: webView, token: self.token!, perpage: perpage, page: 1, extra: extra)
             } else {
                 

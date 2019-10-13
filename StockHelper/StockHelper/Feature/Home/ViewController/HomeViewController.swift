@@ -272,6 +272,8 @@ class HomeViewController: UICollectionViewController {
 
     func loadData() -> Void {
         
+        Utils.savePersistantData(key: "test", data: nil)
+        
         let myQueue = DispatchQueue(label: "initData")
         let group = DispatchGroup()
         
@@ -288,9 +290,7 @@ class HomeViewController: UICollectionViewController {
         myQueue.async(group: group, qos: .default, flags: [], execute: {
             print("task 2")
             // 股票基本信息列表
-//            StockServiceProvider.getStockList { [weak self] (stocks) in
-//                print("getStockList",stocks.count)
-//            }
+            DataCache.loadStockExtras()
         })
         
         // all

@@ -9,6 +9,29 @@
 import Foundation
 
 class DataCache {
+    //StockExtra
+    private static var stockExtraMap:[String:StockExtra] = [:]
+    
+    public static func loadStockExtras() {
+        let key = UserDefaultKeys.Stock.tags
+        let data = Utils.loadPersistantData(key: key) as? [String:StockExtra]
+        if data != nil {
+           stockExtraMap = data!
+        }
+    }
+    
+    public static func saveStockExtras() {
+        let key = UserDefaultKeys.Stock.tags
+        Utils.savePersistantData(key: key, data: stockExtraMap)
+    }
+    public static func getStockExtra(code:String) -> StockExtra? {
+        return stockExtraMap[code]
+    }
+    public static func setStockExtra(code:String, extra:StockExtra) {
+       stockExtraMap[code] = extra
+       //Sync to iCloud
+       saveStockExtras()
+    }
     public static var blockTops:[String:[WenCaiBlockStat]]? = [:]
     //市场总龙头
     public static var marketDragon:ZhangTingStock?

@@ -74,4 +74,22 @@ class Utils {
         }
         return rs
     }
+    
+    
+    //IO
+    public static func loadPersistantData(key:String) -> Any? {
+        var data = UserDefaults.standard.object(forKey: key)
+        if data == nil {
+            //iCloud
+            data = iCloudUtils.object(forKey: key)
+        }
+        return data
+    }
+    
+    public static func savePersistantData(key:String, data:Any?) {
+        UserDefaults.standard.set(data, forKey:key)
+        UserDefaults.standard.synchronize()
+        //iCloud
+        iCloudUtils.set(anobject: data, forKey: key)
+    }
 }

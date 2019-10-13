@@ -20,6 +20,7 @@ struct UserDefaultKeys {
         static let zhangtingshuStock = "ZhangTingShuStock"
         static let jinjinStock = "JinJinStock"
         static let zhangtingStock = "ZhangTingStock"
+        static let tags = "Tags"
     }
     struct Block {
         static let basicBlocks = "BasicBlocks"
@@ -113,128 +114,77 @@ class StockDBProvider {
     // Mark:Hot
     public static func saveHotBlocks(data:String) {
         let key = UserDefaultKeys.Block.hotBlocks
-        UserDefaults.standard.set(data, forKey:key)
-        UserDefaults.standard.synchronize()
-        //iCloud
-        iCloudUtils.set(anobject: data, forKey: key)
+        Utils.savePersistantData(key: key, data: data)
     }
     public static func loadHotBlocks() -> String? {
         let key = UserDefaultKeys.Block.hotBlocks
-        var data = UserDefaults.standard.object(forKey: key) as? String
-        if data?.count == 0 {
-            //iCloud
-            data = iCloudUtils.object(forKey: key) as? String
-        }
+        let data = Utils.loadPersistantData(key: key) as? String
         return data;
     }
     public static func saveHotStocks(data:String) {
         let key = UserDefaultKeys.Stock.hotStocks
-        UserDefaults.standard.set(data, forKey: key)
-        UserDefaults.standard.synchronize()
-        //iCloud
-        iCloudUtils.set(anobject: data, forKey: key)
+        Utils.savePersistantData(key: key, data: data)
     }
     public static func loadHotStocks() -> String? {
         let key = UserDefaultKeys.Stock.hotStocks
-        var data = UserDefaults.standard.object(forKey: key) as? String
-        if data?.count == 0 {
-            //iCloud
-            data = iCloudUtils.object(forKey: key) as? String
-        }
+        let data = Utils.loadPersistantData(key: key) as? String
         return data;
     }
     // Mark:Important
     public static func saveImportantBlocks(data:String) {
         let key = UserDefaultKeys.Block.importantBlocks
-        UserDefaults.standard.set(data, forKey: key)
-        UserDefaults.standard.synchronize()
-        //iCloud
-        iCloudUtils.set(anobject: data, forKey: key)
+        Utils.savePersistantData(key: key, data: data)
     }
     public static func loadImportantBlocks() -> String? {
         let key = UserDefaultKeys.Block.importantBlocks
-        var data = UserDefaults.standard.object(forKey: key) as? String
-        if data?.count == 0 {
-            //iCloud
-            data = iCloudUtils.object(forKey: key) as? String
-        }
+        let data = Utils.loadPersistantData(key: key) as? String
         return data;
     }
     public static func saveImportantStocks(data:String) {
         let key = UserDefaultKeys.Stock.importantStocks
-        UserDefaults.standard.set(data, forKey: key)
-        UserDefaults.standard.synchronize()
-        //iCloud
-        iCloudUtils.set(anobject: data, forKey: key)
+        Utils.savePersistantData(key: key, data: data)
     }
     public static func loadImportantStocks() -> String? {
         let key = UserDefaultKeys.Stock.importantStocks
-        var data = UserDefaults.standard.object(forKey: key) as? String
-        if data?.count == 0 {
-            //iCloud
-            data = iCloudUtils.object(forKey: key) as? String
-        }
+        let data = Utils.loadPersistantData(key: key) as? String
         return data;
     }
     
     // Mark: PinYin
     public static func loadStockPinYin() -> [String:String] {
         let key = UserDefaultKeys.Stock.basicStocksPinYin
-        var pinyinMap = UserDefaults.standard.object(forKey:key)
+        let pinyinMap = Utils.loadPersistantData(key: key) as? [String:String]
         if pinyinMap != nil {
-            return pinyinMap as! [String : String]
-        }
-        //iCloud
-        pinyinMap = iCloudUtils.object(forKey: key) as? [String:String]
-        if pinyinMap != nil {
-            return pinyinMap as! [String : String]
+            return pinyinMap!
         }
         return [:]
     }
     public static func saveStockPinYin(stockPinYinMap:[String:String]) {
         let key = UserDefaultKeys.Stock.basicStocksPinYin
-        UserDefaults.standard.set(stockPinYinMap,forKey:key)
-        UserDefaults.standard.synchronize()
-        //iCloud
-        iCloudUtils.set(anobject: stockPinYinMap, forKey: key)
+        Utils.savePersistantData(key: key, data: stockPinYinMap)
     }
     public static func loadBlockPinYin() -> [String:String] {
         let key = UserDefaultKeys.Block.basicBlocksPinYin
-        var pinyinMap = UserDefaults.standard.object(forKey: key)
+        let pinyinMap = Utils.loadPersistantData(key: key) as? [String:String]
         if pinyinMap != nil {
-            return pinyinMap as! [String : String]
-        }
-        
-        pinyinMap = iCloudUtils.object(forKey: key) as? [String:String]
-        if pinyinMap != nil {
-            return pinyinMap as! [String : String]
+            return pinyinMap!
         }
         return [:]
     }
     public static func saveBlockPinYin(blockPinYinMap:[String:String]) {
         let key = UserDefaultKeys.Block.basicBlocksPinYin
-        UserDefaults.standard.set(blockPinYinMap,forKey:key)
-        UserDefaults.standard.synchronize()
-        //iCloud
-        iCloudUtils.set(anobject: blockPinYinMap, forKey: key)
+        Utils.savePersistantData(key: key, data: blockPinYinMap)
     }
     
     //-----------------------------------板块周期表----------------------------------
     public static func loadBlockLifeCycleData() -> Data? {
         let key = UserDefaultKeys.Block.blokLifeCycle
-        var data = UserDefaults.standard.object(forKey: key)
-        if data != nil {
-            return data as? Data
-        }
-        data = iCloudUtils.object(forKey: key) as? [String:String]
-        return data as? Data
+        let data = Utils.loadPersistantData(key: key) as? Data
+        return data
     }
     public static func saveBlockLifeCycleData(data:Data) {
         let key = UserDefaultKeys.Block.blokLifeCycle
-        UserDefaults.standard.set(data,forKey:key)
-        UserDefaults.standard.synchronize()
-        //iCloud
-        iCloudUtils.set(anobject: data, forKey: key)
+        Utils.savePersistantData(key: (key), data: data)
     }
     
     public static func clearLocalUserDefaults() {

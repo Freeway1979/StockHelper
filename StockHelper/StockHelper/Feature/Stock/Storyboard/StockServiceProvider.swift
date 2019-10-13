@@ -438,9 +438,7 @@ class StockServiceProvider {
             if case let .success(response) = result {
                 let responseText = try? response.mapString()
                 if responseText != nil {
-                    let arraySubstrings: [Substring] = responseText!.replacingOccurrences(of: "\n", with: "").split(separator: ",")
-                    let arrayStrings: [String] = arraySubstrings.compactMap { "\($0)" }
-
+                    let arrayStrings: [String] = responseText!.replacingOccurrences(of: "\n", with: "").toList(separator: ",")
                     callback(arrayStrings)
                 }
             }

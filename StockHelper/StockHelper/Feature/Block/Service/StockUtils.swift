@@ -184,24 +184,17 @@ class StockUtils {
     public static func saveData<T:Codable>(data:[T], key:String) {
         do {
             let data = try JSONEncoder().encode(data)
-            UserDefaults.standard.set(data, forKey: key)
-            UserDefaults.standard.synchronize()
-            //iCloud
-            iCloudUtils.set(anobject: data, forKey: key)
+            Utils.savePersistantData(key: key, data: data)
         } catch {
             print(error.localizedDescription)
         }
     }
     public static func loadData<T:Codable>(key:String) -> [T] {
         do {
-            var data = UserDefaults.standard.object(forKey: key) as? Data
-            if data?.count == 0 {
-                //iCloud
-                data = iCloudUtils.object(forKey: key) as? Data
-            }
+            let data = Utils.loadPersistantData(key: key)
             if (data != nil)
             {
-                let blocks = try JSONDecoder().decode([T].self, from: data!)
+                let blocks = try JSONDecoder().decode([T].self, from: data! as! Data)
                 return blocks
             }
         } catch {

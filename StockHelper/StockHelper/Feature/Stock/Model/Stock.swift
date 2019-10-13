@@ -41,6 +41,35 @@ public protocol HotLevelable {
     var importantLevel: HotLevel { get set }
 }
 
+class StockExtra: Codable,Hashable {
+    var code:String = "";
+    //自定义标签
+    var tags:String?
+    //备注
+    var memo:String?
+    
+    var tagList:[String] {
+        if tags != nil {
+            return (tags?.toList(separator: ";"))!
+        }
+        return []
+    }
+    
+    static func == (lhs: StockExtra, rhs: StockExtra) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+    
+    func hash(into hasher: inout Hasher)
+    {
+        hasher.combine(self.tags)
+        hasher.combine(self.memo)
+    }
+    
+    init(code:String) {
+        self.code = code
+    }
+}
+
 class Stock:Codable,Hashable {
     static func == (lhs: Stock, rhs: Stock) -> Bool {
         return lhs.hashValue == rhs.hashValue
@@ -62,7 +91,7 @@ class Stock:Codable,Hashable {
     var gnListStr: String = ""
     
     var gnList:[String] {
-        return gnListStr.split(separator: ";").map(String.init)
+        return gnListStr.toList(separator: ";")
     }
     //120日内涨停数
     var zts:Int {

@@ -18,6 +18,7 @@ class StockViewController: UIViewController {
         case CELL_STOCK_TRADE_MONEY = "流通市值"
         case CELL_STOCK_HQ = "股票行情"
         case CELL_STOCK_LIANDONG = "股票联动"
+        case CELL_STOCK_TAGS = "自定义标签"
         
         case SECTION_HOT_BLOCK = "热门板块"
         case SECTION_ZT_IN_120 = "120日涨停数"
@@ -75,6 +76,13 @@ class StockViewController: UIViewController {
         cell.data = stockCode
         cell.id = DataId.CELL_STOCK_LIANDONG.rawValue
         cell.title = DataId.CELL_STOCK_LIANDONG.rawValue
+        cell.accessoryType = .disclosureIndicator
+        section.rows.append(cell)
+        
+        cell = TableViewCellModel();
+        cell.data = stockCode
+        cell.id = DataId.CELL_STOCK_TAGS.rawValue
+        cell.title = DataId.CELL_STOCK_TAGS.rawValue
         cell.accessoryType = .disclosureIndicator
         section.rows.append(cell)
         
@@ -221,6 +229,12 @@ extension StockViewController:UITableViewDelegate {
             if cellModel.id == DataId.CELL_STOCK_LIANDONG.rawValue {
                 let stock:Stock = StockUtils.getStock(by: stockCode)
                 self.gotoHotBlockViewController(stock: stock)
+            }
+            
+            if cellModel.id == DataId.CELL_STOCK_TAGS.rawValue {
+                let stock:Stock = StockUtils.getStock(by: stockCode)
+                let vc:StockTagViewController = UIUtils.gotoViewController(storyboard: "Stock", storyboardId: "StockTagViewController", from: self.navigationController!) as! StockTagViewController
+                vc.stock = stock
             }
         }
     }
