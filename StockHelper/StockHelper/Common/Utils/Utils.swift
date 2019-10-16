@@ -45,6 +45,7 @@ class Utils {
     public static func appInitialize() {
         DispatchQueue.global().async {
             DataCache.loadFromDB();
+            DataCache.loadStockExtras()
         }
     }
     
@@ -91,5 +92,28 @@ class Utils {
         UserDefaults.standard.synchronize()
         //iCloud
         iCloudUtils.set(anobject: data, forKey: key)
+    }
+    
+    public static func loadPersistantArrayJsonData<T>(key:String) -> [T]? where T:Codable {
+        do {
+            let data = Utils.loadPersistantData(key: key)
+            if (data != nil)
+            {
+                let rs = try JSONDecoder().decode([T].self, from: data! as! Data)
+                return rs
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+        return [];
+    }
+    
+    public static func savePersistantJsonData<T>(key:String, data:T?) where T:Encodable {
+         do {
+             let jsonData = try JSONEncoder().encode(data)
+             Utils.savePersistantData(key: key, data: jsonData)
+         } catch {
+             print(error.localizedDescription)
+         }
     }
 }

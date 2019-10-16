@@ -34,6 +34,7 @@
                         <viewLayoutGuide key="safeArea" id="Ny6-zp-Npc"/>
                     </view>
                     <navigationItem key="navigationItem" title="自定义标签" id="RSa-Hj-bsW">
+                        <barButtonItem key="backBarButtonItem" title="返回" id="oJi-Gy-XUo"/>
                         <barButtonItem key="rightBarButtonItem" title="编辑" id="fpL-kh-XAz">
                             <connections>
                                 <action selector="onEditButtonClicked:" destination="x1q-D4-L8x" id="tdE-oH-0b2"/>

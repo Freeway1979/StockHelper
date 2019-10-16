@@ -11,18 +11,28 @@ import Foundation
 class DataCache {
     //StockExtra
     private static var stockExtraMap:[String:StockExtra] = [:]
-    
     public static func loadStockExtras() {
         let key = UserDefaultKeys.Stock.tags
-        let data = Utils.loadPersistantData(key: key) as? [String:StockExtra]
-        if data != nil {
-           stockExtraMap = data!
+        do {
+            let data = Utils.loadPersistantData(key: key)
+            if (data != nil)
+            {
+                let rs = try JSONDecoder().decode([String:StockExtra].self, from: (data! as? Data)!)
+                stockExtraMap = rs
+            }
+        } catch {
+            print(error.localizedDescription)
         }
     }
     
     public static func saveStockExtras() {
         let key = UserDefaultKeys.Stock.tags
-        Utils.savePersistantData(key: key, data: stockExtraMap)
+        do {
+            let data = try JSONEncoder().encode(stockExtraMap)
+            Utils.savePersistantData(key: key, data: data)
+        } catch {
+            print(error.localizedDescription)
+        }
     }
     public static func getStockExtra(code:String) -> StockExtra? {
         return stockExtraMap[code]

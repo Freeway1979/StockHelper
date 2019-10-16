@@ -44,15 +44,12 @@ public protocol HotLevelable {
 class StockExtra: Codable,Hashable {
     var code:String = "";
     //自定义标签
-    var tags:String?
+    var tags:String = ""
     //备注
-    var memo:String?
+    var memo:String = ""
     
     var tagList:[String] {
-        if tags != nil {
-            return (tags?.toList(separator: ";"))!
-        }
-        return []
+        return tags.toList(separator: ";")
     }
     
     static func == (lhs: StockExtra, rhs: StockExtra) -> Bool {
@@ -61,12 +58,33 @@ class StockExtra: Codable,Hashable {
     
     func hash(into hasher: inout Hasher)
     {
-        hasher.combine(self.tags)
-        hasher.combine(self.memo)
+        hasher.combine(self.code)
     }
     
     init(code:String) {
         self.code = code
+    }
+    
+    //序列化
+    enum CodingKeys : String, CodingKey {
+        case code
+        case tags
+        case memo
+    }
+    
+    required init(from decoder: Decoder) throws
+    {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        code = try container.decode(String.self, forKey: .code)
+        tags = try container.decode(String.self, forKey: .tags)
+        memo = try container.decode(String.self, forKey: .memo)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(code, forKey: .code)
+        try container.encode(tags, forKey: .tags)
+        try container.encode(memo, forKey: .memo)
     }
 }
 
