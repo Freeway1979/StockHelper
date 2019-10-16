@@ -131,29 +131,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xlJ-dh-0Gb">
-                                <rect key="frame" x="15" y="64" width="345" height="400"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sRM-RJ-78u">
+                                <rect key="frame" x="15" y="64" width="345" height="300"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="400" id="Gc7-BZ-JKC"/>
+                                    <constraint firstAttribute="height" constant="300" id="kx0-Z1-LAg"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="i6q-xA-11w" firstAttribute="trailing" secondItem="xlJ-dh-0Gb" secondAttribute="trailing" constant="15" id="1xO-Mo-D5q"/>
-                            <constraint firstItem="xlJ-dh-0Gb" firstAttribute="leading" secondItem="i6q-xA-11w" secondAttribute="leading" constant="15" id="C4B-vS-aT8"/>
-                            <constraint firstItem="xlJ-dh-0Gb" firstAttribute="top" secondItem="i6q-xA-11w" secondAttribute="top" constant="20" id="zNn-gb-Rbg"/>
+                            <constraint firstItem="i6q-xA-11w" firstAttribute="trailing" secondItem="sRM-RJ-78u" secondAttribute="trailing" constant="15" id="67s-ws-434"/>
+                            <constraint firstItem="sRM-RJ-78u" firstAttribute="top" secondItem="i6q-xA-11w" secondAttribute="top" constant="20" id="R6F-Uj-xkR"/>
+                            <constraint firstItem="sRM-RJ-78u" firstAttribute="leading" secondItem="i6q-xA-11w" secondAttribute="leading" constant="15" id="wQq-NZ-iX5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="i6q-xA-11w"/>
                     </view>
                     <navigationItem key="navigationItem" title="输入文本" id="63o-ic-5xB">
                         <barButtonItem key="backBarButtonItem" title="返回" id="BXt-7S-w1X"/>
+                        <barButtonItem key="rightBarButtonItem" title="完成" id="bx7-YV-jw9">
+                            <connections>
+                                <action selector="onDone:" destination="dmR-q7-KFe" id="lJe-Fx-uGg"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="textfield" destination="xlJ-dh-0Gb" id="kmJ-yy-AUI"/>
+                        <outlet property="textview" destination="sRM-RJ-78u" id="HQt-IW-fXM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qVN-ia-DOn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

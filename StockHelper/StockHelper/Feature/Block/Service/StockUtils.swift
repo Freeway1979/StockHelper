@@ -203,5 +203,11 @@ class StockUtils {
         
         return [];
     }
-    
+    //StockExtra
+    public static func getStockExtra(code:String) -> StockExtra? {
+        return DataCache.getStockExtra(code: code)
+    }
+    public static func setStockExtra(code:String, extra:StockExtra) {
+        DataCache.setStockExtra(code: code, extra: extra)
+    }
 }

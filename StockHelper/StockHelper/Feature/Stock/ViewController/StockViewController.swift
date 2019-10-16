@@ -19,6 +19,7 @@ class StockViewController: UIViewController {
         case CELL_STOCK_HQ = "股票行情"
         case CELL_STOCK_LIANDONG = "股票联动"
         case CELL_STOCK_TAGS = "自定义标签"
+        case CELL_STOCK_MEMO = "备忘录"
         
         case SECTION_HOT_BLOCK = "热门板块"
         case SECTION_ZT_IN_120 = "120日涨停数"
@@ -83,6 +84,13 @@ class StockViewController: UIViewController {
         cell.data = stockCode
         cell.id = DataId.CELL_STOCK_TAGS.rawValue
         cell.title = DataId.CELL_STOCK_TAGS.rawValue
+        cell.accessoryType = .disclosureIndicator
+        section.rows.append(cell)
+        
+        cell = TableViewCellModel();
+        cell.data = stockCode
+        cell.id = DataId.CELL_STOCK_MEMO.rawValue
+        cell.title = DataId.CELL_STOCK_MEMO.rawValue
         cell.accessoryType = .disclosureIndicator
         section.rows.append(cell)
         
@@ -214,6 +222,7 @@ extension StockViewController:UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sectionModel = self.tableData[indexPath.section]
         let cellModel = sectionModel.rows[indexPath.row]
+        let stock:Stock = StockUtils.getStock(by: stockCode)
         if sectionModel.id == DataId.SECTION_BASIC.rawValue {
             if cellModel.id == DataId.CELL_STOCK_NOTE.rawValue {
                 let storyboard = UIStoryboard(name: "Stock", bundle: nil)
@@ -222,19 +231,25 @@ extension StockViewController:UITableViewDelegate {
                 self.navigationController!.pushViewController(vc, animated: true)
             }
             if cellModel.id == DataId.CELL_STOCK_HQ.rawValue {
-                let stock:Stock = StockUtils.getStock(by: stockCode)
                 StockUtils.openStockHQPage(code: stock.code, name: stock.name, from: self.navigationController!)
             }
             
             if cellModel.id == DataId.CELL_STOCK_LIANDONG.rawValue {
-                let stock:Stock = StockUtils.getStock(by: stockCode)
                 self.gotoHotBlockViewController(stock: stock)
             }
             
             if cellModel.id == DataId.CELL_STOCK_TAGS.rawValue {
-                let stock:Stock = StockUtils.getStock(by: stockCode)
                 let vc:StockTagViewController = UIUtils.gotoViewController(storyboard: "Stock", storyboardId: "StockTagViewController", from: self.navigationController!) as! StockTagViewController
                 vc.stock = stock
+            }
+            
+            if cellModel.id == DataId.CELL_STOCK_MEMO.rawValue {
+                let stockExtra:StockExtra? = StockUtils.getStockExtra(code: stock.code)
+                let vc = TextInputViewController.open(initText: stockExtra?.memo, title: "股票备注", from: self.navigationController!)
+                vc.onCompleted = { (text) in
+                    print(text)
+                }
+                
             }
         }
     }

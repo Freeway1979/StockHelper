@@ -9,24 +9,29 @@
 import UIKit
 
 class TextInputViewController: UIViewController {
-
-    @IBOutlet weak var textfield: UITextField!
-    
-    var placeHolder: String {
-        get {
-            textfield.placeholder ?? ""
+    public static func open(initText:String?, title:String, from navigator:UINavigationController) -> TextInputViewController {
+        let storyboard = UIStoryboard(name: "Common", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "TextInputViewController") as! TextInputViewController
+        navigator.pushViewController(vc, animated: true)
+        vc.title = title
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.1) {
+            if initText != nil {
+                vc.textview.text = initText!
+            }
         }
-        set {
-            textfield.placeholder = newValue
-        }
+        return vc;
     }
     
-    var text: String {
+    @IBOutlet weak var textview: UITextView!
+    
+    var onCompleted:((String) -> Void)? = nil
+    
+    var text: String? {
         get {
-            textfield.text ?? ""
+            textview.text ?? ""
         }
         set {
-            textfield.text = newValue
+            textview.text = newValue ?? ""
         }
     }
     
@@ -37,17 +42,13 @@ class TextInputViewController: UIViewController {
     }
     
     func setupViews()  {
-        textfield.adjustsFontSizeToFitWidth = true
-        textfield.minimumFontSize = 12
-        textfield.becomeFirstResponder()
+        
     }
-}
-
-
-extension TextInputViewController:UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        //TODO:
-        return true;
+    
+    @IBAction func onDone(_ sender: UIBarButtonItem) {
+        if self.onCompleted != nil {
+            self.onCompleted!(self.text ?? "")
+        }
+        self.dismiss(animated: true, completion: nil)
     }
 }
