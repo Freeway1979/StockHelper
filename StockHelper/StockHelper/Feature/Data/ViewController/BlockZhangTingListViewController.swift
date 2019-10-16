@@ -12,6 +12,10 @@ import WebKit
 import ZKProgressHUD
 
 class BlockZhangTingListViewController: UIViewController {
+    struct DataItem {
+        var title:String
+        var stocks:[ZhangTingStock]
+    }
     
     @IBOutlet weak var rightBarButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
@@ -20,24 +24,23 @@ class BlockZhangTingListViewController: UIViewController {
     public var dates:[String] = []
     public var blockName:String = ""
     var date:String = Date().formatWencaiDateString()
-    var dataList:[ZhangTingStock] = []
+    var dataList:[DataItem] = []
     var dragonCode:String?
+    let rightBarButtonTitles = ["全部","组合","板块"]
+    enum BarButtonTitleType:Int {
+        case BANKUAI = 0
+        case ALL
+        case ZUHE
+    }
+    var barButtonTitleType: BarButtonTitleType = .BANKUAI
     var showAllStocks: Bool {
-        get {
-            return rightBarButton.title == "板块"
-        }
-        set {
-            rightBarButton.title = newValue ? "板块":"全部"
-            let title = newValue ? "全部板块" : self.blockName
-            self.navigationController?.title = title
-            self.title = title
-        }
+        return barButtonTitleType != .BANKUAI
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dragonCode = DataCache.marketDragon?.code
-        self.showAllStocks = false
+        self.updateRightBarButtonTitle()
         self.prepareData()
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
@@ -47,9 +50,28 @@ class BlockZhangTingListViewController: UIViewController {
     }
     
     @IBAction func onRightBarButtonClicked(_ sender: UIBarButtonItem) {
-        self.showAllStocks = !self.showAllStocks
+        self.nextType()
+        self.updateRightBarButtonTitle()
         self.prepareData()
         self.reloadData()
+    }
+    func nextType() {
+        var type = barButtonTitleType.rawValue + 1
+        if type == 3 {
+            type = 0
+        }
+        barButtonTitleType = BarButtonTitleType(rawValue: type)!
+    }
+    func updateRightBarButtonTitle() {
+        rightBarButton.title = rightBarButtonTitles[barButtonTitleType.rawValue]
+        var title = self.blockName
+        if barButtonTitleType == .ALL {
+            title = "全部板块"
+        } else if barButtonTitleType == .ZUHE {
+            title = "概念组合"
+        }
+        self.navigationController?.title = title
+        self.title = title
     }
     
     func prepareData() {
@@ -70,18 +92,36 @@ class BlockZhangTingListViewController: UIViewController {
         // 去重
         let set = Set(arrayLiteral: dataList)
         dataList = set.flatMap({ $0 })
-        // 排序
-        dataList.sort { (lhs, rhs) -> Bool in
-            if (lhs.zhangting > rhs.zhangting) {
-                return true
-            } else if (lhs.zhangting < rhs.zhangting) {
-                return false
-            }
-            let s1 = StockUtils.getStock(by: lhs.code)
-            let s2 = StockUtils.getStock(by: rhs.code)
-            return s1.tradeValue.floatValue <= s2.tradeValue.floatValue
+        //连板数分类
+        var dict:[String:[ZhangTingStock]] = [:]
+        dataList.forEach { (stock) in
+            let key = "\(stock.zhangting)"
+            var stocks:[ZhangTingStock] = dict[key] ?? []
+            stocks.append(stock)
+            dict[key] = stocks
         }
-        self.dataList = dataList
+        var data:[DataItem] = []
+        // Sort Dictionary
+        for (k,v) in (Array(dict).sorted {$0.key > $1.key}) {
+            var stocks = v
+            // 排序
+            stocks.sort { (lhs, rhs) -> Bool in
+                if (lhs.zhangting > rhs.zhangting) {
+                    return true
+                } else if (lhs.zhangting < rhs.zhangting) {
+                    return false
+                }
+                let s1 = StockUtils.getStock(by: lhs.code)
+                let s2 = StockUtils.getStock(by: rhs.code)
+                return s1.tradeValue.floatValue <= s2.tradeValue.floatValue
+            }
+            let item = DataItem(title:k, stocks: stocks)
+            data.append(item)
+        }
+        data.sort { (lhs, rhs) -> Bool in
+            lhs.title > rhs.title
+        }
+        self.dataList = data
     }
     func reloadData() {
         DispatchQueue.main.async(execute: {
@@ -94,14 +134,14 @@ class BlockZhangTingListViewController: UIViewController {
 
 extension BlockZhangTingListViewController:UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return self.dataList.count
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataList.count
+        return self.dataList[section].stocks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let s = self.dataList[indexPath.row]
+        let s = self.dataList[indexPath.section].stocks[indexPath.row]
         let stock = StockUtils.getStock(by: s.code)
         let name = stock.name
         let view:ZhangTingStockTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! ZhangTingStockTableViewCell
@@ -135,12 +175,18 @@ extension BlockZhangTingListViewController:UITableViewDataSource {
         view.applyModel(name: name, title: title, line1: line1, line2: line2, badge: badge)
         return view
     }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let item = self.dataList[section]
+        let title = "\(item.title)连板"
+        return title
+    }
 }
 
 extension BlockZhangTingListViewController:UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let s = self.dataList[indexPath.row]
+        let s = self.dataList[indexPath.section].stocks[indexPath.row]
         StockUtils.gotoStockViewController(code: s.code, from: self.navigationController!)
     }
 }
