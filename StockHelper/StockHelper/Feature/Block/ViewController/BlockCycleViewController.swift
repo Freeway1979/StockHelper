@@ -342,13 +342,12 @@ class BlockCycleViewController: DataServiceViewController {
     private func loadWenCaiData(date:String) {
         let today = Date()
         let isToday = date == today.formatWencaiDateString()
-        let isClosedMarket = today.hours > 3
+        let isClosedMarket = today.isMarketClosed
         var force:Bool = forceUpdate
         // 当前收市前总是刷最新数据
         if isToday && !isClosedMarket {
             force = true
         }
-        force = self.dates.first == date;
         if !force {
             let blocks:[WenCaiBlockStat]? = DataCache.getBlocksByDate(date: date) ?? nil
             if blocks?.count ?? 0 > 0 {
@@ -466,6 +465,7 @@ class BlockCycleViewController: DataServiceViewController {
         var destViewController : BlockZhangTingListViewController
         destViewController = mainStoryboard.instantiateViewController(withIdentifier: "BlockZhangTingListViewController") as! BlockZhangTingListViewController
         destViewController.dates = [date]
+        destViewController.date = date
         destViewController.blockName = blockName
         self.navigationController?.pushViewController(destViewController, animated: true)
     }

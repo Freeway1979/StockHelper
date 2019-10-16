@@ -13,39 +13,65 @@ import ZKProgressHUD
 
 class BlockZhangTingListViewController: UIViewController {
     
+    @IBOutlet weak var rightBarButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     
     let cellID:String = "ZhangTingStockTableViewCell"
     public var dates:[String] = []
     public var blockName:String = ""
+    var date:String = Date().formatWencaiDateString()
     var dataList:[ZhangTingStock] = []
     var dragonCode:String?
+    var showAllStocks: Bool {
+        get {
+            return rightBarButton.title == "板块"
+        }
+        set {
+            rightBarButton.title = newValue ? "板块":"全部"
+            let title = newValue ? "全部板块" : self.blockName
+            self.navigationController?.title = title
+            self.title = title
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = self.blockName
         self.dragonCode = DataCache.marketDragon?.code
+        self.showAllStocks = false
         self.prepareData()
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         self.tableView.register(UINib(nibName: "ZhangTingStockTableViewCell", bundle: nil), forCellReuseIdentifier: "ZhangTingStockTableViewCell")
         self.tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        self.tableView.reloadData()
+        self.reloadData()
     }
+    
+    @IBAction func onRightBarButtonClicked(_ sender: UIBarButtonItem) {
+        self.showAllStocks = !self.showAllStocks
+        self.prepareData()
+        self.reloadData()
+    }
+    
     func prepareData() {
         var dataList:[ZhangTingStock] = []
-        self.dates.forEach { (date) in
-            let zts:ZhangTingStocks? = DataCache.getZhangTingStocks(by: date)
-            let list = zts?.stocks.filter({ (stock) -> Bool in
-                stock.gnList.contains(self.blockName)
-            }) ?? []
+        if self.showAllStocks {
+            let zts:ZhangTingStocks? = DataCache.getZhangTingStocks(by: self.date)
+            let list: [ZhangTingStock] = zts?.stocks ?? []
             dataList.append(contentsOf: list)
+        } else {
+            self.dates.forEach { (date) in
+                let zts:ZhangTingStocks? = DataCache.getZhangTingStocks(by: date)
+                let list = zts?.stocks.filter({ (stock) -> Bool in
+                        stock.gnList.contains(self.blockName)
+                    }) ?? []
+                dataList.append(contentsOf: list)
+            }
         }
         // 去重
         let set = Set(arrayLiteral: dataList)
-        self.dataList = set.flatMap({ $0 })
+        dataList = set.flatMap({ $0 })
         // 排序
-        self.dataList.sort { (lhs, rhs) -> Bool in
+        dataList.sort { (lhs, rhs) -> Bool in
             if (lhs.zhangting > rhs.zhangting) {
                 return true
             } else if (lhs.zhangting < rhs.zhangting) {
@@ -55,6 +81,7 @@ class BlockZhangTingListViewController: UIViewController {
             let s2 = StockUtils.getStock(by: rhs.code)
             return s1.tradeValue.floatValue <= s2.tradeValue.floatValue
         }
+        self.dataList = dataList
     }
     func reloadData() {
         DispatchQueue.main.async(execute: {

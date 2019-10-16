@@ -47,6 +47,8 @@ class StockExtra: Codable,Hashable {
     var tags:String = ""
     //备注
     var memo:String = ""
+    //历史联动股票
+    var twimCode:String = ""
     
     var tagList:[String] {
         return tags.toList(separator: ";")
@@ -70,6 +72,7 @@ class StockExtra: Codable,Hashable {
         case code
         case tags
         case memo
+        case twimCode
     }
     
     required init(from decoder: Decoder) throws
@@ -78,6 +81,7 @@ class StockExtra: Codable,Hashable {
         code = try container.decode(String.self, forKey: .code)
         tags = try container.decode(String.self, forKey: .tags)
         memo = try container.decode(String.self, forKey: .memo)
+        twimCode = try container.decode(String.self, forKey: .twimCode)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -85,6 +89,7 @@ class StockExtra: Codable,Hashable {
         try container.encode(code, forKey: .code)
         try container.encode(tags, forKey: .tags)
         try container.encode(memo, forKey: .memo)
+        try container.encode(twimCode, forKey: .twimCode)
     }
 }
 
@@ -110,6 +115,9 @@ class Stock:Codable,Hashable {
     
     var gnList:[String] {
         return gnListStr.toList(separator: ";")
+    }
+    var extra: StockExtra? {
+       return StockUtils.getStockExtra(code: code)
     }
     //120日内涨停数
     var zts:Int {

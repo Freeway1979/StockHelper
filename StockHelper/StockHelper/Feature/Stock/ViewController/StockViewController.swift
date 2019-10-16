@@ -18,6 +18,7 @@ class StockViewController: UIViewController {
         case CELL_STOCK_TRADE_MONEY = "流通市值"
         case CELL_STOCK_HQ = "股票行情"
         case CELL_STOCK_LIANDONG = "股票联动"
+        case CELL_HISTORY_LIANDONG = "历史联动"
         case CELL_STOCK_TAGS = "自定义标签"
         case CELL_STOCK_MEMO = "备忘录"
         
@@ -51,19 +52,20 @@ class StockViewController: UIViewController {
         var section = TableViewSectionModel()
         section.title = DataId.SECTION_BASIC.rawValue
         section.id = DataId.SECTION_BASIC.rawValue
+        var cell:TableViewCellModel
+//        cell = TableViewCellModel();
+//        cell.data = stockCode
+//        cell.id = DataId.CELL_STOCK_NOTE.rawValue
+//        cell.title = DataId.CELL_STOCK_NOTE.rawValue
+//        cell.accessoryType = .disclosureIndicator
+//        section.rows.append(cell)
         
-        var cell = TableViewCellModel();
-        cell.data = stockCode
-        cell.id = DataId.CELL_STOCK_NOTE.rawValue
-        cell.title = DataId.CELL_STOCK_NOTE.rawValue
-        cell.accessoryType = .disclosureIndicator
-        section.rows.append(cell)
-        
-        let desc = "流通值:\(stock.tradeValue.formatMoney)"
         cell = TableViewCellModel();
+        cell.cellStyle = .value1
         cell.data = stockCode
         cell.id = DataId.CELL_STOCK_TRADE_MONEY.rawValue
-        cell.title = desc
+        cell.detail = stock.tradeValue.formatMoney
+        cell.title = "流通值"
         section.rows.append(cell)
         
         cell = TableViewCellModel();
@@ -75,8 +77,22 @@ class StockViewController: UIViewController {
         
         cell = TableViewCellModel();
         cell.data = stockCode
+        cell.cellStyle = .value1
         cell.id = DataId.CELL_STOCK_LIANDONG.rawValue
         cell.title = DataId.CELL_STOCK_LIANDONG.rawValue
+        cell.accessoryType = .disclosureIndicator
+        section.rows.append(cell)
+    
+        
+        cell = TableViewCellModel();
+        cell.data = stockCode
+        cell.cellStyle = .value1
+        cell.id = DataId.CELL_HISTORY_LIANDONG.rawValue
+        cell.title = DataId.CELL_HISTORY_LIANDONG.rawValue
+        let twimCode:String = stock.extra?.twimCode ?? ""
+        if twimCode.count > 1 {
+            cell.detail = StockUtils.getStock(by: twimCode).name
+        }
         cell.accessoryType = .disclosureIndicator
         section.rows.append(cell)
         
@@ -118,12 +134,12 @@ class StockViewController: UIViewController {
         
         let zts:ZhangTingShuStock? = StockUtils.getZhangTingShuStock(by: stockCode)
         cell = TableViewCellModel();
+        cell.cellStyle = .value1
         cell.data = stockCode
         cell.id = DataId.CELL_ZT_IN_120.rawValue
-        cell.title = "0"
-        if zts != nil {
-          cell.title = zts!.zt
-        }
+        cell.title = "涨停数"
+        cell.detail = zts?.zt ?? "0"
+        
         section.rows.append(cell)
         self.tableData.append(section)
         
