@@ -40,8 +40,9 @@
                                 <real key="value" value="22"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="edgeInsetTop">
-                                <real key="value" value="18"/>
+                                <real key="value" value="17"/>
                             </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="string" keyPath="badgeString" value="ttt"/>
                         </userDefinedRuntimeAttributes>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="股票代码流通市值盈利解禁" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZ9-Mn-2qj">
@@ -62,26 +63,27 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="sAq-gG-Y4E">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9s2-aX-grf">
                         <rect key="frame" x="15" y="110" width="262" height="20"/>
-                    </stackView>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="CZ9-Mn-2qj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="6qX-Qy-11V"/>
+                    <constraint firstAttribute="trailing" secondItem="9s2-aX-grf" secondAttribute="trailing" constant="15" id="8pw-xt-akh"/>
                     <constraint firstAttribute="trailing" secondItem="mDa-bN-9gM" secondAttribute="trailing" constant="15" id="9TF-4O-n2s"/>
                     <constraint firstItem="mDa-bN-9gM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="IFC-ZS-9U3"/>
                     <constraint firstAttribute="trailing" secondItem="CZ9-Mn-2qj" secondAttribute="trailing" constant="15" id="Iwc-wH-cms"/>
+                    <constraint firstItem="9s2-aX-grf" firstAttribute="top" secondItem="mDa-bN-9gM" secondAttribute="bottom" constant="10" id="MqJ-tz-CoX"/>
                     <constraint firstItem="FLQ-Be-2db" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="PK4-eV-4WO"/>
-                    <constraint firstItem="sAq-gG-Y4E" firstAttribute="top" secondItem="mDa-bN-9gM" secondAttribute="bottom" constant="10" id="Qld-L2-f59"/>
                     <constraint firstItem="4pe-qj-TGB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Qlu-Ra-sus"/>
+                    <constraint firstItem="9s2-aX-grf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="WYV-1Z-CTo"/>
                     <constraint firstItem="CZ9-Mn-2qj" firstAttribute="top" secondItem="4pe-qj-TGB" secondAttribute="bottom" constant="10" id="ZCZ-d6-su6"/>
                     <constraint firstItem="mDa-bN-9gM" firstAttribute="top" secondItem="CZ9-Mn-2qj" secondAttribute="bottom" constant="15" id="Zrs-5Q-AUy"/>
                     <constraint firstAttribute="trailing" secondItem="FLQ-Be-2db" secondAttribute="trailing" constant="15" id="aHW-1a-D9b"/>
-                    <constraint firstAttribute="trailing" secondItem="sAq-gG-Y4E" secondAttribute="trailing" constant="15" id="eHB-EV-Zxn"/>
-                    <constraint firstItem="sAq-gG-Y4E" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="oYk-bj-XD0"/>
                     <constraint firstItem="CZ9-Mn-2qj" firstAttribute="top" secondItem="FLQ-Be-2db" secondAttribute="bottom" constant="10" id="pqM-sc-ske"/>
-                    <constraint firstAttribute="bottom" secondItem="sAq-gG-Y4E" secondAttribute="bottom" constant="10" id="q8i-kF-PZj"/>
                     <constraint firstItem="4pe-qj-TGB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="uEB-Yg-yq2"/>
+                    <constraint firstAttribute="bottom" secondItem="9s2-aX-grf" secondAttribute="bottom" constant="10" id="y6Y-fe-7bt"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -89,7 +91,7 @@
                 <outlet property="line1Label" destination="CZ9-Mn-2qj" id="cDh-AU-BdI"/>
                 <outlet property="line2Label" destination="mDa-bN-9gM" id="uTH-ex-yPC"/>
                 <outlet property="nameButton" destination="4pe-qj-TGB" id="1uB-6l-4tW"/>
-                <outlet property="tagStackView" destination="sAq-gG-Y4E" id="YLu-QS-Zwr"/>
+                <outlet property="tagContainerView" destination="9s2-aX-grf" id="XLw-c5-0Ao"/>
                 <outlet property="titleLabel" destination="FLQ-Be-2db" id="HWb-YT-IP0"/>
             </connections>
             <point key="canvasLocation" x="139.85507246376812" y="145.3125"/>

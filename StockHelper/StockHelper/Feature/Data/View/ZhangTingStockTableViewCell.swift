@@ -19,9 +19,11 @@ class ZhangTingStockTableViewCell: UITableViewCell {
     
     @IBOutlet weak var line2Label: UILabel!
     
-    @IBOutlet weak var tagStackView: UIStackView!
+    @IBOutlet weak var tagContainerView: UIView!
     
     var xOffset:Int = 0
+    
+    let spacing:Int = 5
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,7 +45,7 @@ class ZhangTingStockTableViewCell: UITableViewCell {
 //        nameButton.layer.cornerRadius = 1
 //        nameButton.layer.cornerRadius = 5
         
-        tagStackView.isHidden = true
+        tagContainerView.isHidden = true
     }
     
     func applyModel(name:String, title:String, line1:String,line2:String, badge:String?) {
@@ -56,21 +58,24 @@ class ZhangTingStockTableViewCell: UITableViewCell {
     }
     
     func resetTags() {
-        tagStackView.isHidden = true
+        tagContainerView.isHidden = true
         xOffset = 0
-        tagStackView.subviews.forEach { (subview) in
+        tagContainerView.subviews.forEach { (subview) in
             subview.removeFromSuperview()
         }
     }
     
     func addTag(tag:String, dragonBlock:Bool = false) {
-        tagStackView.isHidden = false
-        let width = tag.count * 15
-        let tagButton = TagButton(frame: CGRect(x: xOffset, y: 0, width: tag.count * 12, height: 25))
+        tagContainerView.isHidden = false
+        var width = tag.count * 15 + 4
+        if width < 30 {
+            width = 30
+        }
+        let tagButton = TagButton(frame: CGRect(x: xOffset, y: 0, width: width, height: 25))
         tagButton.text = tag
         tagButton.style = dragonBlock ? .Primary :.Secondary
         tagButton.setTextStyle(textStyle: .small)
-        tagStackView.addSubview(tagButton)
-        xOffset = xOffset + width + Int(tagStackView.spacing)
+        tagContainerView.addSubview(tagButton)
+        xOffset = xOffset + width+spacing
     }
 }

@@ -175,14 +175,26 @@ extension BlockZhangTingListViewController:UITableViewDataSource {
         
         view.applyModel(name: name, title: title, line1: line1, line2: line2, badge: badge)
         view.resetTags()
-        hotblocks.forEach { (block) in
-            view.addTag(tag: block)
-        }
+        
+        var sameblocks:[String] = []
         if dragonCode != nil && stock.code != dragonCode {
-           let sameblocks = StockUtils.getSameBlockNames(this: stock.code, that: dragonCode!)
+           sameblocks = StockUtils.getSameBlockNames(this: stock.code, that: dragonCode!)
            sameblocks.forEach { (block) in
             view.addTag(tag: block, dragonBlock: true)
            }
+        }
+        var tags:[String] = []
+        if sameblocks.count > 0 {
+            hotblocks.forEach { (block) in
+                if !sameblocks.contains(block) {
+                    tags.append(block)
+                }
+            }
+        } else {
+            tags = hotblocks
+        }
+        tags.forEach { (block) in
+            view.addTag(tag: block)
         }
         return view
     }
