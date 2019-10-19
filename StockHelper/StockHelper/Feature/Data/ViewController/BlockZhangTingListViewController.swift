@@ -30,7 +30,7 @@ class BlockZhangTingListViewController: UIViewController {
     public var blockName:String = ""
     var date:String = Date().formatWencaiDateString()
     var dataList:[DataItem] = []
-    var dragonCode:String?
+    var dragon:ZhangTingStock?
     let rightBarButtonTitles = ["全部","板块"]
     enum BarButtonTitleType:Int {
         case BANKUAI = 0
@@ -43,7 +43,7 @@ class BlockZhangTingListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.dragonCode = DataCache.marketDragon?.code
+        self.dragon = DataCache.getMarketDragonStock(date: self.date)
         self.updateRightBarButtonTitle()
         self.prepareData()
         self.tableView.delegate = self;
@@ -131,6 +131,24 @@ class BlockZhangTingListViewController: UIViewController {
         }
         return data
     }
+    
+    func hasExtraBlocks(s:ZhangTingStock) -> Bool {
+        if dragon?.zhangting == s.zhangting {
+            return true
+        }
+        let stock = StockUtils.getStock(by: s.code)
+        let hotblocks:[String] = DataCache.getTopBlockNamesForStock(stock: stock)
+        if hotblocks.count > 0 {
+            return true
+        }
+        if dragon != nil && s.zhangting != dragon?.zhangting {
+            let sameblocks = StockUtils.getSameBlockNames(this: stock.code, that: dragon!.code)
+            if sameblocks.count > 0 {
+                return true
+            }
+        }
+        return false
+    }
 
     func reloadData() {
         DispatchQueue.main.async(execute: {
@@ -177,11 +195,15 @@ extension BlockZhangTingListViewController:UITableViewDataSource {
         view.resetTags()
         
         var sameblocks:[String] = []
-        if dragonCode != nil && stock.code != dragonCode {
-           sameblocks = StockUtils.getSameBlockNames(this: stock.code, that: dragonCode!)
-           sameblocks.forEach { (block) in
-            view.addTag(tag: block, dragonBlock: true)
-           }
+        if dragon != nil {
+            if s.zhangting != dragon?.zhangting {
+                sameblocks = StockUtils.getSameBlockNames(this: stock.code, that: dragon!.code)
+                sameblocks.forEach { (block) in
+                    view.addTag(tag: block, dragonBlock: true)
+                }
+            } else { //龙头子
+                view.addTag(tag: "市场日内龙头", dragonBlock: true)
+            }
         }
         var tags:[String] = []
         if sameblocks.count > 0 {
@@ -206,19 +228,10 @@ extension BlockZhangTingListViewController:UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        //TODO:把这些逻辑放到dataList构造中 不要临时计算
         let s = self.dataList[indexPath.section].stocks[indexPath.row]
-        let stock = StockUtils.getStock(by: s.code)
-        let hotblocks:[String] = DataCache.getTopBlockNamesForStock(stock: stock)
-        if hotblocks.count > 0 {
-            return CGFloat(longCellHeight)
-        }
-        if dragonCode != nil && stock.code != dragonCode {
-           let sameblocks = StockUtils.getSameBlockNames(this: stock.code, that: dragonCode!)
-            if sameblocks.count > 0 {
-                return CGFloat(longCellHeight)
-            }
-        }
-        return CGFloat(shortCellHeight)
+        let hasExtraBlocks = self.hasExtraBlocks(s: s)
+        return hasExtraBlocks ? CGFloat(longCellHeight) : CGFloat(shortCellHeight)
     }
 }
 

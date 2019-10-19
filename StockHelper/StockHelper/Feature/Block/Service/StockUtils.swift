@@ -150,8 +150,20 @@ class StockUtils {
     public static func getSameBlockNames(this:String, that:String) -> [String] {
         let thisStock = getStock(by: this)
         let thatStock = getStock(by: that)
-        let thisSet =  NSMutableSet(array: thisStock.gnList)
-        let thatSet =  NSMutableSet(array: thatStock.gnList)
+        var thisGNList:[String] = []
+        thisStock.gnList.forEach { (block) in
+            if !WenCaiBlockStat.isBlackList(title: block) {
+                thisGNList.append(block)
+            }
+        }
+        var thatGNList:[String] = []
+        thatStock.gnList.forEach { (block) in
+            if !WenCaiBlockStat.isBlackList(title: block) {
+                thatGNList.append(block)
+            }
+        }
+        let thisSet =  NSMutableSet(array: thisGNList)
+        let thatSet =  NSMutableSet(array: thatGNList)
         thisSet.intersect(thatSet as! Set<AnyHashable>)
         
 //        let rs:[String] = thisSet.map { (item) -> String in

@@ -27,7 +27,7 @@ class WenCaiBlockStat : Codable {
         }
         self.score = score
     }
-    static let blacklist = ["富时罗素概念股","深股通","MSCI概念",
+    static let blacklist = ["富时罗素概念股","深股通","MSCI概念","转融券标的","标普道琼斯A股",
                             "沪股通","MSCI预期","参股新三板","融资融券","独角兽概念",
                             "证金持股"]
     public static func isBlackList(title: String) -> Bool {
