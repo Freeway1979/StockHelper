@@ -61,7 +61,7 @@ class BlockZhangTingListViewController: UIViewController {
     }
     func nextType() {
         var type = barButtonTitleType.rawValue + 1
-        if type == 3 {
+        if type == 2 {
             type = 0
         }
         barButtonTitleType = BarButtonTitleType(rawValue: type)!
@@ -71,8 +71,6 @@ class BlockZhangTingListViewController: UIViewController {
         var title = self.blockName
         if barButtonTitleType == .ALL {
             title = "全部板块"
-        } else {
-            title = "概念组合"
         }
         self.navigationController?.title = title
         self.title = title
