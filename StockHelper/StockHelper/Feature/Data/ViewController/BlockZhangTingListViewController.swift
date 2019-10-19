@@ -20,17 +20,21 @@ class BlockZhangTingListViewController: UIViewController {
     @IBOutlet weak var rightBarButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     
+    let shortCellHeight: Float = 110
+    let longCellHeight: Float = 140
+    
+    var zuheData:[DataItem] = []
+
     let cellID:String = "ZhangTingStockTableViewCell"
     public var dates:[String] = []
     public var blockName:String = ""
     var date:String = Date().formatWencaiDateString()
     var dataList:[DataItem] = []
     var dragonCode:String?
-    let rightBarButtonTitles = ["全部","组合","板块"]
+    let rightBarButtonTitles = ["全部","板块"]
     enum BarButtonTitleType:Int {
         case BANKUAI = 0
         case ALL
-        case ZUHE
     }
     var barButtonTitleType: BarButtonTitleType = .BANKUAI
     var showAllStocks: Bool {
@@ -67,7 +71,7 @@ class BlockZhangTingListViewController: UIViewController {
         var title = self.blockName
         if barButtonTitleType == .ALL {
             title = "全部板块"
-        } else if barButtonTitleType == .ZUHE {
+        } else {
             title = "概念组合"
         }
         self.navigationController?.title = title
@@ -90,8 +94,12 @@ class BlockZhangTingListViewController: UIViewController {
             }
         }
         // 去重
-        let set = Set(arrayLiteral: dataList)
-        dataList = set.flatMap({ $0 })
+        let set = Set(dataList)
+        dataList = set.compactMap({ $0 })
+        self.dataList = self.buildData(dataList: dataList)
+    }
+    
+    func buildData(dataList:[ZhangTingStock]) -> [DataItem] {
         //连板数分类
         var dict:[String:[ZhangTingStock]] = [:]
         dataList.forEach { (stock) in
@@ -121,8 +129,9 @@ class BlockZhangTingListViewController: UIViewController {
         data.sort { (lhs, rhs) -> Bool in
             lhs.title > rhs.title
         }
-        self.dataList = data
+        return data
     }
+
     func reloadData() {
         DispatchQueue.main.async(execute: {
             print(Thread.isMainThread)
@@ -158,21 +167,23 @@ extension BlockZhangTingListViewController:UITableViewDataSource {
         if jiejin != nil {
             line1 = "\(line1) \(jiejin!)"
         }
-        let hotblocksCount = DataCache.getTopBlockNamesForStock(stock: stock).count
         
+        let hotblocks:[String] = DataCache.getTopBlockNamesForStock(stock: stock)
         line2 = "封单额\(s.ztMoney.formatMoney) 封成比:\(s.ztRatioBills.formatDot2FloatString) 封流比:\(s.ztRatioMoney.formatDot2FloatString)"
         badge = s.ztBanType
         
-        if hotblocksCount > 0 {
-            title = "\(title) 热门概念:\(hotblocksCount)"
+        
+        view.applyModel(name: name, title: title, line1: line1, line2: line2, badge: badge)
+        view.resetTags()
+        hotblocks.forEach { (block) in
+            view.addTag(tag: block)
         }
         if dragonCode != nil && stock.code != dragonCode {
            let sameblocks = StockUtils.getSameBlockNames(this: stock.code, that: dragonCode!)
-            if sameblocks.count > 0 {
-                title = "\(title) 龙头概念:\(sameblocks.count)"
-            }
+           sameblocks.forEach { (block) in
+            view.addTag(tag: block, dragonBlock: true)
+           }
         }
-        view.applyModel(name: name, title: title, line1: line1, line2: line2, badge: badge)
         return view
     }
     
@@ -180,6 +191,22 @@ extension BlockZhangTingListViewController:UITableViewDataSource {
         let item = self.dataList[section]
         let title = "\(item.title)连板"
         return title
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let s = self.dataList[indexPath.section].stocks[indexPath.row]
+        let stock = StockUtils.getStock(by: s.code)
+        let hotblocks:[String] = DataCache.getTopBlockNamesForStock(stock: stock)
+        if hotblocks.count > 0 {
+            return CGFloat(longCellHeight)
+        }
+        if dragonCode != nil && stock.code != dragonCode {
+           let sameblocks = StockUtils.getSameBlockNames(this: stock.code, that: dragonCode!)
+            if sameblocks.count > 0 {
+                return CGFloat(longCellHeight)
+            }
+        }
+        return CGFloat(shortCellHeight)
     }
 }
 

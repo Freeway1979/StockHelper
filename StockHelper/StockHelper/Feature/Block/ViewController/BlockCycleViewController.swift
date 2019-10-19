@@ -342,7 +342,7 @@ class BlockCycleViewController: DataServiceViewController {
     private func loadWenCaiData(date:String) {
         let today = Date()
         let isToday = date == today.formatWencaiDateString()
-        let isClosedMarket = today.isMarketClosed
+        let isClosedMarket = false // today.isMarketClosed
         var force:Bool = forceUpdate
         // 当前收市前总是刷最新数据
         if isToday && !isClosedMarket {

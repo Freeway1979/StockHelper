@@ -71,6 +71,13 @@ class HomeViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let arr1 = ["A","B","C"]
+        let arr2 = ["A","B"]
+        let set = Set(arrayLiteral: arr1)
+        let set2 = Set(arrayLiteral: arr2)
+        
+        print(set2.isSubset(of: set))
+        
         //Data Service
         self.webview.navigationDelegate = self;
         WencaiUtils.prepareWebView(webview: webview);

@@ -19,6 +19,10 @@ class ZhangTingStockTableViewCell: UITableViewCell {
     
     @IBOutlet weak var line2Label: UILabel!
     
+    @IBOutlet weak var tagStackView: UIStackView!
+    
+    var xOffset:Int = 0
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -39,6 +43,7 @@ class ZhangTingStockTableViewCell: UITableViewCell {
 //        nameButton.layer.cornerRadius = 1
 //        nameButton.layer.cornerRadius = 5
         
+        tagStackView.isHidden = true
     }
     
     func applyModel(name:String, title:String, line1:String,line2:String, badge:String?) {
@@ -48,5 +53,24 @@ class ZhangTingStockTableViewCell: UITableViewCell {
         titleLabel.text = title
         line1Label.text = line1
         line2Label.text = line2
+    }
+    
+    func resetTags() {
+        tagStackView.isHidden = true
+        xOffset = 0
+        tagStackView.subviews.forEach { (subview) in
+            subview.removeFromSuperview()
+        }
+    }
+    
+    func addTag(tag:String, dragonBlock:Bool = false) {
+        tagStackView.isHidden = false
+        let width = tag.count * 15
+        let tagButton = TagButton(frame: CGRect(x: xOffset, y: 0, width: tag.count * 12, height: 25))
+        tagButton.text = tag
+        tagButton.style = dragonBlock ? .Primary :.Secondary
+        tagButton.setTextStyle(textStyle: .small)
+        tagStackView.addSubview(tagButton)
+        xOffset = xOffset + width + Int(tagStackView.spacing)
     }
 }
