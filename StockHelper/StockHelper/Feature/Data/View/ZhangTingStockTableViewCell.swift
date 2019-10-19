@@ -71,7 +71,7 @@ class ZhangTingStockTableViewCell: UITableViewCell {
         if width < 30 {
             width = 30
         }
-        let tagButton = TagButton(frame: CGRect(x: xOffset, y: 0, width: width, height: 25))
+        let tagButton = TagButton(frame: CGRect(x: xOffset, y: 0, width: width, height: 20))
         tagButton.text = tag
         tagButton.style = dragonBlock ? .Primary :.Secondary
         tagButton.setTextStyle(textStyle: .small)

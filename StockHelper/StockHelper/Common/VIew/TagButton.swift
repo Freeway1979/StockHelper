@@ -29,10 +29,12 @@ class TagButton: UIButton {
             if style == .Primary {
                 self.bgColor = UIColor.red
                 self.textColor = UIColor.white
+                self.layer.cornerRadius = 4
             }
             else if style == .Secondary {
                 self.bgColor = UIColor.orange
                 self.textColor = UIColor.white
+                self.layer.cornerRadius = 4
             } else {
                 self.bgColor = UIColor.white
                 self.textColor = UIColor.black
