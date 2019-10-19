@@ -188,32 +188,17 @@ class DapanOverview {
         if hqList.count > 0 && Date().isMarketClosed {
             return hqList
         }
-        let url = "http://quotes.money.163.com/service/chddata.html?code=0000001&start=\(startDate)&end=\(endDate)&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;VOTURNOVER;VATURNOVER"
+        let randomTime = Float.random(in: Range<Float>(uncheckedBounds: (lower: 0, upper: 1)))
+        let url = WebSite.DapanHistory.replacingOccurrences(of: "TIME", with: "\(randomTime)")
         
-        let csvData = try? String(contentsOf: URL(string: url)!, encoding: String.gbkEncoding)
-        if csvData != nil {
-            let list:[String] = csvData!.components(separatedBy: "\r\n")
-            var datas:[[String]] = []
-            let count = list.count
-            for index in 1...count-1 {
-//                日期 0,股票代码 1,名称 2,收盘价 3,最高价 4,最低价 5,开盘价 6,前收盘 7,涨跌额 8,涨跌幅 9,成交量 10,成交金额 11
-                let item = list[index]
-                let arr:[String] = item.components(separatedBy: ",")
-                if arr.count > 11 {
-                    var data:[String] = []
-                    data.append(arr[0]) //Date
-                    data.append(arr[6]) //Open
-                    data.append(arr[4]) //High
-                    data.append(arr[5]) //Low
-                    data.append(arr[3]) //Close
-                    data.append(arr[8])
-                    data.append(arr[9])
-                    data.append(arr[10])
-                    data.append(arr[11])
-                    datas.append(data)
-                }
-            }
-            var hqListData:StockHQList = StockHQList(type: "Day", code: code, datas: datas)
+        var rs = try? String(contentsOf: URL(string: url)!, encoding: String.gbkEncoding)
+        rs = rs?.replacingOccurrences(of: "historySearchHandler([", with: "")
+        rs = rs?.replacingOccurrences(of: "])\n", with: "")
+        let jsonData:Data = rs!.data(using: .utf8)!
+        let dict:Dictionary<String, Any>? = try? JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as! Dictionary<String, Any>
+        if dict != nil {
+            let list:[[String]] = dict!["hq"] as! [[String]]
+            var hqListData:StockHQList = StockHQList(type: "Day", code: code, datas: list)
             let hqList: [StockDayHQ] = hqListData.hqList
             hqListData.datas.removeAll()
             self.hqList = hqList

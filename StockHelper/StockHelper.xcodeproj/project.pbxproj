@@ -168,7 +168,7 @@
 		065248AF21C219020047405C /* PriceGridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceGridViewController.swift; sourceTree = "<group>"; };
 		065248B121C21D7C0047405C /* Float+Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Format.swift"; sourceTree = "<group>"; };
 		065248B321C226C30047405C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		06EDD3C1215241970035104B /* StockHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StockHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		06EDD3C1215241970035104B /* 炒股神手.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "炒股神手.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		06EDD3C4215241970035104B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		06EDD3C8215241970035104B /* BlockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockViewController.swift; sourceTree = "<group>"; };
 		06EDD3CB215241970035104B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -357,7 +357,7 @@
 		06EDD3C2215241970035104B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				06EDD3C1215241970035104B /* StockHelper.app */,
+				06EDD3C1215241970035104B /* 炒股神手.app */,
 				06EDD3D7215241990035104B /* StockHelperTests.xctest */,
 			);
 			name = Products;
@@ -1084,7 +1084,7 @@
 			);
 			name = StockHelper;
 			productName = StockHelper;
-			productReference = 06EDD3C1215241970035104B /* StockHelper.app */;
+			productReference = 06EDD3C1215241970035104B /* 炒股神手.app */;
 			productType = "com.apple.product-type.application";
 		};
 		06EDD3D6215241990035104B /* StockHelperTests */ = {
@@ -1548,7 +1548,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StockHelper/StockHelper.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2019101902;
+				CURRENT_PROJECT_VERSION = 2019101904;
 				DEVELOPMENT_TEAM = RTCEZS3U4Z;
 				INFOPLIST_FILE = StockHelper/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
@@ -1557,7 +1557,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rds.mos.xxhelper;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "炒股神手";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1570,7 +1570,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StockHelper/StockHelper.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2019101902;
+				CURRENT_PROJECT_VERSION = 2019101904;
 				DEVELOPMENT_TEAM = RTCEZS3U4Z;
 				INFOPLIST_FILE = StockHelper/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
@@ -1579,7 +1579,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rds.mos.xxhelper;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "炒股神手";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -108,11 +108,11 @@ struct StockHQList :Codable {
 enum StockDataIndex:Int {
     case Date = 0
     case Open = 1
-    case High = 2
-    case Low = 3
-    case Close = 4
-    case PriceChange = 5
-    case PriceChangePercentage = 6
+    case Close = 2
+    case PriceChange = 3
+    case PriceChangePercentage = 4
+    case Low = 5
+    case High = 6
     case Transactions = 7
     case TransactionsMoneny = 8
 }
@@ -155,22 +155,22 @@ class StockDayHQ {
     //上影线
     var isShangYingXian:Bool {
         let max:Float = [open, close].max()!
-        return (high * 1000 / max) > 5
+        return (high * 1000 / max) > 1005
     }
     //下影线
     var isXiaYingXian:Bool {
         let min:Float = [open, close].min()!
-        return (min * 1000 / low) > 5
+        return (min * 1000 / low) > 1005
     }
     //长上影线
     var isChangShangYingXian:Bool {
         let max:Float = [open, close].max()!
-        return (high * 1000 / max) > 20
+        return (high * 1000 / max) > 1020
     }
     //长下影线
     var isChangXiaYingXian:Bool {
         let min:Float = [open, close].min()!
-        return (min * 1000 / low) > 15
+        return (min * 1000 / low) > 1015
     }
     
     var date: String {

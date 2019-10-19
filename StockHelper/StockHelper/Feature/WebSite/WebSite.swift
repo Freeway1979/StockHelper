@@ -15,6 +15,8 @@ struct WebSite {
     public static let NewStock = "http://data.10jqka.com.cn/ipo/xgsgyzq/"
     //北向资金
     public static let NorthMoney = "http://data.eastmoney.com/hsgt/index.html"
+    //大盘历史行情
+    public static let DapanHistory = "http://q.stock.sohu.com/hisHq?code=zs_000001&stat=1&order=D&period=d&callback=historySearchHandler&rt=jsonp&TIME"
     // 股票行情网页版
     public static let StockPage = "http://m.10jqka.com.cn/stockpage/hs_STOCKCODE/#&atab=geguNews"
     
