@@ -60,4 +60,8 @@ extension Date {
     var isMarketClosed:Bool {
         return self.hours > 15 || self.hours < 9
     }
+    
+    static var ONEDAY:TimeInterval {
+        return 3600*24
+    }
 }

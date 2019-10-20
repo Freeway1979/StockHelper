@@ -20,10 +20,8 @@ class BlockZhangTingListViewController: UIViewController {
     @IBOutlet weak var rightBarButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     
-    let shortCellHeight: Float = 110
-    let longCellHeight: Float = 140
-    
-    var zuheData:[DataItem] = []
+    let shortCellHeight: Float = 90
+    let longCellHeight: Float = 110
 
     let cellID:String = "ZhangTingStockTableViewCell"
     public var dates:[String] = []
@@ -72,6 +70,7 @@ class BlockZhangTingListViewController: UIViewController {
         if barButtonTitleType == .ALL {
             title = "全部板块"
         }
+        title = "\(title)-\(self.date)"
         self.navigationController?.title = title
         self.title = title
     }
@@ -168,54 +167,8 @@ extension BlockZhangTingListViewController:UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let s = self.dataList[indexPath.section].stocks[indexPath.row]
         let stock = StockUtils.getStock(by: s.code)
-        let name = stock.name
         let view:ZhangTingStockTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! ZhangTingStockTableViewCell
-        var title:String = ""
-        var line1:String = ""
-        var line2:String = ""
-        var badge:String = ""
-        line1 = "\(stock.code) 流通值:\(stock.tradeValue.formatMoney)"
-        let yingli = stock.yingliStr
-        if yingli != nil {
-            line1 = "\(line1) \(yingli!)"
-        }
-        let jiejin = stock.jiejinStr
-        if jiejin != nil {
-            line1 = "\(line1) \(jiejin!)"
-        }
-        
-        let hotblocks:[String] = DataCache.getTopBlockNamesForStock(stock: stock)
-        line2 = "封单额\(s.ztMoney.formatMoney) 封成比:\(s.ztRatioBills.formatDot2FloatString) 封流比:\(s.ztRatioMoney.formatDot2FloatString)"
-        badge = s.ztBanType
-        
-        
-        view.applyModel(name: name, title: title, line1: line1, line2: line2, badge: badge)
-        view.resetTags()
-        
-        var sameblocks:[String] = []
-        if dragon != nil {
-            if s.zhangting != dragon?.zhangting {
-                sameblocks = StockUtils.getSameBlockNames(this: stock.code, that: dragon!.code)
-                sameblocks.forEach { (block) in
-                    view.addTag(tag: block, dragonBlock: true)
-                }
-            } else { //龙头子
-                view.addTag(tag: "市场日内龙头", dragonBlock: true)
-            }
-        }
-        var tags:[String] = []
-        if sameblocks.count > 0 {
-            hotblocks.forEach { (block) in
-                if !sameblocks.contains(block) {
-                    tags.append(block)
-                }
-            }
-        } else {
-            tags = hotblocks
-        }
-        tags.forEach { (block) in
-            view.addTag(tag: block)
-        }
+        view.updateModelWithZhangTing(s: s, stock: stock, dragon: dragon)
         return view
     }
     

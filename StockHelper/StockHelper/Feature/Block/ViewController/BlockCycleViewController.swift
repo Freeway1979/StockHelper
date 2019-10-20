@@ -273,7 +273,6 @@ class BlockCycleViewController: DataServiceViewController {
     }
     
     private let weekdays = ["周一","周二","周三","周四","周五","周六","周日"]
-    private let ONE_DAY:TimeInterval = 3600*24;
     private func generateDates() -> [String] {
         self.headerDates.removeAll()
         var dates:[Date] = []
@@ -281,7 +280,7 @@ class BlockCycleViewController: DataServiceViewController {
         var i = 0
         var count = 0
         while i < 30 {
-            let date = Date(timeInterval: -ONE_DAY * Double(i), since: today)
+            let date = Date(timeInterval: -Date.ONEDAY * Double(i), since: today)
             if (date.isWorkingDay) {
                 count = count + 1
                 dates.append(date)
@@ -334,6 +333,7 @@ class BlockCycleViewController: DataServiceViewController {
             let stock = StockUtils.getStock(by: dragon!.code)
             title = "\(title)空间龙:\(stock.name)[\(dragon!.zhangting)]"
             DataCache.gaoduDragon = dragon
+            DataCache.lastDate = self.lastDate
         }
         self.navigationController?.title = title
         self.title = title

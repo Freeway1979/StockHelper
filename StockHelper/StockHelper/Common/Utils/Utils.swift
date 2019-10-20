@@ -78,20 +78,24 @@ class Utils {
     
     
     //IO
-    public static func loadPersistantData(key:String) -> Any? {
+    public static func loadPersistantData(key:String, iCloud:Bool = true) -> Any? {
         var data = UserDefaults.standard.object(forKey: key)
         if data == nil {
-            //iCloud
-            data = iCloudUtils.object(forKey: key)
+            if iCloud {
+                //iCloud
+                data = iCloudUtils.object(forKey: key)
+            }
         }
         return data
     }
     
-    public static func savePersistantData(key:String, data:Any?) {
+    public static func savePersistantData(key:String, data:Any?, iCloud:Bool = true) {
         UserDefaults.standard.set(data, forKey:key)
         UserDefaults.standard.synchronize()
-        //iCloud
-        iCloudUtils.set(anobject: data, forKey: key)
+        if iCloud {
+            //iCloud
+            iCloudUtils.set(anobject: data, forKey: key)
+        }
     }
     
     public static func loadPersistantArrayJsonData<T>(key:String) -> [T]? where T:Codable {

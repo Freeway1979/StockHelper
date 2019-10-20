@@ -100,6 +100,10 @@ class HomeViewController: UICollectionViewController {
         loadData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.updateDragons()
+    }
+    
     private func gotoViewController(storyboard:String,storyboardId:String) {
         let mainStoryboard: UIStoryboard = UIStoryboard(name: storyboard,bundle: nil)
         var destViewController : UIViewController
@@ -123,10 +127,10 @@ class HomeViewController: UICollectionViewController {
         title = SectionType.QuickActions.description()
         items.removeAll()
         // Item 1
-        item = ItemData(title: "复盘总结", data:nil, onItemClicked: { itemData in
-            self.gotoViewController(storyboard: "Review", storyboardId: "ReviewDetailViewController")
-        })
-        items.append(item!)
+//        item = ItemData(title: "复盘总结", data:nil, onItemClicked: { itemData in
+//            self.gotoViewController(storyboard: "Review", storyboardId: "ReviewDetailViewController")
+//        })
+//        items.append(item!)
         // Item 2
         item = ItemData(title: "涨停排行榜", data:nil, onItemClicked: { itemData in
             self.gotoViewController(storyboard: "Block", storyboardId: "ZhangTingListViewController")
@@ -147,9 +151,9 @@ class HomeViewController: UICollectionViewController {
         items.append(item!)
         
         // Item 1
-        item = ItemData(title: "自定义选股", data: nil,onItemClicked: { itemData in
+        item = ItemData(title: "股票搜索", data: nil,onItemClicked: { itemData in
             print(itemData.title)
-            self.gotoViewController(storyboard: "Data", storyboardId: "XuanguListViewController")
+            self.gotoViewController(storyboard: "Block", storyboardId: "BlockStockListViewController")
         })
         items.append(item!)
         layout = LayoutData(title: title,data: items)
@@ -218,8 +222,6 @@ class HomeViewController: UICollectionViewController {
         }
     }
     
-    private let ONE_DAY:TimeInterval = 3600*24;
-    
     var loadingCount = 0
     func showLoading() {
         if loadingCount < 0 {
@@ -240,6 +242,21 @@ class HomeViewController: UICollectionViewController {
             })
         }
     }
+    
+    func updateDragons() {
+        let overview = DapanOverview.sharedInstance
+        DispatchQueue.main.async { [unowned self] in
+            self.dapanOverviewCell?.applyModel(overviewText: overview.overviewTex, status: overview.dapanStatus, badge: overview.dapanStatusBadge, action: overview.sugguestAction, cangwei: overview.sugguestCangWei)
+            self.dapanOverviewCell?.updateDragons(marketDragon: DataCache.marketDragon, gaoduDragon: DataCache.gaoduDragon)
+            self.dapanOverviewCell?.onDragonClicked = { [unowned self] (tag) in
+                let code:String? = tag == 1 ? DataCache.marketDragon?.code : DataCache.gaoduDragon?.code
+                if code != nil {
+                    StockUtils.gotoStockViewController(code: code!, from: (self.navigationController?.navigationController)!)
+                }
+            }
+        }
+    }
+    
     func refreshDapanOverview() {
         let dataService = ZhangDieTingDataService(date: Date().formatWencaiDateString(), keywords: "涨跌停数且非ST", title: "涨跌停数且非ST")
         dataService.onComplete = { [unowned self] (data) in
@@ -260,11 +277,8 @@ class HomeViewController: UICollectionViewController {
         self.runService(webView: self.webview, dataService: dataService)
         
         _ = DapanOverview.sharedInstance.getHQListFromServer(code: "000001", startDate: "", endDate: "")
-        let overview = DapanOverview.sharedInstance
-        DispatchQueue.main.async { [unowned self] in
-            self.dapanOverviewCell?.applyModel(overviewText: overview.overviewTex, status: overview.dapanStatus, badge: overview.dapanStatusBadge, action: overview.sugguestAction, cangwei: overview.sugguestCangWei)
-            self.dapanOverviewCell?.updateDragons(marketDragon: DataCache.marketDragon, gaoduDragon: DataCache.gaoduDragon)
-        }
+        
+        self.updateDragons()
     }
     
     func onNorthMoneyHandled(northMoney:[String]) {

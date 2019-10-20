@@ -29,6 +29,9 @@ struct UserDefaultKeys {
         static let hotBlocks = "HotBlocks"
         static let importantBlocks = "ImportantStocks"
         static let blokLifeCycle = "BlokLifeCycle"
+        static let lastDate = "LastDate"
+        static let gaoduDragon = "GaoduDragon"
+        static let marketDragon = "MarketDragon"
     }
 }
 

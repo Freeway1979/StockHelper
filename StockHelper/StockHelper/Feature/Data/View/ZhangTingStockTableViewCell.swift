@@ -53,7 +53,9 @@ class ZhangTingStockTableViewCell: UITableViewCell {
         nameButton.setTitleColor(UIColor.darkText, for: UIControl.State.normal)
         nameButton.badgeString = badge
         titleLabel.text = title
+        line1Label.isHidden = line1.count == 0
         line1Label.text = line1
+        line2Label.isHidden = line2.count == 0
         line2Label.text = line2
     }
     
@@ -77,5 +79,57 @@ class ZhangTingStockTableViewCell: UITableViewCell {
         tagButton.setTextStyle(textStyle: .small)
         tagContainerView.addSubview(tagButton)
         xOffset = xOffset + width+spacing
+    }
+    
+    func updateModelWithZhangTing(s:ZhangTingStock?, stock:Stock, dragon:ZhangTingStock?,isHot:Bool = false) {
+        let name = stock.name
+        let title:String = ""
+        var line1:String = ""
+        var line2:String = ""
+        var badge:String = ""
+        line1 = "\(stock.code) 流通值:\(stock.tradeValue.formatMoney)"
+        let yingli = stock.yingliStr
+        if yingli != nil {
+            line1 = "\(line1) \(yingli!)"
+        }
+        let jiejin = stock.jiejinStr
+        if jiejin != nil {
+            line1 = "\(line1) \(jiejin!)"
+        }
+        let hotblocks:[String] = DataCache.getTopBlockNamesForStock(stock: stock)
+        if s != nil {
+            line2 = "封单额\(s!.ztMoney.formatMoney) 封成比:\(s!.ztRatioBills.formatDot2FloatString) 封流比:\(s!.ztRatioMoney.formatDot2FloatString)"
+            badge = s!.ztBanType
+        }
+        if isHot && badge.count == 0 {
+            badge = "Hot"
+        }
+        self.applyModel(name: name, title: title, line1: line1, line2: line2, badge: badge)
+        self.resetTags()
+        
+        var sameblocks:[String] = []
+        if dragon != nil && s != nil {
+            if s?.zhangting != dragon?.zhangting {
+                sameblocks = StockUtils.getSameBlockNames(this: stock.code, that: dragon!.code)
+                sameblocks.forEach { (block) in
+                    self.addTag(tag: block, dragonBlock: true)
+                }
+            } else { //龙头子
+                self.addTag(tag: "市场日内龙头", dragonBlock: true)
+            }
+        }
+        var tags:[String] = []
+        if sameblocks.count > 0 {
+            hotblocks.forEach { (block) in
+                if !sameblocks.contains(block) {
+                    tags.append(block)
+                }
+            }
+        } else {
+            tags = hotblocks
+        }
+        tags.forEach { (block) in
+            self.addTag(tag: block)
+        }
     }
 }

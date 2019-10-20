@@ -14,14 +14,18 @@ class BlockStockListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    private let today = Date().formatWencaiDateString()
+    let shortCellHeight: CGFloat = 68
+    let mediumCellHeight: CGFloat = 96
+    let longCellHeight: CGFloat = 110
+    
+    private let today:String = DataCache.getLastDate()
     private let cellID:String = "ZhangTingStockTableViewCell"
     var block:Block2Stocks?;
     private var keyword:String = ""
     var isForBlock: Bool {
         return self.block != nil
     }
-    var dragonCode:String?
+    var dragon:ZhangTingStock?
     private var displayedItems:[Stock] = []
     private var stocks:[Stock] = []
     override func viewDidLoad() {
@@ -29,8 +33,10 @@ class BlockStockListViewController: UIViewController {
         if isForBlock {
             self.title = self.block?.block.name
             self.stocks = self.block?.stocks ?? []
+        } else {
+            self.title = "股票搜索"
         }
-        self.dragonCode = DataCache.marketDragon?.code
+        self.dragon = DataCache.gaoduDragon
         self.tableView.delegate = self;
         self.tableView.dataSource = self
         self.searchBar.delegate = self;
@@ -46,28 +52,38 @@ class BlockStockListViewController: UIViewController {
     
     private func refreshTableViewBySearch(keyword:String) {
         self.keyword = keyword
+        var list:[Stock] = []
+        var handled:Bool = false
+        if (!isForBlock) {
+            if (keyword.count < 3) {
+                list = []
+                handled = true
+            }
+        }
+        let theStocks = isForBlock ? stocks : StockServiceProvider.stocks
         let isChinese = keyword.isIncludeChinese()
         let isCode = keyword.hasPrefix("00")
-            || keyword.hasPrefix("30")
-            || keyword.hasPrefix("60")
-        let list = stocks.filter { (stock) -> Bool in
-            var rs = false
-            if (keyword.count == 0) {
-                rs = true
-            } else {
-                if isChinese {
-                    rs = stock.name.contains(keyword)
+             || keyword.hasPrefix("30")
+             || keyword.hasPrefix("60")
+        if (!handled) {
+            list = theStocks.filter { (stock) -> Bool in
+                var rs = false
+                if (keyword.count == 0) {
+                    rs = isForBlock ? true : false
+                } else {
+                    if isChinese {
+                        rs = stock.name.contains(keyword)
+                    }
+                    if isCode {
+                        rs = stock.code.contains(keyword)
+                    }
+                    rs = stock.pinyin.contains(keyword.lowercased())
+                        || stock.name.lowercased().contains(keyword.lowercased())
+                        || stock.code.contains(keyword)
                 }
-                if isCode {
-                    rs = stock.code.contains(keyword)
-                }
-                rs = stock.pinyin.contains(keyword.lowercased())
-                    || stock.name.lowercased().contains(keyword.lowercased())
-                    || stock.code.contains(keyword)
+                return rs;
             }
-            return rs;
         }
-        
         let block = self.block?.block;
         self.displayedItems = list.sorted(by: { (lhs:Stock, rhs:Stock) -> Bool in
             let lhsHot:Bool = isForBlock ? StockServiceProvider.isHotStock(stock: lhs, block: block!) : false
@@ -99,6 +115,33 @@ class BlockStockListViewController: UIViewController {
         destViewController = mainStoryboard.instantiateViewController(withIdentifier: storyboardId)
         self.navigationController?.pushViewController(destViewController, animated: true)
     }
+    
+    func calculateHeight(indexPath:IndexPath) -> CGFloat {
+        let stock = self.displayedItems[indexPath.row];
+        let s:ZhangTingStock? = DataCache.getZhangTingStock(date: today, code: stock.code)
+        var hasExtraBlocks:Bool = false
+        let hotblocks:[String] = DataCache.getTopBlockNamesForStock(stock: stock)
+        if hotblocks.count > 0 {
+            hasExtraBlocks  = true
+        }
+        if s != nil {
+            if dragon != nil && s!.zhangting != dragon?.zhangting {
+                let sameblocks = StockUtils.getSameBlockNames(this: stock.code, that: dragon!.code)
+                if sameblocks.count > 0 {
+                    hasExtraBlocks = true
+                }
+            } else { //日内龙头
+                hasExtraBlocks = true
+            }
+        }
+        if s != nil && hasExtraBlocks { //Line2+Tags
+            return longCellHeight
+        } else if hasExtraBlocks { //Tags
+            return mediumCellHeight
+        } else { //Default
+            return shortCellHeight
+        }
+    }
 }
 
 extension BlockStockListViewController:UITableViewDataSource {
@@ -116,44 +159,14 @@ extension BlockStockListViewController:UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let stock = self.displayedItems[indexPath.row];
-        let isHotStock = self.isHotStock(stock: stock)
-        let name = stock.name
-        let view:ZhangTingStockTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! ZhangTingStockTableViewCell
-        var title:String = ""
-        var line1:String = ""
-        var line2:String = ""
-        var badge:String = ""
-        line1 = "\(stock.code) 流通值:\(stock.tradeValue.formatMoney)"
-        let yingli = stock.yingliStr
-        if yingli != nil {
-            line1 = "\(line1) \(yingli!)"
-        }
-        let jiejin = stock.jiejinStr
-        if jiejin != nil {
-            line1 = "\(line1) \(jiejin!)"
-        }
-        let hotblocksCount = DataCache.getTopBlockNamesForStock(stock: stock).count
         let s:ZhangTingStock? = DataCache.getZhangTingStock(date: today, code: stock.code)
-        if s != nil {
-            line2 = "封单额\(s!.ztMoney.formatMoney) 封成比:\(s!.ztRatioBills.formatDot2FloatString) 封流比:\(s!.ztRatioMoney.formatDot2FloatString)"
-            badge = s!.ztBanType
-        }
-        if hotblocksCount > 0 {
-            title = "\(title) 热门概念:\(hotblocksCount)"
-        }
-        if dragonCode != nil && stock.code != dragonCode {
-           let sameblocks = StockUtils.getSameBlockNames(this: stock.code, that: dragonCode!)
-            if sameblocks.count > 0 {
-                title = "\(title) 龙头概念:\(sameblocks.count)"
-            }
-        }
-        if isHotStock {
-            title = "\(title)🐯"
-        }
-        view.applyModel(name: name, title: title, line1: line1, line2: line2, badge: badge)
+        let view:ZhangTingStockTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! ZhangTingStockTableViewCell
+        view.updateModelWithZhangTing(s: s, stock: stock, dragon: dragon, isHot: self.isHotStock(stock: stock))
         return view
     }
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.calculateHeight(indexPath: indexPath)
+    }
 }
 extension BlockStockListViewController:UITableViewDelegate {
     // Override to support conditional editing of the table view.

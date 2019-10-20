@@ -45,6 +45,7 @@ class DapanOverviewCollectionViewCell: UICollectionViewCell {
     var onClicked:(() -> Void)? = nil
     
     var onQingXuClicked:(() -> Void)? = nil
+    var onDragonClicked:((Int) -> Void)? = nil
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -64,6 +65,12 @@ class DapanOverviewCollectionViewCell: UICollectionViewCell {
     @IBAction func onQingXuButtonClicked(_ sender: UIButton) {
       if onQingXuClicked != nil {
             onQingXuClicked!()
+        }
+    }
+    
+    @IBAction func onDragonClicked(_ sender: UIButton) {
+        if onDragonClicked != nil {
+            onDragonClicked!(sender.tag)
         }
     }
     
@@ -101,14 +108,24 @@ class DapanOverviewCollectionViewCell: UICollectionViewCell {
     
     func updateDragons(marketDragon:ZhangTingStock?,gaoduDragon:ZhangTingStock?) {
         //市场龙头
-        var title = marketDragon?.name ?? "-"
-        var badge = marketDragon?.ztBanType ?? ""
+        var name:String = "-"
+        if marketDragon?.code != nil {
+            name = StockUtils.getStock(by: (marketDragon?.code)!).name
+        }
+        var title:String = name
+        var badge = ""
+        if gaoduDragon?.zhangting != nil {
+            badge = "\((gaoduDragon?.zhangting)!)"
+        }
         self.buttonMarketDragon.setTitle(title, for: UIControl.State.normal)
         self.buttonMarketDragon.badgeString = badge
         //空间龙头
         title = gaoduDragon?.name ?? "-"
-        badge = gaoduDragon?.ztBanType ?? ""
-        self.buttonMarketDragon.setTitle(title, for: UIControl.State.normal)
-        self.buttonMarketDragon.badgeString = badge
+        badge = ""
+        if gaoduDragon?.zhangting != nil {
+            badge = "\((gaoduDragon?.zhangting)!)"
+        }
+        self.buttonDragon.setTitle(title, for: UIControl.State.normal)
+        self.buttonDragon.badgeString = badge
     }
 }

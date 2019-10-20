@@ -47,6 +47,8 @@ class DataCache {
     public static var marketDragon:ZhangTingStock?
     //空间龙头
     public static var gaoduDragon:ZhangTingStock?
+    //最后有效日期
+    public static var lastDate:String?
     //盈利
     public static var yingliStocks:[YingLiStock] = []
     //扭亏
@@ -118,6 +120,22 @@ class DataCache {
 //            lastDate = date
 //        }
 //    }
+
+    public static func getLastDate() -> String {
+        if DataCache.lastDate != nil {
+            return DataCache.lastDate!
+        }
+        var i = 0
+        let today = Date()
+        while i < 30 {
+            let date = Date(timeInterval: -Date.ONEDAY * Double(i), since: today)
+            if (date.isWorkingDay) {
+                return date.formatWencaiDateString()
+            }
+            i = i + 1
+        }
+        return Date().formatWencaiDateString()
+    }
 
     // 连板龙(高度板)
     public static func getMarketDragonStock(date:String) -> ZhangTingStock? {
@@ -247,6 +265,9 @@ class DataCache {
         print("Save block tops to local and iCloud")
         //每日涨停
         StockDBProvider.saveZhangTingStocks(stocks: ztStocks)
+        if DataCache.lastDate != nil {
+            Utils.savePersistantData(key: UserDefaultKeys.Block.lastDate, data: DataCache.lastDate!)
+        }
     }
     
     public static func loadFromDB() {
@@ -260,6 +281,8 @@ class DataCache {
         }
         //每日涨停
         ztStocks = StockDBProvider.loadZhangTingStocks()
+        let date:String? = Utils.loadPersistantData(key: UserDefaultKeys.Block.lastDate) as? String
+        DataCache.lastDate = date
     }
     
     public static func printData() {

@@ -140,36 +140,44 @@
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="h3G-d4-xfE">
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="h3G-d4-xfE">
                         <rect key="frame" x="20" y="152" width="389" height="30"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="总龙头:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cFI-mZ-ral">
-                                <rect key="frame" x="0.0" y="0.0" width="108.5" height="30"/>
+                                <rect key="frame" x="0.0" y="0.0" width="57" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="duR-d1-DN4" customClass="MIBadgeButton" customModule="MIBadgeButton_Swift">
-                                <rect key="frame" x="118.5" y="0.0" width="57.5" height="30"/>
+                                <rect key="frame" x="95.5" y="0.0" width="80" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="Yh0-gX-kmX"/>
+                                </constraints>
                                 <state key="normal" title="-">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
+                                    <action selector="onDragonClicked:" destination="gTV-IL-0wX" eventType="touchUpInside" id="0n6-a5-iJU"/>
                                     <action selector="onMarketDragonClicked:" destination="gTV-IL-0wX" eventType="touchUpInside" id="nNO-QK-7GK"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="空间龙:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwO-wN-pJd">
-                                <rect key="frame" x="186" y="0.0" width="108.5" height="30"/>
+                                <rect key="frame" x="213.5" y="0.0" width="57" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wDl-8G-5wt" customClass="MIBadgeButton" customModule="MIBadgeButton_Swift">
-                                <rect key="frame" x="304.5" y="0.0" width="84.5" height="30"/>
+                                <rect key="frame" x="309" y="0.0" width="80" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="fCg-HL-QKd"/>
+                                </constraints>
                                 <state key="normal" title="-">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
+                                    <action selector="onDragonClicked:" destination="gTV-IL-0wX" eventType="touchUpInside" id="cUY-Jh-Jgf"/>
                                     <action selector="onMarketDragonClicked:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Z0J-Vh-L7X"/>
                                 </connections>
                             </button>
