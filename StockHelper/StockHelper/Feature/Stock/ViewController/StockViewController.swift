@@ -60,6 +60,8 @@ class StockViewController: UIViewController {
 //        cell.accessoryType = .disclosureIndicator
 //        section.rows.append(cell)
         
+       //问财股票详情 产品图谱 //http://www.iwencai.com/stockpick/search?ts=1&f=1&qs=stockhome_topbar_click&w=%E6%AC%A7%E8%8F%B2%E7%A7%91%E6%8A%80
+        
         cell = TableViewCellModel();
         cell.cellStyle = .value1
         cell.data = stockCode

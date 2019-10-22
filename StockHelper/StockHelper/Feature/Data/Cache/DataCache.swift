@@ -138,11 +138,15 @@ class DataCache {
     }
 
     // 连板龙(高度板)
-    public static func getMarketDragonStock(date:String) -> ZhangTingStock? {
-        guard let stocksWithDate = getZhangTingStocks(by: date) else { return nil }
+    public static func getMarketDragonStock(date:String? = nil) -> ZhangTingStock? {
+        if date == nil { //Total
+            guard let stocksWithDate = ztStocks.last else { return nil }
+            return stocksWithDate.stocks.first
+        }
+        guard let stocksWithDate = getZhangTingStocks(by: date!) else { return nil }
         return stocksWithDate.stocks.first
     }
-    
+
     // 市场总龙头
     public static func getMarketDragonStocks(dates:[String]) -> [ZhangTingStock]? {
         var rs:[String:Int] = [:]

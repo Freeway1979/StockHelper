@@ -114,8 +114,8 @@ class DapanOverviewCollectionViewCell: UICollectionViewCell {
         }
         var title:String = name
         var badge = ""
-        if gaoduDragon?.zhangting != nil {
-            badge = "\((gaoduDragon?.zhangting)!)"
+        if marketDragon?.zhangting != nil {
+            badge = "\((marketDragon?.zhangting)!)"
         }
         self.buttonMarketDragon.setTitle(title, for: UIControl.State.normal)
         self.buttonMarketDragon.badgeString = badge

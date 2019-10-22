@@ -328,7 +328,7 @@ class BlockCycleViewController: DataServiceViewController {
             title = "\(title)总龙头:\(stock.name)[\(dragons!.first!.zhangting)]"
             DataCache.marketDragon = dragons?.first
         }
-        let dragon = DataCache.getMarketDragonStock(date: self.lastDate)
+        let dragon = DataCache.getMarketDragonStock(date: nil)
         if dragon != nil {
             let stock = StockUtils.getStock(by: dragon!.code)
             title = "\(title)空间龙:\(stock.name)[\(dragon!.zhangting)]"
