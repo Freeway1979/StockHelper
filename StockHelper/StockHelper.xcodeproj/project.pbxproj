@@ -65,7 +65,7 @@
 		A12BB2F2226C177F00AF6D49 /* DataCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12BB2F1226C177F00AF6D49 /* DataCache.swift */; };
 		A12C7DF52268AF050014D260 /* SelectedStocksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12C7DF42268AF050014D260 /* SelectedStocksViewController.swift */; };
 		A12CD64621F7EAF200CE5C70 /* WebSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12CD64521F7EAF200CE5C70 /* WebSite.swift */; };
-		A12F65EC22FFC6030023CFAF /* ZhangTingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12F65EB22FFC6030023CFAF /* ZhangTingListViewController.swift */; };
+		A12F65EC22FFC6030023CFAF /* BigHotBlockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12F65EB22FFC6030023CFAF /* BigHotBlockViewController.swift */; };
 		A132955921DB523C00A3B156 /* RemoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A132955821DB523C00A3B156 /* RemoteService.swift */; };
 		A1343F9221F45A310086FEEB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1343F9121F45A310086FEEB /* CloudKit.framework */; };
 		A1343F9521F45A830086FEEB /* iCloudUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1343F9421F45A830086FEEB /* iCloudUtils.swift */; };
@@ -230,7 +230,7 @@
 		A12BB2F1226C177F00AF6D49 /* DataCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCache.swift; sourceTree = "<group>"; };
 		A12C7DF42268AF050014D260 /* SelectedStocksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedStocksViewController.swift; sourceTree = "<group>"; };
 		A12CD64521F7EAF200CE5C70 /* WebSite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSite.swift; sourceTree = "<group>"; };
-		A12F65EB22FFC6030023CFAF /* ZhangTingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhangTingListViewController.swift; sourceTree = "<group>"; };
+		A12F65EB22FFC6030023CFAF /* BigHotBlockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigHotBlockViewController.swift; sourceTree = "<group>"; };
 		A132955821DB523C00A3B156 /* RemoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteService.swift; sourceTree = "<group>"; };
 		A1343F9021F45A130086FEEB /* StockHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StockHelper.entitlements; sourceTree = "<group>"; };
 		A1343F9121F45A310086FEEB /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -486,7 +486,7 @@
 				A1E1277B21E6B99F00527DC0 /* HotBlockViewController.swift */,
 				A1ABA3B02262DF5E00985F3D /* BlockCycleViewController.swift */,
 				A12C7DF42268AF050014D260 /* SelectedStocksViewController.swift */,
-				A12F65EB22FFC6030023CFAF /* ZhangTingListViewController.swift */,
+				A12F65EB22FFC6030023CFAF /* BigHotBlockViewController.swift */,
 				A1083960231B59F0002D1B99 /* LianDongViewController.swift */,
 				A1F2AB2A234B376C007DFAE2 /* ZhangTingViewController.swift */,
 			);
@@ -1319,7 +1319,7 @@
 				A12A50B22218DAEB0045D320 /* YanBao.swift in Sources */,
 				A14115F921DD8D2A00E1B2BC /* ServiceConfig.swift in Sources */,
 				A12A18DC21EA254F004294B5 /* Utils.swift in Sources */,
-				A12F65EC22FFC6030023CFAF /* ZhangTingListViewController.swift in Sources */,
+				A12F65EC22FFC6030023CFAF /* BigHotBlockViewController.swift in Sources */,
 				A1F4429821E108B800999138 /* SettingViewController.swift in Sources */,
 				A152A0FF22C90070006B0DF4 /* DaBan.swift in Sources */,
 				A1F2AB25233D8240007DFAE2 /* DapanOverview.swift in Sources */,
@@ -1548,7 +1548,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StockHelper/StockHelper.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2019102201;
+				CURRENT_PROJECT_VERSION = 2019102601;
 				DEVELOPMENT_TEAM = RTCEZS3U4Z;
 				INFOPLIST_FILE = StockHelper/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
@@ -1570,7 +1570,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StockHelper/StockHelper.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2019102201;
+				CURRENT_PROJECT_VERSION = 2019102601;
 				DEVELOPMENT_TEAM = RTCEZS3U4Z;
 				INFOPLIST_FILE = StockHelper/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;

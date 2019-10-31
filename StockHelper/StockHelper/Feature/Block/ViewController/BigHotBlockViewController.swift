@@ -1,5 +1,5 @@
 //
-//  ZhangTingListViewController.swift
+//  BigHotBlockViewController.swift
 //  StockHelper
 //
 //  Created by Andy Liu on 2019/8/11.
@@ -28,11 +28,20 @@ fileprivate let columns = 5
 fileprivate let sectionInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
 
 
-class ZhangTingListViewController: DataServiceViewController {
+class BigHotBlockViewController: DataServiceViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
     var webview: WKWebView!
+    
+    enum StockCategory:String {
+        case LowestPrice = "最低价" //大妈热爱
+        case LowestMarketValue = "最低流通市值" // 柚子热爱
+        case MostLargeMarketValue = "最大流通市值" //中军 大资金热爱
+        case LowestDealValue = "最小成交量" //最小换手率 表示惜筹严重，一致看好
+        case MostLargeZhangTingOrder = "封成比排行" //封单坚决，一致看好 最正宗
+        case MostLargeZhangTingShu = "涨停数排行" // 空间龙， 身位龙
+    }
     
     private struct ItemData {
         var title: String = ""
@@ -52,20 +61,11 @@ class ZhangTingListViewController: DataServiceViewController {
     
     private var layoutData:[LayoutData] = []
     
-    var zhenfuList:[ZhenFuStock] = []
     var dataList:[DataItem] = []
     
     struct DataItem {
         var zhangting:String
         var stocks:[ZhangTingStockItem]
-    }
-    
-    struct ZhenFuStock {
-        var code:String
-        var name:String
-        var openZhangfu:String
-        var closeZhangfu:String
-        var zhenfu:String
     }
     
     struct ZhangTingStockItem {
@@ -157,30 +157,10 @@ class ZhangTingListViewController: DataServiceViewController {
         }
     }
     
-    private func handleWenCaiZhenFuResponse(date:String,dict:Dictionary<String, Any>) {
-        print("\(date) handleWenCaiZhenFuResponse")
-        let rs = dict["result"] as! [[Any]]
-        var list:[ZhenFuStock] = []
-        for item in rs {
-            let zf = (item[4] as! String)
-            let code = item[0] as! String
-            let name = item[1] as! String
-            let openZhangfu = (item[7] as! String)
-            let closeZhangfu = (item[8] as! String)
-            let stock = ZhenFuStock(code: String(code.prefix(6)), name: name,
-                                    openZhangfu: openZhangfu, closeZhangfu: closeZhangfu,zhenfu: zf)
-            list.append(stock)
-        }
-        list.sort { (lhs, rhs) -> Bool in
-            return lhs.zhenfu.floatValue > rhs.zhenfu.floatValue
-        }
-        self.zhenfuList = list
-        print(list)
-    }
     
     private func prepareData() {
         let today = Date().formatWencaiDateString()
-        var dataService:DataService = ZhangTingDataService(date: today)
+        let dataService:DataService = ZhangTingDataService(date: today)
         dataService.onComplete = { (data) in
             guard var stocks:[ZhangTingStock] = data as? [ZhangTingStock] else { return }
             let ztstocksWithDate = ZhangTingStocks(date: today, stocks: [])
@@ -214,27 +194,9 @@ class ZhangTingListViewController: DataServiceViewController {
             }
         }
         self.addService(dataService: dataService)
-
-        dataService = DataService(date: today,keywords: "振幅大于15且非科创板且上市天数大于20 开盘涨跌幅", title: "连续涨停数排行榜")
-        dataService.handler = { [unowned self] (date, json, dict) in
-            self.handleWenCaiZhenFuResponse(date:date, dict: dict)
-        }
-        self.addService(dataService: dataService)
     }
     
     private func convertToLayoutData() {
-        // 振幅清单
-        let items:[ItemData] = self.zhenfuList.map { (zf) -> ItemData in
-            let suffix:String = zf.closeZhangfu.floatValue > 0 ? "↑" : "↓"
-            let itemData = ItemData(title: "\(zf.name)\(suffix)", data: zf.code, sameblocks: [],
-                                    onItemClicked: { [unowned self] (itemData) in
-                                    StockUtils.openStockHQPage(code: zf.code, name: zf.name, from: self.navigationController!)
-            })
-            return itemData
-        }
-        let layout = LayoutData(title: "振幅榜单",data: items)
-        self.layoutData.append(layout)
-
         // 涨停清单
         let dragonCode = self.dataList.first?.stocks.first?.code
         if dragonCode != nil {
@@ -295,7 +257,7 @@ class ZhangTingListViewController: DataServiceViewController {
 }
 
 // MARK: UICollectionViewDataSource
-extension ZhangTingListViewController: UICollectionViewDataSource {
+extension BigHotBlockViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return self.layoutData.count
@@ -356,7 +318,7 @@ extension ZhangTingListViewController: UICollectionViewDataSource {
 
 
 // MARK: UICollectionViewDelegate
-extension ZhangTingListViewController: UICollectionViewDelegate {
+extension BigHotBlockViewController: UICollectionViewDelegate {
     
     //      Uncomment this method to specify if the specified item should be highlighted during tracking
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
@@ -391,7 +353,7 @@ extension ZhangTingListViewController: UICollectionViewDelegate {
     
 }
 
-extension ZhangTingListViewController: UICollectionViewDelegateFlowLayout {
+extension BigHotBlockViewController: UICollectionViewDelegateFlowLayout {
     //1
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,

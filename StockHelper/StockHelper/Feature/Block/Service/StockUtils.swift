@@ -182,6 +182,10 @@ class StockUtils {
         WebViewController.open(website: WebSite.getDapanPageUrl(code: code), withtitle: name , from: navigator)
     }
     
+    public static func openStockDignosticPage(code:String, name:String, from navigator:UINavigationController) {
+        WebViewController.open(website: WebSite.getStockDiagnosticPageUrl(code: code), withtitle: name , from: navigator, isForMobile: false)
+    }
+    
     public static func gotoStockViewController(code:String, from navigator:UINavigationController) {
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Stock",bundle: nil)
         var destViewController : UIViewController

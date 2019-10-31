@@ -21,6 +21,7 @@ struct UserDefaultKeys {
         static let jinjinStock = "JinJinStock"
         static let zhangtingStock = "ZhangTingStock"
         static let tags = "Tags"
+        static let historyTags = "HistoryTags"
     }
     struct Block {
         static let basicBlocks = "BasicBlocks"

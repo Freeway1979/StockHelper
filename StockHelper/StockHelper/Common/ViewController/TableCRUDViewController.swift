@@ -36,6 +36,10 @@ class TableCRUDViewController: UIViewController {
         return []
     }
     
+    func buildHistoryData() -> TableViewSectionModel? {
+        return nil
+    }
+    
     func registerCells() {
         self.tableView?.register(UITableViewCell.self, forCellReuseIdentifier: CELLID)
     }
@@ -64,14 +68,26 @@ class TableCRUDViewController: UIViewController {
         cell.detailTextLabel?.text = cellModel.detail
     }
     
+    func insertTag(text:String) {
+        if text.count > 0 {
+            let filted = self.tableData[0].rows.filter { (cell) -> Bool in
+                cell.title == text
+            }
+            if filted.count > 0 {
+                return
+            }
+            let cellModel = self.insertItem(text: text)
+            self.tableData[0].rows.append(cellModel)
+            self.tableView!.reloadData()
+        }
+    }
+    
     func showAddDataController(indexPath:IndexPath) {
         let alertController = UIAlertController(title: self.insertItemTitle, message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "确定", style: .default) { (act) in
             let text = alertController.textFields?.first?.text
-            if text != nil && text!.count > 0 {
-               let cellModel = self.insertItem(text: text!)
-               self.tableData[indexPath.section].rows.append(cellModel)
-               self.tableView!.insertRows(at: [indexPath], with: .automatic)
+            if text != nil {
+                self.insertTag(text: text!)
             }
         }
         alertController.addTextField { (textfield) in
@@ -87,11 +103,15 @@ class TableCRUDViewController: UIViewController {
     
     private func prepareTableViewData() {
         self.tableData = self.buildTableData()
+        let historyData = self.buildHistoryData()
+        if historyData != nil && historyData!.rows.count > 0 {
+            self.tableData.append(historyData!)
+        }
         self.tableView!.reloadData()
     }
     
     private func isLastRow(indexPath:IndexPath) -> Bool {
-       return indexPath.row == self.tableData[indexPath.section].rows.count
+       return indexPath.row == self.tableData[0].rows.count
     }
     
 }
@@ -103,7 +123,7 @@ extension TableCRUDViewController:UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = self.tableData[section].rows.count
-        if self.tableView!.isEditing {
+        if self.tableView!.isEditing && section == 0 {
             count = count + 1
         }
         return count
@@ -123,54 +143,68 @@ extension TableCRUDViewController:UITableViewDataSource {
         self.updateCell(cell: cell, cellModel: cellModel)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 1 {
+            return self.tableData[section].title
+        }
+        return nil
+    }
 }
 
 extension TableCRUDViewController:UITableViewDelegate {
     
     // Override to support conditional editing of the table view.
-        func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-            // Return false if you do not want the specified item to be editable.
-            return true
-        }
-        
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        
         if tableView.isEditing == false {
             return .none
         }
         else if self.isLastRow(indexPath: indexPath) {
-           return .insert
-        } else {
-           return .delete
-       }
+            return .insert
+        } else if indexPath.section == 1 {
+            return .insert
+        }
+        else {
+            return .delete
+        }
     }
-        // Override to support editing the table view.
-        func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-            if editingStyle == .delete {
-                let cellModel = self.getCellModel(indexPath: indexPath)
-                self.tableData[indexPath.section].rows.remove(at: indexPath.row)
-                self.deleteItem(indexPath: indexPath, cellModel: cellModel)
-                // Delete the row from the data source
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            } else if editingStyle == .insert {
-                // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-                self.showAddDataController(indexPath: indexPath)
+    // Override to support editing the table view.
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let cellModel = self.getCellModel(indexPath: indexPath)
+            self.tableData[indexPath.section].rows.remove(at: indexPath.row)
+            self.deleteItem(indexPath: indexPath, cellModel: cellModel)
+            // Delete the row from the data source
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+            if indexPath.section == 1 {
+                let cell = self.getCellModel(indexPath: indexPath)
+                self.insertTag(text: cell.title)
+                return
             }
+            self.showAddDataController(indexPath: indexPath)
         }
-        
-        // Override to support rearranging the table view.
-        func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-            
-        }
-        
-        // Override to support conditional rearranging of the table view.
-        func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-            // Return false if you do not want the item to be re-orderable.
-            return false
-        }
-        
-        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            let cell = self.getCellModel(indexPath: indexPath)
-            print("\(cell.title)")
-        }
+    }
     
+    // Override to support rearranging the table view.
+    func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+        
+    }
+    
+    // Override to support conditional rearranging of the table view.
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return false
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
 }

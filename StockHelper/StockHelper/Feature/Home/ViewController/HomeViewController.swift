@@ -132,8 +132,8 @@ class HomeViewController: UICollectionViewController {
 //        })
 //        items.append(item!)
         // Item 2
-        item = ItemData(title: "涨停排行榜", data:nil, onItemClicked: { itemData in
-            self.gotoViewController(storyboard: "Block", storyboardId: "ZhangTingListViewController")
+        item = ItemData(title: "大行情板块", data:nil, onItemClicked: { itemData in
+            self.gotoViewController(storyboard: "Block", storyboardId: "BigHotBlockViewController")
         })
         items.append(item!)
         

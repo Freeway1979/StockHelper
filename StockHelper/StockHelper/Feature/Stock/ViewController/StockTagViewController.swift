@@ -26,15 +26,24 @@ class StockTagViewController: TableCRUDViewController {
         rs.append(sec)
         return rs
     }
+
+    override func buildHistoryData() -> TableViewSectionModel? {
+        let history = DataCache.getHistoryTags()
+        let cells:[TableViewCellModel] = history.map { (tag) -> TableViewCellModel in
+            return TableViewCellModel(id: tag, title: tag, detail: "", cellStyle: .default, accessoryType: .none, data: tag)
+        }
+        return TableViewSectionModel(id: "historyData", title: "历史标签", rows: cells, data: history)
+    }
     
     override var insertItemTitle:String {
         return "新增标签"
     }
      
-//    override func insertItem(text: String) -> TableViewCellModel {
-//        let cellModel = super.insertItem(text: text)
-//        return cellModel
-//    }
+    override func insertItem(text: String) -> TableViewCellModel {
+        let cellModel = super.insertItem(text: text)
+        DataCache.addHistoryTag(tag: text)
+        return cellModel
+    }
     
     func onDone()  {
         let tags = self.tableData[0].rows.map { (cellModel) -> String in

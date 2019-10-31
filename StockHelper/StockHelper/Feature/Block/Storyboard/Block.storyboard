@@ -11,7 +11,7 @@
         <!--Selected Stocks View Controller-->
         <scene sceneID="PsN-C6-C7h">
             <objects>
-                <viewController storyboardIdentifier="SelectedStocksViewController" id="YTP-0P-kkC" customClass="SelectedStocksViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SelectedStocksViewController" id="YTP-0P-kkC" customClass="SelectedStocksViewController" customModule="炒股神手" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UcQ-AL-HQf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -68,7 +68,7 @@
         <!--热门板块-->
         <scene sceneID="LJj-sH-6kI">
             <objects>
-                <collectionViewController storyboardIdentifier="HotBlockViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9vQ-Dp-vAo" customClass="HotBlockViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="HotBlockViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9vQ-Dp-vAo" customClass="HotBlockViewController" customModule="炒股神手" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="teV-Im-Gyu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -94,7 +94,7 @@
         <!--板块-->
         <scene sceneID="TrZ-ew-dcT">
             <objects>
-                <viewController title="板块" id="VZa-Hd-nJq" customClass="BlockViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="板块" id="VZa-Hd-nJq" customClass="BlockViewController" customModule="炒股神手" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Bh0-C9-4tr">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -215,7 +215,7 @@
         <!--Block Stock List View Controller-->
         <scene sceneID="N3t-AG-eqG">
             <objects>
-                <viewController storyboardIdentifier="BlockStockListViewController" id="uUP-Z0-JoY" customClass="BlockStockListViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BlockStockListViewController" id="uUP-Z0-JoY" customClass="BlockStockListViewController" customModule="炒股神手" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rh2-0d-NWl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -272,10 +272,10 @@
             </objects>
             <point key="canvasLocation" x="133.59999999999999" y="765.96701649175418"/>
         </scene>
-        <!--涨停排行榜-->
+        <!--大行情板块-->
         <scene sceneID="KR9-gT-uBP">
             <objects>
-                <viewController storyboardIdentifier="ZhangTingListViewController" title="涨停排行榜" id="7eL-JA-DfQ" customClass="ZhangTingListViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BigHotBlockViewController" title="大行情板块" id="7eL-JA-DfQ" customClass="BigHotBlockViewController" customModule="炒股神手" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="1SO-yN-dlq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -309,7 +309,7 @@
         <!--Zhang Ting View Controller-->
         <scene sceneID="9zP-ps-WDY">
             <objects>
-                <viewController storyboardIdentifier="ZhangTingViewController" id="1Kf-5v-OlA" customClass="ZhangTingViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ZhangTingViewController" id="1Kf-5v-OlA" customClass="ZhangTingViewController" customModule="炒股神手" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g9j-EW-sZP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -339,7 +339,7 @@
         <!--Lian Dong View Controller-->
         <scene sceneID="lcv-ux-F4t">
             <objects>
-                <viewController storyboardIdentifier="LianDongViewController" id="KV2-E0-Gqa" customClass="LianDongViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LianDongViewController" id="KV2-E0-Gqa" customClass="LianDongViewController" customModule="炒股神手" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="W7M-Cp-prr">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -367,7 +367,7 @@
         <!--板块周期表-->
         <scene sceneID="bEd-5B-pKz">
             <objects>
-                <viewController storyboardIdentifier="BlockCycleViewController" title="板块周期表" id="7FD-yD-qS9" customClass="BlockCycleViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BlockCycleViewController" title="板块周期表" id="7FD-yD-qS9" customClass="BlockCycleViewController" customModule="炒股神手" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="X4i-e9-LJ2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

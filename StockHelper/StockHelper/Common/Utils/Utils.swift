@@ -46,6 +46,7 @@ class Utils {
         DispatchQueue.global().async {
             DataCache.loadFromDB();
             DataCache.loadStockExtras()
+            DataCache.loadHistoryTags()
         }
     }
     

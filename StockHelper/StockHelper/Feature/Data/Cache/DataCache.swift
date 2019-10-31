@@ -9,7 +9,7 @@
 import Foundation
 
 class DataCache {
-    //StockExtra
+    // *******************自定义标签***********************
     private static var stockExtraMap:[String:StockExtra] = [:]
     public static func loadStockExtras() {
         let key = UserDefaultKeys.Stock.tags
@@ -42,6 +42,37 @@ class DataCache {
        //Sync to iCloud
        saveStockExtras()
     }
+
+    // *******************历史标签***********************
+    private static let maxHistoryItem:Int = 20
+    private static var historyTags:[String] = []
+    public static func addHistoryTag(tag:String) {
+        if historyTags.contains(tag) {
+            return
+        }
+        historyTags.insert(tag, at: 0)
+        if historyTags.count > maxHistoryItem {
+            historyTags.removeLast()
+        }
+        // Save
+        saveHistoryTags()
+    }
+    public static func getHistoryTags() -> [String] {
+        return Array(historyTags.prefix(maxHistoryItem))
+    }
+    public static func saveHistoryTags() {
+        let key = UserDefaultKeys.Stock.historyTags
+        Utils.savePersistantData(key: key, data: historyTags, iCloud: false)
+    }
+    public static func loadHistoryTags() {
+        let key = UserDefaultKeys.Stock.historyTags
+        let data = Utils.loadPersistantData(key: key)
+        if (data != nil)
+        {
+            historyTags = data as! [String]
+        }
+    }
+    // *******************板块周期表***********************
     public static var blockTops:[String:[WenCaiBlockStat]]? = [:]
     //市场总龙头
     public static var marketDragon:ZhangTingStock?

@@ -15,6 +15,7 @@ class StockViewController: UIViewController {
     private enum DataId: String {
         case SECTION_BASIC = "基本情况"
         case CELL_STOCK_NOTE = "股票笔记"
+        case CELL_STOCK_DIAGNOSTIC = "股票诊断"
         case CELL_STOCK_TRADE_MONEY = "流通市值"
         case CELL_STOCK_HQ = "股票行情"
         case CELL_STOCK_LIANDONG = "股票联动"
@@ -60,7 +61,12 @@ class StockViewController: UIViewController {
 //        cell.accessoryType = .disclosureIndicator
 //        section.rows.append(cell)
         
-       //问财股票详情 产品图谱 //http://www.iwencai.com/stockpick/search?ts=1&f=1&qs=stockhome_topbar_click&w=%E6%AC%A7%E8%8F%B2%E7%A7%91%E6%8A%80
+        cell = TableViewCellModel();
+        cell.data = stockCode
+        cell.id = DataId.CELL_STOCK_DIAGNOSTIC.rawValue
+        cell.title = DataId.CELL_STOCK_DIAGNOSTIC.rawValue
+        cell.accessoryType = .disclosureIndicator
+        section.rows.append(cell)
         
         cell = TableViewCellModel();
         cell.cellStyle = .value1
@@ -99,9 +105,16 @@ class StockViewController: UIViewController {
         section.rows.append(cell)
         
         cell = TableViewCellModel();
+        cell.cellStyle = .value1
         cell.data = stockCode
         cell.id = DataId.CELL_STOCK_TAGS.rawValue
         cell.title = DataId.CELL_STOCK_TAGS.rawValue
+        var tags:String = ""
+        let extra:StockExtra? = DataCache.getStockExtra(code: stock.code)
+        if extra != nil {
+            tags = extra!.tags.replacingOccurrences(of: ";", with: " ")
+        }
+        cell.detail = tags
         cell.accessoryType = .disclosureIndicator
         section.rows.append(cell)
         
@@ -252,6 +265,10 @@ extension StockViewController:UITableViewDelegate {
                 StockUtils.openStockHQPage(code: stock.code, name: stock.name, from: self.navigationController!)
             }
             
+            if cellModel.id == DataId.CELL_STOCK_DIAGNOSTIC.rawValue {
+                StockUtils.openStockDignosticPage(code: stock.code, name: stock.name, from: self.navigationController!)
+            }
+                
             if cellModel.id == DataId.CELL_STOCK_LIANDONG.rawValue {
                 self.gotoHotBlockViewController(stock: stock)
             }
