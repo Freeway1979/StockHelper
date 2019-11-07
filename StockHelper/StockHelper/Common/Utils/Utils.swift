@@ -79,7 +79,7 @@ class Utils {
     
     
     //IO
-    public static func loadPersistantData(key:String, iCloud:Bool = true) -> Any? {
+    public static func loadPersistantData(key:String, iCloud:Bool = false) -> Any? {
         var data = UserDefaults.standard.object(forKey: key)
         if data == nil {
             if iCloud {
@@ -90,7 +90,7 @@ class Utils {
         return data
     }
     
-    public static func savePersistantData(key:String, data:Any?, iCloud:Bool = true) {
+    public static func savePersistantData(key:String, data:Any?, iCloud:Bool = false) {
         UserDefaults.standard.set(data, forKey:key)
         UserDefaults.standard.synchronize()
         if iCloud {

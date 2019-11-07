@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,33 +10,20 @@
         <!--数据-->
         <scene sceneID="DnE-Jb-NV2">
             <objects>
-                <viewController storyboardIdentifier="DataBuildViewController" id="VTN-Hp-vjd" customClass="DataBuildViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DataBuildViewController" id="VTN-Hp-vjd" customClass="DataBuildViewController" customModule="炒股神手" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OgQ-m6-6SW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YbS-eG-Acj">
-                                <rect key="frame" x="15" y="103" width="80" height="62"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="62" id="dmQ-VJ-2U1"/>
-                                </constraints>
-                                <state key="normal" title="开始"/>
-                                <connections>
-                                    <action selector="onBuildClicked:" destination="VTN-Hp-vjd" eventType="touchUpInside" id="Ecl-NN-5IL"/>
-                                </connections>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qmv-vG-KRV">
-                                <rect key="frame" x="15" y="173" width="384" height="689"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="689" id="1gf-AU-MrG"/>
-                                </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="Cell" textLabel="gTo-tj-U5j" detailTextLabel="g92-Hi-BFS" style="IBUITableViewCellStyleSubtitle" id="mI3-E6-OLp">
-                                        <rect key="frame" x="0.0" y="28" width="384" height="55.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="55.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mI3-E6-OLp" id="wN3-Qd-K0z">
-                                            <rect key="frame" x="0.0" y="0.0" width="340" height="55.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="370" height="55.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gTo-tj-U5j">
@@ -77,11 +63,9 @@
                             <constraint firstItem="7am-Eo-l0d" firstAttribute="bottom" secondItem="qmv-vG-KRV" secondAttribute="bottom" id="CUb-05-hIf"/>
                             <constraint firstItem="PJ5-4Z-ink" firstAttribute="trailing" secondItem="7am-Eo-l0d" secondAttribute="trailing" id="Hsr-kC-Ad3"/>
                             <constraint firstItem="7am-Eo-l0d" firstAttribute="bottom" secondItem="PJ5-4Z-ink" secondAttribute="bottom" id="OIn-d4-lJg"/>
-                            <constraint firstItem="7am-Eo-l0d" firstAttribute="trailing" secondItem="YbS-eG-Acj" secondAttribute="trailing" constant="319" id="UN3-rP-863"/>
-                            <constraint firstItem="7am-Eo-l0d" firstAttribute="trailing" secondItem="qmv-vG-KRV" secondAttribute="trailing" constant="15" id="amX-AS-BGS"/>
-                            <constraint firstItem="qmv-vG-KRV" firstAttribute="leading" secondItem="7am-Eo-l0d" secondAttribute="leading" constant="15" id="cYO-1S-D8O"/>
-                            <constraint firstItem="YbS-eG-Acj" firstAttribute="top" secondItem="7am-Eo-l0d" secondAttribute="top" constant="15" id="egC-Ne-xYa"/>
-                            <constraint firstItem="qmv-vG-KRV" firstAttribute="leading" secondItem="YbS-eG-Acj" secondAttribute="leading" id="jqB-fG-yQm"/>
+                            <constraint firstItem="7am-Eo-l0d" firstAttribute="trailing" secondItem="qmv-vG-KRV" secondAttribute="trailing" id="amX-AS-BGS"/>
+                            <constraint firstItem="qmv-vG-KRV" firstAttribute="leading" secondItem="7am-Eo-l0d" secondAttribute="leading" id="cYO-1S-D8O"/>
+                            <constraint firstItem="qmv-vG-KRV" firstAttribute="top" secondItem="7am-Eo-l0d" secondAttribute="top" id="rC4-mW-aci"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7am-Eo-l0d"/>
                     </view>
@@ -110,7 +94,7 @@
         <!--自定义选股-->
         <scene sceneID="bPC-i1-HiU">
             <objects>
-                <viewController storyboardIdentifier="XuanguListViewController" title="自定义选股" id="jbu-ua-jIv" customClass="XuanguListViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="XuanguListViewController" title="自定义选股" id="jbu-ua-jIv" customClass="XuanguListViewController" customModule="炒股神手" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hDx-ym-Qhk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -159,7 +143,7 @@
         <!--板块涨停列表-->
         <scene sceneID="Puw-16-WOh">
             <objects>
-                <viewController storyboardIdentifier="BlockZhangTingListViewController" title="板块涨停列表" id="Q8d-Km-OKx" customClass="BlockZhangTingListViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BlockZhangTingListViewController" title="板块涨停列表" id="Q8d-Km-OKx" customClass="BlockZhangTingListViewController" customModule="炒股神手" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lQU-6Y-UmI">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

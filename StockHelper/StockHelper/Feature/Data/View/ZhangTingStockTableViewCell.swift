@@ -50,7 +50,7 @@ class ZhangTingStockTableViewCell: UITableViewCell {
     
     func applyModel(name:String, title:String, line1:String,line2:String, badge:String?) {
         nameButton.setTitle(name, for: UIControl.State.normal)
-        nameButton.setTitleColor(UIColor.darkText, for: UIControl.State.normal)
+        nameButton.setTitleColor(UIColor.label, for: UIControl.State.normal)
         nameButton.badgeString = badge
         titleLabel.text = title
         line1Label.isHidden = line1.count == 0

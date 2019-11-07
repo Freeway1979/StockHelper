@@ -531,8 +531,8 @@ extension BlockCycleViewController:UITableViewDataSource {
             for i in 0...blockList.count-1 {
                 let button:UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: TableCellDimension.Width.rawValue, height: TableCellDimension.Height.rawValue))
                 let text = blockList[i].title
-                var titleColor = UIColor.black
-                var bgcolor = indexPath.row == 0 ? UIColor.lightGray: UIColor.white
+                var titleColor = indexPath.row == 0 ? UIColor.lightGray : UIColor.label
+                var bgcolor = indexPath.row == 0 ? UIColor.darkText : UIColor.systemBackground
                 if (text == self.selectedItem) {
                     bgcolor = UIColor.red
                     titleColor = UIColor.white

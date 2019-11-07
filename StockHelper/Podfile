@@ -17,6 +17,9 @@ target 'StockHelper' do
   # UI组件库
   # pod 'Eureka'
   
+  # https://github.com/ortuman/SwiftForms
+  pod 'SwiftForms'
+  
   # Button角标
   # https://github.com/mustafaibrahim989/MIBadgeButton-Swift/tree/master/MIBadgeButton
   pod "MIBadgeButton-Swift", :git => 'https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git', :branch => 'master'
