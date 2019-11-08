@@ -26,7 +26,7 @@ class MyMenuTableViewController: UITableViewController {
         // Customize apperance of table view
         tableView.contentInset = UIEdgeInsets(top: 64.0, left: 0, bottom: 0, right: 0) 
         tableView.separatorStyle = .none
-        tableView.backgroundColor = UIColor.clear
+        tableView.backgroundColor = UIColor.systemBackground
         tableView.scrollsToTop = false
         
         // Preserve selection between presentations
@@ -69,8 +69,8 @@ class MyMenuTableViewController: UITableViewController {
         
         if (cell == nil) {
             cell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "CELL")
-            cell!.backgroundColor = UIColor.clear
-            cell!.textLabel?.textColor = UIColor.darkGray
+            cell!.backgroundColor = UIColor.systemBackground
+            cell!.textLabel?.textColor = UIColor.label
             let selectedBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: cell!.frame.size.width, height: cell!.frame.size.height))
             selectedBackgroundView.backgroundColor = UIColor.gray.withAlphaComponent(0.2)
             cell!.selectedBackgroundView = selectedBackgroundView

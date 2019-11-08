@@ -50,7 +50,7 @@
                                             <action selector="onTabButtonClicked:" destination="woh-dA-2f4" eventType="touchUpInside" id="cZx-4b-ySe"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fca-1T-Wfn">
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fca-1T-Wfn">
                                         <rect key="frame" x="266" y="2" width="128" height="36"/>
                                         <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -74,7 +74,7 @@
                                 </constraints>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="6gp-tY-flr" firstAttribute="top" secondItem="urc-Dt-lVK" secondAttribute="top" constant="10" id="0OE-oH-LUY"/>
                             <constraint firstItem="urc-Dt-lVK" firstAttribute="trailing" secondItem="6gp-tY-flr" secondAttribute="trailing" constant="10" id="7Jw-rX-n4X"/>
