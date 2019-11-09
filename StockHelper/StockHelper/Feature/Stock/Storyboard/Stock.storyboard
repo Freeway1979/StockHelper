@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cwc-vy-e5E">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cwc-vy-e5E">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,7 +10,7 @@
         <!--龙头股-->
         <scene sceneID="GJo-uz-bKX">
             <objects>
-                <viewController storyboardIdentifier="LeadStockViewController" title="龙头股" id="AT5-mq-e3x" customClass="LeadStockViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LeadStockViewController" title="龙头股" id="AT5-mq-e3x" customClass="LeadStockViewController" customModule="炒股神手" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kOb-pV-FKM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -26,7 +25,7 @@
         <!--自定义标签-->
         <scene sceneID="weM-1i-B0s">
             <objects>
-                <viewController storyboardIdentifier="StockTagViewController" title="自定义标签" id="x1q-D4-L8x" customClass="StockTagViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StockTagViewController" title="自定义标签" id="x1q-D4-L8x" customClass="StockTagViewController" customModule="炒股神手" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Kxg-rN-Uu5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -53,7 +52,7 @@
         <!--自选股-->
         <scene sceneID="mip-wJ-yw4">
             <objects>
-                <viewController storyboardIdentifier="MyStocksViewController" title="自选股" id="cwc-vy-e5E" customClass="MyStocksViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyStocksViewController" title="自选股" id="cwc-vy-e5E" customClass="MyStocksViewController" customModule="炒股神手" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="c8p-63-wJK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -97,7 +96,7 @@
         <!--Stock View Controller-->
         <scene sceneID="PuJ-w6-zGq">
             <objects>
-                <viewController storyboardIdentifier="StockViewController" id="mSH-Au-Glp" customClass="StockViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StockViewController" id="mSH-Au-Glp" customClass="StockViewController" customModule="炒股神手" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MZL-EP-lyi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -137,7 +136,7 @@
         <!--Stock Note View Controller-->
         <scene sceneID="j9P-H0-yHZ">
             <objects>
-                <viewController storyboardIdentifier="StockNoteViewController" id="wbo-OJ-Mc7" customClass="StockNoteViewController" customModule="StockHelper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StockNoteViewController" id="wbo-OJ-Mc7" customClass="StockNoteViewController" customModule="炒股神手" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AIx-pb-Xip">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

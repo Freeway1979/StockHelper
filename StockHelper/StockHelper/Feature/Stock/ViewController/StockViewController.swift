@@ -12,6 +12,8 @@ import ZKProgressHUD
 class StockViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
+    var shouldRefreshTable = false
+    
     private enum DataId: String {
         case SECTION_BASIC = "基本情况"
         case CELL_STOCK_NOTE = "股票笔记"
@@ -43,6 +45,13 @@ class StockViewController: UIViewController {
         
         self.prepareTableViewData()
         self.tableView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if self.shouldRefreshTable {
+            self.tableView.reloadData()
+            self.shouldRefreshTable = false
+        }
     }
     
     private func prepareTableViewData() {
@@ -252,7 +261,7 @@ extension StockViewController:UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sectionModel = self.tableData[indexPath.section]
-        let cellModel = sectionModel.rows[indexPath.row]
+        var cellModel = sectionModel.rows[indexPath.row]
         let stock:Stock = StockUtils.getStock(by: stockCode)
         if sectionModel.id == DataId.SECTION_BASIC.rawValue {
             if cellModel.id == DataId.CELL_STOCK_NOTE.rawValue {
@@ -276,6 +285,11 @@ extension StockViewController:UITableViewDelegate {
             if cellModel.id == DataId.CELL_STOCK_TAGS.rawValue {
                 let vc:StockTagViewController = UIUtils.gotoViewController(storyboard: "Stock", storyboardId: "StockTagViewController", from: self.navigationController!) as! StockTagViewController
                 vc.stock = stock
+                vc.onComplete = { [unowned self] (tags) in
+                    print(tags)
+                    cellModel.detail = tags.joined(separator: " ")
+                    self.shouldRefreshTable = true
+                }
             }
             
             if cellModel.id == DataId.CELL_STOCK_MEMO.rawValue {

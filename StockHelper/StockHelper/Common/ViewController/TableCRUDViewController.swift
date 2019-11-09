@@ -130,7 +130,8 @@ extension TableCRUDViewController:UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView.isEditing && self.isLastRow(indexPath: indexPath) {
+        if indexPath.section == 0 &&
+            tableView.isEditing && self.isLastRow(indexPath: indexPath) {
             var cell = tableView.dequeueReusableCell(withIdentifier: CELLID)
             if (cell == nil) {
                 cell = UITableViewCell(style: .default, reuseIdentifier: CELLID)

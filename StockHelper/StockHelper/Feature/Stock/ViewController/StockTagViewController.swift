@@ -13,6 +13,8 @@ class StockTagViewController: TableCRUDViewController {
     
     @IBOutlet weak var actionButton: UIBarButtonItem!
     var stock:Stock?
+    var onComplete:(([String]) -> Void)? = nil
+    
     override func buildTableData() -> [TableViewSectionModel] {
         let extra:StockExtra? = DataCache.getStockExtra(code: stock!.code)
         var rs:[TableViewSectionModel] = []
@@ -55,6 +57,9 @@ class StockTagViewController: TableCRUDViewController {
         }
         extra!.tags = tags.joined(separator: ";")
         DataCache.setStockExtra(code: stock!.code, extra: extra!)
+        if (onComplete != nil) {
+            onComplete!(tags)
+        }
     }
     
     @IBAction func onEditButtonClicked(_ sender: UIBarButtonItem) {

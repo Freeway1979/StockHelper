@@ -154,7 +154,7 @@
                                     <constraint firstAttribute="width" constant="80" id="Yh0-gX-kmX"/>
                                 </constraints>
                                 <state key="normal" title="-">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
                                     <action selector="onDragonClicked:" destination="gTV-IL-0wX" eventType="touchUpInside" id="0n6-a5-iJU"/>
@@ -173,7 +173,7 @@
                                     <constraint firstAttribute="width" constant="80" id="fCg-HL-QKd"/>
                                 </constraints>
                                 <state key="normal" title="-">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
                                     <action selector="onDragonClicked:" destination="gTV-IL-0wX" eventType="touchUpInside" id="cUY-Jh-Jgf"/>
