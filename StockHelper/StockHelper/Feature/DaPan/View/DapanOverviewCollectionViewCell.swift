@@ -29,6 +29,7 @@ class DapanOverviewCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var labelZTS: MIBadgeButton!
     @IBOutlet weak var labelDTS: MIBadgeButton!
+    @IBOutlet weak var labelDDS: MIBadgeButton!
     @IBOutlet weak var buttonQingXu: UIButton!
     
     @IBOutlet weak var labelHGT: UILabel!
@@ -86,10 +87,14 @@ class DapanOverviewCollectionViewCell: UICollectionViewCell {
         labelSugguestCangWei.text = cangwei
     }
     
-    func updateZhangDieTingShu(zts:String,dts:String,dtsBadge:String?) {
-        self.labelZTS.setTitle(zts, for: UIControl.State.normal)
-        self.labelDTS.setTitle(dts, for: UIControl.State.normal)
-        self.labelDTS.badgeString = dtsBadge
+    func updateZhangDieTingShu(zts:String,dts:String,dtsBadge:String?,dds:String,ddsBadge:String?) {
+        if self.labelDTS != nil && self.labelZTS != nil && self.labelDDS != nil {
+            self.labelZTS.setTitle(zts, for: UIControl.State.normal)
+            self.labelDTS.setTitle(dts, for: UIControl.State.normal)
+            self.labelDTS.badgeString = dtsBadge
+            self.labelDDS.setTitle(dds, for: UIControl.State.normal)
+            self.labelDDS.badgeString = ddsBadge
+        }
     }
     
     func updateChaoDuanQingXu(qingxu:String) {

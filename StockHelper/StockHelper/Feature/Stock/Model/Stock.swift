@@ -332,6 +332,44 @@ class ZhangTingShuStock:Codable,Hashable {
     }
 }
 
+class LHBShuStock:Codable,Hashable {
+    static func == (lhs: LHBShuStock, rhs: LHBShuStock) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+    
+    func hash(into hasher: inout Hasher)
+    {
+        hasher.combine(self.code)
+    }
+    init(code:String) {
+        self.code = code
+    }
+    var code:String = "";
+    var lhb: String = "0";
+
+    var description:String {
+        return "\(code) \(lhb)"
+    }
+    
+    enum CodingKeys : String, CodingKey {
+        case code
+        case lhb
+    }
+    
+    required init(from decoder: Decoder) throws
+    {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        code = try container.decode(String.self, forKey: .code)
+        lhb = try container.decode(String.self, forKey: .lhb)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(code, forKey: .code)
+        try container.encode(lhb, forKey: .lhb)
+    }
+}
+
 class JieJinStock:Codable,Hashable {
     static func == (lhs: JieJinStock, rhs: JieJinStock) -> Bool {
         return lhs.hashValue == rhs.hashValue

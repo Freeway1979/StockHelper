@@ -82,57 +82,64 @@
                             <constraint firstAttribute="height" constant="0.5" id="xiX-iu-sMo"/>
                         </constraints>
                     </view>
-                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hWr-ce-Ndp">
-                        <rect key="frame" x="20" y="114" width="280" height="34"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="涨停数:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTk-wU-wJk">
-                                <rect key="frame" x="0.0" y="0.0" width="70" height="34"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="70" id="0re-oO-KWW"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ab9-qP-0Pe" customClass="MIBadgeButton" customModule="MIBadgeButton_Swift">
-                                <rect key="frame" x="101" y="0.0" width="30" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="0">
-                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                </state>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="跌停数:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z0L-Ts-mil">
-                                <rect key="frame" x="162" y="0.0" width="57" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y5p-cZ-Td0" customClass="MIBadgeButton" customModule="MIBadgeButton_Swift">
-                                <rect key="frame" x="250" y="0.0" width="30" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="0">
-                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="verticalMargin">
-                                        <real key="value" value="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusFactor">
-                                        <real key="value" value="6"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="edgeInsetRight">
-                                        <real key="value" value="-18"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="edgeInsetTop">
-                                        <real key="value" value="16"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </button>
-                        </subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="涨停数:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTk-wU-wJk">
+                        <rect key="frame" x="20" y="114" width="57" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ab9-qP-0Pe" customClass="MIBadgeButton" customModule="MIBadgeButton_Swift">
+                        <rect key="frame" x="87" y="110" width="40" height="34"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="280" id="sOd-re-H1c"/>
+                            <constraint firstAttribute="width" constant="40" id="f34-bz-UBj"/>
                         </constraints>
-                    </stackView>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <state key="normal" title="0">
+                            <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        </state>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="跌停数:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z0L-Ts-mil">
+                        <rect key="frame" x="142" y="114" width="60" height="20.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="bMZ-q6-DRD"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="跌超6" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rA4-XK-orD">
+                        <rect key="frame" x="251" y="114" width="50" height="20.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="70o-ot-nNS"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7fR-9u-Dhz" customClass="MIBadgeButton" customModule="MIBadgeButton_Swift">
+                        <rect key="frame" x="349" y="110" width="40" height="34"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="eah-SJ-3fP"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <state key="normal" title="0">
+                            <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="verticalMargin">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusFactor">
+                                <real key="value" value="6"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="edgeInsetRight">
+                                <real key="value" value="-18"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="edgeInsetTop">
+                                <real key="value" value="16"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="超短情绪:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PpK-TS-iGp">
                         <rect key="frame" x="20" y="189.5" width="80" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -252,11 +259,38 @@
                             <constraint firstAttribute="height" constant="30" id="Ybm-ou-BhS"/>
                         </constraints>
                     </stackView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y5p-cZ-Td0" customClass="MIBadgeButton" customModule="MIBadgeButton_Swift">
+                        <rect key="frame" x="212" y="110" width="40" height="34"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="nOE-g4-TlM"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <state key="normal" title="0">
+                            <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="verticalMargin">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusFactor">
+                                <real key="value" value="6"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="edgeInsetRight">
+                                <real key="value" value="-18"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="edgeInsetTop">
+                                <real key="value" value="16"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </button>
                 </subviews>
             </view>
             <constraints>
+                <constraint firstItem="Ab9-qP-0Pe" firstAttribute="leading" secondItem="rTk-wU-wJk" secondAttribute="trailing" constant="10" id="1p7-9C-GgS"/>
                 <constraint firstItem="hh3-BW-ami" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="5GI-9C-KRF"/>
                 <constraint firstItem="joz-2J-8FM" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="5rH-Wq-AeQ"/>
+                <constraint firstItem="rA4-XK-orD" firstAttribute="top" secondItem="Z0L-Ts-mil" secondAttribute="top" id="7zo-17-1pY"/>
+                <constraint firstItem="Z0L-Ts-mil" firstAttribute="leading" secondItem="Ab9-qP-0Pe" secondAttribute="trailing" constant="15" id="9Z1-tq-LQu"/>
                 <constraint firstItem="whg-HI-iWi" firstAttribute="top" secondItem="tFR-i1-PDo" secondAttribute="bottom" constant="10" id="9dC-Fs-CKU"/>
                 <constraint firstItem="beG-aE-GUD" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="A3M-bn-EiU"/>
                 <constraint firstAttribute="trailing" secondItem="hh3-BW-ami" secondAttribute="trailing" constant="20" id="AeW-Ye-vLs"/>
@@ -264,6 +298,7 @@
                 <constraint firstItem="Wo4-YU-UQJ" firstAttribute="top" secondItem="HVO-6O-wYr" secondAttribute="bottom" constant="10" id="DWJ-xL-d14"/>
                 <constraint firstItem="beG-aE-GUD" firstAttribute="top" secondItem="tFR-i1-PDo" secondAttribute="bottom" constant="10" id="ESQ-0f-y6o"/>
                 <constraint firstItem="HVO-6O-wYr" firstAttribute="top" secondItem="h3G-d4-xfE" secondAttribute="bottom" constant="7.5" id="GZr-FE-oZI"/>
+                <constraint firstItem="7fR-9u-Dhz" firstAttribute="leading" secondItem="rA4-XK-orD" secondAttribute="trailing" constant="48" id="HE2-JU-DlM"/>
                 <constraint firstItem="h3G-d4-xfE" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="Hor-d4-WIi"/>
                 <constraint firstItem="emp-nL-6YQ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="NE1-pz-5fS"/>
                 <constraint firstItem="yGe-Ns-GZE" firstAttribute="leading" secondItem="joz-2J-8FM" secondAttribute="trailing" constant="15" id="NcC-kK-7o7"/>
@@ -273,12 +308,15 @@
                 <constraint firstItem="Wo4-YU-UQJ" firstAttribute="leading" secondItem="PpK-TS-iGp" secondAttribute="leading" id="TMN-MH-Miw"/>
                 <constraint firstItem="yGe-Ns-GZE" firstAttribute="firstBaseline" secondItem="joz-2J-8FM" secondAttribute="firstBaseline" id="TU0-tC-qCO"/>
                 <constraint firstItem="Wo4-YU-UQJ" firstAttribute="trailing" secondItem="HVO-6O-wYr" secondAttribute="trailing" id="TVJ-JZ-TTU"/>
+                <constraint firstItem="Z0L-Ts-mil" firstAttribute="top" secondItem="rTk-wU-wJk" secondAttribute="top" id="ULl-qv-ZXB"/>
+                <constraint firstItem="Y5p-cZ-Td0" firstAttribute="leading" secondItem="Z0L-Ts-mil" secondAttribute="trailing" constant="10" id="V9P-rL-zU0"/>
+                <constraint firstItem="Y5p-cZ-Td0" firstAttribute="top" secondItem="Ab9-qP-0Pe" secondAttribute="top" id="XQj-kN-Hv7"/>
                 <constraint firstItem="tFR-i1-PDo" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="Yi4-ws-vlP"/>
-                <constraint firstItem="emp-nL-6YQ" firstAttribute="leading" secondItem="hWr-ce-Ndp" secondAttribute="leading" id="aeC-tp-zZJ"/>
+                <constraint firstItem="Ab9-qP-0Pe" firstAttribute="top" secondItem="yGe-Ns-GZE" secondAttribute="bottom" constant="4" id="Yo4-1N-cte"/>
                 <constraint firstAttribute="trailing" secondItem="h3G-d4-xfE" secondAttribute="trailing" constant="20" id="cMR-A3-nk3"/>
+                <constraint firstItem="rTk-wU-wJk" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="cQy-He-RfZ"/>
                 <constraint firstItem="vfo-oM-ayN" firstAttribute="top" secondItem="QFh-OV-eaZ" secondAttribute="bottom" constant="10" id="cti-Ua-RZI"/>
                 <constraint firstItem="BUw-l8-bde" firstAttribute="top" secondItem="QFh-OV-eaZ" secondAttribute="bottom" constant="15" id="ftF-Y6-KKZ"/>
-                <constraint firstItem="hWr-ce-Ndp" firstAttribute="top" secondItem="joz-2J-8FM" secondAttribute="bottom" constant="8" id="gHH-Kp-H9K"/>
                 <constraint firstItem="HVO-6O-wYr" firstAttribute="baseline" secondItem="PpK-TS-iGp" secondAttribute="baseline" id="gj6-hR-GOu"/>
                 <constraint firstItem="QFh-OV-eaZ" firstAttribute="top" secondItem="tFR-i1-PDo" secondAttribute="bottom" constant="10" id="gse-Vx-o9d"/>
                 <constraint firstItem="3Lq-cs-DDA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="106" id="hX4-nh-v5E"/>
@@ -289,9 +327,12 @@
                 <constraint firstAttribute="trailing" secondItem="emp-nL-6YQ" secondAttribute="trailing" constant="20" id="pDM-Ms-gKJ"/>
                 <constraint firstItem="HVO-6O-wYr" firstAttribute="centerY" secondItem="3Lq-cs-DDA" secondAttribute="centerY" id="qwo-0o-kiD"/>
                 <constraint firstAttribute="trailing" secondItem="tFR-i1-PDo" secondAttribute="trailing" constant="20" id="s5P-T8-axq"/>
+                <constraint firstItem="rTk-wU-wJk" firstAttribute="top" secondItem="joz-2J-8FM" secondAttribute="bottom" constant="8" id="tSc-UI-swT"/>
                 <constraint firstAttribute="trailing" secondItem="Wo4-YU-UQJ" secondAttribute="trailing" constant="20" id="uDA-SY-21r"/>
                 <constraint firstItem="Wo4-YU-UQJ" firstAttribute="top" secondItem="3Lq-cs-DDA" secondAttribute="bottom" constant="7" id="uH6-PE-0qA"/>
+                <constraint firstItem="7fR-9u-Dhz" firstAttribute="top" secondItem="Y5p-cZ-Td0" secondAttribute="top" id="vNa-2s-qcK"/>
                 <constraint firstItem="BUw-l8-bde" firstAttribute="leading" secondItem="vfo-oM-ayN" secondAttribute="trailing" constant="20" id="wbP-PS-E14"/>
+                <constraint firstItem="rA4-XK-orD" firstAttribute="leading" secondItem="Y5p-cZ-Td0" secondAttribute="trailing" constant="-1" id="wid-Dd-fmB"/>
                 <constraint firstItem="h3G-d4-xfE" firstAttribute="top" secondItem="emp-nL-6YQ" secondAttribute="bottom" constant="5" id="xfy-uH-JCE"/>
                 <constraint firstItem="whg-HI-iWi" firstAttribute="leading" secondItem="QFh-OV-eaZ" secondAttribute="trailing" constant="30" id="ysm-Of-B3L"/>
                 <constraint firstItem="3Lq-cs-DDA" firstAttribute="leading" secondItem="PpK-TS-iGp" secondAttribute="trailing" constant="6" id="zYi-cL-Cgb"/>
@@ -303,6 +344,7 @@
                 <outlet property="buttonMarketDragon" destination="duR-d1-DN4" id="VRA-Oi-fyq"/>
                 <outlet property="buttonQingXu" destination="3Lq-cs-DDA" id="18T-Zp-zOK"/>
                 <outlet property="buttonStatus" destination="beG-aE-GUD" id="fh5-o9-f9A"/>
+                <outlet property="labelDDS" destination="7fR-9u-Dhz" id="VHT-Zr-ruB"/>
                 <outlet property="labelDTS" destination="Y5p-cZ-Td0" id="DuE-Xz-z5a"/>
                 <outlet property="labelHGT" destination="Ymu-PK-aCf" id="ydn-Ad-g6C"/>
                 <outlet property="labelNorthMoney" destination="RGx-vK-8WL" id="eUr-ow-jMY"/>

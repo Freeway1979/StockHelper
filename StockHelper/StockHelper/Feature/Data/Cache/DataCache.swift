@@ -88,6 +88,8 @@ class DataCache {
     public static var jiejinStocks:[JieJinStock] = []
     //120日涨停数
     public static var ztsStocks:[ZhangTingShuStock] = []
+    //120日涨停数
+    public static var lhbsStocks:[LHBShuStock] = []
     //每日的涨停股票
     public static var ztStocks:[ZhangTingStocks] = []
     

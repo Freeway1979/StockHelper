@@ -87,6 +87,7 @@
 		A141D2672279B241000ED0EA /* StockNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A141D2662279B241000ED0EA /* StockNoteViewController.swift */; };
 		A141D269227ABD14000ED0EA /* TableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A141D268227ABD14000ED0EA /* TableHeaderView.xib */; };
 		A141D26B227ABD6B000ED0EA /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A141D26A227ABD6B000ED0EA /* TableHeaderView.swift */; };
+		A14836F723A486930003805F /* LHBShuDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14836F623A486930003805F /* LHBShuDataService.swift */; };
 		A149FF6E21F304D0002512CF /* SweetAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A149FF6D21F304D0002512CF /* SweetAlert.swift */; };
 		A14CAAA122DAD79F000BE70E /* WencaiBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14CAAA022DAD79F000BE70E /* WencaiBaseViewController.swift */; };
 		A14CAAA322DCC286000BE70E /* WencaiUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14CAAA222DCC286000BE70E /* WencaiUtils.swift */; };
@@ -253,6 +254,7 @@
 		A141D2662279B241000ED0EA /* StockNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockNoteViewController.swift; sourceTree = "<group>"; };
 		A141D268227ABD14000ED0EA /* TableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableHeaderView.xib; sourceTree = "<group>"; };
 		A141D26A227ABD6B000ED0EA /* TableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
+		A14836F623A486930003805F /* LHBShuDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LHBShuDataService.swift; sourceTree = "<group>"; };
 		A149FF6D21F304D0002512CF /* SweetAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetAlert.swift; sourceTree = "<group>"; };
 		A14CAAA022DAD79F000BE70E /* WencaiBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WencaiBaseViewController.swift; sourceTree = "<group>"; };
 		A14CAAA222DCC286000BE70E /* WencaiUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WencaiUtils.swift; sourceTree = "<group>"; };
@@ -936,6 +938,7 @@
 				A162C121232CADA200508384 /* XuanguListViewController.swift */,
 				A1823F31233712D5008B1B3C /* ZhangTingDataService.swift */,
 				A1823F3323375FB5008B1B3C /* BlockZhangTingListViewController.swift */,
+				A14836F623A486930003805F /* LHBShuDataService.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1369,6 +1372,7 @@
 				A10E4B3121CE543B0092B671 /* MyStocksViewController.swift in Sources */,
 				A1083961231B59F0002D1B99 /* LianDongViewController.swift in Sources */,
 				A1AEB444234E250D00FD9FEE /* BlockStockListViewController.swift in Sources */,
+				A14836F723A486930003805F /* LHBShuDataService.swift in Sources */,
 				A1ABA3B92264AB7D00985F3D /* StackTableHeaderView.swift in Sources */,
 				A141D26B227ABD6B000ED0EA /* TableHeaderView.swift in Sources */,
 				A108396D231F1E3C002D1B99 /* YingLiStockDataService.swift in Sources */,
@@ -1535,7 +1539,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StockHelper/StockHelper.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2019110801;
+				CURRENT_PROJECT_VERSION = 2019110901;
 				DEVELOPMENT_TEAM = RTCEZS3U4Z;
 				INFOPLIST_FILE = StockHelper/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1557,7 +1561,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StockHelper/StockHelper.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2019110801;
+				CURRENT_PROJECT_VERSION = 2019110901;
 				DEVELOPMENT_TEAM = RTCEZS3U4Z;
 				INFOPLIST_FILE = StockHelper/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

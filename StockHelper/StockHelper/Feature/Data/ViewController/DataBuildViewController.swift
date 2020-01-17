@@ -22,6 +22,7 @@ class DataBuildViewController: DataServiceViewController {
         case YINGLI_STOCK
         case NIUKUI_STOCK
         case ZHANGTINGSHU_STOCK
+        case LHBSHU_STOCK
         case JIEJIN_STOCK
     }
     
@@ -33,6 +34,7 @@ class DataBuildViewController: DataServiceViewController {
         self.initialLoadData(title: "盈利超2000万")
         self.initialLoadData(title: "扭亏为盈")
         self.initialLoadData(title: "120日内的涨停数")
+        self.initialLoadData(title: "120日内的龙虎榜数")
         self.initialLoadData(title: "将要解禁")
        
         self.tableView.delegate = self;
@@ -104,7 +106,11 @@ class DataBuildViewController: DataServiceViewController {
         // 扭亏
         dataService = self.prepareNiuKuiStockData()
         self.addService(dataService: dataService)
+        // 120日涨停数
         dataService = self.prepareZhangTingShuStockData()
+        self.addService(dataService: dataService)
+        // 120日龙虎榜数
+        dataService = self.prepareLHBShuStockData()
         self.addService(dataService: dataService)
         
         dataService = self.prepareJieJinStockData()
@@ -198,6 +204,21 @@ class DataBuildViewController: DataServiceViewController {
         return dataService
     }
 
+    //120日股票龙虎榜
+    private func prepareLHBShuStockData() -> DataService {
+        let dataService = LHBShuDataService()
+        dataService.onStart = { [unowned self] () in
+            self.navigationController?.title = "数据 - \(dataService.title)"
+        }
+        dataService.onComplete = { [unowned self] (data) in
+            guard let stocks = data else { return }
+            self.finishItem(index: TABLE_ITEM.LHBSHU_STOCK.rawValue, count: stocks.count)
+            StockDBProvider.saveLHBShuStocks(stocks:stocks as! [LHBShuStock])
+            print("stocks", stocks.count)
+            self.reloadData()
+        }
+        return dataService
+    }
     //将要解禁
     private func prepareJieJinStockData() -> DataService {
         let dataService = JieJinStockDataService()

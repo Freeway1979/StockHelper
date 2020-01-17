@@ -18,6 +18,7 @@ struct UserDefaultKeys {
         static let yingliStocks = "YingLiStocks"
         static let niukuiStocks = "NiuKuiStocks"
         static let zhangtingshuStock = "ZhangTingShuStock"
+        static let lhbshuStock = "LHBShuStock"
         static let jinjinStock = "JinJinStock"
         static let zhangtingStock = "ZhangTingStock"
         static let tags = "Tags"
@@ -90,6 +91,19 @@ class StockDBProvider {
         DataCache.ztsStocks = stocks
         return stocks
     }
+    
+    // 120日内龙虎榜数
+    public static func saveLHBShuStocks(stocks:[LHBShuStock]) {
+        StockUtils.saveData(data: stocks, key: UserDefaultKeys.Stock.lhbshuStock)
+        DataCache.lhbsStocks = stocks
+    }
+    
+    public static func loadLHBShuStocks() -> [LHBShuStock] {
+        let stocks:[LHBShuStock] = StockUtils.loadData(key: UserDefaultKeys.Stock.lhbshuStock)
+        DataCache.lhbsStocks = stocks
+        return stocks
+    }
+    
     
     // 将要解禁
     public static func saveJieJinStockStocks(stocks:[JieJinStock]) {

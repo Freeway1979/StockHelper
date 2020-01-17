@@ -27,8 +27,12 @@ class HomeViewController: UICollectionViewController {
     var serviceIndex:Int = 0
     var dataServices: [DataService] = []
     var dataService: DataService?
+    //涨停数
     var zts:Int = 0
+    //跌停数
     var dts:Int = 0
+    //跌幅超过6
+    var dds:Int = 0
     
     enum SectionType:Int {
         case DapanOverview = 0
@@ -258,25 +262,30 @@ class HomeViewController: UICollectionViewController {
     }
     
     func refreshDapanOverview() {
-        let dataService = ZhangDieTingDataService(date: Date().formatWencaiDateString(), keywords: "涨跌停数且非ST", title: "涨跌停数且非ST")
+        let dataService = ZhangDieTingDataService(date: Date().formatWencaiDateString(), keywords: "(跌幅大于6的股票或涨跌停数)且非ST非科创板", title: "(跌幅大于6的股票或涨跌停数)且非ST非科创板")
         dataService.onComplete = { [unowned self] (data) in
             let list:[String] = data as! [String]
             self.zts = 0
             self.dts = 0
+            self.dds = 0
             list.forEach { (item) in
                 if item == "涨停" {
                     self.zts = self.zts + 1
-                } else {
+                } else if item == "跌停" {
                     self.dts = self.dts + 1
+                } else {
+                    self.dds = self.dds + 1
                 }
             }
-            self.dapanOverviewCell?.updateZhangDieTingShu(zts: "\(self.zts)", dts: "\(self.dts)", dtsBadge: self.dts >= 10 ? "危险":nil)
+            self.dts = 13
+            self.dds = 45
+            self.dapanOverviewCell?.updateZhangDieTingShu(zts: "\(self.zts)", dts: "\(self.dts)", dtsBadge: self.dts >= 10 ? "危险":nil, dds: "\(self.dds)", ddsBadge: self.dds >= 40 ? "危险":nil)
             WencaiUtils.loadWebPage(with: WebSite.NorthMoney, webview: self.webview)
         }
         self.addService(dataService: dataService)
         self.runService(webView: self.webview, dataService: dataService)
         
-        _ = DapanOverview.sharedInstance.getHQListFromServer(code: "000001", startDate: "", endDate: "")
+//        _ = DapanOverview.sharedInstance.getHQListFromServer(code: "000001", startDate: "", endDate: "")
         
         self.updateDragons()
     }
